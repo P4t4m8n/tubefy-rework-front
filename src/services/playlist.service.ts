@@ -5,7 +5,7 @@ import {
 } from "../models/playlist.model";
 import { httpService } from "./http.service";
 
-const BASE_URL = "/playlist";
+const BASE_URL = "playlist/";
 
 const query = async (FilterSortBy: IPlaylistFilter): Promise<IPlaylist[]> => {
   return await httpService.get<IPlaylist[]>(BASE_URL, FilterSortBy);
@@ -85,10 +85,10 @@ const getLikedPlaylists = async (userId: string): Promise<IPlaylist[]> => {
   }
 };
 
-const getDefaultStations = async (userId?: string): Promise<IPlaylist[]> => {
+const getDefaultStations = async (): Promise<IPlaylist[]> => {
   try {
     const playlist = await httpService.get<IPlaylist[]>(
-      `${BASE_URL}/default/${userId}`
+      `${BASE_URL}`
     );
 
     if (!playlist) throw new Error("No default station found");

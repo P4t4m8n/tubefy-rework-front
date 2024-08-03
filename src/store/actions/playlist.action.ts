@@ -3,9 +3,9 @@ import { playlistService } from "../../services/playlist.service";
 import { playlistsToPlaylistObjects } from "../../util/playlist.util";
 import { store } from "../store";
 
-export const loadDefaultPlaylists = async (userId?: string): Promise<void> => {
+export const loadDefaultPlaylists = async (): Promise<void> => {
   try {
-    const playlists = await playlistService.getDefaultStations(userId);
+    const playlists = await playlistService.getDefaultStations();
     if (!playlists)
       throw new Error("No playlists found in default contact support");
 

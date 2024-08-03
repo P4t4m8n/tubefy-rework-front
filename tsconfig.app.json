@@ -25,7 +25,7 @@
 
     /* Additional options */
     "esModuleInterop": true,
-    "types": ["react"]
+    "types": ["react", "react-dom", "node"],
   },
   "include": ["src"]
 }

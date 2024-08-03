@@ -32,3 +32,4 @@ export const extractHeroPlaylists = (
   }
   return playlistObjects.map((playlistObject) => playlistObject.playlists[0]);
 };
+

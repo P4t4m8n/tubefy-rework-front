@@ -1,4 +1,11 @@
-export const getGreeting = (): string => {
+export type TGreetings =
+  | "Good night"
+  | "Good morning"
+  | "Good afternoon"
+  | "Good evening"
+  | "Good day";
+
+export const getGreeting = (): TGreetings => {
   const now = new Date();
   const hour = now.getHours();
 

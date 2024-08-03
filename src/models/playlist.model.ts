@@ -1,3 +1,4 @@
+import { TGreetings } from "../util/user.util";
 import { ISong } from "./song.model";
 import { IUserSmall } from "./user.model";
 
@@ -39,7 +40,7 @@ export interface IPlaylistAction {
 }
 
 export interface IPlaylistObject {
-  type: TPlaylistType;
+  type: TPlaylistType | TGreetings;
   playlists: IPlaylist[];
 }
 

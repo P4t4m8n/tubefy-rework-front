@@ -7,7 +7,6 @@ export interface ISong {
   imgUrl: string;
   addedBy: string;
   createAt: Date;
-  likedBy: number;
   isLikedByUser?: boolean;
 }
 
@@ -19,7 +18,6 @@ export interface ISongDTO {
   imgUrl: string;
   addedBy: string;
   createAt: Date;
-  likedBy: number;
 }
 
 export interface ISongYT {
