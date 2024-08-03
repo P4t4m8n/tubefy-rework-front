@@ -1,8 +1,11 @@
-
-
+import { NavBar } from "./NavBar";
+import { UserLibraryIndex } from "./UserLibraryIndex";
 
 export default function Sidebar() {
   return (
-    <div>Sidebar</div>
-  )
+    <section className="side-bar ">
+      <NavBar />
+      <UserLibraryIndex />
+    </section>
+  );
 }

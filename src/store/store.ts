@@ -1,8 +1,10 @@
 import { combineReducers, compose, configureStore } from "@reduxjs/toolkit";
 import { playlistReducer } from "./reducers/playlist.reducer";
+import { userReducer } from "./reducers/user.reducer";
 
 const rootReducer = combineReducers({
   playlists: playlistReducer,
+  user: userReducer,
 });
 
 export const store = configureStore({

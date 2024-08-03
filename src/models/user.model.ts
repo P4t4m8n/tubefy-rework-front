@@ -18,3 +18,14 @@ export interface IUser extends IUserSmall {
   LikedSongs: IPlaylist;
   friends: IUserSmall[];
 }
+
+export interface IUserState {
+  user: IUser | null;
+}
+
+export interface IUserAction {
+  type: TUserActionType;
+  payload: IUser;
+}
+
+export type TUserActionType = "SET_USER" | "EDIT_USER";
