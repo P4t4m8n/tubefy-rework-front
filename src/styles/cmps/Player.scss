@@ -1,0 +1,242 @@
+.app-footer {
+  z-index: 3;
+  grid-area: player;
+  background-color: #000;
+  display: grid;
+  min-width: 16rem;
+  grid-template-columns: minmax(227px, 30%) minmax(313px, 40%) minmax(
+      235px,
+      30%
+    );
+  grid-template-rows: 72px;
+  justify-content: space-between;
+  justify-items: center;
+  align-self: end;
+  align-items: center;
+  height: 72px;
+  max-height: 72px;
+
+  img {
+    object-fit: fill;
+  }
+}
+
+.playing-card {
+  width: 100%;
+  display: flex;
+  height: 56px;
+  align-items: center;
+  gap: 1.5rem;
+  padding-left: $panel-gap;
+
+  .playing-card-info {
+    font-family: Montserrat, sans-serif;
+    align-self: center;
+    height: 32px;
+    text-align: left;
+
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: aliceblue;
+    margin: 0;
+  }
+
+  h4 {
+    font-size: 0.7rem;
+    opacity: 70%;
+    margin: 0;
+  }
+
+  img {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+  }
+}
+
+//Audio control
+.audio {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-self: center;
+  height: 100%;
+  justify-content: center;
+
+  .audio-control {
+    display: flex;
+    align-self: center;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: $panel-gap;
+
+    button {
+      background-color: inherit;
+      width: 2rem;
+      height: 2rem;
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(292deg)
+          brightness(115%) contrast(94%);
+        opacity: 70%;
+      }
+    }
+
+    :nth-child(3) {
+      background-color: white;
+
+      svg {
+        opacity: 1;
+        padding-top: 10%;
+        filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(292deg)
+          brightness(115%) contrast(94%);
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+    }
+  }
+
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 15px;
+
+    .bar {
+      border-radius: 2rem;
+
+      .bar-mov {
+        border-radius: 2rem;
+      }
+    }
+
+    p {
+      font-size: 0.6875rem;
+      font-weight: 400;
+      text-align: right;
+      margin-bottom: 0;
+      width: 40px;
+      height: 15px;
+      opacity: 70%;
+    }
+
+    .text-left {
+      text-align: left !important;
+    }
+  }
+}
+
+.video {
+  font-size: 0rem;
+}
+
+.rightside-footer {
+  display: flex;
+  height: 2rem;
+  padding: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+
+  .volume {
+    display: flex;
+    justify-self: center;
+
+    input {
+      width: 100px;
+      color: white;
+      background-color: white;
+
+      input[type="range"] {
+        height: 0.25rem;
+        border-radius: 3rem;
+      }
+    }
+  }
+
+  button {
+    background-color: inherit;
+    width: 2rem;
+    height: 2rem;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(292deg)
+        brightness(115%) contrast(94%);
+      opacity: 70%;
+    }
+  }
+}
+
+@media (max-width: 930px) {
+  .app-footer {
+    .rightside-footer {
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .app-footer {
+    .rightside-footer {
+      justify-content: start;
+    }
+  }
+}
+
+@media (max-width: 730px) {
+  .app-footer {
+    margin: 4px;
+    border-radius: 4px;
+
+    .audio {
+      .audio-control {
+        margin-top: 10px;
+      }
+    }
+
+    .rightside-footer,
+    .progress-bar,
+    .shuffle,
+    .repeat {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .app-footer {
+    width: 90vw;
+    z-index: 5;
+    justify-self: center;
+    .audio {
+      margin-right: 8em;
+    }
+  }
+
+  @media (max-width: 370px) {
+    .audio {
+      .audio-control {
+        margin-right: 4rem;
+      }
+    }
+  }
+
+  .dir {
+    display: none;
+  }
+}

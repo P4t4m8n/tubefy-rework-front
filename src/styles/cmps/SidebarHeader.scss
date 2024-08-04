@@ -1,0 +1,40 @@
+.left-sidebar-header {
+
+    background-color: $clr7;
+    margin-block-end: $panel-gap;
+    border-radius: $panel-gap;
+    padding: $panel-gap $panel-gap+4px;
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        @include sidebar-invert-filter;
+    }
+
+    li {
+        padding: 4px 0;
+        font-weight: 700;
+
+        a {
+            gap: 20px;
+            height: 40px;
+
+            .left-sidebar-home-icon,
+            .left-sidebar-search-icon {
+                filter: invert(100%);
+                margin: 0;
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+
+}
+
+@media (max-width: 630px) {
+    .left-sidebar-header {
+        background-color: inherit;
+        gap: 40px;
+        display: flex;
+    }
+}

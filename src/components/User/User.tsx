@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/useStore";
 import NoUserBtn from "./NoUserBtn";
 import { MouseEvent } from "react";
 import { UserIconSVG } from "../svg/SVGs";

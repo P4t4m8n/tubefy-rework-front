@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Nunito";
+  color: $gray-1;
+}
+
+body {
+  background-color: $black-1;
+  font-size: $font-size-16;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+ul {
+  padding-inline-start: 0;
+  margin-block: 0;
+}
+
+section,
+main,
+footer {
+  padding: 0px;
+}
+
+img {
+  width: 100%;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}

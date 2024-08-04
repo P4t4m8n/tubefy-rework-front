@@ -1,5 +1,5 @@
 import { ChangeEvent, MouseEvent } from "react";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/useStore";
 import { useNavigate } from "react-router-dom";
 // import { playlistService } from "../../services/playlist.service";
 import { Loader } from "../Loader";

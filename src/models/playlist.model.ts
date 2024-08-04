@@ -29,22 +29,34 @@ export interface IPlaylistFilter {
   createBy: IUserSmall;
 }
 
-export interface IPlaylistState {
-  mainPlaylists: IPlaylistObject[];
-  currentPlaylist: IPlaylist | null;
-}
-
-export interface IPlaylistAction {
-  type: TPlaylistActionType;
-  payload: IPlaylist | IPlaylistObject[];
-}
-
 export interface IPlaylistObject {
   type: TPlaylistType | TGreetings;
   playlists: IPlaylist[];
 }
+export interface IPlaylistState {
+  mainPlaylists: IPlaylistObject[];
+  currentPlaylist: IPlaylist | null;
+}
+export const SET_MAIN_PLAYLISTS = "SET_MAIN_PLAYLISTS";
+export const SET_CURRENT_PLAYLIST = "SET_CURRENT_PLAYLIST";
 
-export type TPlaylistActionType = "SET_MAIN_PLAYLISTS" | "SET_CURRENT_PLAYLIST";
+export type TPlaylistActionType =
+  | typeof SET_MAIN_PLAYLISTS
+  | typeof SET_CURRENT_PLAYLIST;
+
+export interface ISetMainPlaylistsAction {
+  type: typeof SET_MAIN_PLAYLISTS;
+  payload: IPlaylistObject[];
+}
+
+export interface ISetCurrentPlaylistAction {
+  type: typeof SET_CURRENT_PLAYLIST;
+  payload: IPlaylist;
+}
+
+export type PlaylistActionTypes =
+  | ISetMainPlaylistsAction
+  | ISetCurrentPlaylistAction;
 
 export type TPlaylistType =
   | "New Music"

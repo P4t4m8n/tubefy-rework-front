@@ -1,0 +1,34 @@
+.main-content {
+    .side-bar-content {
+        .creation-and-toggle {
+            display: none;
+        }
+
+        .side-bar-filtersort {
+            padding-bottom: 10px;
+            color: white;
+
+            svg {
+                fill: white;
+            }
+        }
+
+        li {
+            display: flex;
+            margin-block: 16px;
+
+            gap: 16px;
+            .station-info-span{
+                display: flex;
+                gap: 4px;
+            }
+
+            img {
+                height: 3rem;
+                aspect-ratio: 1;
+                width: 3rem;
+            }
+
+        }
+    }
+}

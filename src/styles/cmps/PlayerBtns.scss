@@ -1,0 +1,31 @@
+.play-button {
+    border-radius: 100%;
+  
+
+    svg {
+        filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(236deg) brightness(108%) contrast(111%);
+
+    }
+}
+
+.like {
+    background-color: inherit;
+
+    svg {
+        filter: invert(61%) sepia(0%) saturate(3307%) hue-rotate(84deg) brightness(122%) contrast(128%);
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.like:hover {
+
+    opacity: 1;
+}
+
+.fill {
+    svg {
+        filter: invert(61%) sepia(92%) saturate(3307%) hue-rotate(84deg) brightness(122%) contrast(128%);
+        fill: green;
+    }
+}

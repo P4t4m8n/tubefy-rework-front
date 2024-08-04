@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { useAppSelector } from "../hooks/hooks";
+import { useAppSelector } from "../hooks/useStore";
 import { loadDefaultPlaylists } from "../store/actions/playlist.action";
 import { extractHeroPlaylists } from "../util/playlist.util";
 import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";

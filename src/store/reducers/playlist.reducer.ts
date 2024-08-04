@@ -1,7 +1,11 @@
 import {
-  IPlaylistAction,
   IPlaylistState,
+  PlaylistActionTypes,
   TPlaylistActionType,
+  SET_MAIN_PLAYLISTS,
+  SET_CURRENT_PLAYLIST,
+  IPlaylistObject,
+  IPlaylist,
 } from "../../models/playlist.model";
 
 const initialState: IPlaylistState = {
@@ -10,36 +14,19 @@ const initialState: IPlaylistState = {
 };
 
 const playlistsActions: Record<TPlaylistActionType, TPlaylistActionType> = {
-  SET_MAIN_PLAYLISTS: "SET_MAIN_PLAYLISTS",
-  SET_CURRENT_PLAYLIST: "SET_CURRENT_PLAYLIST",
+  SET_MAIN_PLAYLISTS: SET_MAIN_PLAYLISTS,
+  SET_CURRENT_PLAYLIST: SET_CURRENT_PLAYLIST,
 } as const;
 
 export const playlistReducer = (
   state = initialState,
-  action: IPlaylistAction
+  action: PlaylistActionTypes
 ): IPlaylistState => {
   switch (action.type) {
     case playlistsActions.SET_MAIN_PLAYLISTS:
-      if (Array.isArray(action.payload)) {
-        return { ...state, mainPlaylists: action.payload };
-      } else {
-        console.error(
-          "SET_MAIN_PLAYLISTS action payload should be an array of playlists"
-        );
-        return state;
-      }
+      return { ...state, mainPlaylists: action.payload as IPlaylistObject[] };
     case playlistsActions.SET_CURRENT_PLAYLIST:
-      if (
-        typeof action.payload === "object" &&
-        !Array.isArray(action.payload)
-      ) {
-        return { ...state, currentPlaylist: action.payload };
-      } else {
-        console.error(
-          "SET_CURRENT_PLAYLIST action payload should be a playlist object"
-        );
-        return state;
-      }
+      return { ...state, currentPlaylist: action.payload as IPlaylist };
     default:
       return state;
   }

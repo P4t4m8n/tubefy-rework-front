@@ -1,0 +1,95 @@
+
+.app-header {
+
+    background-color: inherit;
+    color: $clr4;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 12rem;
+    width: 100%;
+    border-radius: $panel-gap;
+    margin-block-end: 16px;
+
+    .search-box {
+        background-color: #242424;
+        border-radius: 2rem;
+        width: 19rem;
+        border: none;
+        height: 3rem;
+        align-self: center;
+
+        input:focus {
+            outline: none;
+        }
+
+        form {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            height: 100%;
+        }
+
+        img {
+            width: 1rem;
+            height: 1rem;
+            filter: invert(58%) sepia(0%) saturate(1%) hue-rotate(173deg) brightness(87%) contrast(88%);
+
+        }
+
+        input {
+            background-color: inherit;
+            border: none;
+            width: 100%;
+            color: $clr5;
+            padding-left: 0.5rem;
+
+        }
+
+        input:hover::placeholder {
+            color: $clr4;
+        }
+
+    }
+
+}
+
+@media (max-width:450px) {
+    .app-header {
+        margin: 4px 4px 4px;
+        padding: 4px 4px 4px;
+        grid-template-columns: auto 10rem;
+        gap: .5em;
+
+
+        .search-box {
+            width: auto;
+
+            form {
+                input {
+
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+        }
+
+        .user-acess {
+
+
+            .user-nav {
+                grid-template-columns: 50% 50%;
+                gap: 4px;
+
+                .avatar {
+                    justify-self: center;
+                }
+
+                button {
+                    width: 5rem;
+                }
+            }
+        }
+    }
+}

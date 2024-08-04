@@ -1,0 +1,179 @@
+.station-hero {
+
+    form {
+
+        background-color: inherit;
+        color: white;
+        display: flex;
+        align-items: normal;
+        justify-content: space-between;
+        padding-left: 2.1rem;
+        gap: 4rem;
+
+        label {
+            width: 14.5rem;
+            height: 14.5rem;
+            cursor: pointer;
+            position: relative;
+
+            .note-svg {
+                width: 3rem;
+                height: 3rem;
+                position: relative;
+                z-index: 1;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                filter: invert(70%) sepia(150%) saturate(50%) hue-rotate(173deg) brightness(150%) contrast(3%);
+                opacity: 1;
+            }
+
+            img {
+                position: absolute;
+                z-index: 3;
+                border-radius: 4px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 1;
+                object-fit: scale-down;
+                width: inherit;
+                height: inherit;
+            }
+
+            div {
+                opacity: 0;
+                transition: all 0.3s ease-in-out;
+                z-index: 4;
+
+                .pencil-svg {
+                    width: 3rem;
+                    height: 3rem;
+                    z-index: 4;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    filter: brightness(0) invert(1);
+
+                }
+
+                p {
+                    bottom: 20%;
+                    position: absolute;
+                    width: 100%;
+                    z-index: 4;
+                    left: 50%;
+                    text-align: center;
+                    transform: translateX(-50%);
+                    font-size: .9;
+                    filter: brightness(0) invert(1);
+
+                }
+            }
+
+            &:hover {
+                div {
+
+                    opacity: 1;
+                }
+
+                .note-svg {
+                    opacity: 0;
+                }
+
+                img {
+                    opacity: 50%;
+                }
+
+            }
+        }
+
+        .hero-right-section {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: column;
+            align-content: space-between;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-left: 2rem;
+            justify-self: center;
+            align-self: center;
+
+            >* {
+                >* {
+                    font-family: Monstserrat;
+                    padding-left: 0;
+                }
+
+            }
+
+            .user-dot {
+                font-size: .9rem;
+                max-height: 20px;
+                min-height: 18px;
+                padding-left: 0.2rem;
+
+                &::after {
+                    padding: 0.3rem;
+                    content: '•';
+                }
+
+            }
+
+            .hero-moudle {
+                height: 6rem;
+
+                >* {
+                    border: none;
+                    font-size: 3rem;
+                }
+            }
+
+            .hero-details {
+                display: flex;
+                width: 100%;
+                gap: 1rem;
+
+
+                p {
+                    font-size: .7rem;
+                }
+
+
+
+            }
+
+
+        }
+    }
+
+
+}
+
+@media (max-width: 1000px) {
+    .station-hero {
+        transform: scale(0.7);
+
+        .artist-and-image {
+            p {
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+
+        .hero-right-section {
+            .hero-details {
+                overflow: hidden;
+
+                p {
+                    white-space: nowrap;
+                    display: inline;
+
+                  
+                }
+            }
+        }
+    }
+}
