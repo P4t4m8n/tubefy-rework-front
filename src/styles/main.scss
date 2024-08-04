@@ -30,7 +30,10 @@
 @import "./cmps/Search.scss";
 
 //Footer
-@import "./cmps/Footer/Player.scss";
+@import "./cmps/Footer/App-footer.scss";
+@import "./cmps/Footer/PlayPlayingCard.scss";
+@import "./cmps/Footer/YouTubeAudioPlayer.scss";
+@import "./cmps/Footer/PlayerVolumeControl.scss";
 
 //Playlist Index
 @import "./cmps/PlaylistIndex/PlaylistIndexHero.scss";

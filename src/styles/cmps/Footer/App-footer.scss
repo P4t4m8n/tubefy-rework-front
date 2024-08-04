@@ -1,0 +1,10 @@
+.app-footer {
+  height: 5rem;
+  @include flex-direction-align-justify-gap-padding(
+    row,
+    center,
+    space-between,
+    $gray-1,
+    1rem
+  );
+}

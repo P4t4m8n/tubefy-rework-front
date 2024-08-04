@@ -70,9 +70,7 @@ export function ProgressBar({ song, player }: Props) {
 
   return (
     <div className="progress-bar">
-      <p style={{ color: "white" }}>
-        {progress ? progress.timeElapsed : "0:00"}{" "}
-      </p>
+      <p>{progress ? progress.timeElapsed : "0:00"} </p>
       <div
         onClick={handleProgressbar}
         className="bar"
@@ -87,9 +85,7 @@ export function ProgressBar({ song, player }: Props) {
           }}
         />
       </div>
-      <p className="text-left" style={{ color: "white" }}>
-        {progress ? progress.time : "0:00"}{" "}
-      </p>
+      <p>{progress ? progress.time : "0:00"} </p>
     </div>
   );
 }
