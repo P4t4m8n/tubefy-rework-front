@@ -11,6 +11,10 @@ body {
   background-color: $black-1;
   font-size: $font-size-16;
   margin: 0;
+  font-family: "Nunito";
+
+  max-width: 100vw;
+  min-height: 100vh;
 }
 
 li {
@@ -42,4 +46,19 @@ a {
 
 a:hover {
   text-decoration: none;
+}
+button {
+  padding: 0;
+  border: none;
+  font-family: "Nunito";
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }

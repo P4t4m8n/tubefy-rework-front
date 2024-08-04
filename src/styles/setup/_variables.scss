@@ -4,7 +4,26 @@ $gray-2: rgb(29, 185, 84);
 
 $black-1: Black;
 $black-2: rgb(18, 18, 18);
+$black-3: rgb(40, 40, 40);
 
 $gray-1: rgb(179, 179, 179);
 
+$white-1: rgb(255, 255, 255);
+$white-2: rgba(255, 255, 255, 0.9);
+
+//Font size
 $font-size-16: 1rem;
+$font-size-14: 0.875rem;
+$font-size-13: 0.8125rem;
+
+//Border radius
+$border-radius-1-4: 0.25rem;
+$border-radius-1-2: 0.5rem;
+$border-radius-1: 1rem;
+$border-radius-2: 2rem;
+
+//Flex allowed values
+$allowed-directions: row, row-reverse, column, column-reverse;
+$allowed-align-items: center, flex-start, flex-end, baseline;
+$allowed-justify-content: flex-start, flex-end, center, space-between,
+  space-around, space-evenly;

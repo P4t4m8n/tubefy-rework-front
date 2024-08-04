@@ -1,0 +1,12 @@
+.main-content {
+  margin: 0.5rem 0.5rem 0.5rem 0.25rem;
+  border-radius: $border-radius-1-2;
+  background-color: $black-2;
+  @include flex-direction-gap-padding(column, 0, 0);
+  
+  .playlist-index {
+    max-height: calc(100vh - 16rem);
+    overflow: auto;
+    width: 100%;
+  }
+}

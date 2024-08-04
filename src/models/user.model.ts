@@ -8,8 +8,13 @@ export interface IUserSmall {
   id: string;
 }
 
-export interface IUserDTO extends IUserSmall {
+export interface IUserCreateDTO extends IUserSmall {
   password?: string;
+}
+
+export interface IUserLoginDTO {
+  email: string;
+  password: string;
 }
 
 export interface IUser extends IUserSmall {
@@ -25,7 +30,7 @@ export interface IUserState {
 
 export interface IUserAction {
   type: TUserActionType;
-  payload: IUser;
+  payload: IUser | null;
 }
 
 export type TUserActionType = "SET_USER" | "EDIT_USER";

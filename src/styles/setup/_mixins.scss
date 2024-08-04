@@ -1,0 +1,51 @@
+@mixin flex-direction-align-justify-padding-gap(
+  $direction,
+  $align,
+  $justify,
+  $padding,
+  $gap
+) {
+  @if index($allowed-directions, $direction) == null {
+    @error "Invalid direction value: #{$direction}. Allowed values are: #{$allowed-directions}";
+  }
+  @if index($allowed-align-items, $align) == null {
+    @error "Invalid align-items value: #{$align}. Allowed values are: #{$allowed-align-items}";
+  }
+  @if index($allowed-justify-content, $justify) == null {
+    @error "Invalid justify-content value: #{$justify}. Allowed values are: #{$allowed-justify-content}";
+  }
+
+  padding: $padding;
+  display: flex;
+  justify-content: $justify;
+  flex-direction: $direction;
+  gap: $gap;
+  align-items: $align;
+}
+
+@mixin flex-direction-alignItems-gap-padding(
+  $direction,
+  $align,
+  $gap,
+  $padding
+) {
+  padding: $padding;
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+  align-items: $align;
+}
+
+@mixin flex-direction-gap-padding($direction, $gap, $padding) {
+  padding: $padding;
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+@mixin center-position($position) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: $position;
+}

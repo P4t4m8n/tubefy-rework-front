@@ -1,24 +1,15 @@
-import { Link } from "react-router-dom";
-import { LibrarySVG, PlusSVG } from "../svg/SVGs";
+import { LibrarySVG } from "../svg/SVGs";
+import CreatePlaylistModel from "./CreatePlaylistModel";
 
 export default function CreatePlaylist() {
   return (
-    <section className="creation-and-toggle ">
-      <p className="your-library">
+    <section className="user-library-header">
+      <button className="your-library">
         <LibrarySVG />
-        <span>Library</span>
-      </p>
-      <button className="mobile your-library ">
-        <Link to={"/mobile/library"}>
-          <LibrarySVG />
-          <span>Library</span>
-        </Link>
+        <span>Your Library</span>
       </button>
-      <div className="">
-        <button className="">
-          <PlusSVG />
-        </button>
-      </div>
+
+      <CreatePlaylistModel />
     </section>
   );
 }

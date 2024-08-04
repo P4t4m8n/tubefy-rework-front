@@ -9,7 +9,19 @@
 @import "basics/base.scss";
 
 // Views
-// @import "views/StationIndex.scss";
-// @import "views/LeftSideBar.scss";
+@import "./views/PlaylistIndex.scss";
 
-// Components
+/* ***Components*** */
+
+//Side-bar
+@import "./cmps/Sidebar/Sidebar.scss";
+@import "./cmps/Sidebar/Navbar.scss";
+@import "./cmps/Sidebar/UserLibrary.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryHeader.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibaryNoUser.scss";
+
+//Header
+@import "./cmps/Header/Header.scss";
+
+//Footer
+@import "./cmps/Footer/Player.scss";

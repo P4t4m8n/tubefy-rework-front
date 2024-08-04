@@ -1,0 +1,4 @@
+.app-footer {
+  height: 5rem;
+  @include flex-direction-gap-padding(row, 0, 0);
+}

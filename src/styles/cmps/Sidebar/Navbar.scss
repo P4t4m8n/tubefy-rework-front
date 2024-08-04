@@ -1,0 +1,24 @@
+.sidebar-nav {
+  @include flex-direction-gap-padding(column, 1.5rem, 1.5rem);
+  border-radius: $border-radius-1-2;
+  background-color: $black-2;
+  .sidebar-nav-link {
+    @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+      fill: $gray-1;
+    }
+    span {
+      font-weight: 800;
+    }
+    &.link-clicked {
+      svg {
+        fill: white;
+      }
+      span {
+        color: white;
+      }
+    }
+  }
+}

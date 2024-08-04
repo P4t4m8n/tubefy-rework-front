@@ -2,11 +2,11 @@ import { ChangeEvent, MouseEvent } from "react";
 import { useAppSelector } from "../../hooks/useStore";
 import { useNavigate } from "react-router-dom";
 // import { playlistService } from "../../services/playlist.service";
-import { Loader } from "../Loader";
-import NoUserBtn from "../User/NoUserBtn";
+// import { Loader } from "../Loader";
 import CreatePlaylist from "./CreatePlaylist";
 import UserLibraryFilter from "./UserLibraryFilter";
 import UserLibraryList from "./UserLibraryList";
+import Login from "../User/Login";
 
 export function UserLibraryIndex() {
   const user = useAppSelector((state) => state.user.user);
@@ -45,16 +45,22 @@ export function UserLibraryIndex() {
     onSendPlaylist
   );
 
-  if (!user) return <NoUserBtn />;
-
-  const userLibrary = null;
-  if (!userLibrary) return <Loader />;
-
   return (
-    <section className="side-bar-content">
+    <section className="user-library">
       <CreatePlaylist />
-      <UserLibraryFilter />
-      <UserLibraryList />
+      {!user && (
+        <div className="user-library-no-user">
+          <h2>Log in to view your library</h2>
+         
+          <Login />
+        </div>
+      )}
+      {user && (
+        <>
+          <UserLibraryFilter />
+          <UserLibraryList />
+        </>
+      )}
     </section>
   );
 }

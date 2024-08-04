@@ -1,0 +1,9 @@
+.side-bar {
+  width: clamp(17rem, 20vw, 20rem);
+  @include flex-direction-gap-padding(
+    column,
+    0.5rem,
+    0.5rem 0.25rem 0.5rem 0.5rem
+  );
+  height: 100%;
+}
