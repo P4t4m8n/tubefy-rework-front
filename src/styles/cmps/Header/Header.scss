@@ -1,3 +1,19 @@
 .app-header {
-  height: 7rem;
+  height: 5rem;
+  @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 1rem);
+  background-color: inherit;
+  .back-btn {
+    background-color: $black-4;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100vw;
+    padding: 0.5rem;
+    rotate: 180deg;
+    svg {
+      fill: $gray-1;
+    }
+  }
+  .login-model-btn {
+    margin-left: auto;
+  }
 }

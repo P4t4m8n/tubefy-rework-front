@@ -4,24 +4,19 @@ const createArrayFromType = <T extends string>(obj: {
   return Object.keys(obj) as T[];
 };
 
-type DebounceFunction = <T extends (args: unknown) => unknown>(
-  func: T,
-  wait: number
-) => (...args: Parameters<T>) => void;
+function debounce<Args extends unknown[]>(func: (...args: Args) => void, delay = 2000): (...args: Args) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-const debounce: DebounceFunction = (func, wait) => {
-  let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-  return (...args: Parameters<typeof func>) => {
-    if (timeoutId !== null) {
+  return function (this: unknown, ...args: Args) {
+    if (timeoutId) {
       clearTimeout(timeoutId);
     }
 
     timeoutId = setTimeout(() => {
-      func(args);
-    }, wait);
+      func.apply(this, args);
+    }, delay);
   };
-};
+}
 
 const getRandomIntInclusive = (min: number, max: number): number => {
   min = Math.ceil(min);

@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback } from "react";
 import { Params, useNavigate, useParams } from "react-router-dom";
-import { utilService } from "../util/util.util";
 import { SearchSvg } from "./svg/SVGs";
+import { utilService } from "../util/util.util";
 
 export function Search() {
   const navigate = useNavigate();
@@ -9,24 +9,23 @@ export function Search() {
 
   const searchTerm = params.searchTerm || "";
 
+  // Use useCallback to memoize the debounced function
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedNavigate = useCallback(
     utilService.debounce((value: string) => {
       navigate("/search/" + value);
     }, 2000),
-    [params]
+    [navigate]
   );
 
   function handleSearchChange(ev: ChangeEvent<HTMLInputElement>) {
     ev.preventDefault();
     const value = ev.target.value;
-
     debouncedNavigate(value);
   }
 
   return (
-    <form>
-      <p></p>
+    <div className="search-box">
       <SearchSvg />
       <input
         value={searchTerm}
@@ -36,6 +35,6 @@ export function Search() {
         name="searchTerm"
         placeholder="What do you want to listen to?"
       />
-    </form>
+    </div>
   );
 }

@@ -49,3 +49,9 @@
   transform: translate(-50%, -50%);
   position: $position;
 }
+
+@mixin text-overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

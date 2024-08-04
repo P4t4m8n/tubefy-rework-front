@@ -51,7 +51,6 @@ button {
   padding: 0;
   border: none;
   font-family: "Nunito";
-
 }
 
 h1,
@@ -61,4 +60,11 @@ h4,
 h5,
 h6 {
   margin: 0;
+}
+
+input {
+  font-family: "Nunito";
+  outline: none;
+  border: none;
+  padding: 0;
 }

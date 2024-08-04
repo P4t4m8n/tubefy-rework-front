@@ -18,10 +18,16 @@
 @import "./cmps/Sidebar/Navbar.scss";
 @import "./cmps/Sidebar/UserLibrary.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryHeader.scss";
-@import "./cmps/Sidebar/UserLibrary/UserLibaryNoUser.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryNoUser.scss";
 
 //Header
 @import "./cmps/Header/Header.scss";
+
+//User
+@import "./cmps/User/Login.scss";
+
+//Search
+@import "./cmps/Search.scss";
 
 //Footer
 @import "./cmps/Footer/Player.scss";

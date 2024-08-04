@@ -12,7 +12,6 @@ export function FullHeartSVG() {
     </svg>
   );
 }
-
 export function PlaySVG() {
   return (
     <svg viewBox="0 0 24 24">
@@ -21,7 +20,6 @@ export function PlaySVG() {
     </svg>
   );
 }
-
 export function PauseSVG() {
   return (
     <svg viewBox="0 0 24 24">
@@ -29,7 +27,6 @@ export function PauseSVG() {
     </svg>
   );
 }
-
 export function NextSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -44,7 +41,6 @@ export function PrevSVG() {
     </svg>
   );
 }
-
 export function DetailsSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -53,7 +49,6 @@ export function DetailsSVG() {
     </svg>
   );
 }
-
 export function LyricsSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -61,7 +56,6 @@ export function LyricsSVG() {
     </svg>
   );
 }
-
 export function VolumeSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -70,7 +64,6 @@ export function VolumeSVG() {
     </svg>
   );
 }
-
 export function FullScreenSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -78,7 +71,6 @@ export function FullScreenSVG() {
     </svg>
   );
 }
-
 export function QueueSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -86,7 +78,6 @@ export function QueueSVG() {
     </svg>
   );
 }
-
 export function ShuffleSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -95,7 +86,6 @@ export function ShuffleSVG() {
     </svg>
   );
 }
-
 export function RepeatSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -103,7 +93,6 @@ export function RepeatSVG() {
     </svg>
   );
 }
-
 export function DotsSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -111,7 +100,6 @@ export function DotsSVG() {
     </svg>
   );
 }
-
 export function NoteSVG() {
   return (
     <svg viewBox="0 0 24 24">
@@ -119,7 +107,6 @@ export function NoteSVG() {
     </svg>
   );
 }
-
 export function PencilSVG() {
   return (
     <svg viewBox="0 0 24 24">
@@ -127,7 +114,6 @@ export function PencilSVG() {
     </svg>
   );
 }
-
 export function PinSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -135,7 +121,6 @@ export function PinSVG() {
     </svg>
   );
 }
-
 export function LibrarySVG() {
   return (
     <svg viewBox="0 0 24 24">
@@ -143,7 +128,6 @@ export function LibrarySVG() {
     </svg>
   );
 }
-
 export function PlusSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -151,7 +135,6 @@ export function PlusSVG() {
     </svg>
   );
 }
-
 export function ArrowSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -159,7 +142,6 @@ export function ArrowSVG() {
     </svg>
   );
 }
-
 export function ArrowBackSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -167,7 +149,6 @@ export function ArrowBackSVG() {
     </svg>
   );
 }
-
 export function SearchSvg() {
   return (
     <svg
@@ -180,7 +161,6 @@ export function SearchSvg() {
     </svg>
   );
 }
-
 export function HomeSvg() {
   return (
     <svg viewBox="0 0 24 24">
@@ -188,7 +168,6 @@ export function HomeSvg() {
     </svg>
   );
 }
-
 export function HomeClickedSVG() {
   return (
     <svg viewBox="0 0 24 24">
@@ -196,7 +175,6 @@ export function HomeClickedSVG() {
     </svg>
   );
 }
-
 export function SearchClickedSVG() {
   return (
     <svg
@@ -210,7 +188,6 @@ export function SearchClickedSVG() {
     </svg>
   );
 }
-
 export function SortSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -218,7 +195,6 @@ export function SortSVG() {
     </svg>
   );
 }
-
 export function CreatePlaylistSVG() {
   return (
     <svg
@@ -231,7 +207,6 @@ export function CreatePlaylistSVG() {
     </svg>
   );
 }
-
 export function ClockSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -240,7 +215,6 @@ export function ClockSVG() {
     </svg>
   );
 }
-
 export function UserIconSVG() {
   return (
     <svg viewBox="0 0 16 16">

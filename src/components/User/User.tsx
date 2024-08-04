@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useStore";
-import NoUserBtn from "./NoUserBtn";
 import { MouseEvent } from "react";
 import { UserIconSVG } from "../svg/SVGs";
+import Login from "./Login";
 
 export function User() {
   const { user } = useAppSelector((state) => state.user);
@@ -14,16 +14,14 @@ export function User() {
     ev.preventDefault();
   }
 
-  if (!user) return <NoUserBtn />;
-
-  const { avatarUrl } = user;
-
   return (
-    <section className="user-nav">
-      <button onClick={onLogout}>Logout</button>
-      <div className="avatar">
-        {avatarUrl ? <img src={avatarUrl}></img> : <UserIconSVG />}
-      </div>
-    </section>
+    <>
+      {!user && <Login />}
+      {user && (
+        <button onClick={onLogout}>
+          {user.avatarUrl ? <img src={user.avatarUrl}></img> : <UserIconSVG />}
+        </button>
+      )}
+    </>
   );
 }
