@@ -11,7 +11,6 @@ export default function PlaylistIndexHero({ heroPlaylists }: Props) {
 
   return (
     <section className="playlist-index-hero">
-      <h1>{greeting}</h1>
       <PlaylistIndexList PlaylistObject={playlistObject} />
     </section>
   );

@@ -42,7 +42,6 @@ export function YouTubeAudioPlayer() {
   }, [playingSong, currentPlaylist]);
 
   const onEnd = (ev: YouTubeEvent) => {
-    console.log("ev:", ev);
 
     if (!isRepeat.current && !isShuffle.current) {
       stationIdx.current++;
@@ -76,7 +75,6 @@ export function YouTubeAudioPlayer() {
         currentPlaylist!.songs.length
       );
     } else if (isRepeat.current) {
-      console.log("repeat");
     } else {
       stationIdx.current += dir;
       if (stationIdx.current >= currentPlaylist!.songs.length)

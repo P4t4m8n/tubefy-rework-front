@@ -30,6 +30,15 @@ export const extractHeroPlaylists = (
   if (!playlistObjects.length) {
     return [];
   }
-  return playlistObjects.map((playlistObject) => playlistObject.playlists[0]);
-};
 
+  const heroPlaylists = playlistObjects.map(
+    (playlistObject) => playlistObject.playlists[0]
+  );
+
+  if (heroPlaylists.length < 8) {
+    for (let i = heroPlaylists.length; i < 8; i++) {
+      heroPlaylists.push(playlistObjects[i % 7].playlists[1]);
+    }
+  }
+  return heroPlaylists.splice(0, 8);
+};

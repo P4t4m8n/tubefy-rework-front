@@ -6,7 +6,6 @@ interface Props {
 }
 
 export function LikeBtn({ isLiked, itemId }: Props) {
-  console.log("itemId:", itemId);
 
   const onLike = () => {};
 

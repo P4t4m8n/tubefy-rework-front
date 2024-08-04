@@ -6,13 +6,13 @@ interface Props {
 }
 export default function PlaylistIndexList({ PlaylistObject }: Props) {
   return (
-    <li className="playlist-list">
+    <>
       <h2>{PlaylistObject.type}</h2>
       <ul>
         {PlaylistObject.playlists.map((playlist) => (
           <PlaylistIndexListPreview key={playlist.id} playlist={playlist} />
         ))}
       </ul>
-    </li>
+    </>
   );
 }

@@ -12,18 +12,12 @@ export function UserLibraryIndex() {
   const user = useAppSelector((state) => state.user.user);
 
   const navigate = useNavigate();
-  console.log("navigate:", navigate);
 
   const createStation = async () => {};
 
-  const onRemoveStation = (ev: ChangeEvent, playlistId: string) => {
-    console.log("playlistId:", playlistId);
-    console.log("ev:", ev);
-  };
+  const onRemoveStation = (ev: ChangeEvent, playlistId: string) => {};
 
-  const handleChange = (ev: ChangeEvent) => {
-    console.log("ev:", ev);
-  };
+  const handleChange = (ev: ChangeEvent) => {};
 
   const FilterList = () => {};
 
@@ -31,19 +25,7 @@ export function UserLibraryIndex() {
     ev: MouseEvent,
     playlistId: string,
     userId: string
-  ) => {
-    console.log("userId:", userId);
-    console.log("playlistId:", playlistId);
-    console.log("ev:", ev);
-  };
-
-  console.log(
-    createStation,
-    onRemoveStation,
-    handleChange,
-    FilterList,
-    onSendPlaylist
-  );
+  ) => {};
 
   return (
     <section className="user-library">
@@ -51,7 +33,7 @@ export function UserLibraryIndex() {
       {!user && (
         <div className="user-library-no-user">
           <h2>Log in to view your library</h2>
-         
+
           <Login />
         </div>
       )}

@@ -1,0 +1,95 @@
+.playlist-index-list {
+  @include flex-direction-gap-padding(column, 1rem, 0.75rem);
+  container-type: inline-size; /* Enable container queries */
+  
+  .playlist-list {
+    h2 {
+      color: $white-1;
+      font-size: $font-size-24;
+      padding-bottom: 1rem;
+    }
+    ul {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+      li {
+        border-radius: $border-radius-1-4;
+        padding: 0.75rem 0.75rem;
+        background-color: $black-5;
+        a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          img {
+            border-radius: $border-radius-1-4;
+          }
+          h3 {
+            @include text-overflow-ellipsis;
+            color: $white-1;
+            font-size: $font-size-16;
+            font-weight: 500;
+            padding-block: 0.25rem;
+            max-width: 100%;
+          }
+          p {
+            font-size: $font-size-14;
+          }
+        }
+
+        &:nth-of-type(6) ~ * {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@container (max-width: 64rem) {
+  .playlist-index-list .playlist-list ul {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .playlist-index-list .playlist-list ul li:nth-of-type(5) ~ li {
+    display: none;
+  }
+}
+
+@container (max-width: 54rem) {
+  .playlist-index-list .playlist-list ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .playlist-index-list .playlist-list ul li:nth-of-type(4) ~ li {
+    display: none;
+  }
+}
+
+@container (max-width: 44rem) {
+  .playlist-index-list .playlist-list ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .playlist-index-list .playlist-list ul li:nth-of-type(3) ~ li {
+    display: none;
+  }
+}
+
+@container (max-width: 34rem) {
+  .playlist-index-list .playlist-list ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .playlist-index-list .playlist-list ul li:nth-of-type(2) ~ li {
+    display: none;
+  }
+}
+
+@container (max-width:24rem) {
+  .playlist-index-list .playlist-list ul {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .playlist-index-list .playlist-list ul li:nth-of-type(1) ~ li {
+    display: none;
+  }
+}

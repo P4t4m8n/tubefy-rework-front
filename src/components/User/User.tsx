@@ -8,7 +8,6 @@ export function User() {
   const { user } = useAppSelector((state) => state.user);
 
   const navigate = useNavigate();
-  console.log("navigate:", navigate);
 
   async function onLogout(ev: MouseEvent) {
     ev.preventDefault();

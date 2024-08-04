@@ -5,7 +5,8 @@ interface Props {
   playlist: IPlaylist;
 }
 export default function PlaylistIndexListPreview({ playlist }: Props) {
-  const { imgUrl, name, description, id } = playlist;
+  const { imgUrl, name, description, id, songs } = playlist;
+  console.log("songs:", songs);
 
   const defaultImgUrl = "/defaultImg.svg";
 
@@ -26,7 +27,7 @@ export default function PlaylistIndexListPreview({ playlist }: Props) {
 
         <div className="playlist-list-preview-info">
           <h3>{name}</h3>
-          <p>{description}</p>
+          <p>{description || songs[0]?.artist || "!!!"}</p>
         </div>
       </Link>
     </li>

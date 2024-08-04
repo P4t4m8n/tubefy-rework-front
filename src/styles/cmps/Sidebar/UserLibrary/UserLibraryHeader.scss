@@ -1,10 +1,10 @@
 .user-library-header {
-  @include flex-direction-align-justify-padding-gap(
+  @include flex-direction-align-justify-gap-padding(
     row,
     center,
     space-between,
-    0,
-    1rem
+    1rem,
+    0
   );
   position: relative;
   .your-library {

@@ -16,7 +16,6 @@ export default function PlaylistIndex(): ReactNode {
     handleLoading();
   }, []);
 
-  console.log("mainPlaylists:", mainPlaylists);
   const handleLoading = async () => {
     try {
       setIsLoading(true);
@@ -39,10 +38,9 @@ export default function PlaylistIndex(): ReactNode {
       <PlaylistIndexHero heroPlaylists={heroPlaylists} />
       <ul className="playlist-index-list">
         {mainPlaylists.map((playlistObject) => (
-          <PlaylistIndexList
-            key={playlistObject.type}
-            PlaylistObject={playlistObject}
-          />
+          <li key={playlistObject.type} className="playlist-list">
+            <PlaylistIndexList PlaylistObject={playlistObject} />
+          </li>
         ))}
       </ul>
     </section>

@@ -1,9 +1,9 @@
-@mixin flex-direction-align-justify-padding-gap(
+@mixin flex-direction-align-justify-gap-padding(
   $direction,
   $align,
   $justify,
-  $padding,
-  $gap
+  $gap,
+  $padding
 ) {
   @if index($allowed-directions, $direction) == null {
     @error "Invalid direction value: #{$direction}. Allowed values are: #{$allowed-directions}";
@@ -54,4 +54,12 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@mixin no-scrollBar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
