@@ -1,11 +1,15 @@
 import axios from "axios";
 import { ISongYT } from "../models/song.model";
+import { IPlaylistYT } from "../models/playlist.model";
 
-const API_KEY_YT = process.env.API_KEY_YT;
-const URL_ARTIST_TUBE = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY_YT}&`;
-
+const API_KEY_YT = import.meta.env.VITE_API_KEY_YT;
+const BASE_URL = "https://www.googleapis.com/youtube/v3";
+const URL_SEARCH = `${BASE_URL}/search?key=${API_KEY_YT}&`;
+const URL_PLAYLIST_ITEMS = `${BASE_URL}/playlistItems?`;
+const URL_VIDEOS = `${BASE_URL}/videos?`;
 const MAX_RESULTS = 10;
-interface ytResponse {
+
+interface ytSongResponse {
   snippet: {
     title: string;
     thumbnails: {
@@ -18,55 +22,117 @@ interface ytResponse {
     videoId: string;
   };
 }
+interface ytPlaylistResponse {
+  snippet: {
+    title: string;
+    thumbnails: {
+      medium: {
+        url: string;
+      };
+    };
+  };
+  id: {
+    playlistId: string;
+  };
+}
+interface ytPlaylistItemResponse {
+  snippet: {
+    title: string;
+    thumbnails: {
+      medium: {
+        url: string;
+      };
+    };
+    resourceId: {
+      videoId: string;
+    };
+  };
+}
+
+const fetchFromYT = async (url: string) => {
+  try {
+    const response = await axios.get(url);
+    return response.data.items;
+  } catch (error) {
+    console.error(`Error fetching data from YouTube API: ${error}`);
+    throw error;
+  }
+};
 
 const getSongsFromYT = async (search: string): Promise<ISongYT[]> => {
-  const destTube = `part=snippet&q=${search}&videoCategoryId=10&type=video&maxResults=${MAX_RESULTS}`;
+  const url = `${URL_SEARCH}part=snippet&q=${search}&videoCategoryId=10&type=video&maxResults=${MAX_RESULTS}`;
+  const items = await fetchFromYT(url);
 
-  const responseArtist = await axios.get(URL_ARTIST_TUBE + destTube);
-
-  const promisesSongs: ISongYT[] = responseArtist.data.items.map(
-    async (ytItem: ytResponse): Promise<ISongYT> => {
+  const promisesSongs = items.map(
+    async (ytItem: ytSongResponse): Promise<ISongYT> => {
       const searchInfo = parseSongString(ytItem.snippet.title);
-
       const duration = await _getDuration(ytItem.id.videoId);
       return {
         name: searchInfo.name,
         artist: searchInfo.artist,
-        duration: duration,
+        duration,
         youtubeId: ytItem.id.videoId,
-        imgUrl: ytItem.snippet.thumbnails.medium.url,
+        thumbnail: ytItem.snippet.thumbnails.medium.url,
         addedBy: "artist",
         createAt: new Date(),
       };
     }
   );
-  const results: ISongYT[] = await Promise.all(promisesSongs);
-  return results;
+
+  return await Promise.all(promisesSongs);
 };
 
-const getPlaylistsFromYT = async (
-  search: string
-): Promise<Partial<ISongYT>[]> => {
-  const destTube = `part=snippet&q=${search}&type=playlist&maxResults=${MAX_RESULTS}`;
+const getPlaylistsFromYT = async (search: string): Promise<IPlaylistYT[]> => {
+  const url = `${URL_SEARCH}part=snippet&q=${search}&type=playlist&maxResults=${MAX_RESULTS}`;
+  const items = await fetchFromYT(url);
 
-  const responseArtist = await axios.get(URL_ARTIST_TUBE + destTube);
-
-  const promisesPlaylists: ISongYT[] = responseArtist.data.items.map(
-    async (ytItem: ytResponse): Promise<Partial<ISongYT>> => {
+  const promisesPlaylists = items.map(
+    async (playlist: ytPlaylistResponse): Promise<IPlaylistYT> => {
+      const songs = await fetchSongsFromPlaylist(playlist.id.playlistId);
+      const duration = _calculateTotalDuration(songs);
       return {
-        name: ytItem.snippet.title,
-        youtubeId: ytItem.id.videoId,
-        imgUrl: ytItem.snippet.thumbnails.medium.url,
+        name: playlist.snippet.title,
+        imgUrl: playlist.snippet.thumbnails.medium.url,
+        songs,
+        description: "",
+        duration,
+        isPublic: true,
+      };
+    }
+  );
+
+  return await Promise.all(promisesPlaylists);
+};
+
+const fetchSongsFromPlaylist = async (
+  playlistId: string
+): Promise<ISongYT[]> => {
+  const url = `${URL_PLAYLIST_ITEMS}part=snippet&maxResults=${MAX_RESULTS}&playlistId=${playlistId}&key=${API_KEY_YT}`;
+  const items = await fetchFromYT(url);
+
+  const promisesSongs = items.map(
+    async (song: ytPlaylistItemResponse): Promise<ISongYT> => {
+      const youtubeId = song.snippet.resourceId.videoId;
+      const duration = await _getDuration(youtubeId);
+      const { name, artist } = parseSongString(song.snippet.title);
+      return {
+        name,
+        artist,
+        duration,
+        youtubeId,
+        thumbnail: song.snippet.thumbnails.medium.url,
         addedBy: "artist",
         createAt: new Date(),
       };
     }
   );
-  const results: ISongYT[] = await Promise.all(promisesPlaylists);
-  return results;
+
+  return await Promise.all(promisesSongs);
 };
 
-function parseSongString(songString: string): { artist: string; name: string } {
+const parseSongString = (
+  songString: string
+): { artist: string; name: string } => {
   songString = songString.replace(/\[.*?\]|\(.*?\)/g, "");
   const splitIndex = songString.search(/[^a-zA-Z0-9 ]/);
   let artist;
@@ -87,10 +153,10 @@ function parseSongString(songString: string): { artist: string; name: string } {
   if (!name) name = "Unknown";
 
   return { artist, name };
-}
+};
 
 const _getDuration = async (videoId: string): Promise<string> => {
-  const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${API_KEY_YT}`;
+  const url = `${URL_VIDEOS}id=${videoId}&part=contentDetails&key=${API_KEY_YT}`;
 
   try {
     const response = await axios.get(url);
@@ -102,7 +168,8 @@ const _getDuration = async (videoId: string): Promise<string> => {
 
     return _formatDuration(duration);
   } catch (err) {
-    throw new Error(`Error getting duration for video ${videoId} - ${err}`);
+    console.error(`Error getting duration for video ${videoId}: ${err}`);
+    throw err;
   }
 };
 
@@ -123,6 +190,35 @@ const _formatDuration = (duration: string): string => {
   const formattedSeconds = _padWithZero(seconds);
 
   return `${formattedHours}${formattedMinutes}:${formattedSeconds}`;
+};
+
+const _calculateTotalDuration = (songs: ISongYT[]): string => {
+  let totalHours = 0;
+  let totalMinutes = 0;
+  let totalSeconds = 0;
+
+  songs.forEach(({ duration }) => {
+    const parts = duration.split(":").map(Number);
+    if (parts.length === 3) {
+      totalHours += parts[0];
+      totalMinutes += parts[1];
+      totalSeconds += parts[2];
+    } else if (parts.length === 2) {
+      totalMinutes += parts[0];
+      totalSeconds += parts[1];
+    } else if (parts.length === 1) {
+      totalSeconds += parts[0];
+    }
+  });
+
+  totalMinutes += Math.floor(totalSeconds / 60);
+  totalSeconds = totalSeconds % 60;
+  totalHours += Math.floor(totalMinutes / 60);
+  totalMinutes = totalMinutes % 60;
+
+  return `${_padWithZero(totalHours)}:${_padWithZero(
+    totalMinutes
+  )}:${_padWithZero(totalSeconds)}`;
 };
 
 function _padWithZero(number: number): string {

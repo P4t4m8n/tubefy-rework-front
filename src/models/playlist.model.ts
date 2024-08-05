@@ -1,18 +1,28 @@
 import { TGreetings } from "../util/user.util";
-import { ISong } from "./song.model";
+import { ISong, ISongYT } from "./song.model";
 import { IUserSmall } from "./user.model";
 
 export interface IPlaylist {
   name: string;
-  genres: TGenres[];
+  imgUrl: string;
   songs: ISong[];
   description: string;
+
+  genres: TGenres[];
   type: TPlaylistType;
   owner: IUserSmall;
   duration: string;
   isPublic: boolean;
-  imgUrl: string;
   id: string;
+}
+
+export interface IPlaylistYT{
+  name: string;
+  imgUrl: string;
+  songs: ISongYT[];
+  description: string;
+  duration: string;
+  isPublic: boolean;
 }
 
 export interface IPlaylistDetailed extends IPlaylist {
