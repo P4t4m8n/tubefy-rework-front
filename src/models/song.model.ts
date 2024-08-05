@@ -14,6 +14,12 @@ export interface ISong {
   addedAt: string;
 }
 
+export interface ISongFIlter {
+  name?: string;
+  artist?: string;
+  genres?: TGenres[];
+}
+
 export interface ISongDTO {
   name: string;
   artist: string;
@@ -29,7 +35,7 @@ export interface ISongYT {
   artist: string;
   duration: string;
   youtubeId: string;
-  imgUrl: string;
+  thumbnail: string;
   addedBy: string;
   createAt: Date;
 }
