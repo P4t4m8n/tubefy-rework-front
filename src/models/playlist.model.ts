@@ -9,18 +9,18 @@ export interface IPlaylist {
   description: string;
   type: TPlaylistType;
   owner: IUserSmall;
-  
   duration: string;
-  
   isPublic: boolean;
   imgUrl: string;
   id: string;
 }
 
 export interface IPlaylistDetailed extends IPlaylist {
-  isLikedByUser: boolean; 
+  isLikedByUser: boolean;
   createdAt: string;
-
+  shares: {
+    count: number;
+  };
 }
 
 export interface IPlaylistDTO {

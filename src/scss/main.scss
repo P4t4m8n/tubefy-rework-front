@@ -10,6 +10,7 @@
 
 // Views
 @import "./views/PlaylistIndex.scss";
+@import "./views/PlaylistDetails.scss";
 
 /* ***Components*** */
 
@@ -38,6 +39,12 @@
 //Playlist Index
 @import "./cmps/PlaylistIndex/PlaylistIndexHero.scss";
 @import "./cmps/PlaylistIndex/PlaylistIndexList.scss";
+
+//Playlist Details and Edit
+@import "./cmps/PlaylistDetails/PlaylistDetailsHero.scss";
+@import "./cmps/PlaylistDetails/PlaylistDetailsActions.scss";
+@import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
+@import "./cmps/PlaylistDetails/PlaylistSongsListPreview.scss";
 
 //GenericComponents
 @import "./cmps/GenericComponents/GenericModel.scss";

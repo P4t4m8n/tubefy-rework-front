@@ -6,6 +6,7 @@ interface Props {
   avatarUrl: string;
   songs: number;
   duration: string;
+  shares: number;
 }
 
 export default function PlaylistDetailsHero({
@@ -16,22 +17,20 @@ export default function PlaylistDetailsHero({
   avatarUrl,
   songs,
   duration,
+  shares,
 }: Props) {
   return (
     <header className="playlists-details-hero">
       <img src={imgUrl} alt={name} />
-      <div className="station-header-info">
+      <div className="playlists-details-hero-info">
         <h3>{name}</h3>
-        <h4>{description}</h4>
-        <div>
+        <h4>{description || "fndjsfn fdsfn sdflsdn sdflslkld"}</h4>
+        <div className="playlists-details-hero-info-owner">
           <img src={avatarUrl}></img>
           <p>{username || "TubeFy"}</p>
-          <p>
-            {songs} <span>songs</span>
-          </p>
-          <p>
-            <span>Duration</span> {duration}
-          </p>
+          <p>{shares} shares</p>
+          <p>{songs} songs</p>
+          <p>About {duration}</p>
         </div>
       </div>
     </header>

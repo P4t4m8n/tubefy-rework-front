@@ -4,6 +4,7 @@ import { LikeBtn } from "../Buttons/LikeBtn";
 import GenericModel from "../GenericComponents/GenericModel";
 import { DotsSVG } from "../svg/SVGs";
 import { IGenericModelItem } from "../../models/app.model";
+import { utilService } from "../../util/util.util";
 
 interface Props {
   song: ISong;
@@ -16,21 +17,22 @@ export default function PlaylistSongsListPreview({
   idx,
   modelItems,
 }: Props) {
-  const { imgUrl, name, id, isLikedByUser } = song;
+  const { thumbnail, name, id, isLikedByUser } = song;
+  const addedAt = utilService.getDaysSince(song.addedAt);
   return (
-    <li className="playlist-songs-list">
-      <p className="hover-index">
-        <PlayBtn item={song} /> {idx + 1}
-      </p>
+    <li className="playlist-songs-list-preview">
+      <div className="hover-index">
+        <PlayBtn item={song} />
+        <p>{idx + 1}</p>
+      </div>
       <div className="artist-and-image">
-        <div className="img-list-con">
-          <img src={imgUrl} />
-        </div>
+        <img src={thumbnail} />
         <p>{name}</p>
       </div>
       <p>{song.artist}</p>
+      <p>{addedAt} days ago</p>
 
-      <div className="details-list-control">
+      <div className="playlist-songs-list-preview-actions">
         <LikeBtn isLiked={isLikedByUser!} itemId={id} />
         <p>{song.duration}</p>
         <GenericModel btnSvg={<DotsSVG />} items={modelItems} />

@@ -56,6 +56,11 @@
   text-overflow: ellipsis;
 }
 
+@mixin text-overflow-ellipsis-warp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @mixin no-scrollBar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

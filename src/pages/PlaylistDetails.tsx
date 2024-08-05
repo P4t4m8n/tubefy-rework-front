@@ -40,6 +40,7 @@ export default function PlaylistDetails() {
     description,
     isLikedByUser,
     id,
+    shares,
   } = playlist;
 
   const heroProps = {
@@ -50,6 +51,7 @@ export default function PlaylistDetails() {
     avatarUrl: owner.avatarUrl,
     songs: songs.length,
     duration,
+    shares: shares.count,
   };
 
   const modelItems: IGenericModelItem[] = [

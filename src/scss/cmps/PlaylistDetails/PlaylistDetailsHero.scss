@@ -1,0 +1,53 @@
+.playlists-details-hero {
+  @include flex-direction-alignItems-gap-padding(row, flex-end, 2rem, 0 1rem);
+
+  img {
+    width: clamp(4rem, 100%, 15rem);
+    border-radius: $border-radius-1-4;
+  }
+
+  .playlists-details-hero-info {
+    @include flex-direction-gap-padding(column, 0, 0);
+
+    h3 {
+      font-size: rem(96px);
+      color: $white-1;
+      line-height: 1.05;
+    }
+
+    h4 {
+      font-size: $font-size-16;
+      color: $gray-1;
+      padding-bottom: 0.5rem;
+    }
+
+    .playlists-details-hero-info-owner {
+      @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
+
+      img {
+        width: 2rem;
+        aspect-ratio: 1/1;
+        object-fit: fill;
+        border-radius: 100vw;
+      }
+      p {
+        font-family: $font-size-16;
+        color: $white-1;
+        &:first-of-type {
+          font-weight: 800;
+        }
+        &:nth-of-type(2),
+        &:nth-of-type(3) {
+          font-weight: 700;
+        }
+        &:last-of-type {
+          color: $gray-1;
+        }
+        &:not(:last-of-type)::after {
+          content: "•";
+          padding-left: 0.5em;
+        }
+      }
+    }
+  }
+}
