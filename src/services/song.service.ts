@@ -1,19 +1,18 @@
-import { ISong } from "../models/song.model";
+import { ISong, ISongFIlter } from "../models/song.model";
+import { httpService } from "./http.service";
 
-const getDefaultSong = (): ISong => {
-  return {
-    id: "1",
-    name: "Sheena Is A Punk Rocker (Official Music Video)",
-    artist: "Ramones",
-    duration: 176,
-    youtubeId: "yCW7Aw8ugOI",
-    imgUrl: "https://i.ytimg.com/vi/yCW7Aw8ugOI/mqdefault.jpg",
-    addedBy: "artist",
-    createAt: new Date(1705347571892),
-    isLikedByUser: false,
-  };
+const get = async (filter: ISongFIlter): Promise<ISong[]> => {
+  try {
+    const songs = await httpService.get<ISong[]>("/songs", filter);
+    if (!songs) {
+      throw new Error("No songs found");
+    }
+    return songs;
+  } catch (error) {
+    throw new Error(`Error while loading songs: ${error}`);
+  }
 };
 
 export const songService = {
-  getDefaultSong,
+  get,
 };
