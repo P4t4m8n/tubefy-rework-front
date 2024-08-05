@@ -1,5 +1,3 @@
-// reducer.ts
-import { songService } from "../../services/song.service";
 import {
   PlayerActionTypes,
   SET_PLAYING_SONG,
@@ -8,9 +6,10 @@ import {
   SET_PLAYER,
   IPlayerState,
 } from "../../models/player.model";
+import { getDefaultSong } from "../../util/song.util";
 
 const initialState: IPlayerState = {
-  playingSong: songService.getDefaultSong(),
+  playingSong: getDefaultSong(),
   volume: 50,
   isPlaying: false,
   player: null,
