@@ -3,15 +3,24 @@ import { ISong } from "./song.model";
 import { IUserSmall } from "./user.model";
 
 export interface IPlaylist {
-  id: string;
   name: string;
   genres: TGenres[];
-  imgUrl: string;
-  createBy: IUserSmall;
   songs: ISong[];
-  duration: number;
   description: string;
   type: TPlaylistType;
+  owner: IUserSmall;
+  
+  duration: string;
+  
+  isPublic: boolean;
+  imgUrl: string;
+  id: string;
+}
+
+export interface IPlaylistDetailed extends IPlaylist {
+  isLikedByUser: boolean; 
+  createdAt: string;
+
 }
 
 export interface IPlaylistDTO {
@@ -19,7 +28,7 @@ export interface IPlaylistDTO {
   name: string;
   imgUrl: string;
   createByUserId: string;
-  duration: number;
+  duration: string;
   description: string;
 }
 

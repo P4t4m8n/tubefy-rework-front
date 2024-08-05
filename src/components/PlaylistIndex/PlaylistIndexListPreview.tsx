@@ -6,7 +6,6 @@ interface Props {
 }
 export default function PlaylistIndexListPreview({ playlist }: Props) {
   const { imgUrl, name, description, id, songs } = playlist;
-  console.log("songs:", songs);
 
   const defaultImgUrl = "/defaultImg.svg";
 

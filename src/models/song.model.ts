@@ -1,13 +1,17 @@
+import { TGenres } from "./playlist.model";
+import { IUserSmall } from "./user.model";
+
 export interface ISong {
-  id: string;
-  name: string;
-  artist: string;
-  duration: number;
   youtubeId: string;
-  imgUrl: string;
-  addedBy: string;
-  createAt: Date;
-  isLikedByUser?: boolean;
+  thumbnail: string;
+  name: string;
+  isLikedByUser: boolean;
+  id: string;
+  genres: TGenres[];
+  duration: string;
+  artist: string;
+  addedBy: IUserSmall;
+  addedAt: string;
 }
 
 export interface ISongDTO {

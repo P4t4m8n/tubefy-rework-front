@@ -2,10 +2,10 @@ import { IPlaylist } from "./playlist.model";
 
 export interface IUserSmall {
   username: string;
-  avatarUrl: string;
   isAdmin: boolean;
-  email: string;
   id: string;
+  email: string;
+  avatarUrl: string;
 }
 
 export interface IUserCreateDTO extends IUserSmall {

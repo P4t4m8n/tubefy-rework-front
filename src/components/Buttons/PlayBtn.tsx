@@ -1,8 +1,26 @@
+import { MouseEvent } from "react";
+import { usePlay } from "../../hooks/usePlay";
+import { IPlaylist } from "../../models/playlist.model";
 import { ISong } from "../../models/song.model";
+import { PlaySVG } from "../svg/SVGs";
 
 interface Props {
-  song: ISong;
+  item: ISong | IPlaylist;
 }
-export default function PlayBtn({ song }: Props) {
-  return <div>PlayBtn</div>;
+export default function PlayBtn({ item }: Props) {
+  const { onPlaylistPlay, onSongPlay } = usePlay();
+
+  const onPlay = (ev: MouseEvent) => {
+    ev.stopPropagation();
+    if ("songs" in item) {
+      onPlaylistPlay(item);
+    } else {
+      onSongPlay(item);
+    }
+  };
+  return (
+    <button onClick={onPlay} className="play-btn">
+      <PlaySVG />
+    </button>
+  );
 }

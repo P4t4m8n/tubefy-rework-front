@@ -222,7 +222,6 @@ export function UserIconSVG() {
     </svg>
   );
 }
-
 export function ForwardSVG() {
   return (
     <svg
@@ -235,7 +234,6 @@ export function ForwardSVG() {
     </svg>
   );
 }
-
 export function BackwardsSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -243,7 +241,6 @@ export function BackwardsSVG() {
     </svg>
   );
 }
-
 export function DeleteSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -251,7 +248,6 @@ export function DeleteSVG() {
     </svg>
   );
 }
-
 export function ShareSVG() {
   return (
     <svg viewBox="0 0 16 16">
@@ -260,7 +256,6 @@ export function ShareSVG() {
     </svg>
   );
 }
-
 // export function DotsSVG() {
 //   return (
 //     <svg viewBox="0 0 16 16">
@@ -268,7 +263,6 @@ export function ShareSVG() {
 //     </svg>
 //   );
 // }
-
 export function MoveSVG() {
   return (
     <svg viewBox="0 0 48 48">
@@ -278,7 +272,6 @@ export function MoveSVG() {
     </svg>
   );
 }
-
 export function TriangleSVG() {
   return (
     <svg

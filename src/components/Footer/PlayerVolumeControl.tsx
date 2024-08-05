@@ -8,7 +8,6 @@ export function PlayerVolumeControl() {
 
   const handleVolumeChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseInt(ev.target.value, 10);
-    console.log("newVolume:", newVolume)
     setVolume(newVolume);
     if (player) {
       player.target.setVolume(newVolume);
