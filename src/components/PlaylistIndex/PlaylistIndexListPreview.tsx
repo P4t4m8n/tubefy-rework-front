@@ -16,13 +16,7 @@ export default function PlaylistIndexListPreview({ playlist }: Props) {
   return (
     <li className="playlist-list-preview">
       <Link to={`/playlist/${id}`}>
-        <img
-          onError={handleError}
-          src={
-            "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebafa254b2a224584485286526/5/en-GB/default"
-          }
-          alt={name}
-        />
+        <img onError={handleError} src={imgUrl} alt={name} />
 
         <div className="playlist-list-preview-info">
           <h3>{name}</h3>
