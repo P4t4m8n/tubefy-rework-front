@@ -1,5 +1,6 @@
 import {
   IPlaylist,
+  IPlaylistDetailed,
   IPlaylistDTO,
   IPlaylistFilter,
 } from "../models/playlist.model";
@@ -9,6 +10,19 @@ const BASE_URL = "playlist/";
 
 const query = async (FilterSortBy: IPlaylistFilter): Promise<IPlaylist[]> => {
   return await httpService.get<IPlaylist[]>(BASE_URL, FilterSortBy);
+};
+
+const get = async (id: string): Promise<IPlaylistDetailed> => {
+  try {
+    const playlist = await httpService.get<IPlaylistDetailed>(`${BASE_URL}${id}`);
+    if (!playlist)
+      throw new Error("Error in playlist-service - No playlist found");
+    return playlist;
+  } catch (error) {
+    throw new Error(
+      `Error in playlist-service - Error while fetching playlist: ${error}`
+    );
+  }
 };
 
 const save = async (playlist: IPlaylistDTO): Promise<IPlaylist> => {
@@ -56,7 +70,7 @@ const getEmptyPlaylist = (userId: string): IPlaylistDTO => {
     name: "",
     imgUrl: "",
     createByUserId: userId,
-    duration: 0,
+    duration: "0",
     description: "",
   };
 };
@@ -66,7 +80,7 @@ const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
     id: playlist.id,
     name: playlist.name,
     imgUrl: playlist.imgUrl,
-    createByUserId: playlist.createBy.id,
+    createByUserId: playlist.owner.id,
     duration: playlist.duration,
     description: playlist.description,
   };
@@ -87,9 +101,7 @@ const getLikedPlaylists = async (userId: string): Promise<IPlaylist[]> => {
 
 const getDefaultStations = async (): Promise<IPlaylist[]> => {
   try {
-    const playlist = await httpService.get<IPlaylist[]>(
-      `${BASE_URL}`
-    );
+    const playlist = await httpService.get<IPlaylist[]>(`${BASE_URL}`);
 
     if (!playlist) throw new Error("No default station found");
     return playlist;
@@ -109,6 +121,7 @@ const _update = (playlist: IPlaylistDTO): Promise<IPlaylist> => {
 
 export const playlistService = {
   query,
+  get,
   save,
   remove,
   addSong,
