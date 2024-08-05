@@ -1,13 +1,11 @@
-import { ChangeEvent, useCallback } from "react";
-import { Params, useNavigate, useParams } from "react-router-dom";
+import { ChangeEvent, useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SearchSvg } from "./svg/SVGs";
 import { utilService } from "../util/util.util";
 
 export function Search() {
   const navigate = useNavigate();
-  const params: Params = useParams<{ searchTerm?: string }>();
-
-  const searchTerm = params.searchTerm || "";
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Use useCallback to memoize the debounced function
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -18,11 +16,13 @@ export function Search() {
     [navigate]
   );
 
-  function handleSearchChange(ev: ChangeEvent<HTMLInputElement>) {
+  const handleSearchChange = (ev: ChangeEvent<HTMLInputElement>) => {
     ev.preventDefault();
     const value = ev.target.value;
+    setSearchTerm(value);
+
     debouncedNavigate(value);
-  }
+  };
 
   return (
     <div className="search-box">

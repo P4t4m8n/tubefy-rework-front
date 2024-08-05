@@ -1,7 +1,7 @@
 .playlist-index-list {
   @include flex-direction-gap-padding(column, 1rem, 0.75rem);
   container-type: inline-size; /* Enable container queries */
-  
+
   .playlist-list {
     h2 {
       color: $white-1;
@@ -15,7 +15,8 @@
       li {
         border-radius: $border-radius-1-4;
         padding: 0.75rem 0.75rem;
-        background-color: $black-5;
+        background-color: inherit;
+        transition:  background-color 0.25s ease-in-out;
         a {
           display: block;
           width: 100%;
@@ -38,6 +39,10 @@
 
         &:nth-of-type(6) ~ * {
           display: none;
+        }
+
+        &:hover {
+          background-color: $black-5;
         }
       }
     }
