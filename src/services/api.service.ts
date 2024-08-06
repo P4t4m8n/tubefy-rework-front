@@ -7,7 +7,7 @@ const BASE_URL = "https://www.googleapis.com/youtube/v3";
 const URL_SEARCH = `${BASE_URL}/search?key=${API_KEY_YT}&`;
 const URL_PLAYLIST_ITEMS = `${BASE_URL}/playlistItems?`;
 const URL_VIDEOS = `${BASE_URL}/videos?`;
-const MAX_RESULTS = 10;
+const MAX_RESULTS = 5;
 
 interface ytSongResponse {
   snippet: {
@@ -163,13 +163,14 @@ const _getDuration = async (videoId: string): Promise<string> => {
     const duration = response.data.items[0]?.contentDetails?.duration;
 
     if (!duration) {
-      throw new Error(`No duration found for video ${videoId}`);
+      console.error(`No duration found for video ${videoId}`);
+      return "00:00";
     }
 
     return _formatDuration(duration);
   } catch (err) {
     console.error(`Error getting duration for video ${videoId}: ${err}`);
-    throw err;
+    return "00:00";
   }
 };
 

@@ -16,7 +16,7 @@ export interface IPlaylist {
   id: string;
 }
 
-export interface IPlaylistYT{
+export interface IPlaylistYT {
   name: string;
   imgUrl: string;
   songs: ISongYT[];
@@ -43,9 +43,13 @@ export interface IPlaylistDTO {
 }
 
 export interface IPlaylistFilter {
-  genres: TGenres[];
-  name: string;
-  createBy: IUserSmall;
+  genres?: TGenres[];
+  name?: string;
+  ownerId?: string;
+  artist?: string;
+  isPublic?: boolean;
+  limit?: number;
+  page?: number;
 }
 
 export interface IPlaylistObject {

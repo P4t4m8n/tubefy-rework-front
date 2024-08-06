@@ -3,6 +3,7 @@
   border-radius: $border-radius-1-2;
   background-color: $black-2;
   @include flex-direction-gap-padding(column, 0, 0);
+  max-width: 100%;
 
   .playlist-index {
     max-height: calc(100vh - 16rem);

@@ -11,6 +11,7 @@
 // Views
 @import "./views/PlaylistIndex.scss";
 @import "./views/PlaylistDetails.scss";
+@import "./views/SearchIndex.scss";
 
 /* ***Components*** */
 
@@ -45,6 +46,9 @@
 @import "./cmps/PlaylistDetails/PlaylistDetailsActions.scss";
 @import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
 @import "./cmps/PlaylistDetails/PlaylistSongsListPreview.scss";
+
+//SearchIndex
+@import "./cmps/SearchIndex/SearchIndexGenreList.scss";
 
 //GenericComponents
 @import "./cmps/GenericComponents/GenericModel.scss";

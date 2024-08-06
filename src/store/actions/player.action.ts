@@ -1,5 +1,5 @@
 // actionCreators.ts
-import { ISong } from "../../models/song.model";
+import { ISong, ISongYT } from "../../models/song.model";
 import { YouTubeEvent } from "react-youtube";
 import {
   SET_PLAYING_SONG,
@@ -12,7 +12,7 @@ import {
   ISetPlayerAction,
 } from "../../models/player.model";
 
-export const setPlayingSong = (song: ISong): ISetPlayingSongAction => ({
+export const setPlayingSong = (song: ISong|ISongYT): ISetPlayingSongAction => ({
   type: SET_PLAYING_SONG,
   payload: song,
 });

@@ -1,5 +1,5 @@
 import { IPlaylist } from "../models/playlist.model";
-import { ISong } from "../models/song.model";
+import { ISong, ISongYT } from "../models/song.model";
 import { setIsPlaying, setPlayingSong } from "../store/actions/player.action";
 import { setCurrentPlaylist } from "../store/actions/playlist.action";
 import { useAppSelector } from "./useStore";
@@ -20,8 +20,8 @@ export const usePlay = () => {
     return;
   };
 
-  const onSongPlay = (song: ISong) => {
-    if (playingSong?.id !== song.id) setPlayingSong(song);
+  const onSongPlay = (song: ISong|ISongYT) => {
+    if (playingSong?.youtubeId !== song.youtubeId) setPlayingSong(song);
 
     togglePlayPause();
   };

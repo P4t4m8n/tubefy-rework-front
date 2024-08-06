@@ -14,7 +14,12 @@ const routes: RouteConfig[] = [
     element: <PlaylistIndex />,
   },
 
-  { path: "playlist/:id", element: <PlaylistDetails /> },
+  { path: "playlist/:id",
+    element: <PlaylistDetails /> },
+  {
+    path: "/search",
+    element: <SearchIndex />,
+  },
   {
     path: "/search/:query",
     element: <SearchIndex />,

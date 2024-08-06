@@ -41,9 +41,20 @@ const getDaysSince = (dateString: string): number => {
   return differenceInDays;
 };
 
+const getRandomColor = (): string => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 3; i++) {
+    const value = Math.floor(Math.random() * 128);
+    color += letters[Math.floor(value / 16)] + letters[value % 16];
+  }
+  return color;
+};
+
 export const utilService = {
   createArrayFromType,
   debounce,
   getRandomIntInclusive,
   getDaysSince,
+  getRandomColor,
 };

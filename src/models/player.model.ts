@@ -1,5 +1,5 @@
 import { YouTubeEvent } from "react-youtube";
-import { ISong } from "./song.model";
+import { ISong, ISongYT } from "./song.model";
 
 export const SET_PLAYING_SONG = "SET_PLAYING_SONG";
 export const SET_VOLUME = "SET_VOLUME";
@@ -7,7 +7,7 @@ export const SET_IS_PLAYING = "SET_IS_PLAYING";
 export const SET_PLAYER = "SET_PLAYER";
 
 export interface IPlayerState {
-  playingSong: ISong | null;
+  playingSong: ISong | null | ISongYT;
   volume: number;
   isPlaying: boolean;
   player: YouTubeEvent | null;
@@ -21,7 +21,7 @@ export type TPlayerActionType =
 
 export interface ISetPlayingSongAction {
   type: typeof SET_PLAYING_SONG;
-  payload: ISong;
+  payload: ISong | ISongYT;
 }
 
 export interface ISetVolumeAction {

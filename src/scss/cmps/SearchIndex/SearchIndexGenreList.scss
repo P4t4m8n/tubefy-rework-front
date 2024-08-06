@@ -1,0 +1,57 @@
+.genre-list {
+  h2 {
+    padding-inline: 1rem;
+    color: $white-1;
+    font-size: $font-size-24;
+    font-weight: 800;
+    padding-bottom: 2rem;
+  }
+  ul {
+    max-height: calc(100vh - 18rem);
+    padding-inline: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 1rem;
+    overflow: auto;
+    @include no-scrollBar;
+    li {
+      width: 100%;
+      aspect-ratio: 2/1.15;
+      overflow: hidden;
+      border-radius: $border-radius-1-4;
+      a {
+        height: 100%;
+        position: relative;
+        width: 100%;
+        p {
+          font-size: $font-size-20;
+          color: $white-2;
+          font-weight: 500;
+          padding: 1rem;
+          transition: font-weight 0.3s;
+        }
+        img {
+          position: absolute;
+          width: 50%;
+          aspect-ratio: 1/1;
+          object-fit: fill;
+          rotate: 35deg;
+          right: -10%;
+          top: 55%;
+          border-radius: $border-radius-1-4;
+          transition: scale 0.3s ease-in-out;
+        }
+      }
+      &:hover {
+        p {
+          font-weight: 700;
+        }
+        a {
+          img {
+            scale: 1.1;
+          }
+        }
+      }
+    }
+  }
+}

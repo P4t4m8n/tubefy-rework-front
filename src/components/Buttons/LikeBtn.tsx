@@ -1,12 +1,12 @@
+import { IPlaylist } from "../../models/playlist.model";
+import { ISong, ISongYT } from "../../models/song.model";
 import { HeartSVG } from "../svg/SVGs";
 
 interface Props {
-  isLiked: boolean;
-  itemId: string|null;
+  item: ISongYT | ISong | IPlaylist;
 }
 
-export function LikeBtn({ isLiked, itemId }: Props) {
-
+export function LikeBtn({ isLiked, item }: Props) {
   const onLike = () => {};
 
   const btnClass = `like-btn ${isLiked ? "liked" : ""}`;
