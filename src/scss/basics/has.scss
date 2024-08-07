@@ -1,0 +1,9 @@
+body:has(.login-model) {
+  .login-model,
+  .login-model * {
+    pointer-events: all;
+  }
+  :not(.login-model, .login-model *) {
+    pointer-events: none;
+  }
+}

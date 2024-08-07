@@ -1,9 +1,122 @@
 .login-model-btn {
-  background-color: $white-2;
   padding: 0.75rem 1.5rem;
   border-radius: $border-radius-2;
   color: $black-2;
   font-weight: 700;
   font-size: $font-size-16;
   width: fit-content;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $gray-1;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in-out;
+    z-index: 0;
+  }
+  span {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover::before {
+    transform: translateX(0);
+  }
+}
+
+.login-model {
+  @include center-position(fixed);
+  @include model-boxShadow;
+  @include flex-direction-gap-padding(column, 1rem, 1rem);
+  container-type: inline-size;
+  container-name: login-model;
+  width: clamp(10rem, 100%, 40rem);
+  min-height: fit-content;
+  background-color: $black-2;
+  border-radius: $border-radius-1-2;
+  z-index: 10;
+  color: $white-1;
+  form {
+    height: 100%;
+    @include flex-direction-gap-padding(column, 0.5rem, 1rem);
+    li {
+      width: 100%;
+      @include flex-direction-gap-padding(column, 0.5rem, 0);
+      label {
+        padding-inline: 0.5rem;
+      }
+      input {
+        background-color: $black-6;
+        border-radius: $border-radius-1-2;
+        padding: 0.25rem 0.5rem;
+        font-size: $font-size-16;
+        color: $white-1;
+      }
+    }
+    .actions {
+      @include flex-direction-align-justify-gap-padding(
+        row,
+        center,
+        space-between,
+        0,
+        0
+      );
+      margin-top: auto;
+      button {
+        padding: 0.75rem 1.5rem;
+        border-radius: $border-radius-2;
+        color: $black-2;
+        font-weight: 700;
+        font-size: $font-size-16;
+        width: fit-content;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        z-index: inherit;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: $gray-1;
+          transform: translateX(-100%);
+          transition: transform 0.4s ease-in-out;
+          z-index: inherit;
+        }
+        span {
+          position: relative;
+          z-index: 110;
+        }
+
+        &:hover::before {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+}
+
+@container login-model (max-width:24rem) {
+  .login-model {
+    form {
+      .actions {
+        flex-direction: column;
+        gap: 2rem;
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

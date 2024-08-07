@@ -1,44 +1,39 @@
 import { FormEvent, useRef, useState } from "react";
+import { getLoginInputs } from "../../util/user.util";
+import { useModel } from "../../hooks/useModel";
+import { login, signup } from "../../store/actions/user.action";
 
 export default function Login() {
   const loginModelRef = useRef<HTMLDivElement>(null);
-  const [isModelOpen, setIsModelOpen] = useState(false);
+  const [isModelOpen, setIsModelOpen] = useModel(loginModelRef);
+  console.log("isModelOpen:", isModelOpen)
   const [isLogin, setIsLogin] = useState(true);
 
-  const onSubmit = (ev: FormEvent) => {
+  const onSubmit = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
-    // isLogin ? login() : signup();
+    const form = ev.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const email = formData.get("email") as string;
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+
+    isLogin
+      ? login({ email, password })
+      : signup({ email, password, username });
   };
 
-  const inputs: {
-    type: "text" | "password" | "email";
-    placeHolder: string;
-    name: string;
-    label: string;
-  }[] = [
-    {
-      type: "text",
-      placeHolder: "Username",
-      name: "username",
-      label: "Username",
-    },
-    {
-      type: "email",
-      placeHolder: "Email",
-      name: "email",
-      label: "Email",
-    },
-    {
-      type: "password",
-      placeHolder: "Password",
-      name: "password",
-      label: "Password",
-    },
-  ];
+  const inputs = getLoginInputs(isLogin);
+
   return (
     <>
-      <button className="login-model-btn" onClick={() => setIsModelOpen(true)}>Log in</button>
+      <button className="login-model-btn" onClick={(ev) =>{ 
+        ev.preventDefault();
+        ev.stopPropagation();
+        setIsModelOpen(true)}}>
+        <span>Log in</span>
+      </button>
       {isModelOpen && (
         <div
           ref={loginModelRef}
@@ -47,23 +42,34 @@ export default function Login() {
         >
           <h2>{!isLogin ? "Sign up to start listing" : "Login to Tubefy"}</h2>
           <form onSubmit={onSubmit}>
-            {inputs.map((input) => (
-              <>
+            {inputs.map((input,idx) => (
+              <li key={idx}>
                 <label htmlFor={input.name}>{input.label}</label>
                 <input
                   type={input.type}
                   placeholder={input.placeHolder}
                   name={input.name}
                 />
-              </>
+              </li>
             ))}
-            <button type="submit">{!isLogin ? " Sign up" : "Sign in"}</button>
+            <div className="actions">
+              <button
+                onClick={(ev) => {
+                  ev.preventDefault();
+                  setIsLogin(!isLogin);
+                }}
+              >
+                <span>
+                  {!isLogin
+                    ? "Already a member? Login"
+                    : "Don't have an account? Sign Up"}
+                </span>
+              </button>
+              <button type="submit">
+                <span>{!isLogin ? " Sign up" : "Sign in"}</span>
+              </button>
+            </div>
           </form>
-          <button onClick={() => setIsLogin(!isLogin)}>
-            {!isLogin
-              ? "Already a member? Login"
-              : "Don't have an account? Sign Up"}
-          </button>
         </div>
       )}
     </>

@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 export const useModel = (
   ref: React.RefObject<
     | HTMLDivElement
@@ -16,25 +10,24 @@ export const useModel = (
   callBack?: null | (() => void)
 ): [boolean, Dispatch<SetStateAction<boolean>>] => {
   const [open, setOpen] = useState(false);
-  const checkClickOutside = useCallback(
-    (ev: MouseEvent) => {
-      if (!ev.target) return;
-      if (!open) return;
 
-      if (ref.current?.contains(ev.target as Node)) return;
-
-      setOpen(false);
-      if (callBack) callBack();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ref]
-  );
   useEffect(() => {
     document.addEventListener("click", checkClickOutside);
     return () => {
       document.removeEventListener("click", checkClickOutside);
     };
-  }, [open, ref, checkClickOutside]);
+  }, [open, ref.current]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const checkClickOutside = (ev: any) => {
+    if (!ev.target) return;
+    if (!open) return;
+    if (ref.current?.contains(ev.target as Node)) return;
+    console.log("aaa");
+
+    setOpen(false);
+    if (callBack) callBack();
+  };
 
   return [open, setOpen];
 };

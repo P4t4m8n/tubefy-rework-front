@@ -5,6 +5,7 @@ import {
   IUserLoginDTO,
 } from "../../models/user.model";
 import { userService } from "../../services/user.service";
+// import { userFormValidation } from "../../validations/auth";
 import { store } from "../store";
 
 export const setUser = (user: IUser | null): IUserAction => ({
@@ -14,11 +15,32 @@ export const setUser = (user: IUser | null): IUserAction => ({
 
 export const login = async (userLogin: IUserLoginDTO): Promise<void> => {
   try {
+    // const parsedUser = userFormValidation.loginFormSchema.parse(userLogin);
+    // if (!parsedUser) {
+    //   console.error(`Error while parsing user: ${parsedUser}`);
+    //   return;
+    // }
     const user = await userService.login(userLogin);
     store.dispatch(setUser(user));
     return;
   } catch (error) {
     console.error(`Error while logging in: ${error}`);
+    return;
+  }
+};
+
+export const signup = async (userToCreate: IUserCreateDTO): Promise<void> => {
+  try {
+    // const parsedUser = userFormValidation.signupFormSchema.parse(userToCreate);
+    // if (!parsedUser) {
+    //   console.error(`Error while parsing user: ${parsedUser}`);
+    //   return;
+    // }
+    const user = await userService.signup(userToCreate);
+    store.dispatch(setUser(user));
+    return;
+  } catch (error) {
+    console.error(`Error while signing up: ${error}`);
     return;
   }
 };
@@ -30,17 +52,6 @@ export const logout = async (): Promise<void> => {
     return;
   } catch (error) {
     console.error(`Error while logging out: ${error}`);
-    return;
-  }
-};
-
-export const signup = async (userToCreate: IUserCreateDTO): Promise<void> => {
-  try {
-    const user = await userService.signup(userToCreate);
-    store.dispatch(setUser(user));
-    return;
-  } catch (error) {
-    console.error(`Error while signing up: ${error}`);
     return;
   }
 };

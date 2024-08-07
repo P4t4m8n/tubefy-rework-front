@@ -1,3 +1,5 @@
+import { loginInputs } from "./constants.util";
+
 export type TGreetings =
   | "Good night"
   | "Good morning"
@@ -41,4 +43,8 @@ export const getGreeting = (): TGreetings => {
     default:
       return "Good day";
   }
+};
+
+export const getLoginInputs = (isLogin: boolean) => {
+  return isLogin ? loginInputs.slice(1) : loginInputs;
 };

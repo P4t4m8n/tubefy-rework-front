@@ -2,6 +2,7 @@ import { IUser, IUserCreateDTO, IUserLoginDTO } from "../models/user.model";
 import { httpService } from "./http.service";
 
 const STORAGE_KEY = "loggedInUser";
+const BASE_URL = "auth/";
 
 const getLoggedinUser = (): null | IUser => {
   const session = sessionStorage.getItem(STORAGE_KEY);
@@ -19,7 +20,7 @@ const _setLoggedInUser = (user?: IUser) => {
 };
 
 const login = async (userCreateDTO: IUserLoginDTO): Promise<IUser> => {
-  const user = await httpService.post<IUser>("/auth/login", userCreateDTO);
+  const user = await httpService.post<IUser>(BASE_URL + "login", userCreateDTO);
   _setLoggedInUser(user);
   return user;
 };
@@ -31,7 +32,10 @@ const logout = async (): Promise<boolean> => {
 };
 
 const signup = async (userCreateDTO: IUserCreateDTO): Promise<IUser> => {
-  const user = await httpService.post<IUser>("/auth/signup", userCreateDTO);
+  const user = await httpService.post<IUser>(
+    BASE_URL + "signup",
+    userCreateDTO
+  );
   _setLoggedInUser(user);
   return user;
 };

@@ -7,8 +7,8 @@ export interface IUserSmall {
   email: string;
   avatarUrl: string;
 }
-export interface IUserCreateDTO extends IUserSmall {
-  password?: string;
+export interface IUserCreateDTO extends IUserLoginDTO {
+  username: string;
 }
 export interface IUserLoginDTO {
   email: string;
