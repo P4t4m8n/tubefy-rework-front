@@ -1,24 +1,25 @@
-import { MouseEvent } from "react";
+import { memo, MouseEvent } from "react";
 import { usePlay } from "../../hooks/usePlay";
 import { IPlaylist } from "../../models/playlist.model";
 import { ISong, ISongYT } from "../../models/song.model";
 import { PauseSVG, PlaySVG } from "../svg/SVGs";
-import { useAppSelector } from "../../hooks/useStore";
+import { isSong } from "../../util/player.util";
 
 interface Props {
   item: ISong | IPlaylist | ISongYT;
 }
 
-// Type guard to check if item is ISong or ISongYT
-function isSong(item: ISong | IPlaylist | ISongYT): item is ISong | ISongYT {
-  return (item as ISong).youtubeId !== undefined;
-}
-
-export default function PlayBtn({ item }: Props) {
-  const { onPlaylistPlay, onSongPlay, isPlaying, playingSong } = usePlay();
-  const { currentPlaylist } = useAppSelector((state) => state.playlists);
+function PlayBtn({ item }: Props) {
+  const {
+    onPlaylistPlay,
+    onSongPlay,
+    isPlaying,
+    playingSong,
+    currentPlaylist,
+  } = usePlay();
 
   const onPlay = (ev: MouseEvent) => {
+    ev.preventDefault();
     ev.stopPropagation();
     if ("songs" in item) {
       onPlaylistPlay(item);
@@ -27,16 +28,17 @@ export default function PlayBtn({ item }: Props) {
     }
   };
 
+  const showSongPlay =
+    isSong(item) && playingSong?.youtubeId === item.youtubeId;
+  const showPlaylistPlay = "id" in item && item.id === currentPlaylist?.id;
   const buttonClass =
-    isPlaying &&
-    ((isSong(item) && playingSong?.youtubeId === item.youtubeId) ||
-      ("id" in item && item.id === currentPlaylist?.id))
-      ? "playing"
-      : "";
+    isPlaying && (showSongPlay || showPlaylistPlay) ? "playing" : "";
 
   return (
     <button onClick={onPlay} className={`play-btn ${buttonClass}`}>
-      {isPlaying ? <PauseSVG /> : <PlaySVG />}
+      {isPlaying && (showSongPlay || showPlaylistPlay) ? <PauseSVG /> : <PlaySVG />}
     </button>
   );
 }
+
+export default memo(PlayBtn);

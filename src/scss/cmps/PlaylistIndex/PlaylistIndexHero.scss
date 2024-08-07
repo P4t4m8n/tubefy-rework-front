@@ -17,6 +17,8 @@
       border-radius: $border-radius-1-4;
       background-color: rgba(255, 255, 255, 0.1);
       transition: background-color 0.3s;
+      container-type: inline-size;
+      container-name: playlist-hero-list-item;
 
       a {
         width: 100%;
@@ -32,6 +34,42 @@
         h3 {
           font-size: $font-size-16;
           color: $white-1;
+        }
+      }
+      button {
+        position: absolute;
+        background-color: $green-1;
+        border-radius: 100vw;
+        width: 3rem;
+        right: 10%;
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.25s ease-in-out, right 0.4s ease-in-out,
+          box-shadow 0.4s ease-in-out, scale 0.2s ease-in-out;
+
+        @include flex-direction-align-justify-gap-padding(
+          row,
+          center,
+          center,
+          0,
+          0.75rem
+        );
+      }
+
+      &:hover {
+        background-color: $black-5;
+
+        button {
+          right: 5%;
+          opacity: 1;
+          pointer-events: all;
+          cursor: pointer;
+
+          &:hover {
+            scale: 1.05;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+          }
         }
       }
       &:hover {
@@ -66,11 +104,22 @@
 
 @media (max-width: 60rem) {
   .playlist-index-hero {
-    h2 {
-    }
     ul {
       grid-template-columns: repeat(2, minmax(8rem, 1fr));
       grid-template-rows: repeat(4, 3rem);
+    }
+  }
+}
+
+@container playlist-hero-list-item (max-width:12.5rem) {
+  .playlist-list-preview-info {
+    h3 {
+      font-size: $font-size-14;
+      @include text-overflow-ellipsis;
+    }
+    p {
+      font-size: $font-size-12;
+      @include text-overflow-ellipsis;
     }
   }
 }

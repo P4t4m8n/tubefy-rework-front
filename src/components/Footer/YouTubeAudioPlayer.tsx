@@ -16,7 +16,7 @@ import { youTubePlayer } from "../../services/player.service";
 
 export function YouTubeAudioPlayer() {
   // console.log("YouTubeAudioPlayer");
-  const { playingSong, isPlaying, volume, currentPlaylist, togglePlayPause } =
+  const { playingSong, isPlaying, currentPlaylist, togglePlayPause } =
     usePlay();
 
   const stationIdx = useRef(0);
@@ -84,12 +84,14 @@ export function YouTubeAudioPlayer() {
 
   const onReady = (ev: YouTubeEvent) => {
     youTubePlayer.setPlayer(ev.target);
-    youTubePlayer.setVolume(volume);
+    youTubePlayer.setVolume(50);
   };
 
   if (!playingSong) return;
 
-  const { youtubeId } = playingSong;
+  const { youtubeId,name } = playingSong;
+  console.log("name:", name)
+  console.log("youtubeId:", youtubeId)
 
   return (
     <section className="player">

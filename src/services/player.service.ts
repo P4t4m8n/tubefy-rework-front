@@ -24,7 +24,7 @@ export class YouTubePlayer {
   }
 
   getCurrentTime(): number {
-    return this.player?.getCurrentTime() || 0;
+    return this.player?.getCurrentTime() ||50;
   }
 
   getDuration(): number {

@@ -3,7 +3,7 @@ import { FullScreenSVG, VolumeSVG } from "../svg/SVGs";
 import { youTubePlayer } from "../../services/player.service";
 
 export function PlayerVolumeControl() {
-  const [volume, setVolume] = useState(youTubePlayer.getVolume());
+  const [volume, setVolume] = useState(50);
 
   const handleVolumeChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseInt(ev.target.value, 10);

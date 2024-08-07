@@ -32,3 +32,11 @@ export const toggleIsPlaying = (isPlaying: boolean): ISetIsPlayingAction => ({
 export const setIsPlaying = (isPlaying: boolean) => {
   store.dispatch(toggleIsPlaying(isPlaying));
 };
+
+export const loadSong = (song: ISong | ISongYT) => {
+  store.dispatch(setPlayingSong(song));
+};
+
+export const loadCurrentPlaylist = (playlist: IPlaylist) => {
+  store.dispatch(setCurrentPlaylist(playlist));
+};

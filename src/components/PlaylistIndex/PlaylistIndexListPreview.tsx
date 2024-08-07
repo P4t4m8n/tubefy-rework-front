@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { IPlaylist } from "../../models/playlist.model";
+import PlayBtn from "../Buttons/PlayBtn";
 
 interface Props {
   playlist: IPlaylist;
@@ -22,6 +23,7 @@ export default function PlaylistIndexListPreview({ playlist }: Props) {
           <h3>{name}</h3>
           <p>{description || songs[0]?.artist || "!!!"}</p>
         </div>
+          <PlayBtn item={playlist} />
       </Link>
     </li>
   );

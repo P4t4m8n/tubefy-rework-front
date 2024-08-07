@@ -1,22 +1,28 @@
 import { IPlaylist } from "../models/playlist.model";
 import { ISong, ISongYT } from "../models/song.model";
 import { youTubePlayer } from "../services/player.service";
-import { setIsPlaying, setPlayingSong } from "../store/actions/player.action";
+import {
+  loadCurrentPlaylist,
+  loadSong,
+  setIsPlaying,
+  setPlayingSong,
+} from "../store/actions/player.action";
 import { useAppSelector } from "./useStore";
 
 export const usePlay = () => {
-  const { playingSong, isPlaying, volume } = useAppSelector(
+  const { playingSong, isPlaying, currentPlaylist } = useAppSelector(
     (state) => state.player
   );
-  const { currentPlaylist } = useAppSelector((state) => state.playlists);
 
   const onPlaylistPlay = (playlist: IPlaylist) => {
     if (playlist.id !== currentPlaylist?.id) {
-      setCurrentPlaylist(playlist);
-      setPlayingSong(playlist.songs[0]);
+      loadCurrentPlaylist(playlist);
+      loadSong(playlist.songs[0]);
+      youTubePlayer.playVideo();
+      setIsPlaying(true);
+    } else {
+      togglePlayPause();
     }
-
-    togglePlayPause();
     return;
   };
 
@@ -39,7 +45,6 @@ export const usePlay = () => {
   return {
     playingSong,
     isPlaying,
-    volume,
     currentPlaylist,
     onPlaylistPlay,
     onSongPlay,
