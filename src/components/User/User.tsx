@@ -1,26 +1,44 @@
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useStore";
 import { MouseEvent } from "react";
-import { UserIconSVG } from "../svg/SVGs";
+import { LogoutSVG, UserIconSVG } from "../svg/SVGs";
 import Login from "./Login";
+import { IGenericModelItem } from "../../models/app.model";
+import GenericModel from "../GenericComponents/GenericModel";
+import { logout } from "../../store/actions/user.action";
 
 export function User() {
   const { user } = useAppSelector((state) => state.user);
 
-  const navigate = useNavigate();
-
-  async function onLogout(ev: MouseEvent) {
+  async function onLogout(ev?: MouseEvent) {
+    if (!ev) return;
     ev.preventDefault();
+    logout();
+    console.log("Logout");
   }
 
+  const userModelItems: IGenericModelItem[] = [
+    {
+      svg: <UserIconSVG />,
+      text: "Profile",
+      link: "/profile",
+    },
+    {
+      svg: <LogoutSVG />,
+      text: "Logout",
+      onClick: onLogout,
+    },
+  ];
+  const ifNoUserAvatar = !user?.avatarUrl ? <UserIconSVG /> : undefined;
   return (
-    <>
+    <div className="header-user-btn">
       {!user && <Login />}
       {user && (
-        <button onClick={onLogout}>
-          {user.avatarUrl ? <img src={user.avatarUrl}></img> : <UserIconSVG />}
-        </button>
+        <GenericModel
+          imgUrl={user.avatarUrl}
+          items={userModelItems}
+          btnSvg={ifNoUserAvatar}
+        />
       )}
-    </>
+    </div>
   );
 }

@@ -6,10 +6,16 @@ import { IGenericModelItem } from "../../models/app.model";
 interface Props {
   children?: React.ReactNode;
   items?: IGenericModelItem[];
-  btnSvg: JSX.Element;
+  btnSvg?: JSX.Element;
+  imgUrl?: string;
 }
 
-export default function GenericModel({ children, items, btnSvg }: Props) {
+export default function GenericModel({
+  children,
+  items,
+  btnSvg,
+  imgUrl,
+}: Props) {
   const modelRef = useRef<HTMLUListElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
 
@@ -17,9 +23,11 @@ export default function GenericModel({ children, items, btnSvg }: Props) {
     <>
       <button
         className="generic-model-btn"
-        onClick={() => setIsModelOpen(true)}
+        onClick={(ev) => {
+          ev.stopPropagation();
+          setIsModelOpen(true)}}
       >
-        {btnSvg}
+        {btnSvg ? btnSvg : <img src={imgUrl} alt="user" />}
       </button>
       {isModelOpen && (
         <ul className="generic-model" ref={modelRef}>
@@ -29,13 +37,13 @@ export default function GenericModel({ children, items, btnSvg }: Props) {
               <li key={index}>
                 {item.link ? (
                   <Link to={item.link}>
-                    {item.svg}
                     <span>{item.text}</span>
+                    {item.svg}
                   </Link>
                 ) : (
                   <button onClick={item.onClick}>
-                    {item.svg}
                     <span>{item.text}</span>
+                    {item.svg}
                   </button>
                 )}
               </li>

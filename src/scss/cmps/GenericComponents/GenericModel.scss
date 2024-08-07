@@ -1,5 +1,5 @@
 .generic-model {
-  @include flex-direction-gap-padding(column, 0.25rem, 0.75rem);
+  @include flex-direction-gap-padding(column, 0.75rem, 0.75rem);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
     rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
   background-color: $black-3;
@@ -7,15 +7,37 @@
   top: 2rem;
   width: 11rem;
   right: 0;
+  z-index: 1;
   border-radius: $border-radius-1-4;
   li {
     width: 100%;
-    a {
-      @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
+    position: relative;
+    overflow: hidden;
+    a,
+    button {
+      @include flex-direction-align-justify-gap-padding(
+        row,
+        center,
+        space-between,
+        0,
+        0.25rem 0.5rem
+      );
+      cursor: pointer;
+
       width: 100%;
+      background-color: inherit;
+
+      @include btn-chn-color($black-6);
+      border-radius: $border-radius-1-2;
       svg {
         width: 1rem;
         fill: $white-2;
+        background-color: inherit;
+      }
+      img,
+      span,
+      svg {
+        z-index: 2;
       }
       span {
         color: $white-2;

@@ -20,14 +20,16 @@ export const useModel = (
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const checkClickOutside = (ev: any) => {
+    console.log("(ref.current:", (ref.current))
     if (!ev.target) return;
     if (!open) return;
     if (ref.current?.contains(ev.target as Node)) return;
-    console.log("aaa");
+
 
     setOpen(false);
     if (callBack) callBack();
   };
+    console.log("open:", open)
 
   return [open, setOpen];
 };

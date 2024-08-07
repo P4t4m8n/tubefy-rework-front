@@ -1,6 +1,8 @@
+import { MouseEvent } from "react";
+
 export interface IGenericModelItem {
   svg: JSX.Element;
   text: string;
   link?: string;
-  onClick?: () => void;
+  onClick?: (ev?: MouseEvent) => void;
 }

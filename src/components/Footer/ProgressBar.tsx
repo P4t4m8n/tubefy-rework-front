@@ -37,7 +37,6 @@ export function ProgressBar({ song }: Props) {
     const newTime = clickPosition * youTubePlayer.getDuration();
 
     youTubePlayer.seekTo(newTime);
-    // setProgress(clickPosition);
   }
 
   const makeTime = (): {

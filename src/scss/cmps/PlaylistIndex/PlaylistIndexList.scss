@@ -1,7 +1,7 @@
 .playlist-index-list {
   @include flex-direction-gap-padding(column, 1rem, 0.75rem);
   container-type: inline-size;
-  container-name:playlist-index-list ;
+  container-name: playlist-index-list;
 
   .playlist-list {
     h2 {
@@ -48,26 +48,12 @@
         }
 
         button {
-          position: absolute;
-          background-color: $green-1;
-          border-radius: 100vw;
-          width: 3rem;
+          @include play-btn;
           right: 10%;
           bottom: 20%;
-          opacity: 0;
-          pointer-events: none;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           transition: opacity 0.25s ease-in-out, bottom 0.4s ease-in-out,
             box-shadow 0.4s ease-in-out, scale 0.2s ease-in-out;
-
-          @include flex-direction-align-justify-gap-padding(
-            row,
-            center,
-            center,
-            0,
-            0.75rem
-          );
-          &.playing{
+          &.playing {
             bottom: 25%;
             opacity: 1;
             pointer-events: all;

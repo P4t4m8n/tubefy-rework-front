@@ -28,6 +28,7 @@
 
 //User
 @import "./cmps/User/Login.scss";
+@import "./cmps/User/User.scss";
 
 //Search
 @import "./cmps/Search.scss";
@@ -50,6 +51,8 @@
 
 //SearchIndex
 @import "./cmps/SearchIndex/SearchIndexGenreList.scss";
+@import "./cmps/SearchIndex/SearchIndexPlaylist.scss";
+@import "./cmps/SearchIndex/SearchIndexSongs.scss";
 
 //GenericComponents
 @import "./cmps/GenericComponents/GenericModel.scss";

@@ -22,13 +22,13 @@
     transition: transform 0.4s ease-in-out;
     z-index: 0;
   }
+  
+  &:hover::before {
+    transform: translateX(0);
+  }
   span {
     position: relative;
     z-index: 1;
-  }
-
-  &:hover::before {
-    transform: translateX(0);
   }
 }
 

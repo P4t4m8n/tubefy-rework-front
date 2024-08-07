@@ -36,7 +36,11 @@ function PlayBtn({ item }: Props) {
 
   return (
     <button onClick={onPlay} className={`play-btn ${buttonClass}`}>
-      {isPlaying && (showSongPlay || showPlaylistPlay) ? <PauseSVG /> : <PlaySVG />}
+      {isPlaying && (showSongPlay || showPlaylistPlay) ? (
+        <PauseSVG />
+      ) : (
+        <PlaySVG />
+      )}
     </button>
   );
 }

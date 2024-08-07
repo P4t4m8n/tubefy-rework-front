@@ -89,9 +89,7 @@ export function YouTubeAudioPlayer() {
 
   if (!playingSong) return;
 
-  const { youtubeId,name } = playingSong;
-  console.log("name:", name)
-  console.log("youtubeId:", youtubeId)
+  const { youtubeId } = playingSong;
 
   return (
     <section className="player">

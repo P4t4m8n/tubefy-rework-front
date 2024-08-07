@@ -1,0 +1,24 @@
+.header-user-btn {
+  position: relative;
+  .generic-model-btn {
+    background-color: $black-3;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    fill: $gray-1;
+    border-radius: 100vw;
+    transition: fill 0.3s ease-in-out scale 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      fill: $green-1;
+      svg {
+        scale: 1.05;
+      }
+    }
+  }
+
+  .generic-model {
+    top: 3rem;
+    
+  }
+}

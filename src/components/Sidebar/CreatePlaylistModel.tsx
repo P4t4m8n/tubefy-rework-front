@@ -11,7 +11,10 @@ export default function CreatePlaylistModel() {
     <>
       <button
         className="create-playlist-model-btn"
-        onClick={() => setIsModelOpen(true)}
+        onClick={(ev) => {
+          ev.stopPropagation();
+          setIsModelOpen(true);
+        }}
       >
         <PlusSVG />
       </button>
@@ -19,8 +22,8 @@ export default function CreatePlaylistModel() {
         <ul className="create-playlist-model" ref={modelRef}>
           <li>
             <Link to="/playlist/edit">
-              <CreatePlaylistSVG />
               <span>Create a new playlist</span>
+              <CreatePlaylistSVG />
             </Link>
           </li>
         </ul>
