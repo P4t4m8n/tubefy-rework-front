@@ -39,6 +39,17 @@ export interface ISetPlayerAction {
   payload: YouTubeEvent;
 }
 
+export interface IYouTubePlayer {
+  volume: number;
+  pauseVideo: () => void;
+  playVideo: () => void;
+  getVolume: () => number;
+  setVolume: (volume: number) => void;
+  getDuration: () => number;
+  getCurrentTime: () => number;
+  seekTo: (time: number) => void;
+}
+
 export type PlayerActionTypes =
   | ISetPlayingSongAction
   | ISetVolumeAction

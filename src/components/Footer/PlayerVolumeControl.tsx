@@ -1,26 +1,23 @@
-import { ChangeEvent } from "react";
-import { setVolume } from "../../store/actions/player.action";
-import { useAppSelector } from "../../hooks/useStore";
+import { ChangeEvent, useState } from "react";
 import { FullScreenSVG, VolumeSVG } from "../svg/SVGs";
+import { youTubePlayer } from "../../services/player.service";
 
 export function PlayerVolumeControl() {
-  const { volume, player } = useAppSelector((state) => state.player);
+  const [volume, setVolume] = useState(youTubePlayer.getVolume());
 
   const handleVolumeChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseInt(ev.target.value, 10);
+    if (youTubePlayer.isPlayerReady()) youTubePlayer.setVolume(newVolume);
     setVolume(newVolume);
-    if (player) {
-      player.target.setVolume(newVolume);
-    }
   };
 
   const onSetVolume = () => {
+    if (!youTubePlayer.isPlayerReady()) return;
     let vol = 100;
+    const volume = youTubePlayer.getVolume();
     if (volume > 0) vol = 0;
+    youTubePlayer.setVolume(vol);
     setVolume(vol);
-    if (player) {
-      player.target.setVolume(vol);
-    }
   };
 
   const toggleFullScreen = () => {
@@ -35,7 +32,10 @@ export function PlayerVolumeControl() {
 
   return (
     <section className="footer-right">
-      <button onClick={onSetVolume}>
+      <button
+        className={`${volume === 0 ? "no-vol" : ""} volume-btn`}
+        onClick={onSetVolume}
+      >
         <VolumeSVG />
       </button>
 

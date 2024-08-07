@@ -1,5 +1,6 @@
 import { IPlaylist } from "../models/playlist.model";
 import { ISong, ISongYT } from "../models/song.model";
+import { youTubePlayer } from "../services/player.service";
 import { setIsPlaying, setPlayingSong } from "../store/actions/player.action";
 import { setCurrentPlaylist } from "../store/actions/playlist.action";
 import { useAppSelector } from "./useStore";
@@ -20,7 +21,7 @@ export const usePlay = () => {
     return;
   };
 
-  const onSongPlay = (song: ISong|ISongYT) => {
+  const onSongPlay = (song: ISong | ISongYT) => {
     if (playingSong?.youtubeId !== song.youtubeId) setPlayingSong(song);
 
     togglePlayPause();
@@ -28,10 +29,10 @@ export const usePlay = () => {
 
   const togglePlayPause = () => {
     if (isPlaying) {
-      player?.target.pauseVideo();
+      youTubePlayer.pauseVideo();
       setIsPlaying(false);
     } else {
-      player?.target.playVideo();
+      youTubePlayer.playVideo();
       setIsPlaying(true);
     }
   };

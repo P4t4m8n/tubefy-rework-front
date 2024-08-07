@@ -1,14 +1,13 @@
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { formatTime } from "../../util/player.util";
-import { ISong } from "../../models/song.model";
-import { YouTubeEvent } from "react-youtube";
+import { ISong, ISongYT } from "../../models/song.model";
+import { youTubePlayer } from "../../services/player.service";
 
 interface Props {
-  song: ISong | null;
-  player: YouTubeEvent | null;
+  song: ISong | null | ISongYT;
 }
 
-export function ProgressBar({ song, player }: Props) {
+export function ProgressBar({ song }: Props) {
   const [progress, setProgress] = useState<{
     progressPercentage: number;
     timeElapsed: string;
@@ -19,15 +18,15 @@ export function ProgressBar({ song, player }: Props) {
 
   useEffect(() => {
     const updateProgress = () => {
-      const progressObj = makeTime(player);
+      const progressObj = makeTime();
       setProgress({ ...progressObj });
     };
 
-    if (player) {
+    if (youTubePlayer.isPlayerReady()) {
       clearInterval(intervalId.current);
       intervalId.current = setInterval(updateProgress, 237);
     }
-  }, [player, song]);
+  }, [song, youTubePlayer.isPlayerReady()]);
 
   function handleProgressbar(ev: MouseEvent<HTMLDivElement>) {
     const progressBar = ev.target as HTMLDivElement;
@@ -35,23 +34,21 @@ export function ProgressBar({ song, player }: Props) {
     const clickPosition =
       (ev.clientX - progressBar.getBoundingClientRect().left) /
       progressBar.offsetWidth;
-    const newTime = clickPosition * player!.target.getDuration();
+    const newTime = clickPosition * youTubePlayer.getDuration();
 
-    player!.target.seekTo(newTime);
+    youTubePlayer.seekTo(newTime);
     // setProgress(clickPosition);
   }
 
-  const makeTime = (
-    player: YouTubeEvent | null
-  ): {
+  const makeTime = (): {
     progressPercentage: number;
     timeElapsed: string;
     time: string;
   } => {
     if (
-      !player ||
-      !player.target.getCurrentTime ||
-      !player.target.getDuration
+      !youTubePlayer ||
+      !youTubePlayer.getCurrentTime ||
+      !youTubePlayer.getDuration
     ) {
       return {
         progressPercentage: 0,
@@ -60,8 +57,8 @@ export function ProgressBar({ song, player }: Props) {
       };
     }
 
-    const currentTime = player.target.getCurrentTime();
-    const duration = player.target.getDuration();
+    const currentTime = youTubePlayer.getCurrentTime();
+    const duration = youTubePlayer.getDuration();
     const progressPercentage = (currentTime / duration) * 100;
     const timeElapsed = formatTime(currentTime);
     const time = formatTime(duration);

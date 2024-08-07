@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { setPlayer, setPlayingSong } from "../../store/actions/player.action";
+import { setPlayingSong } from "../../store/actions/player.action";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import { utilService } from "../../util/util.util";
 import {
@@ -12,16 +12,12 @@ import {
 } from "../svg/SVGs";
 import { usePlay } from "../../hooks/usePlay";
 import { ProgressBar } from "./ProgressBar";
+import { youTubePlayer } from "../../services/player.service";
 
 export function YouTubeAudioPlayer() {
-  const {
-    playingSong,
-    isPlaying,
-    player,
-    volume,
-    currentPlaylist,
-    togglePlayPause,
-  } = usePlay();
+  // console.log("YouTubeAudioPlayer");
+  const { playingSong, isPlaying, volume, currentPlaylist, togglePlayPause } =
+    usePlay();
 
   const stationIdx = useRef(0);
   const isRepeat = useRef(false);
@@ -87,8 +83,9 @@ export function YouTubeAudioPlayer() {
   };
 
   const onReady = (ev: YouTubeEvent) => {
-    setPlayer(ev.target);
-    ev.target.setVolume(volume);
+    console.log("ev.target:", ev.target);
+    youTubePlayer.setPlayer(ev.target);
+    youTubePlayer.setVolume(volume);
   };
 
   if (!playingSong) return;
@@ -114,7 +111,7 @@ export function YouTubeAudioPlayer() {
           <RepeatSVG></RepeatSVG>
         </button>
       </div>
-      <ProgressBar song={playingSong} player={player} />
+      <ProgressBar song={playingSong} />
       <YouTube
         className="video"
         videoId={youtubeId}
