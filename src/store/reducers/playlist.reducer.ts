@@ -1,32 +1,20 @@
 import {
   IPlaylistState,
-  PlaylistActionTypes,
-  TPlaylistActionType,
+  TPlaylistActionTypes,
   SET_MAIN_PLAYLISTS,
-  SET_CURRENT_PLAYLIST,
-  IPlaylistObject,
-  IPlaylist,
 } from "../../models/playlist.model";
 
 const initialState: IPlaylistState = {
   mainPlaylists: [],
-  currentPlaylist: null,
 };
-
-const playlistsActions: Record<TPlaylistActionType, TPlaylistActionType> = {
-  SET_MAIN_PLAYLISTS: SET_MAIN_PLAYLISTS,
-  SET_CURRENT_PLAYLIST: SET_CURRENT_PLAYLIST,
-} as const;
 
 export const playlistReducer = (
   state = initialState,
-  action: PlaylistActionTypes
+  action: TPlaylistActionTypes
 ): IPlaylistState => {
   switch (action.type) {
-    case playlistsActions.SET_MAIN_PLAYLISTS:
-      return { ...state, mainPlaylists: action.payload as IPlaylistObject[] };
-    case playlistsActions.SET_CURRENT_PLAYLIST:
-      return { ...state, currentPlaylist: action.payload as IPlaylist };
+    case SET_MAIN_PLAYLISTS:
+      return { ...state, mainPlaylists: action.payload };
     default:
       return state;
   }

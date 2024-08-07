@@ -83,7 +83,6 @@ export function YouTubeAudioPlayer() {
   };
 
   const onReady = (ev: YouTubeEvent) => {
-    console.log("ev.target:", ev.target);
     youTubePlayer.setPlayer(ev.target);
     youTubePlayer.setVolume(volume);
   };

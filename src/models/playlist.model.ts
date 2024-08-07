@@ -2,6 +2,10 @@ import { TGreetings } from "../util/user.util";
 import { ISong, ISongYT } from "./song.model";
 import { IUserSmall } from "./user.model";
 
+//Constants
+export const SET_MAIN_PLAYLISTS = "SET_MAIN_PLAYLISTS";
+
+//Interfaces
 export interface IPlaylist {
   name: string;
   imgUrl: string;
@@ -15,7 +19,6 @@ export interface IPlaylist {
   isPublic: boolean;
   id: string;
 }
-
 export interface IPlaylistYT {
   name: string;
   imgUrl: string;
@@ -24,7 +27,6 @@ export interface IPlaylistYT {
   duration: string;
   isPublic: boolean;
 }
-
 export interface IPlaylistDetailed extends IPlaylist {
   isLikedByUser: boolean;
   createdAt: string;
@@ -32,7 +34,6 @@ export interface IPlaylistDetailed extends IPlaylist {
     count: number;
   };
 }
-
 export interface IPlaylistDTO {
   id?: string;
   name: string;
@@ -41,7 +42,6 @@ export interface IPlaylistDTO {
   duration: string;
   description: string;
 }
-
 export interface IPlaylistFilter {
   genres?: TGenres[];
   name?: string;
@@ -51,40 +51,25 @@ export interface IPlaylistFilter {
   limit?: number;
   page?: number;
 }
-
 export interface IPlaylistObject {
   type: TPlaylistType | TGreetings;
   playlists: IPlaylist[];
 }
 export interface IPlaylistState {
   mainPlaylists: IPlaylistObject[];
-  currentPlaylist: IPlaylist | null;
 }
-export const SET_MAIN_PLAYLISTS = "SET_MAIN_PLAYLISTS";
-export const SET_CURRENT_PLAYLIST = "SET_CURRENT_PLAYLIST";
-
-export type TPlaylistActionType =
-  | typeof SET_MAIN_PLAYLISTS
-  | typeof SET_CURRENT_PLAYLIST;
-
 export interface ISetMainPlaylistsAction {
   type: typeof SET_MAIN_PLAYLISTS;
   payload: IPlaylistObject[];
 }
 
-export interface ISetCurrentPlaylistAction {
-  type: typeof SET_CURRENT_PLAYLIST;
-  payload: IPlaylist;
-}
-
-export type PlaylistActionTypes =
-  | ISetMainPlaylistsAction
-  | ISetCurrentPlaylistAction;
+//Types
+export type TPlaylistActionTypes = ISetMainPlaylistsAction;
 
 export type TPlaylistType =
   | "New Music"
   | "Daily mix"
-  | " Chill"
+  | "Chill"
   | "Workout"
   | "Party"
   | "Focus"

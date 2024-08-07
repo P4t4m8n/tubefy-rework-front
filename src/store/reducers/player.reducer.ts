@@ -1,33 +1,30 @@
 import {
-  PlayerActionTypes,
+  TPlayerActionTypes,
   SET_PLAYING_SONG,
-  SET_VOLUME,
   SET_IS_PLAYING,
-  SET_PLAYER,
   IPlayerState,
+  SET_CURRENT_PLAYLIST,
 } from "../../models/player.model";
 import { getDefaultSong } from "../../util/song.util";
 
 const initialState: IPlayerState = {
   playingSong: getDefaultSong(),
-  volume: 50,
   isPlaying: false,
-  player: null,
+  currentPlaylist: null,
 };
 
 export const playerReducer = (
   state = initialState,
-  action: PlayerActionTypes
+  action: TPlayerActionTypes
 ): IPlayerState => {
   switch (action.type) {
     case SET_PLAYING_SONG:
       return { ...state, playingSong: action.payload };
-    case SET_VOLUME:
-      return { ...state, volume: action.payload };
+    case SET_CURRENT_PLAYLIST:
+      return { ...state, currentPlaylist: action.payload };
     case SET_IS_PLAYING:
       return { ...state, isPlaying: action.payload };
-    case SET_PLAYER:
-      return { ...state, player: action.payload };
+
     default:
       return state;
   }
