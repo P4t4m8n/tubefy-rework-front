@@ -82,7 +82,6 @@ export default function SearchIndex() {
     }
   };
 
-  console.log("searchList:", searchList);
   return (
     <section className="search-index">
       {!query && <SearchIndexGenresList />}

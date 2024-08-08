@@ -13,7 +13,6 @@ export function User() {
     if (!ev) return;
     ev.preventDefault();
     logout();
-    console.log("Logout");
   }
 
   const userModelItems: IGenericModelItem[] = [

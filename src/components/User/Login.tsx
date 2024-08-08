@@ -6,7 +6,6 @@ import { login, signup } from "../../store/actions/user.action";
 export default function Login() {
   const loginModelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(loginModelRef);
-  console.log("isModelOpen:", isModelOpen)
   const [isLogin, setIsLogin] = useState(true);
 
   const onSubmit = (ev: FormEvent<HTMLFormElement>) => {

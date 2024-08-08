@@ -5,7 +5,6 @@ import {
   loadCurrentPlaylist,
   loadSong,
   setIsPlaying,
-  setPlayingSong,
 } from "../store/actions/player.action";
 import { useAppSelector } from "./useStore";
 
@@ -27,7 +26,9 @@ export const usePlay = () => {
   };
 
   const onSongPlay = (song: ISong | ISongYT) => {
-    if (playingSong?.youtubeId !== song.youtubeId) setPlayingSong(song);
+    console.log("song:", song)
+    console.log("playingSong:", playingSong)
+    if (playingSong?.youtubeId !== song.youtubeId) loadSong(song);
 
     togglePlayPause();
   };

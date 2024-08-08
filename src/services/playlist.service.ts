@@ -14,7 +14,9 @@ const query = async (FilterSortBy: IPlaylistFilter): Promise<IPlaylist[]> => {
 
 const get = async (id: string): Promise<IPlaylistDetailed> => {
   try {
-    const playlist = await httpService.get<IPlaylistDetailed>(`${BASE_URL}${id}`);
+    const playlist = await httpService.get<IPlaylistDetailed>(
+      `${BASE_URL}${id}`
+    );
     if (!playlist)
       throw new Error("Error in playlist-service - No playlist found");
     return playlist;
@@ -110,6 +112,14 @@ const getDefaultStations = async (): Promise<IPlaylist[]> => {
   }
 };
 
+const togglePlaylistLIke = async (id: string): Promise<boolean> => {
+  try {
+    return await httpService.post(`${BASE_URL}/like/${id}`);
+  } catch (error) {
+    throw new Error(`Error while updating playlist likes: ${error}`);
+  }
+};
+
 // Private functions
 const _create = (playlist: IPlaylistDTO): Promise<IPlaylist> => {
   return httpService.post<IPlaylist>(BASE_URL, playlist);
@@ -130,4 +140,5 @@ export const playlistService = {
   playlistToPlayListDTO,
   getLikedPlaylists,
   getDefaultStations,
+  togglePlaylistLIke,
 };

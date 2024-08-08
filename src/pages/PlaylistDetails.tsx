@@ -37,8 +37,7 @@ export default function PlaylistDetails() {
     songs,
     duration,
     description,
-    isLikedByUser,
-    id,
+   
     shares,
   } = playlist;
 
@@ -71,7 +70,7 @@ export default function PlaylistDetails() {
       <PlaylistDetailsHero {...heroProps} />
       <div className="playlist-details-actions">
         <PlayBtn item={playlist} />
-        <LikeBtn isLiked={isLikedByUser} itemId={id} />
+        <LikeBtn item={playlist} />
         <GenericModel btnSvg={<DotsSVG />} items={modelItems} />
       </div>
       <PlaylistSongsList songs={songs} />

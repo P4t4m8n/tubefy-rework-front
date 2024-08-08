@@ -19,6 +19,7 @@ function PlayBtn({ item }: Props) {
   } = usePlay();
 
   const onPlay = (ev: MouseEvent) => {
+    console.log("ev:", ev)
     ev.preventDefault();
     ev.stopPropagation();
     if ("songs" in item) {

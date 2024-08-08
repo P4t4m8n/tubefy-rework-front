@@ -11,7 +11,6 @@ export interface IPlaylist {
   imgUrl: string;
   songs: ISong[];
   description: string;
-
   genres: TGenres[];
   type: TPlaylistType;
   owner: IUserSmall;

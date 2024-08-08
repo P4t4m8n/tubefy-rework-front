@@ -11,7 +11,7 @@ export function PlayerPlayingCard() {
         <h3>{playingSong?.name}</h3>
         <h4>{playingSong?.artist}</h4>
       </div>
-      <LikeBtn item={playingSong } />
+      <LikeBtn item={playingSong} />
     </div>
   );
 }

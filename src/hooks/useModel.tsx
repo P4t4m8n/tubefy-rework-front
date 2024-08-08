@@ -12,6 +12,7 @@ export const useModel = (
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (!ref.current) return;
     document.addEventListener("click", checkClickOutside);
     return () => {
       document.removeEventListener("click", checkClickOutside);
@@ -20,16 +21,13 @@ export const useModel = (
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const checkClickOutside = (ev: any) => {
-    console.log("(ref.current:", (ref.current))
     if (!ev.target) return;
     if (!open) return;
     if (ref.current?.contains(ev.target as Node)) return;
 
-
     setOpen(false);
     if (callBack) callBack();
   };
-    console.log("open:", open)
 
   return [open, setOpen];
 };

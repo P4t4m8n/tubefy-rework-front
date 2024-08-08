@@ -1,9 +1,11 @@
 import { ISong, ISongFIlter } from "../models/song.model";
 import { httpService } from "./http.service";
 
-const get = async (filter: ISongFIlter): Promise<ISong[]> => {
+const BASE_URL = "song/";
+
+const query = async (filter: ISongFIlter): Promise<ISong[]> => {
   try {
-    const songs = await httpService.get<ISong[]>("/songs", filter);
+    const songs = await httpService.get<ISong[]>(BASE_URL, filter);
     if (!songs) {
       throw new Error("No songs found");
     }
@@ -13,6 +15,15 @@ const get = async (filter: ISongFIlter): Promise<ISong[]> => {
   }
 };
 
+const toggleSongLike = async (songId: string): Promise<boolean> => {
+  try {
+    return await httpService.post(`${BASE_URL}like/${songId}`);
+  } catch (error) {
+    throw new Error(`Error while liking song: ${error}`);
+  }
+};
+
 export const songService = {
-  get,
+  query,
+  toggleSongLike: toggleSongLike,
 };

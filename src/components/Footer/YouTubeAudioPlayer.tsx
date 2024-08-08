@@ -15,7 +15,6 @@ import { ProgressBar } from "./ProgressBar";
 import { youTubePlayer } from "../../services/player.service";
 
 export function YouTubeAudioPlayer() {
-  // console.log("YouTubeAudioPlayer");
   const { playingSong, isPlaying, currentPlaylist, togglePlayPause } =
     usePlay();
 
@@ -70,7 +69,7 @@ export function YouTubeAudioPlayer() {
         currentPlaylist!.songs.length
       );
     } else if (isRepeat.current) {
-      console.log("repeat");
+      //do nothing
     } else {
       stationIdx.current += dir;
       if (stationIdx.current >= currentPlaylist!.songs.length)

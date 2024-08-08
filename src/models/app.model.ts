@@ -6,3 +6,6 @@ export interface IGenericModelItem {
   link?: string;
   onClick?: (ev?: MouseEvent) => void;
 }
+
+
+export type TItemTypes = "ISong" | "ISongYT" | "IPlaylist";

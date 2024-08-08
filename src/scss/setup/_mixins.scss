@@ -97,14 +97,14 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-@mixin btn-chn-color($color) {
+@mixin btn-hover-animation($color) {
   &::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    
+
     height: 100%;
     background-color: $color;
     transform: translateX(-100%);

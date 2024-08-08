@@ -5,7 +5,7 @@ export const SET_PLAYING_SONG = "SET_PLAYING_SONG";
 export const SET_IS_PLAYING = "SET_IS_PLAYING";
 export const SET_CURRENT_PLAYLIST = "SET_CURRENT_PLAYLIST";
 export interface IPlayerState {
-  playingSong: ISong | null | ISongYT;
+  playingSong: ISong | ISongYT;
   isPlaying: boolean;
   currentPlaylist: IPlaylist | null;
 }

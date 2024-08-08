@@ -17,7 +17,7 @@ export default function PlaylistSongsListPreview({
   idx,
   modelItems,
 }: Props) {
-  const { thumbnail, name, id, isLikedByUser } = song;
+  const { thumbnail, name } = song;
   const addedAt = utilService.getDaysSince(song.addedAt);
   return (
     <li className="playlist-songs-list-preview">
@@ -33,7 +33,7 @@ export default function PlaylistSongsListPreview({
       <p>{addedAt} days ago</p>
 
       <div className="playlist-songs-list-preview-actions">
-        <LikeBtn isLiked={isLikedByUser!} itemId={id} />
+        <LikeBtn item={song} />
         <p>{song.duration}</p>
         <GenericModel btnSvg={<DotsSVG />} items={modelItems} />
       </div>
