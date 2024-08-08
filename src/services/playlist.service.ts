@@ -67,16 +67,6 @@ const removeSong = async (
   }
 };
 
-const getEmptyPlaylist = (userId: string): IPlaylistDTO => {
-  return {
-    name: "",
-    imgUrl: "",
-    createByUserId: userId,
-    duration: "0",
-    description: "",
-  };
-};
-
 const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
   return {
     id: playlist.id,
@@ -136,7 +126,6 @@ export const playlistService = {
   remove,
   addSong,
   removeSong,
-  getEmptyPlaylist,
   playlistToPlayListDTO,
   getLikedPlaylists,
   getDefaultStations,

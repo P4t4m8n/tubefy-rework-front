@@ -12,11 +12,11 @@ export interface IPlaylist {
   songs: ISong[];
   description: string;
   genres: TGenres[];
-  type: TPlaylistType;
+  type: TPlaylistType | string;
   owner: IUserSmall;
   duration: string;
   isPublic: boolean;
-  id: string;
+  id?: string;
 }
 export interface IPlaylistYT {
   name: string;
@@ -51,7 +51,7 @@ export interface IPlaylistFilter {
   page?: number;
 }
 export interface IPlaylistObject {
-  type: TPlaylistType | TGreetings;
+  type: TPlaylistType | TGreetings | string;
   playlists: IPlaylist[];
 }
 export interface IPlaylistState {
