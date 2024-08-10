@@ -7,3 +7,12 @@ body:has(.login-model) {
     pointer-events: none;
   }
 }
+body:has(.edit-model) {
+  .edit-model,
+  .edit-model * {
+    pointer-events: all;
+  }
+  :not(.edit-model, .edit-model *) {
+    pointer-events: none;
+  }
+}

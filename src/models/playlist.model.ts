@@ -5,13 +5,13 @@ import { IUserSmall } from "./user.model";
 //Constants
 export const SET_MAIN_PLAYLISTS = "SET_MAIN_PLAYLISTS";
 export const SET_USER_PLAYLISTS = "SET_USER_PLAYLISTS";
-export const SET_USER_LIKED_PLAYLISTS = "SET_USER_LIKED_PLAYLISTS";
-export const SET_USER_LIKED_SONGS = "SET_USER_LIKED_SONGS";
+export const ADD_PLAYLIST_TO_USER_PLAYLISTS = "ADD_PLAYLIST_TO_USER_PLAYLISTS";
+
 
 //Interfaces
 export interface IPlaylist {
   createdAt: string;
-  description: string | null; //not from db
+  description: string | null; 
   duration: string;
   genres: TGenres[];
   id?: string;
@@ -40,10 +40,11 @@ export interface IPlaylistDetailed extends IPlaylist {
 export interface IPlaylistDTO {
   id?: string;
   name: string;
+  ownerId:string;
+  isPublic: boolean;
   imgUrl: string;
-  createByUserId: string;
-  duration: string;
   description: string;
+  duration: string;
 }
 export interface IPlaylistFilter {
   genres?: TGenres[];
@@ -72,22 +73,11 @@ export interface ISetUserPlaylistsAction {
   payload: IPlaylist[];
 }
 
-export interface ISetUserLikedPlaylistsAction {
-  type: typeof SET_USER_LIKED_PLAYLISTS;
-  payload: IPlaylist[];
-}
-
-export interface ISetUserLikedSongsAction {
-  type: typeof SET_USER_LIKED_SONGS;
-  payload: IPlaylist;
-}
-
 //Types
 export type TPlaylistActionTypes =
   | ISetMainPlaylistsAction
   | ISetUserPlaylistsAction
-  | ISetUserLikedPlaylistsAction
-  | ISetUserLikedSongsAction;
+
 
 export type TPlaylistType =
   | "New Music"

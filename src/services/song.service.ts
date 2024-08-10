@@ -15,9 +15,15 @@ const query = async (filter: ISongFIlter): Promise<ISong[]> => {
   }
 };
 
-const toggleSongLike = async (songId: string): Promise<boolean> => {
+const toggleSongLike = async (
+  songId: string,
+  isLiked: boolean
+): Promise<boolean> => {
   try {
-    return await httpService.post(`${BASE_URL}like/${songId}`);
+    if (isLiked) {
+      return await httpService.delete(`${BASE_URL}${songId}/like`);
+    }
+    return await httpService.post(`${BASE_URL}${songId}/like`);
   } catch (error) {
     throw new Error(`Error while liking song: ${error}`);
   }

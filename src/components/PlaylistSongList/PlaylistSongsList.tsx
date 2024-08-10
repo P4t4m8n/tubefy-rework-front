@@ -1,11 +1,13 @@
+import { IGenericModelItem } from "../../models/app.model";
 import { ISong } from "../../models/song.model";
 import { ClockSVG } from "../svg/SVGs";
 import PlaylistSongsListPreview from "./PlaylistSongsListPreview";
 
 interface Props {
   songs: ISong[];
+  modelItems?: IGenericModelItem[];
 }
-export default function PlaylistSongsList({ songs }: Props) {
+export default function PlaylistSongsList({ songs, modelItems = [] }: Props) {
   return (
     <section className="playlist-songs-list">
       <ul className="song-list ">
@@ -25,7 +27,7 @@ export default function PlaylistSongsList({ songs }: Props) {
             key={song.id}
             song={song}
             idx={idx}
-            modelItems={[]}
+            modelItems={modelItems}
           />
         ))}
       </ul>

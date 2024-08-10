@@ -4,7 +4,6 @@ import {
   IPlaylistDTO,
   IPlaylistFilter,
 } from "../models/playlist.model";
-import { getEmptyPlaylist } from "../util/playlist.util";
 import { httpService } from "./http.service";
 
 const BASE_URL = "playlist/";
@@ -28,12 +27,13 @@ const get = async (id: string): Promise<IPlaylistDetailed> => {
   }
 };
 
-const save = async (playlist: IPlaylistDTO): Promise<IPlaylist> => {
+const save = async (playlist: IPlaylist): Promise<IPlaylist> => {
+  const playlistDto = playlistToPlayListDTO(playlist);
   try {
     if (!playlist.id) {
-      return await _create(playlist);
+      return await _create(playlistDto);
     } else {
-      return await _update(playlist);
+      return await _update(playlistDto);
     }
   } catch (error) {
     throw new Error(`Error while saving playlist: ${error}`);
@@ -73,9 +73,10 @@ const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
     id: playlist.id,
     name: playlist.name,
     imgUrl: playlist.imgUrl,
-    createByUserId: playlist.owner.id,
+    ownerId: playlist.owner.id,
     duration: playlist.duration,
-    description:"",
+    description: "",
+    isPublic: playlist.isPublic,
   };
 };
 
@@ -116,16 +117,22 @@ const getDefaultStations = async (): Promise<IPlaylist[]> => {
 const getUserLikedSongsPlaylist = async (): Promise<IPlaylist> => {
   try {
     const playlist = await httpService.get<IPlaylist>(`${BASE_URL}liked/songs`);
-    if (!playlist) return getEmptyPlaylist();
     return playlist;
   } catch (error) {
     throw new Error(`Error while fetching liked songs playlist: ${error}`);
   }
 };
 
-const togglePlaylistLIke = async (id: string): Promise<boolean> => {
+const togglePlaylistLIke = async (
+  id: string,
+  isLiked: boolean
+): Promise<boolean> => {
   try {
-    return await httpService.post(`${BASE_URL}/like/${id}`);
+    if (isLiked) {
+      return await httpService.delete(`${BASE_URL}${id}/like`);
+    } else {
+      return await httpService.post(`${BASE_URL}${id}/like`);
+    }
   } catch (error) {
     throw new Error(`Error while updating playlist likes: ${error}`);
   }
@@ -133,11 +140,11 @@ const togglePlaylistLIke = async (id: string): Promise<boolean> => {
 
 // Private functions
 const _create = (playlist: IPlaylistDTO): Promise<IPlaylist> => {
-  return httpService.post<IPlaylist>(BASE_URL, playlist);
+  return httpService.post<IPlaylist>(`${BASE_URL}edit`, playlist);
 };
 
 const _update = (playlist: IPlaylistDTO): Promise<IPlaylist> => {
-  return httpService.put<IPlaylist>(`${BASE_URL}/${playlist.id}`, playlist);
+  return httpService.put<IPlaylist>(`${BASE_URL}edit/${playlist.id}`, playlist);
 };
 
 export const playlistService = {

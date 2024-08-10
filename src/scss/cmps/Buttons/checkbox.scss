@@ -1,0 +1,90 @@
+.checkbox-is-public {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  justify-self: flex-start;
+  @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
+  input[type="checkbox"] {
+    display: none;
+  }
+  label {
+    --size: 2.5rem;
+    position: relative;
+    display: block;
+    width: var(--size);
+    height: var(--size);
+    margin: 0 auto;
+    background-color: $gray-1;
+    border-radius: 100vw;
+    cursor: pointer;
+    transition: 0.2s ease transform, 0.2s ease background-color,
+      0.2s ease box-shadow;
+    overflow: hidden;
+    z-index: 1;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      left: 0;
+      width: calc(var(--size) * 0.7);
+      height: calc(var(--size) * 0.7);
+      margin: 0 auto;
+      background-color: $white-1;
+      transform: translateY(-50%);
+      border-radius: 100vw;
+      transition: 0.2s ease width, 0.2s ease height;
+    }
+    &:hover:before {
+      width: calc(var(--size) * 0.55);
+      height: calc(var(--size) * 0.55);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+  .tick_mark {
+    position: absolute;
+    top: -1px;
+    right: 0;
+    left: calc(var(--size) * -0.05);
+    width: calc(var(--size) * 0.6);
+    height: calc(var(--size) * 0.6);
+    margin: 0 auto;
+    margin-left: calc(var(--size) * 0.14);
+    transform: rotateZ(-40deg);
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      background-color: $white-1;
+      opacity: 0;
+      transition: 0.2s ease transform, 0.2s ease opacity;
+    }
+    &:before {
+      left: 0;
+      bottom: 0;
+      width: calc(var(--size) * 0.1);
+      height: calc(var(--size) * 0.3);
+      transform: translateY(calc(var(--size) * -0.68));
+    }
+    &:after {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: calc(var(--size) * 0.1);
+      transform: translateX(calc(var(--size) * 0.78));
+    }
+  }
+  input[type="checkbox"]:checked + label {
+    background-color: $green-1;
+  }
+  input[type="checkbox"]:checked + label:before {
+    width: 0;
+    height: 0;
+  }
+  input[type="checkbox"]:checked + label .tick_mark:before,
+  input[type="checkbox"]:checked + label .tick_mark:after {
+    transform: translate(0);
+    opacity: 1;
+  }
+}

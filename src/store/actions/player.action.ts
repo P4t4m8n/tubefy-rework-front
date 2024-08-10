@@ -34,7 +34,6 @@ export const setIsPlaying = (isPlaying: boolean) => {
 };
 
 export const loadSong = (song: ISong | ISongYT) => {
-  console.log("song:", song)
   store.dispatch(setPlayingSong(song));
 };
 

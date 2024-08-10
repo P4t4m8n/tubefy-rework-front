@@ -1,25 +1,28 @@
-import { ChangeEvent, MouseEvent, useEffect } from "react";
+// import { ChangeEvent, MouseEvent, useEffect } from "react";
+import {  useEffect } from "react";
 import { useAppSelector } from "../../hooks/useStore";
-import { useNavigate } from "react-router-dom";
 import CreatePlaylist from "./CreatePlaylist";
-import UserLibraryFilter from "./UserLibraryFilter";
-import UserLibraryList from "./UserLibraryList";
+// import { useNavigate } from "react-router-dom";
+// import UserLibraryFilter from "./UserLibraryFilter";
+// import UserLibraryList from "./UserLibraryList";
 import Login from "../User/Login";
 import { Loader } from "../Loader";
+import { loadUserPlaylists } from "../../store/actions/playlist.action";
 
 export function UserLibraryIndex() {
   const user = useAppSelector((state) => state.user.user);
   const userPlaylists = useAppSelector(
     (state) => state.playlists.userPlaylists
   );
+  console.log("userPlaylists:", userPlaylists)
 
   useEffect(() => {
     if (user) {
-      loadUserPlaylists();
+      getUserPlaylists();
     }
   }, [user]);
 
-  const loadUserPlaylists = async () => {
+  const getUserPlaylists = async () => {
     try {
       await loadUserPlaylists();
     } catch (error) {
@@ -28,21 +31,21 @@ export function UserLibraryIndex() {
     }
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const createStation = async () => {};
+  // const createStation = async () => {};
 
-  const onRemoveStation = (ev: ChangeEvent, playlistId: string) => {};
+  // const onRemoveStation = (ev: ChangeEvent, playlistId: string) => {};
 
-  const handleChange = (ev: ChangeEvent) => {};
+  // const handleChange = (ev: ChangeEvent) => {};
 
-  const FilterList = () => {};
+  // const FilterList = () => {};
 
-  const onSendPlaylist = (
-    ev: MouseEvent,
-    playlistId: string,
-    userId: string
-  ) => {};
+  // const onSendPlaylist = (
+  //   ev: MouseEvent,
+  //   playlistId: string,
+  //   userId: string
+  // ) => {};
 
   if (!userPlaylists) return <Loader />;
 
@@ -56,12 +59,12 @@ export function UserLibraryIndex() {
           <Login />
         </div>
       )}
-      {user && (
+      {/* {user && (
         <>
           <UserLibraryFilter />
           <UserLibraryList />
         </>
-      )}
+      )} */}
     </section>
   );
 }

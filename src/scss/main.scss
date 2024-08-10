@@ -13,6 +13,7 @@
 @import "./views/PlaylistIndex.scss";
 @import "./views/PlaylistDetails.scss";
 @import "./views/SearchIndex.scss";
+@import "./views/PlaylistEdit.scss";
 
 /* ***Components*** */
 
@@ -43,7 +44,7 @@
 @import "./cmps/PlaylistIndex/PlaylistIndexHero.scss";
 @import "./cmps/PlaylistIndex/PlaylistIndexList.scss";
 
-//Playlist Details and Edit
+//Playlist Details
 @import "./cmps/PlaylistDetails/PlaylistDetailsHero.scss";
 @import "./cmps/PlaylistDetails/PlaylistDetailsActions.scss";
 @import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
@@ -54,10 +55,17 @@
 @import "./cmps/SearchIndex/SearchIndexPlaylist.scss";
 @import "./cmps/SearchIndex/SearchIndexSongs.scss";
 
+//PlaylistEdit
+
+@import "./cmps/PlaylistEdit/PlaylistEditHero.scss";
+@import "./cmps/PlaylistEdit/PlaylistEditForm.scss";
+@import "./cmps/PlaylistEdit/PlaylistEditSongsList.scss";
+@import "./cmps/PlaylistEdit/PlaylistEditSongsListSearch.scss";
+
 //GenericComponents
 @import "./cmps/GenericComponents/GenericModel.scss";
 
 //Buttons
-
 @import "./cmps/Buttons/LikeBtn.scss";
 @import "./cmps/Buttons/PlayBtn.scss";
+@import "./cmps/Buttons/checkbox.scss";

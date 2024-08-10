@@ -12,6 +12,7 @@ interface Props {
 
 export function LikeBtn({ item }: Props) {
   const [isLiked, setIsLiked] = useState(false);
+
   const [animation, setAnimation] = useState<
     "" | "like-animation" | "un-like-animation"
   >("");
@@ -32,16 +33,22 @@ export function LikeBtn({ item }: Props) {
     try {
       if (!isYTSongCheck) {
         if ("songs" in item) {
-          finishCheck = await playlistService.togglePlaylistLIke(item.id);
+          finishCheck = await playlistService.togglePlaylistLIke(
+            item.id!,
+            isLiked
+          );
         } else {
-          finishCheck = await songService.toggleSongLike((item as ISong).id);
+          finishCheck = await songService.toggleSongLike(
+            (item as ISong).id,
+            isLiked
+          );
         }
       }
     } catch (error) {
       console.error(error);
     } finally {
       if (!finishCheck) {
-        setIsLiked(!isLiked);
+        setIsLiked(isLiked);
       }
     }
   };

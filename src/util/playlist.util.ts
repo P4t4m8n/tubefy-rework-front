@@ -44,9 +44,9 @@ export const extractHeroPlaylists = (
   return heroPlaylists.splice(0, 8);
 };
 
-export const getEmptyPlaylist = (): IPlaylistDetailed => {
+export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
   return {
-    name: "",
+    name: `New Playlist ${num + 1}`,
     imgUrl: "",
     songs: [],
     description: "",
@@ -56,7 +56,7 @@ export const getEmptyPlaylist = (): IPlaylistDetailed => {
       username: "",
       isAdmin: false,
       id: "",
-      avatarUrl: "",
+      imgUrl: "",
     },
     duration: "00:00",
     isPublic: false,

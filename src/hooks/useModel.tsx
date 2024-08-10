@@ -20,10 +20,14 @@ export const useModel = (
   }, [open, ref.current]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const checkClickOutside = (ev: any) => {
+  const checkClickOutside = (ev: MouseEvent) => {
+    // ev.stopPropagation();
+    // ev.preventDefault()
     if (!ev.target) return;
     if (!open) return;
     if (ref.current?.contains(ev.target as Node)) return;
+    console.log("ev.target as Node):", ev.target as Node)
+    console.log("ref.current:", ref.current)
 
     setOpen(false);
     if (callBack) callBack();
