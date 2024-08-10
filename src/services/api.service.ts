@@ -58,7 +58,6 @@ const fetchFromYT = async (url: string) => {
     throw error;
   }
 };
-
 const getSongsFromYT = async (search: string): Promise<ISongYT[]> => {
   const url = `${URL_SEARCH}part=snippet&q=${search}&videoCategoryId=10&type=video&maxResults=${MAX_RESULTS}`;
   const items = await fetchFromYT(url);
@@ -72,9 +71,9 @@ const getSongsFromYT = async (search: string): Promise<ISongYT[]> => {
         artist: searchInfo.artist,
         duration,
         youtubeId: ytItem.id.videoId,
-        thumbnail: ytItem.snippet.thumbnails.medium.url,
+        imgUrl: ytItem.snippet.thumbnails.medium.url,
         addedBy: "artist",
-        createAt: new Date(),
+        addedAt: new Date().toString(),
       };
     }
   );
@@ -120,9 +119,9 @@ const fetchSongsFromPlaylist = async (
         artist,
         duration,
         youtubeId,
-        thumbnail: song.snippet.thumbnails.medium.url,
+        imgUrl: song.snippet.thumbnails.medium.url,
         addedBy: "artist",
-        createAt: new Date(),
+        addedAt: new Date().toString(),
       };
     }
   );

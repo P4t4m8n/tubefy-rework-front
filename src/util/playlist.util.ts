@@ -4,18 +4,17 @@ import {
   IPlaylistObject,
   TPlaylistType,
 } from "../models/playlist.model";
-import { IUserSmall } from "../models/user.model";
 
 export const playlistsToPlaylistObjects = (
   playlists: IPlaylist[]
 ): IPlaylistObject[] => {
-  const playlistMap = new Map<TPlaylistType|string, IPlaylist[]>();
+  const playlistMap = new Map<TPlaylistType | string, IPlaylist[]>();
 
   playlists.forEach((playlist) => {
-    if (!playlistMap.has(playlist.type)) {
-      playlistMap.set(playlist.type, []);
+    if (!playlistMap.has(playlist.types[0])) {
+      playlistMap.set(playlist.types[0], []);
     }
-    playlistMap.get(playlist.type)!.push(playlist);
+    playlistMap.get(playlist.types[0])!.push(playlist);
   });
 
   const playlistObjects: IPlaylistObject[] = [];
@@ -45,15 +44,20 @@ export const extractHeroPlaylists = (
   return heroPlaylists.splice(0, 8);
 };
 
-export const getEmptyPlaylist = (user: IUserSmall): IPlaylistDetailed => {
+export const getEmptyPlaylist = (): IPlaylistDetailed => {
   return {
     name: "",
     imgUrl: "",
     songs: [],
     description: "",
     genres: [],
-    type: "",
-    owner: user,
+    types: [""],
+    owner: {
+      username: "",
+      isAdmin: false,
+      id: "",
+      avatarUrl: "",
+    },
     duration: "00:00",
     isPublic: false,
     isLikedByUser: false,

@@ -6,7 +6,7 @@ export function PlayerPlayingCard() {
 
   return (
     <div className="playing-card">
-      <img src={playingSong?.thumbnail} alt={playingSong?.name}></img>
+      <img src={playingSong?.imgUrl} alt={playingSong?.name}></img>
       <div className="playing-card-info">
         <h3>{playingSong?.name}</h3>
         <h4>{playingSong?.artist}</h4>

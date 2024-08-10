@@ -4,6 +4,7 @@ import {
   IPlaylistDTO,
   IPlaylistFilter,
 } from "../models/playlist.model";
+import { getEmptyPlaylist } from "../util/playlist.util";
 import { httpService } from "./http.service";
 
 const BASE_URL = "playlist/";
@@ -74,20 +75,30 @@ const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
     imgUrl: playlist.imgUrl,
     createByUserId: playlist.owner.id,
     duration: playlist.duration,
-    description: playlist.description,
+    description:"",
   };
 };
 
-const getLikedPlaylists = async (userId: string): Promise<IPlaylist[]> => {
+const getUserLikedPlaylists = async (): Promise<IPlaylist[]> => {
   try {
-    const playlists = await httpService.get<IPlaylist[]>(
-      `${BASE_URL}/liked/${userId}`
-    );
+    const playlists = await httpService.get<IPlaylist[]>(`${BASE_URL}/liked`);
 
     if (!playlists) throw new Error("No playlists found");
     return playlists;
   } catch (error) {
     throw new Error(`Error while fetching liked playlists: ${error}`);
+  }
+};
+
+const getUserPlaylists = async (): Promise<IPlaylistDetailed[]> => {
+  try {
+    const playlists = await httpService.get<IPlaylistDetailed[]>(
+      `${BASE_URL}user`
+    );
+    if (!playlists) return [];
+    return playlists;
+  } catch (error) {
+    throw new Error(`Error while fetching user playlists: ${error}`);
   }
 };
 
@@ -99,6 +110,16 @@ const getDefaultStations = async (): Promise<IPlaylist[]> => {
     return playlist;
   } catch (error) {
     throw new Error(`Error while fetching default station: ${error}`);
+  }
+};
+
+const getUserLikedSongsPlaylist = async (): Promise<IPlaylist> => {
+  try {
+    const playlist = await httpService.get<IPlaylist>(`${BASE_URL}liked/songs`);
+    if (!playlist) return getEmptyPlaylist();
+    return playlist;
+  } catch (error) {
+    throw new Error(`Error while fetching liked songs playlist: ${error}`);
   }
 };
 
@@ -127,7 +148,9 @@ export const playlistService = {
   addSong,
   removeSong,
   playlistToPlayListDTO,
-  getLikedPlaylists,
+  getUserLikedPlaylists,
   getDefaultStations,
   togglePlaylistLIke,
+  getUserPlaylists,
+  getUserLikedSongsPlaylist,
 };

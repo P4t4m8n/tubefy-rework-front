@@ -3,7 +3,7 @@ import { IUserSmall } from "./user.model";
 
 export interface ISong {
   youtubeId: string;
-  thumbnail: string;
+  imgUrl: string;
   name: string;
   isLikedByUser: boolean;
   id: string;
@@ -35,7 +35,7 @@ export interface ISongYT {
   artist: string;
   duration: string;
   youtubeId: string;
-  thumbnail: string;
+  imgUrl: string;
   addedBy: string;
-  createAt: Date;
+  addedAt: string;
 }

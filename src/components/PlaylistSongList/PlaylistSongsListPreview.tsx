@@ -17,7 +17,7 @@ export default function PlaylistSongsListPreview({
   idx,
   modelItems,
 }: Props) {
-  const { thumbnail, name } = song;
+  const { imgUrl, name } = song;
   const addedAt = utilService.getDaysSince(song.addedAt);
   return (
     <li className="playlist-songs-list-preview">
@@ -26,7 +26,7 @@ export default function PlaylistSongsListPreview({
         <p>{idx + 1}</p>
       </div>
       <div className="artist-and-image">
-        <img src={thumbnail} />
+        <img src={imgUrl} />
         <p>{name}</p>
       </div>
       <p>{song.artist}</p>

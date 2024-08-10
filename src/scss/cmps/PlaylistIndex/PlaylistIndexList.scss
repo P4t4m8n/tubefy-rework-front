@@ -27,6 +27,8 @@
 
           img {
             border-radius: $border-radius-1-4;
+            min-width: 100%;
+            aspect-ratio: 1/1;
           }
 
           h3 {

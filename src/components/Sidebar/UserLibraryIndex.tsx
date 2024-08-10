@@ -1,15 +1,32 @@
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent, MouseEvent, useEffect } from "react";
 import { useAppSelector } from "../../hooks/useStore";
 import { useNavigate } from "react-router-dom";
-// import { playlistService } from "../../services/playlist.service";
-// import { Loader } from "../Loader";
 import CreatePlaylist from "./CreatePlaylist";
 import UserLibraryFilter from "./UserLibraryFilter";
 import UserLibraryList from "./UserLibraryList";
 import Login from "../User/Login";
+import { Loader } from "../Loader";
 
 export function UserLibraryIndex() {
   const user = useAppSelector((state) => state.user.user);
+  const userPlaylists = useAppSelector(
+    (state) => state.playlists.userPlaylists
+  );
+
+  useEffect(() => {
+    if (user) {
+      loadUserPlaylists();
+    }
+  }, [user]);
+
+  const loadUserPlaylists = async () => {
+    try {
+      await loadUserPlaylists();
+    } catch (error) {
+      console.error(`Error while loading user playlists: ${error}`);
+      return [];
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -26,6 +43,8 @@ export function UserLibraryIndex() {
     playlistId: string,
     userId: string
   ) => {};
+
+  if (!userPlaylists) return <Loader />;
 
   return (
     <section className="user-library">

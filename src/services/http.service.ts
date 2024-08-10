@@ -45,10 +45,8 @@ async function ajax<T>(
     return res.data;
   } catch (err: unknown) {
     console.error(
-      `Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: `,
-      data
+      `Had Issues ${method} to the backend, endpoint: ${endpoint}, with data:${data} error:${err} `
     );
-    console.dir(err);
 
     if (
       Axios.isAxiosError(err) &&

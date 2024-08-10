@@ -1,14 +1,14 @@
 import {
-  IUser,
   IUserAction,
   IUserCreateDTO,
   IUserLoginDTO,
+  IUserSmall,
 } from "../../models/user.model";
 import { userService } from "../../services/user.service";
 // import { userFormValidation } from "../../validations/auth";
 import { store } from "../store";
 
-export const setUser = (user: IUser | null): IUserAction => ({
+export const setUser = (user: IUserSmall | null): IUserAction => ({
   type: "SET_USER",
   payload: user,
 });

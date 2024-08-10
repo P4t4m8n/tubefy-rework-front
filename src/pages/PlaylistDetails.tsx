@@ -36,17 +36,16 @@ export default function PlaylistDetails() {
     owner,
     songs,
     duration,
-    description,
-   
+
     shares,
   } = playlist;
 
   const heroProps = {
     imgUrl,
     name,
-    description,
+    description: "",
     username: owner.username,
-    avatarUrl: owner.avatarUrl,
+    avatarUrl: owner?.imgUrl || "",
     songs: songs.length,
     duration,
     shares: shares.count,

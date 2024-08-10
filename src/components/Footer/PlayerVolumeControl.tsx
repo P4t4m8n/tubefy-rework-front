@@ -45,6 +45,7 @@ export function PlayerVolumeControl() {
         max="100"
         value={volume}
         onChange={handleVolumeChange}
+        className="volume-slider"
       ></input>
 
       <button onClick={toggleFullScreen}>

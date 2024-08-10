@@ -7,7 +7,7 @@ export const getDefaultSong = (): ISong => {
     artist: "Ramones",
     duration: "02:16",
     youtubeId: "yCW7Aw8ugOI",
-    thumbnail: "https://i.ytimg.com/vi/yCW7Aw8ugOI/mqdefault.jpg",
+    imgUrl: "https://i.ytimg.com/vi/yCW7Aw8ugOI/mqdefault.jpg",
     addedBy: {
       id: "1",
       username: "Ramones",

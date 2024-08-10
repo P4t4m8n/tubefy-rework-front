@@ -12,7 +12,7 @@ export default function SearchIndexSongsList({ song }: Props) {
   return (
     <li className="search-songs-list">
       <PlayBtn item={song} />
-      <img src={song.thumbnail} />
+      <img src={song.imgUrl} />
       <div>
         <p>{song.name}</p>
         <p>{song.artist}</p>

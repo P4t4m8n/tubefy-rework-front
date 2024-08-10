@@ -1,13 +1,13 @@
 import { ReactNode, isValidElement, cloneElement, ReactElement } from "react";
 import { useAppSelector } from "../hooks/useStore";
 import { Navigate } from "react-router-dom";
-import { IUser } from "../models/user.model";
+import { IUserSmall } from "../models/user.model";
 
 interface Props {
   children: ReactNode;
 }
 interface ChildProps {
-  user: IUser;
+  user: IUserSmall;
 }
 
 export const AuthProtectedRoute = ({ children }: Props) => {

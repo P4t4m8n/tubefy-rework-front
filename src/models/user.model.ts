@@ -2,10 +2,9 @@ import { IPlaylist } from "./playlist.model";
 
 export interface IUserSmall {
   username: string;
-  isAdmin: boolean;
   id: string;
-  email: string;
-  avatarUrl: string;
+  imgUrl?: string;
+  isAdmin?: boolean;
 }
 export interface IUserCreateDTO extends IUserLoginDTO {
   username: string;
@@ -21,11 +20,11 @@ export interface IUser extends IUserSmall {
   friends: IUserSmall[];
 }
 export interface IUserState {
-  user: IUser | null;
+  user: IUserSmall | null;
 }
 export interface IUserAction {
   type: TUserActionType;
-  payload: IUser | null;
+  payload: IUserSmall | null;
 }
 
 export type TUserActionType = "SET_USER" | "EDIT_USER";
