@@ -26,8 +26,7 @@ export const usePlay = () => {
   };
 
   const onSongPlay = (song: ISong | ISongYT) => {
-    console.log("song:", song)
-    console.log("playingSong:", playingSong)
+   
     if (playingSong?.youtubeId !== song.youtubeId) loadSong(song);
 
     togglePlayPause();
