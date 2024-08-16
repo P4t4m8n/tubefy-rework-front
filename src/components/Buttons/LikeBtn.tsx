@@ -43,6 +43,9 @@ export function LikeBtn({ item }: Props) {
             isLiked
           );
         }
+      } else {
+        const song = await songService.createSong(item as ISongYT);
+        finishCheck = await songService.toggleSongLike(song.id, isLiked);
       }
     } catch (error) {
       console.error(error);

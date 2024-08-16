@@ -2,5 +2,7 @@
   background-color: $black-2;
   height: 100%;
   border-radius: $border-radius-1-2;
-  @include flex-direction-gap-padding(column, 1rem, 1rem);
+  @include flex-direction-gap-padding(column, 0, 0);
+
+ 
 }

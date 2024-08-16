@@ -1,4 +1,4 @@
-import { IPlaylist } from "../models/playlist.model";
+import { ILikedSongPlaylist, IPlaylist } from "../models/playlist.model";
 import { ISong, ISongYT } from "../models/song.model";
 import { youTubePlayer } from "../services/player.service";
 import {
@@ -13,7 +13,7 @@ export const usePlay = () => {
     (state) => state.player
   );
 
-  const onPlaylistPlay = (playlist: IPlaylist) => {
+  const onPlaylistPlay = (playlist: IPlaylist | ILikedSongPlaylist) => {
     if (playlist.id !== currentPlaylist?.id) {
       loadCurrentPlaylist(playlist);
       loadSong(playlist.songs[0]);
@@ -26,7 +26,6 @@ export const usePlay = () => {
   };
 
   const onSongPlay = (song: ISong | ISongYT) => {
-   
     if (playingSong?.youtubeId !== song.youtubeId) loadSong(song);
 
     togglePlayPause();

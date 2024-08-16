@@ -55,7 +55,6 @@ export default function PlaylistEditSearch() {
   ]);
 
   const searchSongs = async (ev: ChangeEvent<HTMLInputElement>) => {
-    console.log("ev:", ev);
     const { value } = ev.target;
     try {
       const songs = await apiService.getSongsFromYT(value);

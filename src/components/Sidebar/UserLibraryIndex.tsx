@@ -1,22 +1,30 @@
-// import { ChangeEvent, MouseEvent, useEffect } from "react";
-import {  useEffect } from "react";
+import { ChangeEvent, useState } from "react";
 import { useAppSelector } from "../../hooks/useStore";
 import CreatePlaylist from "./CreatePlaylist";
-// import { useNavigate } from "react-router-dom";
-// import UserLibraryFilter from "./UserLibraryFilter";
-// import UserLibraryList from "./UserLibraryList";
+import UserLibraryFilter from "./UserLibraryFilter";
 import Login from "../User/Login";
 import { Loader } from "../Loader";
 import { loadUserPlaylists } from "../../store/actions/playlist.action";
+import { useEffectUpdate } from "../../hooks/useEffectUpdate";
+import { IPlaylistDetailed } from "../../models/playlist.model";
+import PlayBtn from "../Buttons/PlayBtn";
+import { NoteSVG } from "../svg/SVGs";
+import { Link } from "react-router-dom";
 
 export function UserLibraryIndex() {
   const user = useAppSelector((state) => state.user.user);
   const userPlaylists = useAppSelector(
     (state) => state.playlists.userPlaylists
   );
-  console.log("userPlaylists:", userPlaylists)
+  const userLikedSongsPlaylist = useAppSelector(
+    (state) => state.playlists.likedPlaylist
+  );
 
-  useEffect(() => {
+  const [filteredPlaylists, setFilteredPlaylists] = useState<
+    IPlaylistDetailed[]
+  >([]);
+
+  useEffectUpdate(() => {
     if (user) {
       getUserPlaylists();
     }
@@ -31,23 +39,33 @@ export function UserLibraryIndex() {
     }
   };
 
-  // const navigate = useNavigate();
+  const onFilterChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    const _filteredPlaylists = userPlaylists.filter((playlist) =>
+      playlist.name.includes(ev.target.value)
+    );
 
-  // const createStation = async () => {};
+    setFilteredPlaylists(_filteredPlaylists);
+  };
+  const sortPlaylists = (sortBy: "recently_added" | "alphabetical") => {
+    const _filteredPlaylists = [...userPlaylists];
+    if (sortBy === "recently_added") {
+      _filteredPlaylists.sort((a, b) => {
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      });
+    } else {
+      _filteredPlaylists.sort((a, b) => a.name.localeCompare(b.name));
+    }
 
-  // const onRemoveStation = (ev: ChangeEvent, playlistId: string) => {};
+    setFilteredPlaylists(_filteredPlaylists);
+  };
 
-  // const handleChange = (ev: ChangeEvent) => {};
+  if (user && (!userPlaylists || !userLikedSongsPlaylist)) return <Loader />;
 
-  // const FilterList = () => {};
-
-  // const onSendPlaylist = (
-  //   ev: MouseEvent,
-  //   playlistId: string,
-  //   userId: string
-  // ) => {};
-
-  if (!userPlaylists) return <Loader />;
+  const playlists = filteredPlaylists.length
+    ? filteredPlaylists
+    : userPlaylists;
 
   return (
     <section className="user-library">
@@ -55,16 +73,46 @@ export function UserLibraryIndex() {
       {!user && (
         <div className="user-library-no-user">
           <h2>Log in to view your library</h2>
-
           <Login />
         </div>
       )}
-      {/* {user && (
+      {user && (
         <>
-          <UserLibraryFilter />
-          <UserLibraryList />
+          <UserLibraryFilter
+            onFilterChange={onFilterChange}
+            sortPlaylists={sortPlaylists}
+          />
+          <ul className="user-playlist-list">
+            <li className="user-playlist-item">
+              <Link to={`/playlist/${userLikedSongsPlaylist!.id}?isLiked=true`}>
+                <PlayBtn item={userLikedSongsPlaylist!} />
+                {userLikedSongsPlaylist!.imgUrl ? (
+                  <img src={userLikedSongsPlaylist!.imgUrl} alt="Liked songs" />
+                ) : (
+                  <NoteSVG />
+                )}
+                <img src={userLikedSongsPlaylist!.imgUrl} alt="Liked songs" />
+                <span>Liked songs</span>
+                <p>{userLikedSongsPlaylist!.songs.length} songs</p>
+              </Link>
+            </li>
+            {playlists.map((playlist) => (
+              <li key={playlist.id} className="user-playlist-item">
+                <Link to={`/playlist/${playlist.id}`}>
+                  <PlayBtn item={playlist} />
+                  {playlist.imgUrl ? (
+                    <img src={playlist.imgUrl} alt={playlist.name} />
+                  ) : (
+                    <NoteSVG />
+                  )}
+                  <span>{playlist.name}</span>
+                  <p>{playlist.songs.length} songs</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </>
-      )} */}
+      )}
     </section>
   );
 }

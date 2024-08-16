@@ -2,16 +2,17 @@
   @include flex-direction-alignItems-gap-padding(row, flex-end, 2rem, 0 1rem);
   .img-upload-con {
     position: relative;
-    box-shadow: $black-4 0px 2px 4px 0px;
+    box-shadow: $black-1 0px 2px 4px 0px;
     width: clamp(4rem, 100%, 15rem);
     aspect-ratio: 1/1;
+    border-radius: $border-radius-1-4;
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    border-radius: $border-radius-1-4;
 
     .img-upload-hover {
       position: absolute;
@@ -37,13 +38,13 @@
         filter: blur(4px);
       }
       .img-upload-hover {
-        svg {
-          filter: blur(0);
-        }
         opacity: 1;
         z-index: 2;
         fill: $gray-1;
         color: $gray-1;
+        svg {
+          filter: blur(0);
+        }
       }
     }
   }
@@ -130,6 +131,7 @@
       gap: 1rem;
       height: 100%;
       grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
+      grid-area: 2/1/-1/2;
 
       svg {
         background-color: rgba(255, 255, 255, 0.1);
@@ -222,7 +224,6 @@
         }
       }
 
-      grid-area: 2/1/-1/2;
       .switch {
         position: relative;
         display: inline-block;

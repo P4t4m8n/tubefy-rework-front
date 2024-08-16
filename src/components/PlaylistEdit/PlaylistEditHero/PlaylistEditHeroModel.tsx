@@ -1,12 +1,18 @@
-import { ChangeEvent, FormEvent, useRef } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useModel } from "../../../hooks/useModel";
 import PlaylistEditHeroImg from "./PlaylistEditHeroImg";
 import { PlusSVG } from "../../svg/SVGs";
+import { Loader } from "../../Loader";
 
 interface Props {
   imgUrl: string;
-  onUploadImg: (ev: ChangeEvent<HTMLInputElement>) => void;
-  onSaveHero: (ev: FormEvent<HTMLFormElement>) => void;
+  onSaveHero: (HeroData: {
+    imgUrlData: File | null;
+    name: string;
+    description: string;
+    isPublic: boolean;
+  }) => Promise<void>;
+
   infoData: {
     name: string;
     description: string;
@@ -22,14 +28,56 @@ interface Props {
 export default function PlaylistEditHeroModel({
   imgUrl,
   infoData,
-  onUploadImg,
   onSaveHero,
 }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+  const [imgPreview, setImgPreview] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { name, description, username, avatarUrl, songs, duration, shares,isPublic } =
-    infoData;
+  useEffect(() => {
+    if (imgUrl) setImgPreview(imgUrl);
+  }, [imgUrl]);
+
+  const {
+    name,
+    description,
+    username,
+    avatarUrl,
+    songs,
+    duration,
+    shares,
+    isPublic,
+  } = infoData;
+
+  const handleUploadImg = (ev: ChangeEvent<HTMLInputElement>) => {
+    if (!ev.target.files || !ev.target.files[0]) return;
+    const file = ev.target.files[0];
+    const imgUrl = URL.createObjectURL(file);
+    setImgPreview(imgUrl);
+  };
+
+  const savePlaylist = async (ev: FormEvent<HTMLFormElement>) => {
+    try {
+      setIsLoading(true);
+      ev.preventDefault();
+      ev.stopPropagation();
+      const formData = new FormData(ev.currentTarget);
+
+      const imgUrlData = formData.get("imgUrl") as File | null;
+      const name = formData.get("name") as string;
+      const description = formData.get("description") as string;
+      const isPublic = !!formData.get("isPublic");
+
+      await onSaveHero({ name, description, imgUrlData, isPublic });
+    } catch (error) {
+      console.error("error:", error);
+    } finally {
+      setIsLoading(false);
+      setIsModelOpen(false);
+    }
+  };
+
   return (
     <>
       <button
@@ -58,11 +106,12 @@ export default function PlaylistEditHeroModel({
               <PlusSVG />
             </button>
           </header>
-          <form onSubmit={onSaveHero}>
+          <form onSubmit={savePlaylist}>
             <PlaylistEditHeroImg
-              imgUrl={imgUrl}
-              onUploadImg={onUploadImg}
+              imgUrl={imgPreview}
+              onUploadImg={handleUploadImg}
               name={name}
+              idForInput="-edit-model"
             />
             <div className="playlists-details-hero-info">
               <input
@@ -91,8 +140,8 @@ export default function PlaylistEditHeroModel({
               <p>Public?</p>
             </div>
 
-            <button type="submit">
-              <span>Save</span>
+            <button disabled={isLoading} type="submit">
+              {isLoading ? <Loader /> : <span>Save</span>}
             </button>
           </form>
         </div>

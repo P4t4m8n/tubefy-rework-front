@@ -2,7 +2,6 @@
     @include flex-direction-gap-padding(column, 1rem, 0);
     width: 100%;
     ul {
-      @include no-scrollBar;
       overflow: auto;
       max-height:40vh;
       width: 100%;
@@ -10,6 +9,9 @@
       grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
       gap: 1rem;
       flex-wrap: wrap;
+      @include no-scrollBar;
+
+      
       li {
         padding: 0.75rem;
         width: 100%;
@@ -63,5 +65,6 @@
           }
         }
       }
+
     }
   }

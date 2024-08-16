@@ -8,7 +8,7 @@ import {
   SET_CURRENT_PLAYLIST,
 } from "../../models/player.model";
 import { store } from "../store";
-import { IPlaylist } from "../../models/playlist.model";
+import { ILikedSongPlaylist, IPlaylist } from "../../models/playlist.model";
 
 export const setPlayingSong = (
   song: ISong | ISongYT
@@ -18,7 +18,7 @@ export const setPlayingSong = (
 });
 
 export const setCurrentPlaylist = (
-  playlist: IPlaylist
+  playlist: IPlaylist | ILikedSongPlaylist
 ): ISetCurrentPlaylistAction => ({
   type: SET_CURRENT_PLAYLIST,
   payload: playlist,
@@ -37,6 +37,8 @@ export const loadSong = (song: ISong | ISongYT) => {
   store.dispatch(setPlayingSong(song));
 };
 
-export const loadCurrentPlaylist = (playlist: IPlaylist) => {
+export const loadCurrentPlaylist = (
+  playlist: IPlaylist | ILikedSongPlaylist
+) => {
   store.dispatch(setCurrentPlaylist(playlist));
 };

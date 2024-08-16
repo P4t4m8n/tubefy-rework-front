@@ -1,0 +1,87 @@
+.user-playlist-list {
+  overflow: auto;
+  height: calc(100vh - 22rem);
+  @include flex-direction-gap-padding(column, 0, 0 0.5rem);
+  @include no-scrollBar;
+  .user-playlist-item {
+    a {
+      display: grid;
+      padding: 0.5rem;
+      grid-template-columns: 3rem 1fr;
+      grid-template-rows: 1.5rem 1.5rem;
+      column-gap: 0.75rem;
+      align-items: center;
+      position: relative;
+      font-weight: 600;
+      img,
+      svg {
+        display: block;
+        grid-area: 1/1/-1/2;
+        border-radius: $border-radius-1-4;
+      }
+      svg {
+        background-color: $black-3;
+        padding: 0.5rem;
+        fill: $gray-1;
+      }
+      span {
+        grid-area: 1/2/2/-1;
+        color: $white-2;
+      }
+      p {
+        grid-area: 2/2/-1/-1;
+        color: $gray-1;
+        font-size: $font-size-14;
+      }
+      .play-btn {
+        position: absolute;
+        z-index: 1;
+        left: 1.25rem;
+        width: 1.5rem;
+        aspect-ratio: 1/1;
+        background-color: transparent;
+        opacity: 0;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        svg {
+          background-color: transparent;
+          fill: $white-2;
+          padding: 0;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $black-4;
+        transition: opacity 0.25s ease;
+        transform: scale(1);
+        border-radius: $border-radius-1-4;
+        opacity: 0;
+      }
+      &:hover {
+        cursor: pointer;
+        .play-btn {
+          opacity: 1;
+          &:hover {
+            transform: scale(1.1);
+            svg {
+              fill: $green-1;
+            }
+          }
+        }
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

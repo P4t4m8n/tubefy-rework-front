@@ -1,4 +1,5 @@
 import {
+  ILikedSongPlaylist,
   IPlaylist,
   IPlaylistDetailed,
   IPlaylistDTO,
@@ -27,7 +28,7 @@ const get = async (id: string): Promise<IPlaylistDetailed> => {
   }
 };
 
-const save = async (playlist: IPlaylist): Promise<IPlaylist> => {
+const save = async (playlist: IPlaylist): Promise<IPlaylistDetailed> => {
   const playlistDto = playlistToPlayListDTO(playlist);
   try {
     if (!playlist.id) {
@@ -91,12 +92,16 @@ const getUserLikedPlaylists = async (): Promise<IPlaylist[]> => {
   }
 };
 
-const getUserPlaylists = async (): Promise<IPlaylistDetailed[]> => {
+const getUserPlaylists = async (): Promise<{
+  likedSongsPlaylist: ILikedSongPlaylist;
+  OwnedPlaylist: IPlaylistDetailed[];
+}> => {
   try {
-    const playlists = await httpService.get<IPlaylistDetailed[]>(
-      `${BASE_URL}user`
-    );
-    if (!playlists) return [];
+    const playlists = await httpService.get<{
+      likedSongsPlaylist: ILikedSongPlaylist;
+      OwnedPlaylist: IPlaylistDetailed[];
+    }>(`${BASE_URL}user`);
+
     return playlists;
   } catch (error) {
     throw new Error(`Error while fetching user playlists: ${error}`);
@@ -114,9 +119,13 @@ const getDefaultStations = async (): Promise<IPlaylist[]> => {
   }
 };
 
-const getUserLikedSongsPlaylist = async (): Promise<IPlaylist> => {
+const getUserLikedSongsPlaylistById = async (
+  id: string
+): Promise<IPlaylistDetailed> => {
   try {
-    const playlist = await httpService.get<IPlaylist>(`${BASE_URL}liked/songs`);
+    const playlist = await httpService.get<IPlaylistDetailed>(
+      `${BASE_URL}user/${id}`
+    );
     return playlist;
   } catch (error) {
     throw new Error(`Error while fetching liked songs playlist: ${error}`);
@@ -139,12 +148,15 @@ const togglePlaylistLIke = async (
 };
 
 // Private functions
-const _create = (playlist: IPlaylistDTO): Promise<IPlaylist> => {
-  return httpService.post<IPlaylist>(`${BASE_URL}edit`, playlist);
+const _create = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
+  return httpService.post<IPlaylistDetailed>(`${BASE_URL}edit`, playlist);
 };
 
-const _update = (playlist: IPlaylistDTO): Promise<IPlaylist> => {
-  return httpService.put<IPlaylist>(`${BASE_URL}edit/${playlist.id}`, playlist);
+const _update = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
+  return httpService.put<IPlaylistDetailed>(
+    `${BASE_URL}edit/${playlist.id}`,
+    playlist
+  );
 };
 
 export const playlistService = {
@@ -159,5 +171,5 @@ export const playlistService = {
   getDefaultStations,
   togglePlaylistLIke,
   getUserPlaylists,
-  getUserLikedSongsPlaylist,
+  getUserLikedSongsPlaylistById,
 };

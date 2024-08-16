@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { playlistService } from "../services/playlist.service";
 import { Loader } from "../components/Loader";
 import { IPlaylistDetailed } from "../models/playlist.model";
@@ -13,7 +13,11 @@ import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList"
 
 export default function PlaylistDetails() {
   const [playlist, setPlaylist] = useState<IPlaylistDetailed | null>(null);
-  const params = useParams<{ id: string }>();
+  const params = useParams<{ id: string; isLiked?: string }>();
+  const location = useLocation();
+  const isLiked =
+    new URLSearchParams(location.search).get("isLiked") === "true";
+  console.log("isLiked:", isLiked);
 
   useEffect(() => {
     if (params.id) loadPlaylist(params.id);
@@ -21,7 +25,13 @@ export default function PlaylistDetails() {
 
   const loadPlaylist = async (id: string) => {
     try {
-      const playlist = await playlistService.get(id);
+      let playlist;
+      if (isLiked) {
+        playlist = await playlistService.getUserLikedSongsPlaylistById(id);
+        console.log("playlist:", playlist)
+      } else {
+        playlist = await playlistService.get(id);
+      }
       setPlaylist(playlist);
     } catch (error) {
       console.error(error);

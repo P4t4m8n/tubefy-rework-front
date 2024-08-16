@@ -1,5 +1,5 @@
 import { ISong, ISongYT } from "./song.model";
-import { IPlaylist } from "./playlist.model";
+import { ILikedSongPlaylist, IPlaylist } from "./playlist.model";
 
 export const SET_PLAYING_SONG = "SET_PLAYING_SONG";
 export const SET_IS_PLAYING = "SET_IS_PLAYING";
@@ -15,7 +15,7 @@ export interface ISetPlayingSongAction {
 }
 export interface ISetCurrentPlaylistAction {
   type: typeof SET_CURRENT_PLAYLIST;
-  payload: IPlaylist;
+  payload: IPlaylist | ILikedSongPlaylist;
 }
 export interface ISetIsPlayingAction {
   type: typeof SET_IS_PLAYING;

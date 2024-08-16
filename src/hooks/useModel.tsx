@@ -26,8 +26,7 @@ export const useModel = (
     if (!ev.target) return;
     if (!open) return;
     if (ref.current?.contains(ev.target as Node)) return;
-    console.log("ev.target as Node):", ev.target as Node)
-    console.log("ref.current:", ref.current)
+   
 
     setOpen(false);
     if (callBack) callBack();

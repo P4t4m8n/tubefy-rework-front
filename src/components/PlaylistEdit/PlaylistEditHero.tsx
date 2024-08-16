@@ -1,11 +1,16 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent } from "react";
 import PlaylistEditHeroImg from "./PlaylistEditHero/PlaylistEditHeroImg";
 import PlaylistEditHeroModel from "./PlaylistEditHero/PlaylistEditHeroModel";
 
 interface Props {
   imgUrl: string;
   onUploadImg: (ev: ChangeEvent<HTMLInputElement>) => void;
-  onSaveHero: (ev: FormEvent<HTMLFormElement>) => void;
+  onSaveHero: (HeroData: {
+    imgUrlData: File | null;
+    name: string;
+    description: string;
+    isPublic: boolean;
+  }) => Promise<void>;
   infoData: {
     name: string;
     description: string;
@@ -14,6 +19,7 @@ interface Props {
     songs: number;
     duration: string;
     shares: number;
+    isPublic: boolean;
   };
 }
 export default function PlaylistEditHero({
@@ -27,7 +33,6 @@ export default function PlaylistEditHero({
       <PlaylistEditHeroImg imgUrl={imgUrl} onUploadImg={onUploadImg} name="" />
       <PlaylistEditHeroModel
         imgUrl={imgUrl}
-        onUploadImg={onUploadImg}
         infoData={infoData}
         onSaveHero={onSaveHero}
       />

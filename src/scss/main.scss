@@ -20,9 +20,12 @@
 //Side-bar
 @import "./cmps/Sidebar/Sidebar.scss";
 @import "./cmps/Sidebar/Navbar.scss";
-@import "./cmps/Sidebar/UserLibrary.scss";
+
+@import "./cmps/Sidebar/UserLibrary/UserLibrary.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryHeader.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryNoUser.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryList.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryFilter.scss";
 
 //Header
 @import "./cmps/Header/Header.scss";

@@ -3,11 +3,14 @@ import {
   TPlaylistActionTypes,
   SET_MAIN_PLAYLISTS,
   SET_USER_PLAYLISTS,
+  SET_LIKED_PLAYLIST,
+  SET_PLAYLISTS_BULK,
 } from "../../models/playlist.model";
 
 const initialState: IPlaylistState = {
   mainPlaylists: [],
   userPlaylists: [],
+  likedPlaylist: null,
 };
 
 export const playlistReducer = (
@@ -19,7 +22,14 @@ export const playlistReducer = (
       return { ...state, mainPlaylists: action.payload };
     case SET_USER_PLAYLISTS:
       return { ...state, userPlaylists: action.payload };
-
+    case SET_LIKED_PLAYLIST:
+      return { ...state, likedPlaylist: action.payload };
+    case SET_PLAYLISTS_BULK:
+      return {
+        ...state,
+        userPlaylists: action.payload.userPlaylists,
+        likedPlaylist: action.payload.likedPlaylist,
+      };
     default:
       return state;
   }

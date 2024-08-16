@@ -8,4 +8,3 @@ export interface IGenericModelItem {
 }
 
 
-export type TItemTypes = "ISong" | "ISongYT" | "IPlaylist";

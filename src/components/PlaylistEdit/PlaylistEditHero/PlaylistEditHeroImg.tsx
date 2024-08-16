@@ -2,29 +2,31 @@ import { ChangeEvent } from "react";
 import { NoteSVG, PencilSVG } from "../../svg/SVGs";
 
 interface Props {
-  imgUrl: string;
+  imgUrl: string|null;
   name: string;
   onUploadImg: (ev: ChangeEvent<HTMLInputElement>) => void;
+  idForInput?: string;
 }
 export default function PlaylistEditHeroImg({
   imgUrl,
   name,
   onUploadImg,
+  idForInput,
 }: Props) {
   return (
     <label
       className="img-upload-con"
-      htmlFor="img-upload"
+      htmlFor={"img-upload" + idForInput}
       onClick={(ev) => ev.stopPropagation()}
     >
       <input
         type="file"
-        id="img-upload"
+        id={"img-upload" + idForInput}
         name="imgUrl"
         hidden
         onChange={(ev) => {
           ev.stopPropagation();
-          ev.preventDefault();
+          // ev.preventDefault();
           onUploadImg(ev);
         }}
       />
