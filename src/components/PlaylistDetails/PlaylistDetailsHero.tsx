@@ -24,7 +24,7 @@ export default function PlaylistDetailsHero({
       <img src={imgUrl} alt={name} />
       <div className="playlists-details-hero-info">
         <h3>{name}</h3>
-        <h4>{description || "fndjsfn fdsfn sdflsdn sdflslkld"}</h4>
+        <h4>{description || ""}</h4>
         <div className="playlists-details-hero-info-owner">
           <img src={avatarUrl}></img>
           <p>{username || "TubeFy"}</p>

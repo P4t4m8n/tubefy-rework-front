@@ -27,13 +27,13 @@ export function User() {
       onClick: onLogout,
     },
   ];
-  const ifNoUserAvatar = !user?.avatarUrl ? <UserIconSVG /> : undefined;
+  const ifNoUserAvatar = !user?.imgUrl ? <UserIconSVG /> : undefined;
   return (
     <div className="header-user-btn">
       {!user && <Login />}
       {user && (
         <GenericModel
-          imgUrl={user.avatarUrl}
+          imgUrl={user.imgUrl}
           items={userModelItems}
           btnSvg={ifNoUserAvatar}
         />

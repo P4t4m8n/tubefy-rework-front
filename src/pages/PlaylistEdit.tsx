@@ -1,48 +1,31 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IPlaylistDetailed } from "../models/playlist.model";
 import { ChangeEvent, useState } from "react";
 import { playlistService } from "../services/playlist.service";
-import { getEmptyPlaylist } from "../util/playlist.util";
-import { IUserSmall } from "../models/user.model";
+import { Loader } from "../components/Loader";
+import { DotsSVG } from "../components/svg/SVGs";
+import { useEffectUpdate } from "../hooks/useEffectUpdate";
+import { uploadImg } from "../services/imgUpload.service";
+import { saveUserPlaylist } from "../store/actions/playlist.action";
 import PlaylistEditHero from "../components/PlaylistEdit/PlaylistEditHero";
 import PlayBtn from "../components/Buttons/PlayBtn";
-import { Loader } from "../components/Loader";
 import GenericModel from "../components/GenericComponents/GenericModel";
-import { DotsSVG } from "../components/svg/SVGs";
 import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList";
 import PlaylistEditSearch from "../components/PlaylistEdit/PlaylistEditSearch";
-import { store } from "../store/store";
-import { useEffectUpdate } from "../hooks/useEffectUpdate";
 
-interface Props {
-  user?: IUserSmall;
-}
-
-export default function PlaylistEdit({ user }: Props) {
+export default function PlaylistEdit() {
   const [playlistToEdit, setPlaylistToEdit] =
     useState<IPlaylistDetailed | null>(null);
   const { id } = useParams();
-
-  const userPlaylistsLength = store.getState().playlists.userPlaylists.length;
+  const navigate = useNavigate();
 
   useEffectUpdate(() => {
-    if (id) {
-      loadPlaylist(id);
-    } else {
-      createPlaylist();
+    if (!id) {
+      navigate("/");
+      return;
     }
+    loadPlaylist(id);
   }, [id]);
-
-  const createPlaylist = async () => {
-    try {
-      const emptyPlaylist = getEmptyPlaylist(userPlaylistsLength);
-      emptyPlaylist.owner = user!;
-      const _playlist = await playlistService.save(emptyPlaylist);
-      setPlaylistToEdit(_playlist);
-    } catch (error) {
-      console.error("error:", error);
-    }
-  };
 
   const loadPlaylist = async (id: string) => {
     try {
@@ -68,7 +51,16 @@ export default function PlaylistEdit({ user }: Props) {
     isPublic: boolean;
   }) => {
     const { imgUrlData, name, description, isPublic } = HeroData;
-  
+    const imgUrl = imgUrlData ? await uploadImg(imgUrlData) : "";
+    const updatedPlaylist = {
+      ...playlistToEdit!,
+      imgUrl,
+      name,
+      description,
+      isPublic,
+    };
+
+    saveUserPlaylist(updatedPlaylist);
   };
 
   if (!playlistToEdit) return <Loader />;
@@ -78,8 +70,8 @@ export default function PlaylistEdit({ user }: Props) {
     onUploadImg,
     onSaveHero: onSavePlaylist,
     infoData: {
-      name: playlistToEdit?.name || "asdsadasdas",
-      description: playlistToEdit?.description || "dsadSADdsa",
+      name: playlistToEdit?.name || "",
+      description: playlistToEdit?.description || "",
       username: playlistToEdit?.owner.username || "",
       avatarUrl: playlistToEdit?.owner.imgUrl || "",
       songs: playlistToEdit?.songs.length || 0,

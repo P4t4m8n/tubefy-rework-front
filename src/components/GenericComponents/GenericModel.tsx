@@ -1,10 +1,11 @@
-import { useRef } from "react";
+import { MouseEvent, ReactNode, useRef } from "react";
 import { useModel } from "../../hooks/useModel";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IGenericModelItem } from "../../models/app.model";
 
 interface Props {
-  children?: React.ReactNode;
+  children?: ReactNode;
+  uniqueButton?: ReactNode;
   items?: IGenericModelItem[];
   btnSvg?: JSX.Element;
   imgUrl?: string;
@@ -15,9 +16,37 @@ export default function GenericModel({
   items,
   btnSvg,
   imgUrl,
+  uniqueButton,
 }: Props) {
   const modelRef = useRef<HTMLUListElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+  const navigate = useNavigate();
+
+  const handleClick = async (
+    ev: MouseEvent,
+    item?: (ev: MouseEvent) => void
+  ) => {
+    ev.stopPropagation();
+    ev.preventDefault();
+    if (item) {
+      await item(ev);
+      setIsModelOpen(false);
+    }
+    return;
+  };
+
+  const handleLink = (ev: MouseEvent, link?: string) => {
+    ev.stopPropagation();
+    ev.preventDefault();
+
+    if (!link) {
+      navigate("/");
+      return;
+    }
+    navigate(link);
+    setIsModelOpen(false);
+    return;
+  };
 
   return (
     <>
@@ -25,9 +54,12 @@ export default function GenericModel({
         className="generic-model-btn"
         onClick={(ev) => {
           ev.stopPropagation();
-          setIsModelOpen(true)}}
+          ev.preventDefault();
+          setIsModelOpen(true);
+        }}
       >
-        {btnSvg ? btnSvg : <img src={imgUrl} alt="user" />}
+        {btnSvg && !uniqueButton ? btnSvg : <img src={imgUrl} alt="user" />}
+        {uniqueButton}
       </button>
       {isModelOpen && (
         <ul className="generic-model" ref={modelRef}>
@@ -36,12 +68,12 @@ export default function GenericModel({
             items.map((item, index) => (
               <li key={index}>
                 {item.link ? (
-                  <Link to={item.link}>
+                  <button onClick={(ev) => handleLink(ev, item.link)}>
                     <span>{item.text}</span>
                     {item.svg}
-                  </Link>
+                  </button>
                 ) : (
-                  <button onClick={item.onClick}>
+                  <button onClick={(ev) => handleClick(ev, item.onClick)}>
                     <span>{item.text}</span>
                     {item.svg}
                   </button>

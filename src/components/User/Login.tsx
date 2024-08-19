@@ -26,22 +26,23 @@ export default function Login() {
   const inputs = getLoginInputs(isLogin);
 
   return (
-    <>
-      <button className="login-model-btn" onClick={(ev) =>{ 
-        ev.preventDefault();
-        ev.stopPropagation();
-        setIsModelOpen(true)}}>
+    <div ref={loginModelRef} className="login-model-con">
+      <button
+        className="login-model-btn"
+        onClick={() => {
+          setIsModelOpen(true);
+        }}
+      >
         <span>Log in</span>
       </button>
       {isModelOpen && (
         <div
-          ref={loginModelRef}
           className="login-model"
           style={{ display: isModelOpen ? "block" : "none" }}
         >
           <h2>{!isLogin ? "Sign up to start listing" : "Login to Tubefy"}</h2>
           <form onSubmit={onSubmit}>
-            {inputs.map((input,idx) => (
+            {inputs.map((input, idx) => (
               <li key={idx}>
                 <label htmlFor={input.name}>{input.label}</label>
                 <input
@@ -71,6 +72,6 @@ export default function Login() {
           </form>
         </div>
       )}
-    </>
+    </div>
   );
 }

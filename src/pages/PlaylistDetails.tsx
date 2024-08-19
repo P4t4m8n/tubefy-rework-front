@@ -10,6 +10,7 @@ import { IGenericModelItem } from "../models/app.model";
 import { DotsSVG, LibrarySVG } from "../components/svg/SVGs";
 import GenericModel from "../components/GenericComponents/GenericModel";
 import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList";
+import { getUser, getUserPlaylistsState } from "../store/getStore";
 
 export default function PlaylistDetails() {
   const [playlist, setPlaylist] = useState<IPlaylistDetailed | null>(null);
@@ -17,10 +18,19 @@ export default function PlaylistDetails() {
   const location = useLocation();
   const isLiked =
     new URLSearchParams(location.search).get("isLiked") === "true";
-  console.log("isLiked:", isLiked);
+
+  const userPlaylists = getUserPlaylistsState();
+  const userId = getUser()?.id;
+
+  const playlistsData = userPlaylists.map((playlist) => ({
+    playlistsId: playlist.id,
+    playlistsName: playlist.name,
+    playlistImg: playlist.imgUrl,
+  }));
 
   useEffect(() => {
     if (params.id) loadPlaylist(params.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const loadPlaylist = async (id: string) => {
@@ -28,7 +38,6 @@ export default function PlaylistDetails() {
       let playlist;
       if (isLiked) {
         playlist = await playlistService.getUserLikedSongsPlaylistById(id);
-        console.log("playlist:", playlist)
       } else {
         playlist = await playlistService.get(id);
       }
@@ -74,6 +83,8 @@ export default function PlaylistDetails() {
     },
   ];
 
+  const isOwnerId = owner.id === userId ? owner.id : "";
+
   return (
     <section className="playlists-details">
       <PlaylistDetailsHero {...heroProps} />
@@ -82,7 +93,13 @@ export default function PlaylistDetails() {
         <LikeBtn item={playlist} />
         <GenericModel btnSvg={<DotsSVG />} items={modelItems} />
       </div>
-      <PlaylistSongsList songs={songs} />
+      <PlaylistSongsList
+        isOwnerId={isOwnerId}
+        songs={songs}
+        userPlaylistsData={playlistsData}
+        playlistId={playlist.id}
+        setPlaylist={setPlaylist}
+      />
     </section>
   );
 }

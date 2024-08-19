@@ -51,6 +51,9 @@ button {
   padding: 0;
   border: none;
   font-family: "Nunito";
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 h1,

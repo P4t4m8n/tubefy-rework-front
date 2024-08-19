@@ -7,9 +7,11 @@ import { Loader } from "../Loader";
 import { loadUserPlaylists } from "../../store/actions/playlist.action";
 import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 import { IPlaylistDetailed } from "../../models/playlist.model";
+import UserLibraryListPreview from "./UserLibraryListPreview";
+import { Link, useLocation } from "react-router-dom";
 import PlayBtn from "../Buttons/PlayBtn";
 import { NoteSVG } from "../svg/SVGs";
-import { Link } from "react-router-dom";
+import { store } from "../../store/store";
 
 export function UserLibraryIndex() {
   const user = useAppSelector((state) => state.user.user);
@@ -24,20 +26,17 @@ export function UserLibraryIndex() {
     IPlaylistDetailed[]
   >([]);
 
+  const currentPlaylistId = store.getState().player.currentPlaylist?.id || null;
+  const location = useLocation();
+  const path = location.pathname;
+  const segments = path.split("/");
+  const playlistId = segments.pop() || null;
+
   useEffectUpdate(() => {
     if (user) {
-      getUserPlaylists();
+      loadUserPlaylists();
     }
   }, [user]);
-
-  const getUserPlaylists = async () => {
-    try {
-      await loadUserPlaylists();
-    } catch (error) {
-      console.error(`Error while loading user playlists: ${error}`);
-      return [];
-    }
-  };
 
   const onFilterChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const _filteredPlaylists = userPlaylists.filter((playlist) =>
@@ -46,6 +45,7 @@ export function UserLibraryIndex() {
 
     setFilteredPlaylists(_filteredPlaylists);
   };
+
   const sortPlaylists = (sortBy: "recently_added" | "alphabetical") => {
     const _filteredPlaylists = [...userPlaylists];
     if (sortBy === "recently_added") {
@@ -83,32 +83,39 @@ export function UserLibraryIndex() {
             sortPlaylists={sortPlaylists}
           />
           <ul className="user-playlist-list">
-            <li className="user-playlist-item">
-              <Link to={`/playlist/${userLikedSongsPlaylist!.id}?isLiked=true`}>
+            <Link to={`/playlist/${userLikedSongsPlaylist!.id}?isLiked=true`}>
+              <li
+                className={`user-playlist-item ${
+                  currentPlaylistId === userLikedSongsPlaylist?.id ||
+                  playlistId === userLikedSongsPlaylist?.id
+                    ? "highlight"
+                    : ""
+                }`}
+              >
                 <PlayBtn item={userLikedSongsPlaylist!} />
-                {userLikedSongsPlaylist!.imgUrl ? (
-                  <img src={userLikedSongsPlaylist!.imgUrl} alt="Liked songs" />
-                ) : (
-                  <NoteSVG />
-                )}
-                <img src={userLikedSongsPlaylist!.imgUrl} alt="Liked songs" />
-                <span>Liked songs</span>
-                <p>{userLikedSongsPlaylist!.songs.length} songs</p>
-              </Link>
-            </li>
-            {playlists.map((playlist) => (
-              <li key={playlist.id} className="user-playlist-item">
-                <Link to={`/playlist/${playlist.id}`}>
-                  <PlayBtn item={playlist} />
-                  {playlist.imgUrl ? (
-                    <img src={playlist.imgUrl} alt={playlist.name} />
+                <div className="img-con">
+                  {userLikedSongsPlaylist?.imgUrl ? (
+                    <img
+                      src={userLikedSongsPlaylist!.imgUrl}
+                      alt="Liked songs"
+                    />
                   ) : (
                     <NoteSVG />
                   )}
-                  <span>{playlist.name}</span>
-                  <p>{playlist.songs.length} songs</p>
-                </Link>
+                </div>
+                <span>Liked songs</span>
+                <p>{userLikedSongsPlaylist!.songs.length} songs</p>
               </li>
+            </Link>
+            {playlists.map((playlist) => (
+              <UserLibraryListPreview
+                playlist={playlist}
+                key={playlist.id}
+                isHighlighted={
+                  currentPlaylistId === playlist?.id ||
+                  playlistId === playlist?.id
+                }
+              />
             ))}
           </ul>
         </>

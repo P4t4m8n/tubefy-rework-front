@@ -1,24 +1,37 @@
 import PlayBtn from "../Buttons/PlayBtn";
 import { ISong } from "../../models/song.model";
 import { LikeBtn } from "../Buttons/LikeBtn";
-import GenericModel from "../GenericComponents/GenericModel";
-import { DotsSVG } from "../svg/SVGs";
 import { IGenericModelItem } from "../../models/app.model";
 import { utilService } from "../../util/util.util";
+import SongModel from "../SongModel/SongModel";
+import { IPlaylistDetailed } from "../../models/playlist.model";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
+  setPlaylist: Dispatch<SetStateAction<IPlaylistDetailed|null>>;
+  isOwnerId: string;
   song: ISong;
   idx: number;
-  modelItems: IGenericModelItem[];
+  playlistId?: string;
+  modelItems?: IGenericModelItem[];
+  userPlaylistsData?: {
+    playlistsId?: string;
+    playlistsName: string;
+    playlistImg: string;
+  }[];
 }
 
 export default function PlaylistSongsListPreview({
   song,
   idx,
-  modelItems,
+  isOwnerId,
+  playlistId,
+  userPlaylistsData,
+  setPlaylist,
 }: Props) {
   const { imgUrl, name } = song;
   const addedAt = utilService.getDaysSince(song.addedAt);
+
   return (
     <li className="playlist-songs-list-preview">
       <div className="hover-index">
@@ -35,7 +48,13 @@ export default function PlaylistSongsListPreview({
       <div className="playlist-songs-list-preview-actions">
         <LikeBtn item={song} />
         <p>{song.duration}</p>
-        <GenericModel btnSvg={<DotsSVG />} items={modelItems} />
+        <SongModel
+          song={song}
+          userPlaylistsData={userPlaylistsData}
+          isOwnerId={isOwnerId}
+          playlistId={playlistId}
+          setPlaylist={setPlaylist}
+        />
       </div>
     </li>
   );

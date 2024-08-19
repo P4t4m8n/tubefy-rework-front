@@ -21,7 +21,6 @@ export const useModel = (
   }, [open, ref]);
 
   const checkClickOutside = (ev: MouseEvent) => {
-
     if (!ev.target) return;
     if (!open) return;
     if (ref.current?.contains(ev.target as Node)) return;

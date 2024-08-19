@@ -13,7 +13,6 @@ export default function UserLibraryFilter({
 }: Props) {
   const searchConRef = useRef(null);
   const [iseSearchOpen, setIsSearchOpen] = useModel(searchConRef);
-  console.log("iseSearchOpen:", iseSearchOpen);
 
   return (
     <div className="user-playlist-filter">

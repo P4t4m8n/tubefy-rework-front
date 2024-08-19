@@ -50,9 +50,14 @@ const remove = async (id: string): Promise<boolean> => {
   }
 };
 
-const addSong = async (playlistId: string, songId: string): Promise<void> => {
+const addSong = async (
+  playlistId: string,
+  songId: string
+): Promise<boolean> => {
   try {
-    await httpService.post(`${BASE_URL}/${playlistId}/song/${songId}`);
+    return await httpService.post(`${BASE_URL}/${playlistId}/songs`, {
+      songId,
+    });
   } catch (error) {
     throw new Error(`Error while adding song to playlist: ${error}`);
   }
@@ -60,10 +65,14 @@ const addSong = async (playlistId: string, songId: string): Promise<void> => {
 
 const removeSong = async (
   playlistId: string,
-  songId: string
-): Promise<void> => {
+  songId: string,
+  isOwnerId: string
+): Promise<boolean> => {
   try {
-    await httpService.delete(`${BASE_URL}/${playlistId}/song/${songId}`);
+    return await httpService.delete(`${BASE_URL}/${playlistId}/songs`, {
+      songId,
+      isOwnerId,
+    });
   } catch (error) {
     throw new Error(`Error while removing song from playlist: ${error}`);
   }
