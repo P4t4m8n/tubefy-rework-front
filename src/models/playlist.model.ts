@@ -76,6 +76,12 @@ export interface IPlaylistState {
   userPlaylists: IPlaylistDetailed[];
   likedPlaylist: ILikedSongPlaylist | null;
 }
+
+export interface IPlaylistModelData {
+  playlistsId: string;
+  playlistsName: string;
+  playlistImg: string;
+}
 export interface ISetMainPlaylistsAction {
   type: typeof SET_MAIN_PLAYLISTS;
   payload: IPlaylistObject[];
@@ -88,7 +94,6 @@ export interface ISetLikedPlaylistAction {
   type: typeof SET_LIKED_PLAYLIST;
   payload: ILikedSongPlaylist;
 }
-
 export interface ISetPlaylistsBulkAction {
   type: typeof SET_PLAYLISTS_BULK;
   payload: {

@@ -1,29 +1,19 @@
-import { IGenericModelItem } from "../../models/app.model";
-import { IPlaylistDetailed } from "../../models/playlist.model";
+import { IPlaylistModelData } from "../../models/playlist.model";
 import { ISong } from "../../models/song.model";
 import { ClockSVG } from "../svg/SVGs";
 import PlaylistSongsListPreview from "./PlaylistSongsListPreview";
-import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-  setPlaylist: Dispatch<SetStateAction<IPlaylistDetailed|null>>;
   songs: ISong[];
-  isOwnerId: string;
-  playlistId?: string;
-  modelItems?: IGenericModelItem[];
-  userPlaylistsData?: {
-    playlistsId?: string;
-    playlistsName: string;
-    playlistImg: string;
-  }[];
+  playlistModelData: IPlaylistModelData[];
+  isOwner: boolean;
+  onRemoveSongFromPlaylist: (songId: string) => void;
 }
 export default function PlaylistSongsList({
   songs,
-  modelItems,
-  userPlaylistsData,
-  isOwnerId,
-  playlistId,
-  setPlaylist,
+  playlistModelData,
+  isOwner,
+  onRemoveSongFromPlaylist,
 }: Props) {
   return (
     <section className="playlist-songs-list">
@@ -44,11 +34,9 @@ export default function PlaylistSongsList({
             key={song.id}
             song={song}
             idx={idx}
-            modelItems={modelItems}
-            userPlaylistsData={userPlaylistsData}
-            isOwnerId={isOwnerId}
-            playlistId={playlistId}
-            setPlaylist={setPlaylist}
+            playlistModelData={playlistModelData}
+            isOwner={isOwner}
+            onRemoveSongFromPlaylist={onRemoveSongFromPlaylist}
           />
         ))}
       </ul>

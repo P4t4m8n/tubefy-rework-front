@@ -7,4 +7,7 @@ export interface IGenericModelItem {
   onClick?: (ev?: MouseEvent) => void;
 }
 
-
+export interface IModelCoords {
+  x: number;
+  y: number;
+}

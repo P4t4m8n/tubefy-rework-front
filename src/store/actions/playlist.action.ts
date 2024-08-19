@@ -97,21 +97,41 @@ export const saveUserPlaylist = async (
   }
 };
 
-export const updateUserLikedSongPlaylist = (song: ISong) => {
-  const userLikedSongsPlaylist = store.getState().playlists.likedPlaylist;
-  if (!userLikedSongsPlaylist) return;
+export const updateUserLikedPlaylist = (playlist: IPlaylistDetailed) => {
+  const userPlaylists = [...store.getState().playlists.userPlaylists];
 
-  const idx = userLikedSongsPlaylist.songs.findIndex(
-    (_song) => _song.id === song.id
+  if (!userPlaylists) return;
+
+  const idx = userPlaylists.findIndex(
+    (_playlist) => _playlist.id === playlist.id
   );
 
   if (idx === -1) {
-    userLikedSongsPlaylist.songs.push(song);
+    store.dispatch(setUserPlaylists([...userPlaylists, playlist]));
   } else {
-    userLikedSongsPlaylist.songs.splice(idx, 1);
+    userPlaylists.splice(idx, 1);
+    store.dispatch(setUserPlaylists([...userPlaylists]));
+  }
+};
+
+export const updateUserLikedSongPlaylist = (song: ISong) => {
+  const userLikedSongsPlaylist = store.getState().playlists.likedPlaylist;
+
+  if (!userLikedSongsPlaylist) return;
+
+  const songs = userLikedSongsPlaylist.songs?.map((_song) => _song) || [];
+
+  const idx = songs.findIndex((_song) => _song.id === song.id);
+
+  if (idx === -1) {
+    songs.push(song);
+  } else {
+    songs.splice(idx, 1);
   }
 
-  store.dispatch(setUserLikedSongsPlaylist(userLikedSongsPlaylist));
+  store.dispatch(
+    setUserLikedSongsPlaylist({ ...userLikedSongsPlaylist, songs })
+  );
 };
 
 export const deletePlaylist = async (playlistId: string): Promise<void> => {
@@ -173,7 +193,11 @@ export const removeSongFromPlaylist = async (
   isOwnerId: string
 ) => {
   try {
-    const isRemoved = await playlistService.removeSong(playlistId, songId,isOwnerId);
+    const isRemoved = await playlistService.removeSong(
+      playlistId,
+      songId,
+      isOwnerId
+    );
     if (!isRemoved) {
       throw new Error(`Failed to remove song from playlist: ${playlistId}`);
     }

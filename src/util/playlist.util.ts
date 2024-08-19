@@ -2,8 +2,10 @@ import {
   IPlaylist,
   IPlaylistDetailed,
   IPlaylistObject,
+  IPlaylistModelData,
   TPlaylistType,
 } from "../models/playlist.model";
+import { getUserPlaylistsState } from "../store/getStore";
 
 export const playlistsToPlaylistObjects = (
   playlists: IPlaylist[]
@@ -66,4 +68,21 @@ export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
       count: 0,
     },
   };
+};
+
+export const transformUserPlaylistsForModel = (
+  playlistId = ""
+): IPlaylistModelData[] => {
+  const userPlaylists = getUserPlaylistsState();
+
+  return userPlaylists.reduce((acc: IPlaylistModelData[], playlist) => {
+    if (playlist.id !== playlistId) {
+      acc.push({
+        playlistsId: playlist.id || "",
+        playlistsName: playlist.name,
+        playlistImg: playlist.imgUrl,
+      });
+    }
+    return acc;
+  }, []);
 };

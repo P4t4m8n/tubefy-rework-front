@@ -5,6 +5,10 @@ import { isYTSong } from "../../util/app.util";
 import { HeartSVG } from "../svg/SVGs";
 import { playlistService } from "../../services/playlist.service";
 import { songService } from "../../services/song.service";
+import {
+  updateUserLikedPlaylist,
+  updateUserLikedSongPlaylist,
+} from "../../store/actions/playlist.action";
 
 interface Props {
   item: ISongYT | ISong | IPlaylistDetailed;
@@ -27,6 +31,7 @@ export function LikeBtn({ item }: Props) {
 
   const onLike = async () => {
     let finishCheck = false;
+
     //optimistic update
     setIsLiked(!isLiked);
     setAnimation(isLiked ? "un-like-animation" : "like-animation");
@@ -37,14 +42,17 @@ export function LikeBtn({ item }: Props) {
             item.id!,
             isLiked
           );
+          updateUserLikedPlaylist(item as IPlaylistDetailed);
         } else {
           finishCheck = await songService.toggleSongLike(
             (item as ISong).id,
             isLiked
           );
+          updateUserLikedSongPlaylist(item as ISong);
         }
       } else {
         const song = await songService.createSong(item as ISongYT);
+        updateUserLikedSongPlaylist(song);
         finishCheck = await songService.toggleSongLike(song.id, isLiked);
       }
     } catch (error) {

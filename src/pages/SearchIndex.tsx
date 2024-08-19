@@ -7,61 +7,17 @@ import SearchIndexGenresList from "../components/SearchIndex/SearchIndexGenresLi
 import SearchIndexSongsList from "../components/SearchIndex/SearchIndexSongsList";
 import SearchIndexPlaylistList from "../components/SearchIndex/SearchIndexPlaylistList";
 import { Loader } from "../components/Loader";
+import { apiService } from "../services/api.service";
 
 export default function SearchIndex() {
   const [searchList, setSearch] = useState<{
     songs: ISongYT[];
     playlists: IPlaylist[];
   }>({
-    songs: [
-      {
-        name: "Holy Wars   The Punishment Due",
-        artist: "Megadeth",
-        duration: "06:38",
-        youtubeId: "9d4ui9q7eDM",
-        imgUrl: "https://i.ytimg.com/vi/9d4ui9q7eDM/mqdefault.jpg",
-        addedBy: "artist",
-        addedAt: new Date().toString(),
-      },
-      {
-        name: "Symphony Of Destruction",
-        artist: "Unknown",
-        duration: "04:07",
-        youtubeId: "WdoXZf-FZyA",
-        imgUrl: "https://i.ytimg.com/vi/WdoXZf-FZyA/mqdefault.jpg",
-        addedBy: "artist",
-        addedAt: new Date().toString(),
-      },
-      {
-        name: "Tornado Of Souls",
-        artist: "Unknown",
-        duration: "05:23",
-        youtubeId: "L8HhOMNrulE",
-        imgUrl: "https://i.ytimg.com/vi/L8HhOMNrulE/mqdefault.jpg",
-        addedBy: "artist",
-        addedAt: new Date().toString(),
-      },
-      {
-        name: "Sweating Bullets",
-        artist: "Megadeth",
-        duration: "04:21",
-        youtubeId: "aOnKCcjP8Qs",
-        imgUrl: "https://i.ytimg.com/vi/aOnKCcjP8Qs/mqdefault.jpg",
-        addedBy: "artist",
-        addedAt: new Date().toString(),
-      },
-      {
-        name: "A Tout Le Monde",
-        artist: "Megadeth",
-        duration: "04:14",
-        youtubeId: "aU-dKoFZT0A",
-        imgUrl: "https://i.ytimg.com/vi/aU-dKoFZT0A/mqdefault.jpg",
-        addedBy: "artist",
-        addedAt: new Date().toString(),
-      },
-    ],
+    songs: [],
     playlists: [],
   });
+  console.log("searchList:", searchList);
   const { query } = useParams<{ query: string }>();
 
   useEffect(() => {
@@ -72,10 +28,11 @@ export default function SearchIndex() {
 
   const loadSearchResults = async (query: string) => {
     try {
-      const [playlists] = await Promise.all([
+      const [songs, playlists] = await Promise.all([
+        await apiService.getSongsFromYT(query),
         await playlistService.query({ artist: query, limit: 5 }),
       ]);
-      setSearch((prev) => ({ ...prev, playlists }));
+      setSearch((prev) => ({ ...prev, playlists, songs }));
     } catch (error) {
       console.error(`Error while loading search results: ${error}`);
     }
@@ -109,7 +66,10 @@ export default function SearchIndex() {
             <h2>Featuring {query} </h2>
             <ul>
               {searchList.playlists.map((playlist) => (
-                <SearchIndexPlaylistList key={playlist.id} playlist={playlist} />
+                <SearchIndexPlaylistList
+                  key={playlist.id}
+                  playlist={playlist}
+                />
               ))}
             </ul>
           </div>

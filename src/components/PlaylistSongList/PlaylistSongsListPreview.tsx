@@ -1,33 +1,24 @@
 import PlayBtn from "../Buttons/PlayBtn";
 import { ISong } from "../../models/song.model";
 import { LikeBtn } from "../Buttons/LikeBtn";
-import { IGenericModelItem } from "../../models/app.model";
 import { utilService } from "../../util/util.util";
 import SongModel from "../SongModel/SongModel";
-import { IPlaylistDetailed } from "../../models/playlist.model";
-import { Dispatch, SetStateAction } from "react";
+import { IPlaylistModelData } from "../../models/playlist.model";
 
 interface Props {
-  setPlaylist: Dispatch<SetStateAction<IPlaylistDetailed|null>>;
-  isOwnerId: string;
+  onRemoveSongFromPlaylist: (songId: string) => void;
+  isOwner: boolean;
   song: ISong;
   idx: number;
-  playlistId?: string;
-  modelItems?: IGenericModelItem[];
-  userPlaylistsData?: {
-    playlistsId?: string;
-    playlistsName: string;
-    playlistImg: string;
-  }[];
+  playlistModelData: IPlaylistModelData[];
 }
 
 export default function PlaylistSongsListPreview({
   song,
   idx,
-  isOwnerId,
-  playlistId,
-  userPlaylistsData,
-  setPlaylist,
+  isOwner,
+  playlistModelData,
+  onRemoveSongFromPlaylist,
 }: Props) {
   const { imgUrl, name } = song;
   const addedAt = utilService.getDaysSince(song.addedAt);
@@ -50,10 +41,9 @@ export default function PlaylistSongsListPreview({
         <p>{song.duration}</p>
         <SongModel
           song={song}
-          userPlaylistsData={userPlaylistsData}
-          isOwnerId={isOwnerId}
-          playlistId={playlistId}
-          setPlaylist={setPlaylist}
+          playlistModelData={playlistModelData}
+          isOwner={isOwner}
+          onRemoveSongFromPlaylist={onRemoveSongFromPlaylist}
         />
       </div>
     </li>

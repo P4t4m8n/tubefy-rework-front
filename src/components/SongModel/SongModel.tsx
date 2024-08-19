@@ -1,102 +1,41 @@
-import { Dispatch, MouseEvent, SetStateAction, useRef, useState } from "react";
+import { MouseEvent, useRef } from "react";
 import { useModel } from "../../hooks/useModel";
-import {
-  DeleteSVG,
-  DotsSVG,
-  ForwardSVG,
-  PlusSVG,
-  SaveSVG,
-  ShareSVG,
-} from "../svg/SVGs";
+import { DeleteSVG, DotsSVG, ForwardSVG, ShareSVG } from "../svg/SVGs";
 import { ISong } from "../../models/song.model";
-import {
-  addSongToPlaylist,
-  removeSongFromPlaylist,
-} from "../../store/actions/playlist.action";
-import { IPlaylistDetailed } from "../../models/playlist.model";
+import { IPlaylistModelData } from "../../models/playlist.model";
+import { useModelPosition } from "../../hooks/useModelPosition";
+import SongModelSub from "./SongModelSub";
 
 interface Props {
-  playlistId?: string;
   song: ISong;
-  setPlaylist: Dispatch<SetStateAction<IPlaylistDetailed | null>>;
-  isOwnerId: string;
-  userPlaylistsData?: {
-    playlistsId?: string;
-    playlistsName: string;
-    playlistImg: string;
-  }[];
+  isOwner: boolean;
+  playlistModelData: IPlaylistModelData[];
+  onRemoveSongFromPlaylist: (songId: string) => void;
 }
 
 export default function SongModel({
   song,
-  userPlaylistsData,
-  isOwnerId,
-  playlistId,
-  setPlaylist,
+  playlistModelData,
+  isOwner,
+  onRemoveSongFromPlaylist,
 }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
-  const [modelPosition, setModelPosition] = useState({ x: 0, y: "2rem" });
-  const [subModelPosition, setSubModelPosition] = useState({ x: 0, y: 0 });
+  const { modelPosition, handleMouseClick } = useModelPosition({ x: 0, y: 32 });
 
-  const handleMouseEnter = (ev: MouseEvent) => {
-    const position = ev.currentTarget.getBoundingClientRect();
-    if (position.bottom + 220 > window.innerHeight) {
-      setSubModelPosition({ x: position.left, y: -130 });
-    }
-  };
-
-  const handleMouseClick = (ev: MouseEvent) => {
-    const position = ev.currentTarget.getBoundingClientRect();
-    if (position.bottom + 102 > window.innerHeight) {
-      setModelPosition({ x: position.left, y: `${-7}rem` });
-    }
-
+  const onModelBtnClick = (ev: MouseEvent) => {
+    handleMouseClick(ev, { x: 0, y: -112 }, 102);
     setIsModelOpen(true);
   };
 
-  const onRemoveSongFromPlaylist = async () => {
-    await removeSongFromPlaylist(playlistId!, song.id, isOwnerId);
-    setPlaylist((prev) => {
-      if (!prev) return prev;
-      const updatedSongs = prev.songs.filter((_song) => _song.id !== song.id);
-      return { ...prev, songs: updatedSongs };
-    });
-  };
   return (
     <div className="song-model" ref={modelRef}>
-      <button className="song-model-btn" onClick={handleMouseClick}>
+      <button className="song-model-btn" onClick={onModelBtnClick}>
         <DotsSVG />
       </button>
       {isModelOpen && (
         <ul style={{ top: modelPosition.y }} className="song-model-list">
-          <li className="song-model-list-item" onMouseEnter={handleMouseEnter}>
-            <button className="song-model-list-item-btn">
-              <PlusSVG />
-              <span> Add to playlist</span>
-              <div className="svg-con-margin">
-                <ForwardSVG />
-              </div>
-            </button>
-            <ul
-              style={{ top: subModelPosition.y }}
-              className="items-model-list"
-            >
-              {userPlaylistsData &&
-                userPlaylistsData.map((playlist) => (
-                  <li key={playlist.playlistsId}>
-                    <button
-                      onClick={() =>
-                        addSongToPlaylist(playlist.playlistsId!, song)
-                      }
-                    >
-                      <SaveSVG />
-                      <span>{playlist.playlistsName}</span>
-                    </button>
-                  </li>
-                ))}
-            </ul>
-          </li>
+          <SongModelSub playlistModelData={playlistModelData!} song={song} />
 
           <li className="song-model-list-item">
             <button className="song-model-list-item-btn">
@@ -108,10 +47,10 @@ export default function SongModel({
             </button>
           </li>
 
-          {isOwnerId && playlistId && (
+          {isOwner && (
             <li className="song-model-list-item">
               <button
-                onClick={onRemoveSongFromPlaylist}
+                onClick={() => onRemoveSongFromPlaylist(song.id)}
                 className="song-model-list-item-btn"
               >
                 <DeleteSVG />
