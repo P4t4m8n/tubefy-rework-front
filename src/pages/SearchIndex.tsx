@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ISongYT } from "../models/song.model";
 import { IPlaylist } from "../models/playlist.model";
@@ -8,8 +8,16 @@ import SearchIndexSongsList from "../components/SearchIndex/SearchIndexSongsList
 import SearchIndexPlaylistList from "../components/SearchIndex/SearchIndexPlaylistList";
 import { Loader } from "../components/Loader";
 import { apiService } from "../services/api.service";
+import { transformUserPlaylistsForModel } from "../util/playlist.util";
+import { songService } from "../services/song.service";
+import { addSongToPlaylist } from "../store/actions/playlist.action";
+import { useAppSelector } from "../hooks/useStore";
 
 export default function SearchIndex() {
+  const user = useAppSelector((state) => state.user.user);
+  const userPlaylists = useAppSelector(
+    (state) => state.playlists.userPlaylists
+  );
   const [searchList, setSearch] = useState<{
     songs: ISongYT[];
     playlists: IPlaylist[];
@@ -17,26 +25,45 @@ export default function SearchIndex() {
     songs: [],
     playlists: [],
   });
-  console.log("searchList:", searchList);
   const { query } = useParams<{ query: string }>();
 
   useEffect(() => {
+    const loadSearchResults = async (query: string) => {
+      try {
+        const [songs, playlists] = await Promise.all([
+          await apiService.getSongsFromYT(query),
+          await playlistService.query({ artist: query, limit: 5 }),
+        ]);
+        setSearch((prev) => ({ ...prev, playlists, songs }));
+      } catch (error) {
+        console.error(`Error while loading search results: ${error}`);
+      }
+    };
+    
     if (query) {
       loadSearchResults(query);
     }
   }, [query]);
 
-  const loadSearchResults = async (query: string) => {
-    try {
-      const [songs, playlists] = await Promise.all([
-        await apiService.getSongsFromYT(query),
-        await playlistService.query({ artist: query, limit: 5 }),
-      ]);
-      setSearch((prev) => ({ ...prev, playlists, songs }));
-    } catch (error) {
-      console.error(`Error while loading search results: ${error}`);
-    }
-  };
+  const userPlaylistsForModel = useMemo(
+    () => transformUserPlaylistsForModel(userPlaylists),
+    [userPlaylists]
+  );
+
+  const onSaveYTSong = useCallback(
+    async (songYT: ISongYT, playlistId: string) => {
+      try {
+        if (!user) {
+          throw new Error("User not found");
+        }
+        const song = await songService.createSong(songYT);
+        await addSongToPlaylist(playlistId, song);
+      } catch (error) {
+        console.error(`Error while saving song: ${error}`);
+      }
+    },
+    [user]
+  );
 
   return (
     <section className="search-index">
@@ -44,24 +71,11 @@ export default function SearchIndex() {
       {query && searchList.songs.length === 0 && <Loader />}
       {query && searchList.songs.length && (
         <>
-          <div className="search-index-songs">
-            <div className="top-result">
-              <h2>Top result</h2>
-              <div className="top-result-info">
-                <img src={searchList.songs[0]?.imgUrl} alt="imgUrl"></img>
-                <h1>{searchList.songs[0].artist}</h1>
-                <p>{searchList.songs[0].name}</p>
-              </div>
-            </div>
-            <div className="search-index-songs-list">
-              <h2>Songs</h2>
-              <ul>
-                {searchList.songs.slice(1).map((song) => (
-                  <SearchIndexSongsList key={song.youtubeId} song={song} />
-                ))}
-              </ul>
-            </div>
-          </div>
+          <SearchIndexSongsList
+            onSaveYTSong={onSaveYTSong}
+            userPlaylistsForModel={userPlaylistsForModel}
+            songs={searchList.songs}
+          />
           <div className="search-index-playlist">
             <h2>Featuring {query} </h2>
             <ul>

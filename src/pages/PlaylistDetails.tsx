@@ -4,8 +4,8 @@ import { playlistService } from "../services/playlist.service";
 import { Loader } from "../components/Loader";
 import { IPlaylistDetailed } from "../models/playlist.model";
 import { LikeBtn } from "../components/Buttons/LikeBtn";
-import { getUser } from "../store/getStore";
-import { transformUserPlaylistsForModel } from "../util/playlist.util";
+import { getUserState } from "../store/getStore";
+import { transformUserPlaylistsStateForModel } from "../util/playlist.util";
 import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList";
 import PlaylistDetailsHero from "../components/PlaylistDetails/PlaylistDetailsHero";
 import PlayBtn from "../components/Buttons/PlayBtn";
@@ -20,7 +20,7 @@ export default function PlaylistDetails() {
   const isLiked =
     new URLSearchParams(location.search).get("isLiked") === "true";
 
-  const userId = getUser()?.id;
+  const userId = getUserState()?.id;
 
   useEffect(() => {
     const loadPlaylist = async (id: string) => {
@@ -53,7 +53,7 @@ export default function PlaylistDetails() {
   if (!playlist) return <Loader />;
 
   const { name, imgUrl, owner, songs, duration, shares, id } = playlist;
-  const playlistModelData = transformUserPlaylistsForModel(id);
+  const playlistModelData = transformUserPlaylistsStateForModel(id);
 
   const heroProps = {
     imgUrl,

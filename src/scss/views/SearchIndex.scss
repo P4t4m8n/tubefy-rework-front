@@ -1,29 +1,5 @@
 .search-index {
   @include flex-direction-gap-padding(column, 0, 1rem);
   max-width: 100%;
-  .search-index-songs {
-    color: $white-2;
-    @include flex-direction-alignItems-gap-padding(row, baseline, 1rem, 0);
-    .top-result {
-      @include flex-direction-gap-padding(column, 1rem, 0);
-      width: 50%;
-      .top-result-info {
-        padding: 1.5rem 1rem;
-        background-color: $black-6;
-        border-radius: $border-radius-1-2;
-        h1 {
-          font-size: $font-size-28;
-          font-weight: 800;
-          padding-block: 0.75rem 0.5rem;
-        }
-        img {
-          object-fit: fill;
-          width: 6rem;
-          aspect-ratio: 1/1;
-          border-radius: 100vw;
-          box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 24px 0px;
-        }
-      }
-    }
-  }
+ 
 }

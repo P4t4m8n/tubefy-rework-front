@@ -1,27 +1,47 @@
+import { IPlaylistModelData } from "../../models/playlist.model";
 import { ISongYT } from "../../models/song.model";
-import { LikeBtn } from "../Buttons/LikeBtn";
 import PlayBtn from "../Buttons/PlayBtn";
-import GenericModel from "../GenericComponents/GenericModel";
-import { DotsSVG } from "../svg/SVGs";
+import SearchIndexSongPreview from "./SearchIndexSongPreview";
 
 interface Props {
-  song: ISongYT;
+  songs: ISongYT[];
+  onSaveYTSong: (song: ISongYT, playlistId: string) => void;
+  userPlaylistsForModel: IPlaylistModelData[];
 }
 
-export default function SearchIndexSongsList({ song }: Props) {
+export default function SearchIndexSongsList({
+  songs,
+  userPlaylistsForModel,
+  onSaveYTSong,
+}: Props) {
+  const { imgUrl, artist, name } = songs[0];
+
+  const slicedSongs = songs.slice(1);
   return (
-    <li className="search-songs-list">
-      <PlayBtn item={song} />
-      <img src={song.imgUrl} />
-      <div>
-        <p>{song.name}</p>
-        <p>{song.artist}</p>
+    <div className="search-index-songs">
+      <div className="top-result">
+        <h2>Top result</h2>
+        <div className="top-result-info">
+          <div className="img-con">
+            <img src={imgUrl} alt="imgUrl"></img>
+            <PlayBtn item={songs[0]} />
+          </div>
+          <h1>{artist}</h1>
+          <p>{name}</p>
+        </div>
       </div>
-      <div className="playlist-songs-list-preview-actions">
-        <LikeBtn item={song} />
-        <p>{song.duration}</p>
-        <GenericModel btnSvg={<DotsSVG />} items={[]} />
+      <div className="search-index-songs-list-con">
+        <h2>Songs</h2>
+        <ul className="search-index-songs-list">
+          {slicedSongs.map((song) => (
+            <SearchIndexSongPreview
+              onSaveYTSong={onSaveYTSong}
+              userPlaylistsForModel={userPlaylistsForModel}
+              song={song}
+            />
+          ))}
+        </ul>
       </div>
-    </li>
+    </div>
   );
 }

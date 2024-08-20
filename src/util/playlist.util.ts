@@ -70,11 +70,26 @@ export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
   };
 };
 
-export const transformUserPlaylistsForModel = (
+export const transformUserPlaylistsStateForModel = (
   playlistId = ""
 ): IPlaylistModelData[] => {
   const userPlaylists = getUserPlaylistsState();
 
+  return userPlaylists.reduce((acc: IPlaylistModelData[], playlist) => {
+    if (playlist.id !== playlistId) {
+      acc.push({
+        playlistsId: playlist.id || "",
+        playlistsName: playlist.name,
+        playlistImg: playlist.imgUrl,
+      });
+    }
+    return acc;
+  }, []);
+};
+export const transformUserPlaylistsForModel = (
+  userPlaylists: IPlaylistDetailed[],
+  playlistId = ""
+): IPlaylistModelData[] => {
   return userPlaylists.reduce((acc: IPlaylistModelData[], playlist) => {
     if (playlist.id !== playlistId) {
       acc.push({

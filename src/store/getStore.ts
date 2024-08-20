@@ -1,9 +1,10 @@
+import { IPlaylistDetailed } from "../models/playlist.model";
 import { store } from "./store";
 
-export const getUserPlaylistsState = () => {
-  return store.getState().playlists.userPlaylists;
+export const getUserPlaylistsState = (): IPlaylistDetailed[] => {
+  return store.getState().playlists.userPlaylists || [];
 };
 
-export const getUser = () => {
+export const getUserState = () => {
   return store.getState().user.user;
 };
