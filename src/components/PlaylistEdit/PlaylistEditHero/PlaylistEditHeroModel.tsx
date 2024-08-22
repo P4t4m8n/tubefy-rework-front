@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useModel } from "../../../hooks/useModel";
 import PlaylistEditHeroImg from "./PlaylistEditHeroImg";
 import { PlusSVG } from "../../svg/SVGs";
-import { Loader } from "../../Loader";
+import Loader from "../../Loader";
 
 interface Props {
   imgUrl: string;

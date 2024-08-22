@@ -6,4 +6,67 @@
     0.5rem 0.25rem 0.5rem 0.5rem
   );
   height: 100%;
+  transition: width 0.1s;
+
+  &.small-size {
+    width: 6rem;
+    span,
+    p,
+    .generic-model-btn,
+    .user-playlist-filter {
+      display: none;
+    }
+    .user-library-header {
+      justify-content: center;
+    }
+    .user-playlist-list {
+      gap: 0.25rem;
+    }
+  }
+}
+
+@media (max-width: rem(640px)) {
+  .side-bar {
+    width: 5rem;
+    background-color: $black-1;
+    padding: 0;
+    height: calc(100svh - 5.5rem);
+    span,
+    p,
+    .generic-model-btn,
+    .user-playlist-filter {
+      display: none;
+    }
+
+    .user-playlist-list {
+      gap: 0.25rem;
+    }
+
+    &.small-size {
+      width: 100svw;
+      height: 100svh;
+      z-index: 5;
+      @include center-position(absolute);
+      span,
+      p,
+      .generic-model-btn {
+        display: block;
+      }
+      .user-playlist-filter {
+        display: flex;
+      }
+      .user-library-header {
+        justify-content: space-between;
+      }
+    }
+    .user-library-header {
+      justify-content: center
+
+    }
+    .user-library {
+      .user-playlist-list {
+        height: 100% !important;
+      }
+    }
+  }
 }

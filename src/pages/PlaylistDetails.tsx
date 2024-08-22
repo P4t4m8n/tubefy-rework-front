@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { playlistService } from "../services/playlist.service";
-import { Loader } from "../components/Loader";
 import { IPlaylistDetailed } from "../models/playlist.model";
 import { LikeBtn } from "../components/Buttons/LikeBtn";
 import { getUserState } from "../store/getStore";
@@ -10,6 +9,8 @@ import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList"
 import PlaylistDetailsHero from "../components/PlaylistDetails/PlaylistDetailsHero";
 import PlayBtn from "../components/Buttons/PlayBtn";
 import { removeSongFromPlaylist } from "../store/actions/playlist.action";
+import Loader from "../components/Loader";
+import { setImgForBackground } from "../store/actions/imgGradient.action";
 
 export default function PlaylistDetails() {
   const [playlist, setPlaylist] = useState<IPlaylistDetailed | null>(null);
@@ -29,6 +30,7 @@ export default function PlaylistDetails() {
           ? await playlistService.getUserLikedSongsPlaylistById(id)
           : await playlistService.get(id);
         setPlaylist(playlist);
+        setImgForBackground(playlist.imgUrl);
       } catch (error) {
         console.error(error);
       }

@@ -5,8 +5,13 @@ import { store } from "../../store/store";
 import { getEmptyPlaylist } from "../../util/playlist.util";
 import { saveUserPlaylist } from "../../store/actions/playlist.action";
 import { useNavigate } from "react-router-dom";
+import { Dispatch } from "react";
 
-export default function CreatePlaylist() {
+interface Props {
+  setIsFullSize: Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function CreatePlaylist({ setIsFullSize }: Props) {
   const navigate = useNavigate();
 
   const onCreatePlaylist = async () => {
@@ -34,7 +39,10 @@ export default function CreatePlaylist() {
   ];
   return (
     <section className="user-library-header">
-      <button className="your-library">
+      <button
+        onClick={() => setIsFullSize((prev) => !prev)}
+        className="your-library"
+      >
         <LibrarySVG />
         <span>Your Library</span>
       </button>

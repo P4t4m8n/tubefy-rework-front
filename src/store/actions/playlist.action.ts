@@ -45,7 +45,7 @@ export const setPlaylistsBulk = (playlists: {
   payload: playlists,
 });
 
-export const loadDefaultPlaylists = async (): Promise<void> => {
+export const loadDefaultPlaylists = async (): Promise<IPlaylistObject[]> => {
   try {
     const playlists = await playlistService.getDefaultStations();
     if (!playlists)
@@ -53,9 +53,10 @@ export const loadDefaultPlaylists = async (): Promise<void> => {
 
     const playlistsObject: IPlaylistObject[] =
       playlistsToPlaylistObjects(playlists);
-    store.dispatch(setMainPlaylists(playlistsObject));
+    return playlistsObject;
   } catch (error) {
     console.error(`Error while loading default playlists: ${error}`);
+    return [];
   }
 };
 

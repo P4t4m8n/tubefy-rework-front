@@ -2,13 +2,25 @@
   margin: 0.5rem 0.5rem 0.5rem 0.25rem;
   border-radius: $border-radius-1-2;
   background-color: $black-2;
+  position: relative;
   @include flex-direction-gap-padding(column, 0, 0);
   max-width: 100%;
-
   .playlist-index {
     max-height: calc(100vh - 16rem);
     overflow: auto;
     width: 100%;
     @include no-scrollBar;
+  }
+  .background-gradient {
+    height: 50%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: opacity 0.25s ease-in-out;
+    opacity: 0;
+
+    &.show {
+      opacity: 0.5;
+    }
   }
 }

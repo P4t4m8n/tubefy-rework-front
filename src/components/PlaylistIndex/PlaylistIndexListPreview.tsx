@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { IPlaylist } from "../../models/playlist.model";
 import PlayBtn from "../Buttons/PlayBtn";
+import { setImgForBackground } from "../../store/actions/imgGradient.action";
 
 interface Props {
   playlist: IPlaylist;
@@ -15,7 +16,11 @@ export default function PlaylistIndexListPreview({ playlist }: Props) {
     ev.currentTarget.onerror = null;
   };
   return (
-    <li className="playlist-list-preview">
+    <li
+      onMouseEnter={() => setImgForBackground(imgUrl)}
+      onMouseLeave={() => setImgForBackground("")}
+      className="playlist-list-preview"
+    >
       <Link to={`/playlist/${id}`}>
         <img onError={handleError} src={imgUrl} alt={name} />
 
@@ -23,7 +28,7 @@ export default function PlaylistIndexListPreview({ playlist }: Props) {
           <h3>{name}</h3>
           <p>{description || songs[0]?.artist || "!!!"}</p>
         </div>
-          <PlayBtn item={playlist} />
+        <PlayBtn item={playlist} />
       </Link>
     </li>
   );

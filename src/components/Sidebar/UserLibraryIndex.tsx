@@ -1,19 +1,23 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, useState } from "react";
 import { useAppSelector } from "../../hooks/useStore";
-import CreatePlaylist from "./CreatePlaylist";
-import UserLibraryFilter from "./UserLibraryFilter";
-import Login from "../User/Login";
-import { Loader } from "../Loader";
 import { loadUserPlaylists } from "../../store/actions/playlist.action";
 import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 import { IPlaylistDetailed } from "../../models/playlist.model";
-import UserLibraryListPreview from "./UserLibraryListPreview";
 import { Link, useLocation } from "react-router-dom";
-import PlayBtn from "../Buttons/PlayBtn";
 import { NoteSVG } from "../svg/SVGs";
 import { store } from "../../store/store";
+import CreatePlaylist from "./CreatePlaylist";
+import UserLibraryFilter from "./UserLibraryFilter";
+import Login from "../User/Login";
+import UserLibraryListPreview from "./UserLibraryListPreview";
+import PlayBtn from "../Buttons/PlayBtn";
+import Loader from "../Loader";
 
-export function UserLibraryIndex() {
+interface Props {
+  setIsFullSize: Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function UserLibraryIndex({ setIsFullSize }: Props) {
   const user = useAppSelector((state) => state.user.user);
   const userPlaylists = useAppSelector(
     (state) => state.playlists.userPlaylists
@@ -69,7 +73,7 @@ export function UserLibraryIndex() {
 
   return (
     <section className="user-library">
-      <CreatePlaylist />
+      <CreatePlaylist setIsFullSize={setIsFullSize} />
       {!user && (
         <div className="user-library-no-user">
           <h2>Log in to view your library</h2>

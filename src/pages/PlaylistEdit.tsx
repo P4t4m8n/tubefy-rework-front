@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IPlaylistDetailed } from "../models/playlist.model";
 import { ChangeEvent, useState } from "react";
 import { playlistService } from "../services/playlist.service";
-import { Loader } from "../components/Loader";
+import Loader from "../components/Loader";
 import { DotsSVG } from "../components/svg/SVGs";
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { uploadImg } from "../services/imgUpload.service";

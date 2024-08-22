@@ -1,31 +1,32 @@
-import { ReactNode, useEffect, useMemo, useState } from "react";
-import { useAppSelector } from "../hooks/useStore";
+import { useMemo, useState } from "react";
 import { loadDefaultPlaylists } from "../store/actions/playlist.action";
 import { extractHeroPlaylists } from "../util/playlist.util";
-import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";
-import { Loader } from "../components/Loader";
+import { IPlaylistObject } from "../models/playlist.model";
 import PlaylistIndexList from "../components/PlaylistIndex/PlaylistIndexList";
+import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";
+import Loader from "../components/Loader";
+import { useEffectUpdate } from "../hooks/useEffectUpdate";
 
-export default function PlaylistIndex(): ReactNode {
-  const mainPlaylists = useAppSelector(
-    (state) => state.playlists.mainPlaylists
-  );
+export default function PlaylistIndex() {
+  const [mainPlaylists, setMainPlaylists] = useState<IPlaylistObject[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  useEffectUpdate(() => {
+    const handleLoading = async () => {
+      try {
+        setIsLoading(true);
+        const playlists = await loadDefaultPlaylists();
+        setMainPlaylists(playlists);
+      } catch (error) {
+        console.error(`Error while loading default playlists: ${error}`);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     handleLoading();
   }, []);
 
-  const handleLoading = async () => {
-    try {
-      setIsLoading(true);
-      await loadDefaultPlaylists();
-    } catch (error) {
-      console.error(`Error while loading default playlists: ${error}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
   const heroPlaylists = useMemo(() => {
     return extractHeroPlaylists(mainPlaylists);
   }, [mainPlaylists]);
@@ -33,6 +34,7 @@ export default function PlaylistIndex(): ReactNode {
   if (isLoading) {
     return <Loader />;
   }
+
   return (
     <section className="playlist-index">
       <PlaylistIndexHero heroPlaylists={heroPlaylists} />

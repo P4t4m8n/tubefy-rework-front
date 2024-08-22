@@ -7,7 +7,7 @@ export const SET_CURRENT_PLAYLIST = "SET_CURRENT_PLAYLIST";
 export interface IPlayerState {
   playingSong: ISong | ISongYT;
   isPlaying: boolean;
-  currentPlaylist: IPlaylist | null;
+  currentPlaylist: IPlaylist | null | ILikedSongPlaylist;
 }
 export interface ISetPlayingSongAction {
   type: typeof SET_PLAYING_SONG;
@@ -15,7 +15,7 @@ export interface ISetPlayingSongAction {
 }
 export interface ISetCurrentPlaylistAction {
   type: typeof SET_CURRENT_PLAYLIST;
-  payload: IPlaylist | ILikedSongPlaylist;
+  payload: IPlaylist | ILikedSongPlaylist | null;
 }
 export interface ISetIsPlayingAction {
   type: typeof SET_IS_PLAYING;
