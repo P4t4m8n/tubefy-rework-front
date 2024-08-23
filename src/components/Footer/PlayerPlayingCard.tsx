@@ -2,14 +2,16 @@ import { useAppSelector } from "../../hooks/useStore";
 import { LikeBtn } from "../Buttons/LikeBtn";
 
 export function PlayerPlayingCard() {
-  const { playingSong } = useAppSelector((state) => state.player);
+  const playingSong = useAppSelector((state) => state.player.playingSong);
+
+  const { imgUrl, name, artist } = playingSong;
 
   return (
     <div className="playing-card">
-      <img src={playingSong?.imgUrl} alt={playingSong?.name}></img>
+      <img src={imgUrl} alt={name}></img>
       <div className="playing-card-info">
-        <h3>{playingSong?.name}</h3>
-        <h4>{playingSong?.artist}</h4>
+        <h3>{name}</h3>
+        <h4>{artist}</h4>
       </div>
       <LikeBtn item={playingSong} />
     </div>

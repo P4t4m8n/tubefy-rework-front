@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { setPlayingSong } from "../../store/actions/player.action";
+import { useEffect, useRef, useState } from "react";
+import { loadSong } from "../../store/actions/player.action";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import { utilService } from "../../util/util.util";
 import {
@@ -18,9 +18,11 @@ export function YouTubeAudioPlayer() {
   const { playingSong, isPlaying, currentPlaylist, togglePlayPause } =
     usePlay();
 
+  const [songOrderMode, setSongOrderMode] = useState<
+    "shuffle" | "repeat" | "normal"
+  >("normal");
   const stationIdx = useRef(0);
-  const isRepeat = useRef(false);
-  const isShuffle = useRef(false);
+  console.log("songOrderMode:", songOrderMode);
 
   const opts = {
     height: "0",
@@ -32,45 +34,38 @@ export function YouTubeAudioPlayer() {
   };
 
   useEffect(() => {
-    if (!playingSong && currentPlaylist)
-      setPlayingSong(currentPlaylist.songs[0]);
+    if (!playingSong && currentPlaylist) loadSong(currentPlaylist.songs[0]);
   }, [playingSong, currentPlaylist]);
 
   const onEnd = () => {
-    if (!isRepeat.current && !isShuffle.current) {
+    if (songOrderMode === "shuffle") {
+      stationIdx.current = utilService.getRandomIntInclusive(
+        0,
+        currentPlaylist!.songs.length - 1
+      );
+    }
+
+    if (songOrderMode === "normal") {
       stationIdx.current++;
       if (stationIdx.current >= currentPlaylist!.songs.length)
         stationIdx.current = 0;
     }
 
-    if (isShuffle.current) {
-      stationIdx.current = utilService.getRandomIntInclusive(
-        0,
-        currentPlaylist!.songs.length
-      );
-    }
-    setPlayingSong(currentPlaylist!.songs[stationIdx.current]);
+    loadSong(currentPlaylist!.songs[stationIdx.current]);
   };
 
-  const onShuffle = () => {
-    isRepeat.current = false;
-    isShuffle.current = !isShuffle.current;
-  };
-
-  const onRepeat = () => {
-    isShuffle.current = false;
-    isRepeat.current = !isRepeat.current;
+  const onChangeOrder = (order: "shuffle" | "repeat") => {
+    console.log("order:", order);
+    setSongOrderMode((prev) => (prev === order ? "normal" : order));
   };
 
   const onChangeSong = (dir: number) => {
-    if (isShuffle.current) {
+    if (songOrderMode === "shuffle") {
       stationIdx.current = utilService.getRandomIntInclusive(
         0,
-        currentPlaylist!.songs.length
+        currentPlaylist!.songs.length - 1
       );
-    } else if (isRepeat.current) {
-      //do nothing
-    } else {
+    } else if (songOrderMode === "normal") {
       stationIdx.current += dir;
       if (stationIdx.current >= currentPlaylist!.songs.length)
         stationIdx.current = 0;
@@ -78,7 +73,7 @@ export function YouTubeAudioPlayer() {
         stationIdx.current = currentPlaylist!.songs.length - 1;
     }
 
-    setPlayingSong(currentPlaylist!.songs[stationIdx.current]);
+    loadSong(currentPlaylist!.songs[stationIdx.current]);
   };
 
   const onReady = (ev: YouTubeEvent) => {
@@ -93,7 +88,10 @@ export function YouTubeAudioPlayer() {
   return (
     <section className="player">
       <div className="player-control">
-        <button className="shuffle" onClick={onShuffle}>
+        <button
+          className={`${songOrderMode === "shuffle" ? "highlight" : ""}`}
+          onClick={() => onChangeOrder("shuffle")}
+        >
           <ShuffleSVG />
         </button>
         <button className="dir" onClick={() => onChangeSong(-1)}>
@@ -105,7 +103,10 @@ export function YouTubeAudioPlayer() {
         <button className="dir" onClick={() => onChangeSong(1)}>
           <NextSVG></NextSVG>
         </button>
-        <button className="repeat" onClick={onRepeat}>
+        <button
+          className={`repeat ${songOrderMode === "repeat" ? "highlight" : ""}`}
+          onClick={() => onChangeOrder("repeat")}
+        >
           <RepeatSVG></RepeatSVG>
         </button>
       </div>

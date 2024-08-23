@@ -26,9 +26,9 @@ export function ProgressBar({ song }: Props) {
       clearInterval(intervalId.current);
       intervalId.current = setInterval(updateProgress, 237);
     }
-  }, [song, youTubePlayer.isPlayerReady()]);
+  }, [song]);
 
-  function handleProgressbar(ev: MouseEvent<HTMLDivElement>) {
+  const handleProgressbar = (ev: MouseEvent<HTMLDivElement>) => {
     const progressBar = ev.target as HTMLDivElement;
 
     const clickPosition =
@@ -37,18 +37,14 @@ export function ProgressBar({ song }: Props) {
     const newTime = clickPosition * youTubePlayer.getDuration();
 
     youTubePlayer.seekTo(newTime);
-  }
+  };
 
   const makeTime = (): {
     progressPercentage: number;
     timeElapsed: string;
     time: string;
   } => {
-    if (
-      !youTubePlayer ||
-      !youTubePlayer.getCurrentTime ||
-      !youTubePlayer.getDuration
-    ) {
+    if (!youTubePlayer||!youTubePlayer.getCurrentTime||!youTubePlayer.getDuration) {
       return {
         progressPercentage: 0,
         timeElapsed: "0:00",

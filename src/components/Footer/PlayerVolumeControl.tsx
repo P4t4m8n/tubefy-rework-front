@@ -31,7 +31,7 @@ export function PlayerVolumeControl() {
   };
 
   return (
-    <section className="footer-right">
+    <section className="volume-control">
       <button
         className={`${volume === 0 ? "no-vol" : ""} volume-btn`}
         onClick={onSetVolume}
