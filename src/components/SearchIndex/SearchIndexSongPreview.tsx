@@ -7,12 +7,14 @@ import SearchIndexSongPreviewModel from "./SearchIndexSongPreviewModel";
 interface Props {
   song: ISongYT;
   onSaveYTSong: (song: ISongYT, playlistId: string) => void;
-  userPlaylistsForModel: IPlaylistModelData[];
+  userPlaylistsForModel?: IPlaylistModelData[];
+  playlistId?: string;
 }
 export default function SearchIndexSongPreview({
   song,
   userPlaylistsForModel,
   onSaveYTSong,
+  playlistId
 }: Props) {
   return (
     <li className="search-index-songs-list-item">
@@ -27,6 +29,7 @@ export default function SearchIndexSongPreview({
         <p>{song.duration}</p>
         <SearchIndexSongPreviewModel
           song={song}
+          playlistId={playlistId}
           onSaveYTSong={onSaveYTSong}
           userPlaylistsForModel={userPlaylistsForModel}
         />

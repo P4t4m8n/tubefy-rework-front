@@ -6,12 +6,14 @@ import { ForwardSVG, PlusSVG, SaveSVG } from "../svg/SVGs";
 
 interface Props {
   onSaveYTSong: (song: ISongYT, playlistId: string) => void;
-  userPlaylistsForModel: IPlaylistModelData[];
   song: ISongYT;
+  userPlaylistsForModel?: IPlaylistModelData[];
+  playlistId?: string;
 }
 export default function SearchIndexSongPreviewModelSub({
   userPlaylistsForModel,
   song,
+  playlistId = "",
   onSaveYTSong,
 }: Props) {
   const { modelPosition, handleMouseEnter } = useModelPosition({ x: 0, y: 0 });
@@ -29,17 +31,26 @@ export default function SearchIndexSongPreviewModelSub({
           <ForwardSVG />
         </div>
       </button>
-      <ul style={{ top: modelPosition.y }} className="items-model-list">
-        {userPlaylistsForModel &&
-          userPlaylistsForModel.map((playlist) => (
-            <li key={playlist.playlistsId}>
-              <button onClick={() => onSaveYTSong(song, playlist.playlistsId)}>
-                <SaveSVG />
-                <span>{playlist.playlistsName}</span>
-              </button>
-            </li>
-          ))}
-      </ul>
+      {userPlaylistsForModel ? (
+        <ul style={{ top: modelPosition.y }} className="items-model-list">
+          {userPlaylistsForModel &&
+            userPlaylistsForModel.map((playlist) => (
+              <li key={playlist.playlistsId}>
+                <button
+                  onClick={() => onSaveYTSong(song, playlist.playlistsId)}
+                >
+                  <SaveSVG />
+                  <span>{playlist.playlistsName}</span>
+                </button>
+              </li>
+            ))}
+        </ul>
+      ) : (
+        <button onClick={() => onSaveYTSong(song, playlistId)}>
+          <SaveSVG />
+          Save to playlist
+        </button>
+      )}
     </li>
   );
 }

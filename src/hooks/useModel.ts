@@ -12,23 +12,21 @@ export const useModel = (
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || !open) return;
 
+    const checkClickOutside = (ev: MouseEvent) => {
+      if (!ev.target) return;
+      if (!open) return;
+      if (ref.current?.contains(ev.target as Node)) return;
+
+      setOpen(false);
+      if (callBack) callBack();
+    };
     document.addEventListener("click", checkClickOutside);
     return () => {
       document.removeEventListener("click", checkClickOutside);
     };
-  }, [open, ref]);
-
-  const checkClickOutside = (ev: MouseEvent) => {
-
-    if (!ev.target) return;
-    if (!open) return;
-    if (ref.current?.contains(ev.target as Node)) return;
-
-    setOpen(false);
-    if (callBack) callBack();
-  };
+  }, [open, ref, callBack]);
 
   return [open, setOpen];
 };

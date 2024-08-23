@@ -2,6 +2,7 @@ import { MouseEvent, ReactNode, useRef } from "react";
 import { useModel } from "../../hooks/useModel";
 import { useNavigate } from "react-router-dom";
 import { IGenericModelItem } from "../../models/app.model";
+import { useModelPosition } from "../../hooks/useModelPosition";
 
 interface Props {
   children?: ReactNode;
@@ -9,6 +10,7 @@ interface Props {
   items?: IGenericModelItem[];
   btnSvg?: JSX.Element;
   imgUrl?: string;
+  idKey?: string;
 }
 
 export default function GenericModel({
@@ -16,11 +18,20 @@ export default function GenericModel({
   items,
   btnSvg,
   imgUrl,
+  idKey,
   uniqueButton,
 }: Props) {
-  const modelRef = useRef<HTMLUListElement>(null);
+  const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
   const navigate = useNavigate();
+
+  const { modelPosition, handleMouseClick } = useModelPosition({ x: 0, y: 24 });
+
+  const onModelBtnClick = (ev: MouseEvent) => {
+    ev.stopPropagation();
+    handleMouseClick(ev, { x: 0, y: -112 }, 102);
+    setIsModelOpen((prev) => !prev);
+  };
 
   const handleClick = async (
     ev: MouseEvent,
@@ -49,20 +60,17 @@ export default function GenericModel({
   };
 
   return (
-    <>
+    <div key={idKey} ref={modelRef} className="generic-model-con">
       <button
+        key={idKey}
         className="generic-model-btn"
-        onClick={(ev) => {
-          ev.stopPropagation();
-          ev.preventDefault();
-          setIsModelOpen(true);
-        }}
+        onClick={onModelBtnClick}
       >
         {btnSvg && !uniqueButton ? btnSvg : <img src={imgUrl} alt="user" />}
         {uniqueButton}
       </button>
       {isModelOpen && (
-        <ul className="generic-model" ref={modelRef}>
+        <ul style={{ top: modelPosition.y }} className="generic-model">
           {children}
           {items &&
             items.map((item, index) => (
@@ -82,6 +90,6 @@ export default function GenericModel({
             ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }

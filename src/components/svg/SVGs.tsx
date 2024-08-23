@@ -301,7 +301,6 @@ export const PlaylistSVG = () => {
     </svg>
   );
 };
-
 export const SaveSVG = () => {
   return (
     <svg viewBox="0 0 24 24">
@@ -313,6 +312,22 @@ export const SaveSVG = () => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12ZM3.00683 12C3.00683 16.9668 7.03321 20.9932 12 20.9932C16.9668 20.9932 20.9932 16.9668 20.9932 12C20.9932 7.03321 16.9668 3.00683 12 3.00683C7.03321 3.00683 3.00683 7.03321 3.00683 12Z"
+        ></path>
+      </g>
+    </svg>
+  );
+};
+export const CheckSVG = () => {
+  return (
+    <svg viewBox="0 0 24 24">
+      <g strokeWidth="0"></g>
+      <g strokeLinecap="round" strokeLinejoin="round"></g>
+      <g>
+        <path
+          d="M4 12.6111L8.92308 17.5L20 6.5"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></path>
       </g>
     </svg>

@@ -1,0 +1,15 @@
+.background-gradient {
+  height: 70vh;
+  position: absolute;
+  top: -5rem;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.25s ease-in-out;
+  opacity: 0;
+  z-index: 0;
+
+  &.show {
+    opacity: 0.2;
+  }
+}

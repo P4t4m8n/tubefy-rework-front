@@ -8,13 +8,15 @@ import SearchIndexSongPreviewModelSub from "./SearchIndexSongPreviewModelSub";
 
 interface Props {
   onSaveYTSong: (song: ISongYT, playlistId: string) => void;
-  userPlaylistsForModel: IPlaylistModelData[];
+  userPlaylistsForModel?: IPlaylistModelData[];
   song: ISongYT;
+  playlistId?: string;
 }
 export default function SearchIndexSongPreviewModel({
   onSaveYTSong,
   userPlaylistsForModel,
   song,
+  playlistId,
 }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
@@ -36,6 +38,7 @@ export default function SearchIndexSongPreviewModel({
             onSaveYTSong={onSaveYTSong}
             userPlaylistsForModel={userPlaylistsForModel}
             song={song}
+            playlistId={playlistId}
           />
           <li className="song-model-list-item">
             <button className="song-model-list-item-btn">

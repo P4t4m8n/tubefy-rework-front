@@ -3,6 +3,12 @@
   height: 100%;
   border-radius: $border-radius-1-2;
   @include flex-direction-gap-padding(column, 0, 0);
+}
 
- 
+@media (max-width: rem(640px)) {
+  .full-size {
+    .user-library {
+      height: calc(100% - 10.5rem);
+    }
+  }
 }

@@ -1,19 +1,93 @@
 .user-playlist-list {
   overflow: auto;
-  height: calc(100vh - 22rem);
-  @include flex-direction-gap-padding(column, 0, 0 0.5rem);
+  height: calc(100vh - 18rem);
+  @include flex-direction-alignItems-gap-padding(
+    column,
+    center,
+    0.25rem,
+    0 0.5rem
+  );
   @include no-scrollBar;
+
   .user-playlist-item {
-    display: grid;
-    padding: 0.5rem;
-    grid-template-columns: 3rem 1fr 1.5rem;
-    grid-template-rows: 1.5rem 1.5rem;
-    column-gap: 0.75rem;
-    align-items: center;
     position: relative;
     font-weight: 600;
     border-radius: $border-radius-1-4;
+    height: 4rem;
+    width: 4rem;
+    padding: 0.5rem;
+    a {
+      position: relative;
+      width: 100%;
+      .img-con {
+        box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 60px 0px;
+        grid-area: 1/1/-1/2;
+        img,
+        svg {
+          display: block;
+          border-radius: $border-radius-1-4;
+        }
+        svg {
+          background-color: $black-3;
+          padding: 0.5rem;
+          fill: $gray-1;
+        }
+      }
+      span {
+        grid-area: 1/2/2/3;
+        color: $white-2;
+        display: none;
+      }
+      p {
+        grid-area: 2/2/-1/3;
+        color: $gray-1;
+        font-size: $font-size-14;
+        display: none;
+      }
+      .play-btn {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        left: 1.25rem;
+        width: 1.5rem;
+        aspect-ratio: 1/1;
+        background-color: transparent;
+        opacity: 0;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        svg {
+          background-color: transparent;
+          fill: $white-2;
+          padding: 0;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .user-library-list-preview-model-con {
+      display: none;
+      grid-area: 1/3/-1/-1;
+      width: 1rem;
+      position: relative;
+      .user-library-list-preview-model-btn {
+        width: 100%;
+        background-color: inherit;
+        transition: opacity 0.25s ease, transform 0.25s ease;
 
+        svg {
+          fill: $gray-1;
+          background-color: inherit;
+          padding: 0;
+        }
+        &:hover {
+          transform: scale(1.3);
+          cursor: pointer;
+          svg {
+            fill: $white-1;
+          }
+        }
+      }
+    }
     &:before {
       content: "";
       position: absolute;
@@ -43,72 +117,108 @@
       &::before {
         opacity: 1;
       }
-      .generic-model-btn {
-        opacity: 1;
-      }
-    }
-    .img-con {
-      box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 60px 0px;
-      grid-area: 1/1/-1/2;
-      img,
-      svg {
-        display: block;
-        border-radius: $border-radius-1-4;
-      }
-      svg {
-        background-color: $black-3;
-        padding: 0.5rem;
-        fill: $gray-1;
-      }
-    }
-    span {
-      grid-area: 1/2/2/3;
-      color: $white-2;
-    }
-    p {
-      grid-area: 2/2/-1/3;
-      color: $gray-1;
-      font-size: $font-size-14;
-    }
-    .play-btn {
-      position: absolute;
-      z-index: 1;
-      left: 1.25rem;
-      width: 1.5rem;
-      aspect-ratio: 1/1;
-      background-color: transparent;
-      opacity: 0;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      svg {
-        background-color: transparent;
-        fill: $white-2;
-        padding: 0;
-      }
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    .generic-model-btn {
-      grid-area: 1/3/-1/-1;
-      background-color: inherit;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      svg {
-        fill: $gray-1;
-        background-color: inherit;
-        padding: 0;
-      }
-      &:hover {
-        transform: scale(1.1);
-        cursor: pointer;
-        svg {
-          fill: $white-1;
+      .user-library-list-preview-model-con {
+        .user-library-list-preview-model-btn {
+          z-index: 10;
         }
       }
     }
     &.highlight {
       background-color: $black-3;
+    }
+  }
+}
+
+.full-size {
+  height: calc(100vh - 13rem);
+  .user-playlist-list {
+    align-items: baseline;
+    width: 100%;
+
+    .user-playlist-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      gap: 1rem;
+      a {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 3rem 1fr;
+        grid-template-rows: 1.5rem 1.5rem;
+        column-gap: 0.75rem;
+        align-items: center;
+        span,
+        p {
+          display: inline;
+        }
+      }
+      .play-btn,
+      .user-library-list-preview-model-con {
+        display: block;
+      }
+    }
+  }
+}
+
+.user-library-list-preview-model {
+  @include flex-direction-gap-padding(column, 0.75rem, 0.75rem);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
+    rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
+  background-color: $gray-2;
+  position: absolute;
+  top: 2rem;
+  width: clamp(11rem, 100%, 13rem);
+  right: 0.75rem;
+  border-radius: $border-radius-1-4;
+  z-index: 15;
+
+  button {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    @include flex-direction-align-justify-gap-padding(
+      row,
+      center,
+      space-between,
+      0,
+      0.25rem 0.5rem
+    );
+    cursor: pointer;
+
+    width: 100%;
+    background-color: inherit;
+
+    border-radius: $border-radius-1-2;
+    svg {
+      width: 1rem;
+      fill: $white-2;
+      background-color: transparent;
+    }
+    img,
+    span,
+    svg {
+      z-index: 2;
+    }
+    span {
+      color: $white-2;
+      font-size: $font-size-13;
+      font-weight: 600;
+    }
+    @include btn-hover-animation($black-6);
+  }
+}
+
+@media (max-width: rem(640px)) {
+  .user-playlist-list {
+    gap: 0.25rem;
+    .user-playlist-item {
+      a {
+        span,
+        p {
+          display: none;
+        }
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 .playlist-details-actions {
   @include flex-direction-alignItems-gap-padding(row, center, 2rem, 0 1rem);
+  z-index: 1;
   button {
     &:first-of-type {
       width: 3rem;

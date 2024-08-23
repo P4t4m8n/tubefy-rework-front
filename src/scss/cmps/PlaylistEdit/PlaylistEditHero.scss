@@ -1,11 +1,13 @@
-.playlists-edit-hero {
+.playlist-edit-hero {
   @include flex-direction-alignItems-gap-padding(row, flex-end, 2rem, 0 1rem);
   .img-upload-con {
     position: relative;
-    box-shadow: $black-1 0px 2px 4px 0px;
-    width: clamp(4rem, 100%, 15rem);
+    box-shadow: $black-1 0px 0px 2px 1px;
+    width: clamp(10rem, 100%, 15rem);
+    min-width: 6rem;
     aspect-ratio: 1/1;
     border-radius: $border-radius-1-4;
+    z-index: 2;
 
     img {
       width: 100%;
@@ -21,6 +23,7 @@
       left: 0;
       height: 100%;
       width: 100%;
+      fill: $gray-1;
       transition: opacity 0.25s ease-in-out;
       @include flex-direction-align-justify-gap-padding(
         column,
@@ -49,237 +52,252 @@
     }
   }
 
-  .model-btn-edit-hero {
-    @include flex-direction-gap-padding(column, 0, 0);
+  .playlist-edit-hero-model-con {
     height: clamp(10rem, 100%, 15rem);
-    width: 80%;
-    background-color: inherit;
-    cursor: pointer;
+    width: clamp(20rem, 100%, 100vw);
+    min-width: 21rem;
+    z-index: 2;
+    container-type: inline-size;
+    container-name: playlist-edit-hero-model-con;
+    .playlist-edit-hero-model-btn {
+      @include flex-direction-gap-padding(column, 0, 0);
+      width: 100%;
+      background-color: inherit;
+      cursor: pointer;
 
-    h3 {
-      font-size: rem(96px);
-      color: $white-1;
-      line-height: 1.05;
-    }
-
-    h4 {
-      font-size: $font-size-16;
-      color: $gray-1;
-      padding-bottom: 0.5rem;
-    }
-
-    .playlists-details-hero-info-owner {
-      @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
-
-      img {
-        width: 2rem;
-        aspect-ratio: 1/1;
-        object-fit: fill;
-        border-radius: 100vw;
-      }
-      p {
-        font-family: $font-size-16;
+      h3 {
+        font-size: rem(96px);
         color: $white-1;
-        &:first-of-type {
-          font-weight: 800;
-        }
-        &:nth-of-type(2),
-        &:nth-of-type(3) {
-          font-weight: 700;
-        }
-        &:last-of-type {
-          color: $gray-1;
-        }
-        &:not(:last-of-type)::after {
-          content: "•";
-          padding-left: 0.5em;
-        }
+        line-height: 1.05;
       }
-    }
-  }
 
-  .edit-model {
-    @include center-position(absolute);
-    @include model-boxShadow;
-    background-color: $black-3;
-    width: clamp(22rem, 100%, 34rem);
-    border-radius: $border-radius-1-4;
-    aspect-ratio: 1.9/1;
-    padding: 2rem;
-    z-index: 10;
-    .edit-model-header {
-      @include flex-direction-align-justify-gap-padding(
-        row,
-        center,
-        space-between,
-        0,
-        0
-      );
-      padding-bottom: 1rem;
-      color: $white-1;
-      font-size: $font-size-20;
-      button {
-        width: 1rem;
-        background-color: inherit;
-        rotate: 45deg;
-        fill: $gray-1;
-      }
-    }
-    form {
-      display: grid;
-      grid-template-rows: calc(100% - 3rem) 2.5rem;
-      gap: 1rem;
-      height: 100%;
-      grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
-      grid-area: 2/1/-1/2;
-
-      svg {
-        background-color: rgba(255, 255, 255, 0.1);
-        display: block;
-        border-radius: $border-radius-1-2;
-      }
-      .playlists-details-hero-info {
-        grid-area: 1/2/2/-1;
-        @include flex-direction-gap-padding(column, 0.45rem, 0);
-        width: 100%;
-        height: 100%;
-        input,
-        textarea {
-          background-color: rgba(255, 255, 255, 0.1);
-          border-radius: $border-radius-1-4;
-          padding: 0.5rem;
-          color: $white-1;
-          font-size: $font-size-14;
-          box-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px 0px;
-        }
-        input {
-          font-weight: 700;
-        }
-        textarea {
-          resize: none;
-          height: 100%;
-          outline: none;
-          border: none;
-        }
-      }
-      button {
-        grid-area: 2/2/-1/-1;
-        padding: 0.25rem 1.25rem;
-        border-radius: $border-radius-2;
-        color: $black-2;
-        font-weight: 700;
+      h4 {
         font-size: $font-size-16;
-        width: fit-content;
-        justify-self: flex-end;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        z-index: 0;
-        height: 2.5rem;
+        color: $gray-1;
+        padding-bottom: 0.5rem;
+      }
 
-        &::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: $gray-1;
-          transform: translateX(-100%);
-          transition: transform 0.4s ease-in-out;
-          z-index: 0;
-        }
+      .playlists-details-hero-info-owner {
+        @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
 
-        &:hover::before {
-          transform: translateX(0);
+        img {
+          width: 2rem;
+          aspect-ratio: 1/1;
+          object-fit: fill;
+          border-radius: 100vw;
         }
-        span {
-          position: relative;
-          z-index: 111;
+        svg {
+          width: 2rem;
+          aspect-ratio: 1/1;
+          fill: $gray-1;
+          background-color: $black-6;
+          border-radius: 100vw;
+          padding: 0.1rem;
+        }
+        p {
+          font-family: $font-size-16;
+          color: $white-1;
+          &:first-of-type {
+            font-weight: 800;
+          }
+          &:nth-of-type(2),
+          &:nth-of-type(3) {
+            font-weight: 700;
+          }
+          &:last-of-type {
+            color: $gray-1;
+          }
+          &:not(:last-of-type)::after {
+            content: "•";
+            padding-left: 0.5em;
+          }
         }
       }
-      .img-upload-con {
-        grid-area: 1/1/2/2;
-        width: 100%;
-        height: 100%;
+    }
+
+    .edit-model {
+      @include center-position(absolute);
+      @include model-boxShadow;
+      background-color: $black-3;
+      width: clamp(22rem, 100%, 34rem);
+      border-radius: $border-radius-1-4;
+      aspect-ratio: 1.9/1;
+      padding: 2rem;
+      z-index: 10;
+      .edit-model-header {
         @include flex-direction-align-justify-gap-padding(
-          column,
+          row,
           center,
-          center,
-          1rem,
+          space-between,
+          0,
           0
         );
-        svg {
-          width: 5rem;
+        padding-bottom: 1rem;
+        color: $white-1;
+        font-size: $font-size-20;
+        button {
+          width: 1rem;
           background-color: inherit;
+          rotate: 45deg;
+          fill: $gray-1;
         }
-        .img-upload-hover {
+      }
+      form {
+        display: grid;
+        grid-template-rows: calc(100% - 3rem) 2.5rem;
+        gap: 1rem;
+        height: 100%;
+        grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
+        grid-area: 2/1/-1/2;
+
+        svg {
+          background-color: rgba(255, 255, 255, 0.1);
+          display: block;
+          border-radius: $border-radius-1-2;
+        }
+        .playlists-details-hero-info {
+          grid-area: 1/2/2/-1;
+          @include flex-direction-gap-padding(column, 0.45rem, 0);
+          width: 100%;
+          height: 100%;
+          input,
+          textarea {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: $border-radius-1-4;
+            padding: 0.5rem;
+            color: $white-1;
+            font-size: $font-size-14;
+            box-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px 0px;
+          }
+          input {
+            font-weight: 700;
+          }
+          textarea {
+            resize: none;
+            height: 100%;
+            outline: none;
+            border: none;
+          }
+        }
+        button {
+          grid-area: 2/2/-1/-1;
+          padding: 0.25rem 1.25rem;
+          border-radius: $border-radius-2;
+          color: $black-2;
+          font-weight: 700;
+          font-size: $font-size-16;
+          width: fit-content;
+          justify-self: flex-end;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+          z-index: 0;
+          height: 2.5rem;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $gray-1;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease-in-out;
+            z-index: 0;
+          }
+
+          &:hover::before {
+            transform: translateX(0);
+          }
+          span {
+            position: relative;
+            z-index: 111;
+          }
+        }
+        .img-upload-con {
+          grid-area: 1/1/2/2;
+          width: 100%;
+          height: 100%;
           @include flex-direction-align-justify-gap-padding(
             column,
             center,
             center,
             1rem,
-            2.5rem
+            0
           );
-        }
-      }
-
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 5rem;
-        height: 2.5rem;
-        input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-        .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: $white-1;
-          -webkit-transition: 0.4s;
-          transition: 0.4s;
-          &:before {
-            position: absolute;
-            content: "";
-            height: 75%;
-            aspect-ratio: 1/1;
-            left: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: $black-2;
-            -webkit-transition: 0.4s;
-            transition: 0.4s;
+          svg {
+            width: 5rem;
+            background-color: inherit;
+          }
+          .img-upload-hover {
+            @include flex-direction-align-justify-gap-padding(
+              column,
+              center,
+              center,
+              1rem,
+              2.5rem
+            );
           }
         }
-      }
 
-      input:checked + .slider {
-        background-color: #2196f3;
-      }
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 5rem;
+          height: 2.5rem;
+          input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $white-1;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            &:before {
+              position: absolute;
+              content: "";
+              height: 75%;
+              aspect-ratio: 1/1;
+              left: 5%;
+              top: 50%;
+              transform: translateY(-50%);
+              background-color: $black-2;
+              -webkit-transition: 0.4s;
+              transition: 0.4s;
+            }
+          }
+        }
 
-      input:focus + .slider {
-        box-shadow: 0 0 1px #2196f3;
-      }
+        input:checked + .slider {
+          background-color: #2196f3;
+        }
 
-      input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-      }
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196f3;
+        }
 
-      /* Rounded sliders */
-      .slider.round {
-        border-radius: 34px;
-      }
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
 
-      .slider.round:before {
-        border-radius: 50%;
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+
+        .slider.round:before {
+          border-radius: 50%;
+        }
       }
     }
   }
@@ -287,4 +305,23 @@
 
 body:has(.edit-model) {
   overflow: hidden;
+}
+
+@container playlist-edit-hero-model-con (max-width: 41rem) {
+  .playlist-edit-hero-model-con {
+    .playlist-edit-hero-model-btn {
+      h3 {
+        font-size: rem(72px) !important;
+      }
+    }
+  }
+}
+@container playlist-edit-hero-model-con (max-width: 31rem) {
+  .playlist-edit-hero-model-con {
+    .playlist-edit-hero-model-btn {
+      h3 {
+        font-size: rem(48px) !important;
+      }
+    }
+  }
 }

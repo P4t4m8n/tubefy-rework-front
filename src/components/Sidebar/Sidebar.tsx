@@ -3,14 +3,13 @@ import { NavBar } from "./NavBar";
 import { UserLibraryIndex } from "./UserLibraryIndex";
 
 export default function Sidebar() {
-  const [isSmallSize, setIsSmallSize] = useState(true);
-  console.log("isFullSize:", isSmallSize)
+  const [isFullSize, setIsFullSize] = useState(true);
 
-  const sideBarClassName = isSmallSize ? "side-bar small-size" : "side-bar";
+  const sideBarClassName = isFullSize ? "side-bar full-size" : "side-bar";
   return (
     <section className={sideBarClassName}>
       <NavBar />
-      <UserLibraryIndex setIsFullSize={setIsSmallSize} />
+      <UserLibraryIndex setIsFullSize={setIsFullSize} />
     </section>
   );
 }

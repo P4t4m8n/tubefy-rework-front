@@ -1,3 +1,5 @@
+import BackgroundGradient from "../BackgroundGradient";
+
 interface Props {
   imgUrl: string;
   name: string;
@@ -33,6 +35,7 @@ export default function PlaylistDetailsHero({
           <p>About {duration}</p>
         </div>
       </div>
+      <BackgroundGradient/>
     </header>
   );
 }

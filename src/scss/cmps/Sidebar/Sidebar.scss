@@ -1,71 +1,33 @@
 .side-bar {
-  width: clamp(17rem, 20vw, 20rem);
+  height: 100%;
+  transition: width 0.1s;
   @include flex-direction-gap-padding(
     column,
     0.5rem,
     0.5rem 0.25rem 0.5rem 0.5rem
   );
-  height: 100%;
-  transition: width 0.1s;
+  width: 6rem;
 
-  &.small-size {
-    width: 6rem;
-    span,
-    p,
-    .generic-model-btn,
-    .user-playlist-filter {
-      display: none;
-    }
-    .user-library-header {
-      justify-content: center;
-    }
-    .user-playlist-list {
-      gap: 0.25rem;
-    }
+  &.full-size {
+    width: clamp(17rem, 20vw, 20rem);
   }
 }
 
 @media (max-width: rem(640px)) {
   .side-bar {
-    width: 5rem;
-    background-color: $black-1;
-    padding: 0;
-    height: calc(100svh - 5.5rem);
-    span,
-    p,
-    .generic-model-btn,
-    .user-playlist-filter {
-      display: none;
-    }
+    width: 6rem;
 
-    .user-playlist-list {
-      gap: 0.25rem;
-    }
-
-    &.small-size {
+    &.full-size {
       width: 100svw;
-      height: 100svh;
+      height: calc(100svh - 5rem);
       z-index: 5;
-      @include center-position(absolute);
+      position: absolute;
+      background-color: $black-2;
+
       span,
       p,
       .generic-model-btn {
         display: block;
-      }
-      .user-playlist-filter {
-        display: flex;
-      }
-      .user-library-header {
-        justify-content: space-between;
-      }
-    }
-    .user-library-header {
-      justify-content: center
-
-    }
-    .user-library {
-      .user-playlist-list {
-        height: 100% !important;
       }
     }
   }

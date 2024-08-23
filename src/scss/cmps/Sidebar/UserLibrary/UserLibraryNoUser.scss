@@ -1,12 +1,31 @@
+.full-size {
+  .user-library-no-user {
+    width: 100%;
+    height: fit-content;
+    background-color: $black-3;
+    border-radius: $border-radius-1-2;
+    @include flex-direction-gap-padding(column, 1rem, 1rem);
+    h2 {
+      color: $white-2;
+      font-size: $font-size-16;
+      font-weight: 700;
+      display: inline;
+    }
+  }
+}
+
 .user-library-no-user {
-  width: 100%;
-  height: fit-content;
-  background-color: $black-3;
-  border-radius: $border-radius-1-2;
-  @include flex-direction-gap-padding(column, 1rem, 1rem);
+  padding: 0;
+  background-color: inherit;
+  padding-inline: 0.25rem;
+
   h2 {
-    color: $white-2;
-    font-size: $font-size-16;
-    font-weight: 700;
+    display: none;
+  }
+  .login-model-btn {
+    height: 3rem;
+    padding: 0.25rem 0.95rem;
+    width: fit-content;
+    align-self: center;
   }
 }

@@ -8,6 +8,7 @@
     fill: $gray-1;
     border-radius: 100vw;
     transition: fill 0.3s ease-in-out scale 0.3s ease-in-out;
+    z-index: 1;
     &:hover {
       cursor: pointer;
       fill: $green-1;

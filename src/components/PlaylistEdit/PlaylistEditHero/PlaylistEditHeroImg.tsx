@@ -26,7 +26,6 @@ export default function PlaylistEditHeroImg({
         hidden
         onChange={(ev) => {
           ev.stopPropagation();
-          // ev.preventDefault();
           onUploadImg(ev);
         }}
       />

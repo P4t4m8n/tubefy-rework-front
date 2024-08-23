@@ -6,6 +6,7 @@
     1rem,
     0.5rem 1rem
   );
+  display: none;
 
   .user-playlist-filter-search {
     @include flex-direction-alignItems-gap-padding(row, center, 0.25rem, 0);
@@ -13,7 +14,7 @@
     transition: width 0.25s ease-in-out;
     width: 2.5rem;
     &.open {
-      width: clamp(5rem, 100%, 12rem);
+      width: clamp(5rem, 100%, 18rem);
       background-color: $black-3;
       input {
         transition: width 0.25s ease-in-out;
@@ -44,15 +45,88 @@
     }
   }
 
-  .generic-model-btn {
+  .user-library-sort-model-con {
+    position: relative;
     width: 1rem;
     height: 1rem;
-    background-color: inherit;
-    fill: $gray-1;
+    .user-library-sort-model-btn {
+      width: 1rem;
+      height: 1rem;
+      background-color: inherit;
+      fill: $gray-1;
+      transition: transform 0.3s;
 
-    &:hover {
-      cursor: pointer;
-      fill: $white-1;
+      &:hover {
+        cursor: pointer;
+        fill: $white-1;
+        transform: scale(1.1);
+      }
+    }
+
+    .user-library-sort-model {
+      @include flex-direction-gap-padding(column, 0.75rem, 0.75rem);
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
+        rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
+      background-color: $black-3;
+      position: absolute;
+      top: 1.5rem;
+      width: clamp(11rem, 100%, 13rem);
+      right: 0;
+      z-index: 10;
+      border-radius: $border-radius-1-4;
+      h2 {
+        font-size: $font-size-14;
+      }
+
+      button {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        @include flex-direction-align-justify-gap-padding(
+          row,
+          center,
+          space-between,
+          0,
+          0.25rem 0.5rem
+        );
+        cursor: pointer;
+        width: 100%;
+        background-color: inherit;
+        border-radius: $border-radius-1-2;
+        svg {
+          width: 1.125rem;
+          stroke: $green-1;
+          fill: none;
+        }
+
+        span,
+        svg {
+          z-index: 2;
+        }
+        span {
+          color: $white-2;
+          font-size: $font-size-14;
+          font-weight: 600;
+        }
+        @include btn-hover-animation($black-6);
+      }
+    }
+  }
+}
+
+.full-size {
+  .user-playlist-filter {
+    display: flex;
+  }
+}
+
+@media (max-width: rem(640px)) {
+  .user-playlist-filter {
+    display: none;
+  }
+  .small-size {
+    .user-playlist-filter {
+      display: flex !important;
     }
   }
 }

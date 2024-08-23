@@ -2,6 +2,7 @@
   @include flex-direction-gap-padding(column, 1.5rem, 1.5rem);
   border-radius: $border-radius-1-2;
   background-color: $black-2;
+  align-items: center;
   .sidebar-nav-link {
     @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
     svg {
@@ -11,6 +12,7 @@
     }
     span {
       font-weight: 800;
+      display: none;
     }
     &.link-clicked {
       svg {
@@ -19,6 +21,26 @@
       span {
         color: white;
       }
+    }
+  }
+}
+
+.full-size {
+  .sidebar-nav {
+    align-items: baseline;
+    .sidebar-nav-link {
+      span {
+        display: inline;
+      }
+    }
+  }
+}
+
+@media (max-width: rem(640px)) {
+  .sidebar-nav {
+    align-items: center;
+    span {
+      display: none;
     }
   }
 }

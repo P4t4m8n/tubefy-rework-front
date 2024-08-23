@@ -8,3 +8,7 @@ export const getUserPlaylistsState = (): IPlaylistDetailed[] => {
 export const getUserState = () => {
   return store.getState().user.user;
 };
+
+export const getCurrentPlaylist = () => {
+  return store.getState().player.currentPlaylist;
+};

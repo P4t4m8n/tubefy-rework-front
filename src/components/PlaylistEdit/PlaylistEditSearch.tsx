@@ -3,56 +3,17 @@ import { SearchSvg } from "../svg/SVGs";
 import { ISongYT } from "../../models/song.model";
 import { apiService } from "../../services/api.service";
 import { utilService } from "../../util/util.util";
-import SearchIndexSongsList from "../SearchIndex/SearchIndexSongsList";
+import SearchIndexSongPreview from "../SearchIndex/SearchIndexSongPreview";
 
-export default function PlaylistEditSearch() {
-  const [searchSongsList, setSearchSongsList] = useState<ISongYT[]>([
-    {
-      name: "Holy Wars   The Punishment Due",
-      artist: "Megadeth",
-      duration: "06:38",
-      youtubeId: "9d4ui9q7eDM",
-      imgUrl: "https://i.ytimg.com/vi/9d4ui9q7eDM/mqdefault.jpg",
-      addedBy: "artist",
-      addedAt: new Date().toString(),
-    },
-    {
-      name: "Symphony Of Destruction",
-      artist: "Unknown",
-      duration: "04:07",
-      youtubeId: "WdoXZf-FZyA",
-      imgUrl: "https://i.ytimg.com/vi/WdoXZf-FZyA/mqdefault.jpg",
-      addedBy: "artist",
-      addedAt: new Date().toString(),
-    },
-    {
-      name: "Tornado Of Souls",
-      artist: "Unknown",
-      duration: "05:23",
-      youtubeId: "L8HhOMNrulE",
-      imgUrl: "https://i.ytimg.com/vi/L8HhOMNrulE/mqdefault.jpg",
-      addedBy: "artist",
-      addedAt: new Date().toString(),
-    },
-    {
-      name: "Sweating Bullets",
-      artist: "Megadeth",
-      duration: "04:21",
-      youtubeId: "aOnKCcjP8Qs",
-      imgUrl: "https://i.ytimg.com/vi/aOnKCcjP8Qs/mqdefault.jpg",
-      addedBy: "artist",
-      addedAt: new Date().toString(),
-    },
-    {
-      name: "A Tout Le Monde",
-      artist: "Megadeth",
-      duration: "04:14",
-      youtubeId: "aU-dKoFZT0A",
-      imgUrl: "https://i.ytimg.com/vi/aU-dKoFZT0A/mqdefault.jpg",
-      addedBy: "artist",
-      addedAt: new Date().toString(),
-    },
-  ]);
+interface Props {
+  onSaveYTSong: (song: ISongYT, playlistId: string) => void;
+  playlistId?: string;
+}
+export default function PlaylistEditSearch({
+  onSaveYTSong,
+  playlistId,
+}: Props) {
+  const [searchSongsList, setSearchSongsList] = useState<ISongYT[]>([]);
 
   const searchSongs = async (ev: ChangeEvent<HTMLInputElement>) => {
     const { value } = ev.target;
@@ -80,7 +41,12 @@ export default function PlaylistEditSearch() {
       </form>
       <ul>
         {searchSongsList.map((song) => (
-          <SearchIndexSongsList key={song.youtubeId} song={song} />
+          <SearchIndexSongPreview
+            key={song.youtubeId}
+            song={song}
+            onSaveYTSong={onSaveYTSong}
+            playlistId={playlistId}
+          />
         ))}
       </ul>
     </div>

@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useModel } from "../../../hooks/useModel";
 import PlaylistEditHeroImg from "./PlaylistEditHeroImg";
-import { PlusSVG } from "../../svg/SVGs";
+import { PlusSVG, UserIconSVG } from "../../svg/SVGs";
 import Loader from "../../Loader";
 
 interface Props {
@@ -79,9 +79,9 @@ export default function PlaylistEditHeroModel({
   };
 
   return (
-    <>
+    <div className="playlist-edit-hero-model-con">
       <button
-        className="model-btn-edit-hero"
+        className="playlist-edit-hero-model-btn"
         onClick={(ev) => {
           ev.stopPropagation();
           setIsModelOpen(true);
@@ -90,7 +90,7 @@ export default function PlaylistEditHeroModel({
         <h3>{name}</h3>
         <h4>{description}</h4>
         <div className="playlists-details-hero-info-owner">
-          <img src={avatarUrl}></img>
+          {avatarUrl ? <img src={avatarUrl}></img> : <UserIconSVG />}
           <p>{username || "TubeFy"}</p>
           <p>{shares} shares</p>
           <p>{songs} songs</p>
@@ -99,7 +99,7 @@ export default function PlaylistEditHeroModel({
       </button>
 
       {isModelOpen && (
-        <div className="edit-model" ref={modelRef}>
+        <div className="playlist-edit-hero-model" ref={modelRef}>
           <header className="edit-model-header">
             <h3>Edit Details</h3>
             <button className="close-btn" onClick={() => setIsModelOpen(false)}>
@@ -146,6 +146,6 @@ export default function PlaylistEditHeroModel({
           </form>
         </div>
       )}
-    </>
+    </div>
   );
 }

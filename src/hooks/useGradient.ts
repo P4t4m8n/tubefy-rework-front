@@ -60,7 +60,7 @@ export const useGradient = () => {
       const topColors: string[] = sortedColors
         .slice(0, 2)
         .map(([color]) => `rgb(${color})`);
-      topColors.push("rgb(18, 18, 18)", "rgba(0, 0, 0, 0.5)");
+      topColors.push("rgb(18, 18, 18)");
       const _gradient = createVerticalGradient(topColors);
       setGradientForBackground(_gradient);
     };
