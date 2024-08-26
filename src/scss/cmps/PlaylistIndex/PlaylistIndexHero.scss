@@ -71,7 +71,6 @@
       }
     }
   }
-  
 }
 
 @media (max-width: 80rem) {
@@ -105,16 +104,32 @@
     }
   }
 }
+@media (max-width: 40rem) {
+  .playlist-index-hero {
+    ul {
+      grid-template-columns: minmax(8rem, 1fr);
+      grid-template-rows: repeat(auto-fill, 3rem);
+      li {
+        a {
+          .play-btn {
+            width: 2rem;
+            padding: 0.25rem;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
 
 @container playlist-hero-list-item (max-width:12.5rem) {
   .playlist-list-preview-info {
+    @include text-overflow-ellipsis;
     h3 {
       font-size: $font-size-14;
-      @include text-overflow-ellipsis;
     }
     p {
       font-size: $font-size-12;
-      @include text-overflow-ellipsis;
     }
   }
 }

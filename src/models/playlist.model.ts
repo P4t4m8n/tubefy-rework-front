@@ -1,37 +1,26 @@
 import { TGreetings } from "../util/user.util";
+import { IItemType } from "./app.model";
 import { ISong, ISongYT } from "./song.model";
 import { IUserSmall } from "./user.model";
 
-//Constants
-export const SET_MAIN_PLAYLISTS = "SET_MAIN_PLAYLISTS";
-export const SET_USER_PLAYLISTS = "SET_USER_PLAYLISTS";
-export const SET_LIKED_PLAYLIST = "SET_LIKED_PLAYLIST";
-export const SET_PLAYLISTS_BULK = "SET_PLAYLISTS_BULK";
-
 //Interfaces
-export interface IPlaylist {
+export interface IPlaylist extends IItemType {
+  id?: string;
+  name: string;
   createdAt: string;
-  description: string | null;
+  imgUrl: string;
+  isPublic: boolean;
+  owner: IUserSmall;
   duration: string;
   genres: TGenres[];
-  id?: string;
-  imgUrl: string;
-  isPublic: boolean;
-  name: string;
-  owner: IUserSmall;
   songs: ISong[];
-  types: TPlaylistType[] | string[];
+  types: TPlaylistType[];
+
+  description: string | null; //TODO make description creation behaver
 }
-export interface ILikedSongPlaylist {
-  id: string;
-  name: string;
-  imgUrl: string;
-  songs: ISong[];
-  isPublic: boolean;
-  duration: string;
-  shares: {
-    count: number;
-  };
+export interface IPlaylistDetailed extends IPlaylist {
+  isLikedByUser: boolean;
+  createdAt: string;
 }
 export interface IPlaylistYT {
   name: string;
@@ -41,21 +30,9 @@ export interface IPlaylistYT {
   duration: string;
   isPublic: boolean;
 }
-export interface IPlaylistDetailed extends IPlaylist {
-  isLikedByUser: boolean;
-  createdAt: string;
-  shares: {
-    count: number;
-  };
-}
-export interface IPlaylistDTO {
-  id?: string;
-  name: string;
-  ownerId: string;
-  isPublic: boolean;
-  imgUrl: string;
-  description: string;
-  duration: string;
+export interface IPlaylistsGroup {
+  type: TPlaylistType | TGreetings | string;
+  playlists: IPlaylist[];
 }
 export interface IPlaylistFilter {
   genres?: TGenres[];
@@ -66,25 +43,39 @@ export interface IPlaylistFilter {
   limit?: number;
   page?: number;
   isLiked?: boolean;
+  types?: TPlaylistType[];
 }
-export interface IPlaylistObject {
-  type: TPlaylistType | TGreetings | string;
-  playlists: IPlaylist[];
-}
-export interface IPlaylistState {
-  mainPlaylists: IPlaylistObject[];
-  userPlaylists: IPlaylistDetailed[];
-  likedPlaylist: ILikedSongPlaylist | null;
-}
-
 export interface IPlaylistModelData {
   playlistsId: string;
   playlistsName: string;
   playlistImg: string;
 }
+
+//DTOs
+export interface IPlaylistDTO {
+  id?: string;
+  name: string;
+  ownerId: string;
+  isPublic: boolean;
+  imgUrl: string;
+  description: string;
+  duration: string;
+}
+
+//Redux
+export const SET_MAIN_PLAYLISTS = "SET_MAIN_PLAYLISTS";
+export const SET_USER_PLAYLISTS = "SET_USER_PLAYLISTS";
+export const SET_LIKED_PLAYLIST = "SET_LIKED_PLAYLIST";
+export const SET_PLAYLISTS_BULK = "SET_PLAYLISTS_BULK";
+export interface IPlaylistState {
+  mainPlaylists: IPlaylistsGroup[];
+  userPlaylists: IPlaylistDetailed[];
+  likedPlaylist: IPlaylistDetailed | null;
+}
+
 export interface ISetMainPlaylistsAction {
   type: typeof SET_MAIN_PLAYLISTS;
-  payload: IPlaylistObject[];
+  payload: IPlaylistsGroup[];
 }
 export interface ISetUserPlaylistsAction {
   type: typeof SET_USER_PLAYLISTS;
@@ -92,22 +83,23 @@ export interface ISetUserPlaylistsAction {
 }
 export interface ISetLikedPlaylistAction {
   type: typeof SET_LIKED_PLAYLIST;
-  payload: ILikedSongPlaylist;
+  payload: IPlaylistDetailed;
 }
 export interface ISetPlaylistsBulkAction {
   type: typeof SET_PLAYLISTS_BULK;
   payload: {
     userPlaylists: IPlaylistDetailed[];
-    likedPlaylist: ILikedSongPlaylist;
+    likedPlaylist: IPlaylistDetailed;
   };
 }
 
-//Types
 export type TPlaylistActionTypes =
   | ISetMainPlaylistsAction
   | ISetUserPlaylistsAction
   | ISetLikedPlaylistAction
   | ISetPlaylistsBulkAction;
+
+//Types
 
 export type TPlaylistType =
   | "New Music"
@@ -122,8 +114,9 @@ export type TPlaylistType =
   | "Cooking"
   | "Wellness"
   | "Study"
-  | "Chillout"
+  | "Chill-out "
   | "New Wave"
+  | ""
   | "Liked Songs";
 
 export type TGenres =

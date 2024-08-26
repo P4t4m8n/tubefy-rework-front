@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
 import { loadDefaultPlaylists } from "../store/actions/playlist.action";
 import { extractHeroPlaylists } from "../util/playlist.util";
-import { IPlaylistObject } from "../models/playlist.model";
+import { IPlaylistsGroup } from "../models/playlist.model";
 import PlaylistIndexList from "../components/PlaylistIndex/PlaylistIndexList";
 import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";
 import Loader from "../components/Loader";
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
+import { showUserMsg } from "../services/eventEmitter";
 
 export default function PlaylistIndex() {
-  const [mainPlaylists, setMainPlaylists] = useState<IPlaylistObject[]>([]);
+  const [mainPlaylists, setMainPlaylists] = useState<IPlaylistsGroup[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffectUpdate(() => {
@@ -18,7 +19,11 @@ export default function PlaylistIndex() {
         const playlists = await loadDefaultPlaylists();
         setMainPlaylists(playlists);
       } catch (error) {
-        console.error(`Error while loading default playlists: ${error}`);
+        showUserMsg({
+          text: "Failed to load playlists",
+          type: "general-error",
+          status: "error",
+        });
       } finally {
         setIsLoading(false);
       }

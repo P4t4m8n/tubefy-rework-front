@@ -37,7 +37,6 @@ export default function PlaylistEdit({ user }: Props) {
       avatarUrl: playlistToEdit?.owner.imgUrl || "",
       songs: playlistToEdit?.songs.length || 0,
       duration: playlistToEdit?.duration || "",
-      shares: playlistToEdit?.shares.count || 0,
       isPublic: playlistToEdit?.isPublic || false,
     },
   };

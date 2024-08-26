@@ -12,3 +12,4 @@ export const getUserState = () => {
 export const getCurrentPlaylist = () => {
   return store.getState().player.currentPlaylist;
 };
+

@@ -1,7 +1,9 @@
+import { IItemType } from "./app.model";
 import { TGenres } from "./playlist.model";
 import { IUserSmall } from "./user.model";
 
-export interface ISong {
+//Interfaces
+export interface ISong extends IItemType {
   youtubeId: string;
   imgUrl: string;
   name: string;
@@ -13,13 +15,21 @@ export interface ISong {
   addedBy: IUserSmall;
   addedAt: string;
 }
-
+export interface ISongYT extends IItemType {
+  name: string;
+  artist: string;
+  duration: string;
+  youtubeId: string;
+  imgUrl: string;
+  addedBy: string;
+  addedAt: string;
+}
 export interface ISongFIlter {
   name?: string;
   artist?: string;
   genres?: TGenres[];
 }
-
+//Dto
 export interface ISongDTO {
   name: string;
   artist: string;
@@ -28,14 +38,4 @@ export interface ISongDTO {
   imgUrl: string;
   addedBy: string;
   createAt: Date;
-}
-
-export interface ISongYT {
-  name: string;
-  artist: string;
-  duration: string;
-  youtubeId: string;
-  imgUrl: string;
-  addedBy: string;
-  addedAt: string;
 }

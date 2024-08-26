@@ -4,6 +4,7 @@ import { ISongYT } from "../../models/song.model";
 import { apiService } from "../../services/api.service";
 import { utilService } from "../../util/util.util";
 import SearchIndexSongPreview from "../SearchIndex/SearchIndexSongPreview";
+import { showUserMsg } from "../../services/eventEmitter";
 
 interface Props {
   onSaveYTSong: (song: ISongYT, playlistId: string) => void;
@@ -23,7 +24,11 @@ export default function PlaylistEditSearch({
         setSearchSongsList(songs);
       }
     } catch (error) {
-      console.error("error:", error);
+      showUserMsg({
+        text: error as string,
+        type: "general-error",
+        status: "error",
+      });
     }
   };
   const debouncedSearch = utilService.debounce(searchSongs, 2000);

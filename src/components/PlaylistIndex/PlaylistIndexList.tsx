@@ -1,8 +1,8 @@
-import { IPlaylistObject } from "../../models/playlist.model";
+import { IPlaylistsGroup } from "../../models/playlist.model";
 import PlaylistIndexListPreview from "./PlaylistIndexListPreview";
 
 interface Props {
-  PlaylistObject: IPlaylistObject;
+  PlaylistObject: IPlaylistsGroup;
 }
 export default function PlaylistIndexList({ PlaylistObject }: Props) {
   return (

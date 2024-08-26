@@ -1,11 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Player } from "./components/Footer/Player";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import routes from "./route";
+import routes, { RouteConfig } from "./route";
 import "./scss/main.scss";
-import { Player } from "./components/Footer/Player";
 
 export function App() {
+  const renderRoutes = (routes: RouteConfig[]) => {
+    return routes.map((route) => (
+      <Route key={route.path} path={route.path} element={route.element}>
+        {route.children && renderRoutes(route.children)}
+      </Route>
+    ));
+  };
+
   return (
     <>
       <main>
@@ -13,11 +21,7 @@ export function App() {
           <Sidebar />
           <section className="main-content">
             <Header />
-            <Routes>
-              {routes.map((route, index) => (
-                <Route key={index} path={route.path} element={route.element} />
-              ))}
-            </Routes>
+            <Routes>{renderRoutes(routes)}</Routes>
           </section>
         </Router>
         <Player />

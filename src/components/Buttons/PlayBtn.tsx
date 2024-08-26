@@ -1,12 +1,12 @@
 import { memo, MouseEvent } from "react";
 import { usePlay } from "../../hooks/usePlay";
-import { ILikedSongPlaylist, IPlaylist } from "../../models/playlist.model";
+import {  IPlaylist } from "../../models/playlist.model";
 import { ISong, ISongYT } from "../../models/song.model";
 import { PauseSVG, PlaySVG } from "../svg/SVGs";
 import { isSong } from "../../util/player.util";
 
 interface Props {
-  item: ISong | IPlaylist | ISongYT | ILikedSongPlaylist;
+  item: ISong | IPlaylist | ISongYT ;
 }
 
 function PlayBtn({ item }: Props) {
@@ -18,14 +18,16 @@ function PlayBtn({ item }: Props) {
     currentPlaylist,
   } = usePlay();
 
+  const itemType = item.itemType;
   const onPlay = (ev: MouseEvent) => {
     ev.preventDefault();
     ev.stopPropagation();
-    if ("songs" in item) {
-      onPlaylistPlay(item);
-    } else {
-      onSongPlay(item);
+
+    if (itemType === "playlist") {
+      onPlaylistPlay(item as IPlaylist );
+      return;
     }
+    onSongPlay(item as ISong | ISongYT);
   };
 
   const showSongPlay =

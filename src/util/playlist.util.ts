@@ -1,15 +1,15 @@
 import {
   IPlaylist,
   IPlaylistDetailed,
-  IPlaylistObject,
+  IPlaylistsGroup,
   IPlaylistModelData,
   TPlaylistType,
 } from "../models/playlist.model";
 import { getUserPlaylistsState } from "../store/getStore";
 
-export const playlistsToPlaylistObjects = (
+export const playlistsToPlaylistsGroup = (
   playlists: IPlaylist[]
-): IPlaylistObject[] => {
+): IPlaylistsGroup[] => {
   const playlistMap = new Map<TPlaylistType | string, IPlaylist[]>();
 
   playlists.forEach((playlist) => {
@@ -19,16 +19,15 @@ export const playlistsToPlaylistObjects = (
     playlistMap.get(playlist.types[0])!.push(playlist);
   });
 
-  const playlistObjects: IPlaylistObject[] = [];
+  const playlistObjects: IPlaylistsGroup[] = [];
   playlistMap.forEach((playlists, type) => {
     playlistObjects.push({ type, playlists });
   });
 
   return playlistObjects;
 };
-
 export const extractHeroPlaylists = (
-  playlistObjects: IPlaylistObject[]
+  playlistObjects: IPlaylistsGroup[]
 ): IPlaylist[] => {
   if (!playlistObjects.length) {
     return [];
@@ -45,7 +44,6 @@ export const extractHeroPlaylists = (
   }
   return heroPlaylists.splice(0, 8);
 };
-
 export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
   return {
     name: `New Playlist ${num + 1}`,
@@ -64,12 +62,9 @@ export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
     isPublic: false,
     isLikedByUser: false,
     createdAt: "",
-    shares: {
-      count: 0,
-    },
+    itemType: "playlist",
   };
 };
-
 export const transformUserPlaylistsStateForModel = (
   playlistId = ""
 ): IPlaylistModelData[] => {

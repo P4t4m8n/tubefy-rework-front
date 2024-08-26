@@ -19,7 +19,6 @@ interface Props {
     avatarUrl: string;
     songs: number;
     duration: string;
-    shares: number;
     isPublic: boolean;
   };
 }

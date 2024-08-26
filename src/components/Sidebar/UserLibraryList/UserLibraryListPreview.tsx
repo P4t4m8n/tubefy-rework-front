@@ -8,11 +8,14 @@ import UserLibraryListPreviewModel from "./UserLibraryListPreviewModel";
 interface Props {
   playlist: IPlaylist | IPlaylistDetailed;
   isHighlighted: boolean;
+  onSharePlaylist: (playlistId: string, friendId: string) => void;
+
 }
 
 export default function UserLibraryListPreview({
   playlist,
   isHighlighted,
+  onSharePlaylist
 }: Props) {
   const itemClass = `user-playlist-item ${isHighlighted ? "highlight" : ""}`;
   const { id, imgUrl, name, songs } = playlist;
@@ -28,7 +31,7 @@ export default function UserLibraryListPreview({
         <p>{songs.length} songs</p>
       </Link>
       {/*TODO Model won't close when click a different button, still no solution /*/}
-      <UserLibraryListPreviewModel playlistId={id!} />
+      <UserLibraryListPreviewModel playlistId={id!} onSharePlaylist={onSharePlaylist} />
     </li>
   );
 }

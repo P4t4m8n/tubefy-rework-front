@@ -1,4 +1,6 @@
-import { IPlaylist } from "./playlist.model";
+import { IFriend } from "./friend.model";
+import { IPlaylist, IPlaylistDetailed } from "./playlist.model";
+import { ISong } from "./song.model";
 
 export interface IUserSmall {
   username: string;
@@ -6,19 +8,31 @@ export interface IUserSmall {
   imgUrl?: string;
   isAdmin?: boolean;
 }
-export interface IUserCreateDTO extends IUserLoginDTO {
-  username: string;
-}
-export interface IUserLoginDTO {
-  email: string;
-  password: string;
-}
 export interface IUser extends IUserSmall {
+  email: string;
   playlists: IPlaylist[];
-  favorites: IPlaylist[];
-  LikedSongs: IPlaylist;
-  friends: IUserSmall[];
+  songs: ISong[];
 }
+
+// DTO
+export interface IFullUserDTO extends IUserSmall {
+  email: string;
+  friends: IFriend[];
+  friendsRequest: IFriend[];
+  likedSongsPlaylist: IPlaylistDetailed;
+  playlists: IPlaylistDetailed[];
+  password?: string;
+}
+export interface IUserDTO {
+  email?: string;
+  password?: string;
+  username?: string;
+  imgUrl?: string;
+}
+
+//Redux
+
+export const SET_USER = "SET_USER";
 export interface IUserState {
   user: IUserSmall | null;
 }
@@ -26,5 +40,4 @@ export interface IUserAction {
   type: TUserActionType;
   payload: IUserSmall | null;
 }
-
-export type TUserActionType = "SET_USER" | "EDIT_USER";
+export type TUserActionType = typeof SET_USER;

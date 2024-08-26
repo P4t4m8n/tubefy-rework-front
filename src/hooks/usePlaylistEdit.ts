@@ -12,6 +12,7 @@ import {
 } from "../store/actions/playlist.action";
 import { songService } from "../services/song.service";
 import { ISongYT } from "../models/song.model";
+import { showUserMsg } from "../services/eventEmitter";
 
 export const usePlaylistEdit = (
   userId: string | null | undefined
@@ -50,7 +51,11 @@ export const usePlaylistEdit = (
       setPlaylistToEdit(playlist);
       setImgForBackground(playlist.imgUrl);
     } catch (error) {
-      console.error("error:", error);
+      showUserMsg({
+        text: "Failed to load playlist",
+        type: "general-error",
+        status: "error",
+      });
     }
   };
 
@@ -79,7 +84,7 @@ export const usePlaylistEdit = (
       isPublic,
     };
 
-    saveUserPlaylist(updatedPlaylist);
+    await saveUserPlaylist(updatedPlaylist);
   };
 
   const onSaveYTSong = useCallback(
@@ -92,7 +97,11 @@ export const usePlaylistEdit = (
           return { ...prev, songs: [...prev.songs, song] };
         });
       } catch (error) {
-        console.error(`Error while saving song: ${error}`);
+        showUserMsg({
+          text: "Failed to save song",
+          type: "general-error",
+          status: "error",
+        });
       }
     },
     []

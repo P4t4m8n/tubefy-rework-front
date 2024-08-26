@@ -1,4 +1,4 @@
-import { ILikedSongPlaylist, IPlaylist } from "../models/playlist.model";
+import {  IPlaylist } from "../models/playlist.model";
 import { ISong, ISongYT } from "../models/song.model";
 import { youTubePlayer } from "../services/player.service";
 import {
@@ -13,7 +13,7 @@ export const usePlay = () => {
     (state) => state.player
   );
 
-  const onPlaylistPlay = (playlist: IPlaylist | ILikedSongPlaylist) => {
+  const onPlaylistPlay = (playlist: IPlaylist ) => {
     if (playlist.id !== currentPlaylist?.id) {
       loadCurrentPlaylist(playlist);
       loadSong(playlist.songs[0]);

@@ -3,12 +3,14 @@ import { playlistReducer } from "./reducers/playlist.reducer";
 import { userReducer } from "./reducers/user.reducer";
 import { playerReducer } from "./reducers/player.reducer";
 import { imgGradientReducer } from "./reducers/imgGradient.reducer";
+import { friendReducer } from "./reducers/friend.reducer";
 
 const rootReducer = combineReducers({
   playlists: playlistReducer,
   user: userReducer,
   player: playerReducer,
   imgGradient: imgGradientReducer,
+  friends: friendReducer,
 });
 
 export const store = configureStore({

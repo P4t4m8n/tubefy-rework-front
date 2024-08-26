@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { loadSong } from "../../store/actions/player.action";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import { utilService } from "../../util/util.util";
@@ -13,6 +13,7 @@ import {
 import { usePlay } from "../../hooks/usePlay";
 import { ProgressBar } from "./ProgressBar";
 import { youTubePlayer } from "../../services/player.service";
+import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 
 export function YouTubeAudioPlayer() {
   const { playingSong, isPlaying, currentPlaylist, togglePlayPause } =
@@ -22,7 +23,6 @@ export function YouTubeAudioPlayer() {
     "shuffle" | "repeat" | "normal"
   >("normal");
   const stationIdx = useRef(0);
-  console.log("songOrderMode:", songOrderMode);
 
   const opts = {
     height: "0",
@@ -33,7 +33,7 @@ export function YouTubeAudioPlayer() {
     },
   };
 
-  useEffect(() => {
+  useEffectUpdate(() => {
     if (!playingSong && currentPlaylist) loadSong(currentPlaylist.songs[0]);
   }, [playingSong, currentPlaylist]);
 

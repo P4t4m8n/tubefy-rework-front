@@ -50,13 +50,11 @@ interface ytPlaylistItemResponse {
 }
 
 const fetchFromYT = async (url: string) => {
-  try {
-    const response = await axios.get(url);
-    return response.data.items;
-  } catch (error) {
-    console.error(`Error fetching data from YouTube API: ${error}`);
-    throw error;
+  const response = await axios.get(url);
+  if (!response.data.items) {
+    throw new Error("No items found");
   }
+  return response.data.items;
 };
 const getSongsFromYT = async (search: string): Promise<ISongYT[]> => {
   const url = `${URL_SEARCH}part=snippet&q=${search}&videoCategoryId=10&type=video&maxResults=${MAX_RESULTS}`;
@@ -74,6 +72,7 @@ const getSongsFromYT = async (search: string): Promise<ISongYT[]> => {
         imgUrl: ytItem.snippet.thumbnails.medium.url,
         addedBy: "artist",
         addedAt: new Date().toString(),
+        itemType: "YTsong",
       };
     }
   );
@@ -122,6 +121,7 @@ const fetchSongsFromPlaylist = async (
         imgUrl: song.snippet.thumbnails.medium.url,
         addedBy: "artist",
         addedAt: new Date().toString(),
+        itemType: "YTplaylist",
       };
     }
   );
@@ -162,13 +162,12 @@ const _getDuration = async (videoId: string): Promise<string> => {
     const duration = response.data.items[0]?.contentDetails?.duration;
 
     if (!duration) {
-      console.error(`No duration found for video ${videoId}`);
       return "00:00";
     }
 
     return _formatDuration(duration);
   } catch (err) {
-    console.error(`Error getting duration for video ${videoId}: ${err}`);
+    console.error("Error getting duration", err);
     return "00:00";
   }
 };

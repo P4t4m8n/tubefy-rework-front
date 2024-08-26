@@ -1,3 +1,5 @@
+import { httpService } from "./http.service";
+
 export const uploadImg = async (file: Blob): Promise<string> => {
   const CLOUD_NAME = import.meta.env.VITE_PUBLIC_CLOUD_NAME!;
   const UPLOAD_PRESET = import.meta.env.VITE_PUBLIC_UPLOAD_PRESET!;
@@ -8,15 +10,14 @@ export const uploadImg = async (file: Blob): Promise<string> => {
     formData.append("upload_preset", UPLOAD_PRESET);
     formData.append("file", file);
 
-    const res = await fetch(UPLOAD_URL, {
-      method: "POST",
-      body: formData,
-    });
-
-    const imgUrl: { secure_url: string } = await res.json();
-    return imgUrl.secure_url;
+    const res = await httpService.post<{ secure_url: string }>(
+      UPLOAD_URL,
+      formData
+    );
+    const { secure_url: imgUrl } = res;
+    return imgUrl;
   } catch (err) {
-    console.error("Failed to upload", err);
-    throw err;
+    console.error(`Failed to upload image to cloudinary: ${err}`);
+    throw new Error("Failed to upload image to cloudinary");
   }
 };

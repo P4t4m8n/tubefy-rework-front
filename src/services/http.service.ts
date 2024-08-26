@@ -44,10 +44,6 @@ async function ajax<T>(
     const res = await axiosInstance(config);
     return res.data;
   } catch (err: unknown) {
-    console.error(
-      `Had Issues ${method} to the backend, endpoint: ${endpoint}, with data:${data} error:${err} `
-    );
-
     if (
       Axios.isAxiosError(err) &&
       err.response &&

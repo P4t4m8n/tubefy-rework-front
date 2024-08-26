@@ -1,46 +1,88 @@
-import {
-  IUserAction,
-  IUserCreateDTO,
-  IUserLoginDTO,
-  IUserSmall,
-} from "../../models/user.model";
-import { userService } from "../../services/user.service";
-// import { userFormValidation } from "../../validations/auth";
+import { IUserAction, IUserDTO, IUserSmall } from "../../models/user.model";
+import { socketService } from "../../services/socket.service";
+import { userService } from "../../services/auth.service";
 import { store } from "../store";
+import { loadUserPlaylists } from "./playlist.action";
+import { loadFriendsBulk } from "./friend.action";
+import { showUserMsg } from "../../services/eventEmitter";
 
-export const setUser = (user: IUserSmall | null): IUserAction => ({
+const setUser = (user: IUserSmall | null): IUserAction => ({
   type: "SET_USER",
   payload: user,
 });
 
-export const login = async (userLogin: IUserLoginDTO): Promise<void> => {
+//TODO add validation
+export const login = async (userLogin: IUserDTO): Promise<void> => {
   try {
-    // const parsedUser = userFormValidation.loginFormSchema.parse(userLogin);
-    // if (!parsedUser) {
-    //   console.error(`Error while parsing user: ${parsedUser}`);
-    //   return;
-    // }
-    const user = await userService.login(userLogin);
+    const fullUser = await userService.login(userLogin);
+
+    const {
+      playlists,
+      friends,
+      friendsRequest,
+      likedSongsPlaylist,
+      id,
+      imgUrl,
+      isAdmin,
+      username,
+    } = fullUser;
+    const user = {
+      id,
+      imgUrl,
+      isAdmin,
+      username,
+    };
+    loadUserPlaylists(playlists, likedSongsPlaylist);
+    loadFriendsBulk(friends, friendsRequest);
+    socketService.connect();
     store.dispatch(setUser(user));
     return;
   } catch (error) {
     console.error(`Error while logging in: ${error}`);
+    showUserMsg({
+      text: "Failed to logging in",
+      type: "general-error",
+      status: "error",
+      imgUrl: "error-img.png",
+    });
     return;
   }
 };
 
-export const signup = async (userToCreate: IUserCreateDTO): Promise<void> => {
+//TODO add validation
+export const signup = async (userToCreate: IUserDTO): Promise<void> => {
   try {
-    // const parsedUser = userFormValidation.signupFormSchema.parse(userToCreate);
-    // if (!parsedUser) {
-    //   console.error(`Error while parsing user: ${parsedUser}`);
-    //   return;
-    // }
-    const user = await userService.signup(userToCreate);
+    const fullUser = await userService.signup(userToCreate);
+    const {
+      playlists,
+      friends,
+      friendsRequest,
+      likedSongsPlaylist,
+      id,
+      imgUrl,
+      isAdmin,
+      username,
+    } = fullUser;
+    const user = {
+      id,
+      imgUrl,
+      isAdmin,
+      username,
+    };
+    loadUserPlaylists(playlists, likedSongsPlaylist);
+    loadFriendsBulk(friends, friendsRequest);
+    socketService.connect();
     store.dispatch(setUser(user));
     return;
   } catch (error) {
     console.error(`Error while signing up: ${error}`);
+    showUserMsg({
+      text: "Failed to sign up",
+      type: "general-error",
+      status: "error",
+      imgUrl: "error-img.png",
+    });
+
     return;
   }
 };
@@ -48,10 +90,17 @@ export const signup = async (userToCreate: IUserCreateDTO): Promise<void> => {
 export const logout = async (): Promise<void> => {
   try {
     await userService.logout();
+    socketService.disconnect();
     store.dispatch(setUser(null));
     return;
   } catch (error) {
     console.error(`Error while logging out: ${error}`);
+    showUserMsg({
+      text: "Failed to logout",
+      type: "general-error",
+      status: "error",
+      imgUrl: "error-img.png",
+    });
     return;
   }
 };

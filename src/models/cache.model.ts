@@ -1,7 +1,7 @@
 import {
   IPlaylist,
   IPlaylistDetailed,
-  IPlaylistObject,
+  IPlaylistsGroup,
 } from "./playlist.model";
 import { ISongYT } from "./song.model";
 
@@ -20,4 +20,4 @@ export interface ICacheAction {
 
 export const SET_CACHE = "SET_CACHE";
 
-export type TItem = ISongYT | IPlaylist | IPlaylistDetailed | IPlaylistObject;
+export type TItem = ISongYT | IPlaylist | IPlaylistDetailed | IPlaylistsGroup;

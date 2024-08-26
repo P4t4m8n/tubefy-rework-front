@@ -6,17 +6,23 @@ import { deletePlaylist } from "../../../store/actions/playlist.action";
 
 interface Props {
   playlistId: string;
+  onSharePlaylist: (playlistId: string, friendId: string) => void;
 }
 
-export default function UserLibraryListPreviewModel({ playlistId }: Props) {
+export default function UserLibraryListPreviewModel({
+  playlistId,
+  onSharePlaylist,
+}: Props) {
   const playlistModelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(playlistModelRef);
   const navigate = useNavigate();
 
   const handleClick = async (
     ev: MouseEvent,
-    type: "delete" | "share" | "edit"
+    type: "delete" | "share" | "edit",
+    friendId?: string
   ) => {
+    console.log("friendId:", friendId)
     ev.preventDefault();
     ev.stopPropagation();
     switch (type) {
@@ -24,7 +30,7 @@ export default function UserLibraryListPreviewModel({ playlistId }: Props) {
         await deletePlaylist(playlistId);
         break;
       case "share":
-        console.info("Share playlist");
+        onSharePlaylist(playlistId, "289b7a5c-c71e-4c4e-9d19-9ccd2e986db4");
         break;
       case "edit":
         navigate(`/playlist/edit/${playlistId}`);

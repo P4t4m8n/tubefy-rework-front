@@ -8,7 +8,6 @@ interface Props {
   avatarUrl: string;
   songs: number;
   duration: string;
-  shares: number;
 }
 
 export default function PlaylistDetailsHero({
@@ -19,7 +18,6 @@ export default function PlaylistDetailsHero({
   avatarUrl,
   songs,
   duration,
-  shares,
 }: Props) {
   return (
     <header className="playlists-details-hero">
@@ -30,7 +28,6 @@ export default function PlaylistDetailsHero({
         <div className="playlists-details-hero-info-owner">
           <img src={avatarUrl}></img>
           <p>{username || "TubeFy"}</p>
-          <p>{shares} shares</p>
           <p>{songs} songs</p>
           <p>About {duration}</p>
         </div>

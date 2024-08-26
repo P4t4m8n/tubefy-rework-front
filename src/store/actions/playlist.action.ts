@@ -1,8 +1,7 @@
 import {
-  ILikedSongPlaylist,
   IPlaylist,
   IPlaylistDetailed,
-  IPlaylistObject,
+  IPlaylistsGroup,
   ISetLikedPlaylistAction,
   ISetMainPlaylistsAction,
   ISetUserPlaylistsAction,
@@ -12,12 +11,13 @@ import {
   SET_USER_PLAYLISTS,
 } from "../../models/playlist.model";
 import { ISong } from "../../models/song.model";
+import { showUserMsg } from "../../services/eventEmitter";
 import { playlistService } from "../../services/playlist.service";
-import { playlistsToPlaylistObjects } from "../../util/playlist.util";
+import { playlistsToPlaylistsGroup } from "../../util/playlist.util";
 import { store } from "../store";
 
 export const setMainPlaylists = (
-  playlists: IPlaylistObject[]
+  playlists: IPlaylistsGroup[]
 ): ISetMainPlaylistsAction => ({
   type: SET_MAIN_PLAYLISTS,
   payload: playlists,
@@ -31,7 +31,7 @@ export const setUserPlaylists = (
 });
 
 export const setUserLikedSongsPlaylist = (
-  playlist: ILikedSongPlaylist
+  playlist: IPlaylistDetailed
 ): ISetLikedPlaylistAction => ({
   type: SET_LIKED_PLAYLIST,
   payload: playlist,
@@ -39,39 +39,41 @@ export const setUserLikedSongsPlaylist = (
 
 export const setPlaylistsBulk = (playlists: {
   userPlaylists: IPlaylistDetailed[];
-  likedPlaylist: ILikedSongPlaylist;
+  likedPlaylist: IPlaylistDetailed;
 }) => ({
   type: SET_PLAYLISTS_BULK,
   payload: playlists,
 });
 
-export const loadDefaultPlaylists = async (): Promise<IPlaylistObject[]> => {
+export const loadDefaultPlaylists = async (): Promise<IPlaylistsGroup[]> => {
   try {
     const playlists = await playlistService.getDefaultStations();
     if (!playlists)
       throw new Error("No playlists found in default contact support");
 
-    const playlistsObject: IPlaylistObject[] =
-      playlistsToPlaylistObjects(playlists);
+    const playlistsObject: IPlaylistsGroup[] =
+      playlistsToPlaylistsGroup(playlists);
     return playlistsObject;
   } catch (error) {
-    console.error(`Error while loading default playlists: ${error}`);
+    showUserMsg({
+      text: "Failed to load playlists",
+      type: "general-error",
+      status: "error",
+    });
     return [];
   }
 };
 
-export const loadUserPlaylists = async (): Promise<void> => {
-  try {
-    const playlists = await playlistService.getUserPlaylists();
-    store.dispatch(
-      setPlaylistsBulk({
-        userPlaylists: playlists.OwnedPlaylist,
-        likedPlaylist: playlists.likedSongsPlaylist,
-      })
-    );
-  } catch (error) {
-    console.error(`Error while loading user playlists: ${error}`);
-  }
+export const loadUserPlaylists = (
+  userPlaylists: IPlaylistDetailed[],
+  likedPlaylist: IPlaylistDetailed
+): void => {
+  store.dispatch(
+    setPlaylistsBulk({
+      userPlaylists,
+      likedPlaylist,
+    })
+  );
 };
 
 export const saveUserPlaylist = async (
@@ -95,6 +97,7 @@ export const saveUserPlaylist = async (
     return savedPlaylist.id!;
   } catch (error) {
     console.error(`Error while saving user playlist: ${error}`);
+    throw new Error("Failed to save playlist, please try again later");
   }
 };
 

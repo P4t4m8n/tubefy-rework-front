@@ -12,4 +12,16 @@ export interface IModelCoords {
   y: number;
 }
 
+export interface INotification {
+  text: string;
+  imgUrl?: string;
+  type: string;
+  status: "success" | "error";
+}
+export type TNotificationType = "like" | "general-error";
+
+export interface IItemType {
+  itemType: "song" | "playlist" | "YTsong" | "YTplaylist";
+}
+
 

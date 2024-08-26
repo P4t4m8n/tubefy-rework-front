@@ -1,6 +1,6 @@
 .user-library {
   background-color: $black-2;
-  height: 100%;
+  height: calc(100% - 3rem);
   border-radius: $border-radius-1-2;
   @include flex-direction-gap-padding(column, 0, 0);
 }

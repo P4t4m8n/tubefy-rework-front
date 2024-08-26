@@ -7,15 +7,16 @@ export const setCache = (query: string, data: TItem[]) => ({
 });
 
 export const fetchDataThunk =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (query: string) => async (dispatch: AppDispatch, getState: any) => {
     const { cache, timestamps } = getState().cache;
 
-    const twentyFourHours = 24 * 60 * 60 * 1000; 
+    const twentyFourHours = 24 * 60 * 60 * 1000;
     const currentTime = Date.now();
 
     // Check if the data for the specific query is in the cache and still valid
     if (cache[query] && currentTime - timestamps[query] < twentyFourHours) {
-      return cache[query]; 
+      return cache[query];
     }
 
     // Fetch fresh data if not in cache or if cache is expired

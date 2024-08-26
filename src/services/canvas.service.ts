@@ -16,11 +16,11 @@ interface ColorMap {
   [key: string]: number;
 }
 
-function sampleColors(
+const sampleColors = (
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number
-): void {
+): void => {
   const pixelData: Uint8ClampedArray = ctx.getImageData(
     0,
     0,
@@ -49,9 +49,9 @@ function sampleColors(
     .map(([color]) => `rgb(${color})`);
 
   createGradient(topColors);
-}
+};
 
-function createGradient(colors: string[]): void {
+const createGradient = (colors: string[]): void => {
   const gradientCanvas: HTMLCanvasElement = document.createElement("canvas");
   const gradientCtx: CanvasRenderingContext2D | null =
     gradientCanvas.getContext("2d");
@@ -76,4 +76,4 @@ function createGradient(colors: string[]): void {
   gradientCtx.fillRect(0, 0, gradientCanvas.width, gradientCanvas.height);
 
   document.body.appendChild(gradientCanvas);
-}
+};

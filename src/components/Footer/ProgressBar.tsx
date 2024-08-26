@@ -1,7 +1,8 @@
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import { formatTime } from "../../util/player.util";
 import { ISong, ISongYT } from "../../models/song.model";
 import { youTubePlayer } from "../../services/player.service";
+import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 
 interface Props {
   song: ISong | null | ISongYT;
@@ -16,7 +17,7 @@ export function ProgressBar({ song }: Props) {
 
   const intervalId = useRef<string | number | NodeJS.Timeout>("");
 
-  useEffect(() => {
+  useEffectUpdate(() => {
     const updateProgress = () => {
       const progressObj = makeTime();
       setProgress({ ...progressObj });

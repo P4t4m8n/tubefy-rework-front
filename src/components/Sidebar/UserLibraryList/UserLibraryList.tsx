@@ -1,20 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
-import {
-  ILikedSongPlaylist,
-  IPlaylistDetailed,
-} from "../../../models/playlist.model";
+import { IPlaylistDetailed } from "../../../models/playlist.model";
 import { NoteSVG } from "../../svg/SVGs";
 import { getCurrentPlaylist } from "../../../store/getStore";
 import PlayBtn from "../../Buttons/PlayBtn";
 import UserLibraryListPreview from "./UserLibraryListPreview";
 
 interface Props {
-  userLikedSongsPlaylist: ILikedSongPlaylist;
+  likedPlaylist: IPlaylistDetailed;
   playlists: IPlaylistDetailed[];
+  onSharePlaylist: (playlistId: string, friendId: string) => void;
 }
 export default function UserLibraryList({
-  userLikedSongsPlaylist,
+  likedPlaylist,
   playlists,
+  onSharePlaylist,
 }: Props) {
   const currentPlaylistId = getCurrentPlaylist()?.id;
   const location = useLocation();
@@ -26,27 +25,28 @@ export default function UserLibraryList({
     <ul className="user-playlist-list">
       <li
         className={`user-playlist-item ${
-          currentPlaylistId === userLikedSongsPlaylist?.id ||
-          playlistId === userLikedSongsPlaylist?.id
+          currentPlaylistId === likedPlaylist?.id ||
+          playlistId === likedPlaylist?.id
             ? "highlight"
             : ""
         }`}
       >
-        <Link to={`/playlist/${userLikedSongsPlaylist.id}?isLiked=true`}>
-          <PlayBtn item={userLikedSongsPlaylist!} />
+        <Link to={`/playlist/${likedPlaylist.id}`}>
+          <PlayBtn item={likedPlaylist!} />
           <div className="img-con">
-            {userLikedSongsPlaylist?.imgUrl ? (
-              <img src={userLikedSongsPlaylist!.imgUrl} alt="Liked songs" />
+            {likedPlaylist?.imgUrl ? (
+              <img src={likedPlaylist!.imgUrl} alt="Liked songs" />
             ) : (
               <NoteSVG />
             )}
           </div>
           <span>Liked songs</span>
-          <p>{userLikedSongsPlaylist!.songs.length} songs</p>
+          <p>{likedPlaylist!.songs.length} songs</p>
         </Link>
       </li>
       {playlists.map((playlist) => (
         <UserLibraryListPreview
+          onSharePlaylist={onSharePlaylist}
           playlist={playlist}
           key={playlist.id}
           isHighlighted={

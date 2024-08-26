@@ -1,13 +1,20 @@
-import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { useAppSelector } from "../../hooks/useStore";
-import { loadUserPlaylists } from "../../store/actions/playlist.action";
-import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 import { IPlaylistDetailed } from "../../models/playlist.model";
 import CreatePlaylist from "./CreatePlaylist/CreatePlaylist";
 import UserLibraryFilter from "./UserLibraryFilter/UserLibraryFilter";
 import Login from "../User/Login";
 import Loader from "../Loader";
 import UserLibraryList from "./UserLibraryList/UserLibraryList";
+import { getSocketState } from "../../store/getStore";
+import { showUserMsg } from "../../services/eventEmitter";
 
 interface Props {
   setIsFullSize: Dispatch<SetStateAction<boolean>>;
@@ -18,19 +25,13 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
   const userPlaylists = useAppSelector(
     (state) => state.playlists.userPlaylists
   );
-  const userLikedSongsPlaylist = useAppSelector(
+  const likedPlaylist = useAppSelector(
     (state) => state.playlists.likedPlaylist
   );
   const [filteredPlaylists, setFilteredPlaylists] = useState<
     IPlaylistDetailed[]
   >([]);
   const currentSortBy = useRef<"recently_added" | "alphabetical" | "">("");
-
-  useEffectUpdate(() => {
-    if (user) {
-      loadUserPlaylists();
-    }
-  }, [user]);
 
   const onFilterChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const _filteredPlaylists = userPlaylists.filter(
@@ -57,7 +58,36 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
     setFilteredPlaylists(_filteredPlaylists);
   };
 
-  if (user && (!userPlaylists || !userLikedSongsPlaylist)) return <Loader />;
+  const onSharePlaylist = useCallback(
+    (playlistId: string, friendId: string) => {
+      try {
+        const socketService = getSocketState();
+        if (!socketService) {
+          throw new Error("Socket service not available");
+        }
+        socketService.emit<{ playlistId: string; friendId: string }>(
+          "sharePlaylist",
+          { playlistId, friendId }
+        );
+        showUserMsg({
+          text: "Playlist shared successfully",
+          imgUrl: "/success-img.png",
+          type: "success",
+          status: "success",
+        });
+      } catch (error) {
+        showUserMsg({
+          text: "Failed to share playlist",
+          imgUrl: "/error-img.jpg",
+          type: "error",
+          status: "error",
+        });
+      }
+    },
+    []
+  );
+
+  if (user && (!userPlaylists || !likedPlaylist)) return <Loader />;
 
   const playlists = filteredPlaylists.length
     ? filteredPlaylists
@@ -81,7 +111,8 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
           />
           <UserLibraryList
             playlists={playlists}
-            userLikedSongsPlaylist={userLikedSongsPlaylist!}
+            likedPlaylist={likedPlaylist}
+            onSharePlaylist={onSharePlaylist}
           />
         </>
       )}

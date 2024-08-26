@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Dispatch } from "react";
 import { getUserPlaylistsState, getUserState } from "../../../store/getStore";
 import CreatePlaylistModel from "./CreatePlaylistModel";
+import { showUserMsg } from "../../../services/eventEmitter";
 
 interface Props {
   setIsFullSize: Dispatch<React.SetStateAction<boolean>>;
@@ -27,7 +28,11 @@ export default function CreatePlaylist({ setIsFullSize }: Props) {
       if (!savedPlaylistId) throw new Error("Failed to save playlist");
       navigate(`/playlist/edit/${savedPlaylistId}`);
     } catch (error) {
-      console.error(`Error while creating playlist: ${error}`);
+      showUserMsg({
+        text: "Failed to create playlist",
+        type: "general-error",
+        status: "error",
+      });
     }
   };
 

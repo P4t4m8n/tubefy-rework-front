@@ -1,5 +1,4 @@
 import {
-  ILikedSongPlaylist,
   IPlaylist,
   IPlaylistDetailed,
   IPlaylistDTO,
@@ -90,55 +89,8 @@ const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
   };
 };
 
-const getUserLikedPlaylists = async (): Promise<IPlaylist[]> => {
-  try {
-    const playlists = await httpService.get<IPlaylist[]>(`${BASE_URL}/liked`);
-
-    if (!playlists) throw new Error("No playlists found");
-    return playlists;
-  } catch (error) {
-    throw new Error(`Error while fetching liked playlists: ${error}`);
-  }
-};
-
-const getUserPlaylists = async (): Promise<{
-  likedSongsPlaylist: ILikedSongPlaylist;
-  OwnedPlaylist: IPlaylistDetailed[];
-}> => {
-  try {
-    const playlists = await httpService.get<{
-      likedSongsPlaylist: ILikedSongPlaylist;
-      OwnedPlaylist: IPlaylistDetailed[];
-    }>(`${BASE_URL}user`);
-
-    return playlists;
-  } catch (error) {
-    throw new Error(`Error while fetching user playlists: ${error}`);
-  }
-};
-
 const getDefaultStations = async (): Promise<IPlaylist[]> => {
-  try {
-    const playlist = await httpService.get<IPlaylist[]>(`${BASE_URL}`);
-
-    if (!playlist) throw new Error("No default station found");
-    return playlist;
-  } catch (error) {
-    throw new Error(`Error while fetching default station: ${error}`);
-  }
-};
-
-const getUserLikedSongsPlaylistById = async (
-  id: string
-): Promise<IPlaylistDetailed> => {
-  try {
-    const playlist = await httpService.get<IPlaylistDetailed>(
-      `${BASE_URL}user/${id}`
-    );
-    return playlist;
-  } catch (error) {
-    throw new Error(`Error while fetching liked songs playlist: ${error}`);
-  }
+  return await httpService.get<IPlaylist[]>(`${BASE_URL}`);
 };
 
 const togglePlaylistLIke = async (
@@ -152,10 +104,10 @@ const togglePlaylistLIke = async (
       return await httpService.post(`${BASE_URL}${id}/like`);
     }
   } catch (error) {
-    throw new Error(`Error while updating playlist likes: ${error}`);
+    console.error(`Error while liking playlist: ${error}`);
+    throw new Error(`Unable to like playlist`);
   }
 };
-
 // Private functions
 const _create = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
   return httpService.post<IPlaylistDetailed>(`${BASE_URL}edit`, playlist);
@@ -176,9 +128,6 @@ export const playlistService = {
   addSong,
   removeSong,
   playlistToPlayListDTO,
-  getUserLikedPlaylists,
   getDefaultStations,
   togglePlaylistLIke,
-  getUserPlaylists,
-  getUserLikedSongsPlaylistById,
 };

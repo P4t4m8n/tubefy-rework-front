@@ -11,12 +11,12 @@ export const getDefaultSong = (): ISong => {
     addedBy: {
       id: "1",
       username: "Ramones",
-      avatarUrl: "https://i.ytimg.com/vi/yCW7Aw8ugOI/mqdefault.jpg",
+      imgUrl: "https://i.ytimg.com/vi/yCW7Aw8ugOI/mqdefault.jpg",
       isAdmin: false,
-      email: "",
     },
     addedAt: new Date(1705347571892).toString(),
     isLikedByUser: false,
     genres: ["punk"],
+    itemType: "song",
   };
 };

@@ -3,6 +3,7 @@ import { useModel } from "../../../hooks/useModel";
 import PlaylistEditHeroImg from "./PlaylistEditHeroImg";
 import { PlusSVG, UserIconSVG } from "../../svg/SVGs";
 import Loader from "../../Loader";
+import { showUserMsg } from "../../../services/eventEmitter";
 
 interface Props {
   imgUrl: string;
@@ -20,7 +21,6 @@ interface Props {
     avatarUrl: string;
     songs: number;
     duration: string;
-    shares: number;
     isPublic: boolean;
   };
 }
@@ -46,7 +46,6 @@ export default function PlaylistEditHeroModel({
     avatarUrl,
     songs,
     duration,
-    shares,
     isPublic,
   } = infoData;
 
@@ -71,7 +70,11 @@ export default function PlaylistEditHeroModel({
 
       await onSaveHero({ name, description, imgUrlData, isPublic });
     } catch (error) {
-      console.error("error:", error);
+      showUserMsg({
+        text: "Failed to save playlist",
+        type: "general-error",
+        status: "error",
+      });
     } finally {
       setIsLoading(false);
       setIsModelOpen(false);
@@ -92,7 +95,6 @@ export default function PlaylistEditHeroModel({
         <div className="playlists-details-hero-info-owner">
           {avatarUrl ? <img src={avatarUrl}></img> : <UserIconSVG />}
           <p>{username || "TubeFy"}</p>
-          <p>{shares} shares</p>
           <p>{songs} songs</p>
           <p>About {duration}</p>
         </div>

@@ -25,24 +25,28 @@ const toggleSongLike = async (
     }
     return await httpService.post(`${BASE_URL}${songId}/like`);
   } catch (error) {
-    throw new Error(`Error while liking song: ${error}`);
+    console.error(`Error while liking song: ${error}`);
+    throw new Error(`Unable to like song`);
   }
 };
 
 const createSong = async (song: ISongYT): Promise<ISong> => {
   try {
     const savedSong = await httpService.post<ISong>(BASE_URL + "edit", song);
-    if (!savedSong) {
-      throw new Error("No song found");
-    }
     return savedSong;
   } catch (error) {
-    throw new Error(`Error while saving song: ${error}`);
+    console.error(`Error while saving song: ${error}`);
+    throw new Error(`Unable to save song`);
   }
+};
+
+const likeSongYT = async (songYT: ISongYT): Promise<ISong> => {
+  return await createSong(songYT);
 };
 
 export const songService = {
   query,
-  toggleSongLike: toggleSongLike,
+  toggleSongLike,
   createSong,
+  likeSongYT,
 };

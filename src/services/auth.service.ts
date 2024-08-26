@@ -1,14 +1,10 @@
-import {
-  IUserCreateDTO,
-  IUserLoginDTO,
-  IUserSmall,
-} from "../models/user.model";
+import { IFullUserDTO, IUserDTO } from "../models/user.model";
 import { httpService } from "./http.service";
 
 const STORAGE_KEY = "loggedInUser";
 const BASE_URL = "auth/";
 
-const getLoggedinUser = (): null | IUserSmall => {
+const getLoggedinUser = (): null | IFullUserDTO => {
   const session = sessionStorage.getItem(STORAGE_KEY);
   if (!session) {
     return null;
@@ -16,8 +12,8 @@ const getLoggedinUser = (): null | IUserSmall => {
   return JSON.parse(session);
 };
 
-const login = async (userCreateDTO: IUserLoginDTO): Promise<IUserSmall> => {
-  const user = await httpService.post<IUserSmall>(
+const login = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
+  const user = await httpService.post<IFullUserDTO>(
     BASE_URL + "login",
     userCreateDTO
   );
@@ -31,8 +27,8 @@ const logout = async (): Promise<boolean> => {
   return httpService.post<boolean>(BASE_URL + "logout");
 };
 
-const signup = async (userCreateDTO: IUserCreateDTO): Promise<IUserSmall> => {
-  const user = await httpService.post<IUserSmall>(
+const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
+  const user = await httpService.post<IFullUserDTO>(
     BASE_URL + "signup",
     userCreateDTO
   );
@@ -40,10 +36,11 @@ const signup = async (userCreateDTO: IUserCreateDTO): Promise<IUserSmall> => {
   return user;
 };
 
-const _setLoggedInUser = (user?: IUserSmall) => {
+const _setLoggedInUser = (user?: IFullUserDTO) => {
   if (user) {
     return sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user));
   }
   sessionStorage.removeItem(STORAGE_KEY);
 };
+
 export const userService = { getLoggedinUser, login, logout, signup };
