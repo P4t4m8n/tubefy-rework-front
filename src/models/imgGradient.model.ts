@@ -8,7 +8,7 @@ export interface IImageGradientState {
 }
 export interface ISetImgGradientAction {
   type: typeof SET_IMAGE_GRADIENT;
-  payload: string;
+  payload: string | null;
 }
 export interface ISetImgUrlAction {
   type: typeof SET_IMAGE_URL;

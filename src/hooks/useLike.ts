@@ -4,7 +4,7 @@ import { ISong, ISongYT } from "../models/song.model";
 import { IPlaylistDetailed } from "../models/playlist.model";
 import { songService } from "../services/song.service";
 import {
-  updateUserLikedPlaylist,
+  updateUserPlaylists,
   updateUserLikedSongPlaylist,
 } from "../store/actions/playlist.action";
 import { playlistService } from "../services/playlist.service";
@@ -45,7 +45,7 @@ export const useLike = (
             (item as IPlaylistDetailed).id!,
             isLiked
           );
-          updateUserLikedPlaylist(item as IPlaylistDetailed);
+          updateUserPlaylists(item as IPlaylistDetailed);
           break;
         case "YTsong": {
           const song = await songService.createSong(item as ISongYT);

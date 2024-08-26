@@ -1,6 +1,5 @@
 import { IFriend } from "./friend.model";
-import { IPlaylist, IPlaylistDetailed } from "./playlist.model";
-import { ISong } from "./song.model";
+import { IPlaylistDetailed } from "./playlist.model";
 
 export interface IUserSmall {
   username: string;
@@ -9,35 +8,36 @@ export interface IUserSmall {
   isAdmin?: boolean;
 }
 export interface IUser extends IUserSmall {
+  password?: string;
   email: string;
-  playlists: IPlaylist[];
-  songs: ISong[];
 }
 
 // DTO
-export interface IFullUserDTO extends IUserSmall {
+export interface IFullUserDTO {
   email: string;
   friends: IFriend[];
   friendsRequest: IFriend[];
   likedSongsPlaylist: IPlaylistDetailed;
   playlists: IPlaylistDetailed[];
-  password?: string;
+  user: IUser;
 }
 export interface IUserDTO {
   email?: string;
   password?: string;
   username?: string;
   imgUrl?: string;
+  isAdmin?: boolean;
+  id?: string;
 }
 
 //Redux
 
 export const SET_USER = "SET_USER";
 export interface IUserState {
-  user: IUserSmall | null;
+  user: IUser | null;
 }
 export interface IUserAction {
   type: TUserActionType;
-  payload: IUserSmall | null;
+  payload: IUser | null;
 }
 export type TUserActionType = typeof SET_USER;

@@ -23,6 +23,7 @@ export default function PlaylistDetails() {
     const loadPlaylist = async (id: string) => {
       try {
         const playlist = await playlistService.get(id);
+        console.log("playlist:", playlist)
         setPlaylist(playlist);
         setImgForBackground(playlist.imgUrl);
       } catch (error) {

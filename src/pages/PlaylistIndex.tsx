@@ -12,6 +12,7 @@ export default function PlaylistIndex() {
   const [mainPlaylists, setMainPlaylists] = useState<IPlaylistsGroup[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffectUpdate(() => {
     const handleLoading = async () => {
       try {

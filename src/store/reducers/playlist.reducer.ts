@@ -6,11 +6,12 @@ import {
   SET_LIKED_PLAYLIST,
   SET_PLAYLISTS_BULK,
 } from "../../models/playlist.model";
+import { getSessionData } from "../../services/localSession.service";
 
 const initialState: IPlaylistState = {
   mainPlaylists: [],
-  userPlaylists: [],
-  likedPlaylist: null,
+  userPlaylists: getSessionData("playlists") || [],
+  likedPlaylist: getSessionData("likedPlaylist"),
 };
 
 export const playlistReducer = (

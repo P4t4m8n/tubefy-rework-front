@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import routes, { RouteConfig } from "./route";
 import "./scss/main.scss";
+import UserMsg from "./components/User/UserMsg";
 
 export function App() {
   const renderRoutes = (routes: RouteConfig[]) => {
@@ -25,6 +26,7 @@ export function App() {
           </section>
         </Router>
         <Player />
+        <UserMsg/>
       </main>
     </>
   );

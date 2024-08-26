@@ -1,4 +1,4 @@
-import { IUserAction, IUserDTO, IUserSmall } from "../../models/user.model";
+import { IUser, IUserAction, IUserDTO } from "../../models/user.model";
 import { socketService } from "../../services/socket.service";
 import { userService } from "../../services/auth.service";
 import { store } from "../store";
@@ -6,7 +6,7 @@ import { loadUserPlaylists } from "./playlist.action";
 import { loadFriendsBulk } from "./friend.action";
 import { showUserMsg } from "../../services/eventEmitter";
 
-const setUser = (user: IUserSmall | null): IUserAction => ({
+const setUser = (user: IUser | null): IUserAction => ({
   type: "SET_USER",
   payload: user,
 });
@@ -16,22 +16,9 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
   try {
     const fullUser = await userService.login(userLogin);
 
-    const {
-      playlists,
-      friends,
-      friendsRequest,
-      likedSongsPlaylist,
-      id,
-      imgUrl,
-      isAdmin,
-      username,
-    } = fullUser;
-    const user = {
-      id,
-      imgUrl,
-      isAdmin,
-      username,
-    };
+    const { playlists, friends, friendsRequest, likedSongsPlaylist, user } =
+      fullUser;
+
     loadUserPlaylists(playlists, likedSongsPlaylist);
     loadFriendsBulk(friends, friendsRequest);
     socketService.connect();
@@ -58,17 +45,9 @@ export const signup = async (userToCreate: IUserDTO): Promise<void> => {
       friends,
       friendsRequest,
       likedSongsPlaylist,
-      id,
-      imgUrl,
-      isAdmin,
-      username,
+      user,
     } = fullUser;
-    const user = {
-      id,
-      imgUrl,
-      isAdmin,
-      username,
-    };
+
     loadUserPlaylists(playlists, likedSongsPlaylist);
     loadFriendsBulk(friends, friendsRequest);
     socketService.connect();

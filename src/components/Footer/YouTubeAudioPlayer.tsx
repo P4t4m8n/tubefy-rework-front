@@ -55,7 +55,6 @@ export function YouTubeAudioPlayer() {
   };
 
   const onChangeOrder = (order: "shuffle" | "repeat") => {
-    console.log("order:", order);
     setSongOrderMode((prev) => (prev === order ? "normal" : order));
   };
 

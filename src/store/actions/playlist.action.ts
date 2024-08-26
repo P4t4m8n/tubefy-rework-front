@@ -12,6 +12,7 @@ import {
 } from "../../models/playlist.model";
 import { ISong } from "../../models/song.model";
 import { showUserMsg } from "../../services/eventEmitter";
+import { storeSessionData } from "../../services/localSession.service";
 import { playlistService } from "../../services/playlist.service";
 import { playlistsToPlaylistsGroup } from "../../util/playlist.util";
 import { store } from "../store";
@@ -101,7 +102,7 @@ export const saveUserPlaylist = async (
   }
 };
 
-export const updateUserLikedPlaylist = (playlist: IPlaylistDetailed) => {
+export const updateUserPlaylists = (playlist: IPlaylistDetailed) => {
   const userPlaylists = [...store.getState().playlists.userPlaylists];
 
   if (!userPlaylists) return;
@@ -112,9 +113,11 @@ export const updateUserLikedPlaylist = (playlist: IPlaylistDetailed) => {
 
   if (idx === -1) {
     store.dispatch(setUserPlaylists([...userPlaylists, playlist]));
+    storeSessionData("playlists", [...userPlaylists, playlist]);
   } else {
     userPlaylists.splice(idx, 1);
     store.dispatch(setUserPlaylists([...userPlaylists]));
+    storeSessionData("playlists", [...userPlaylists]);
   }
 };
 
@@ -136,6 +139,7 @@ export const updateUserLikedSongPlaylist = (song: ISong) => {
   store.dispatch(
     setUserLikedSongsPlaylist({ ...userLikedSongsPlaylist, songs })
   );
+  storeSessionData("likedPlaylist", { ...userLikedSongsPlaylist, songs });
 };
 
 export const deletePlaylist = async (playlistId: string): Promise<void> => {

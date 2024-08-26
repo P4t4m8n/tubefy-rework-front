@@ -13,8 +13,8 @@ import UserLibraryFilter from "./UserLibraryFilter/UserLibraryFilter";
 import Login from "../User/Login";
 import Loader from "../Loader";
 import UserLibraryList from "./UserLibraryList/UserLibraryList";
-import { getSocketState } from "../../store/getStore";
 import { showUserMsg } from "../../services/eventEmitter";
+import { socketService } from "../../services/socket.service";
 
 interface Props {
   setIsFullSize: Dispatch<SetStateAction<boolean>>;
@@ -61,10 +61,7 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
   const onSharePlaylist = useCallback(
     (playlistId: string, friendId: string) => {
       try {
-        const socketService = getSocketState();
-        if (!socketService) {
-          throw new Error("Socket service not available");
-        }
+       
         socketService.emit<{ playlistId: string; friendId: string }>(
           "sharePlaylist",
           { playlistId, friendId }
@@ -111,7 +108,7 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
           />
           <UserLibraryList
             playlists={playlists}
-            likedPlaylist={likedPlaylist}
+            likedPlaylist={likedPlaylist!}
             onSharePlaylist={onSharePlaylist}
           />
         </>

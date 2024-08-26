@@ -9,7 +9,7 @@ export const setImg = (url: string) => ({
   payload: url,
 });
 
-export const setGradient = (gradient: string) => ({
+export const setGradient = (gradient: string|null) => ({
   type: SET_IMAGE_GRADIENT,
   payload: gradient,
 });
@@ -18,6 +18,6 @@ export const setImgForBackground = (url: string) => {
   store.dispatch(setImg(url));
 };
 
-export const setGradientForBackground = (gradient: string) => {
+export const setGradientForBackground = (gradient: string|null) => {
   store.dispatch(setGradient(gradient));
 };

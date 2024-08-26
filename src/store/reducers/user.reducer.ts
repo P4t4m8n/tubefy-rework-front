@@ -1,8 +1,8 @@
 import { IUserAction, IUserState, SET_USER } from "../../models/user.model";
-import { userService } from "../../services/auth.service";
+import { getSessionData } from "../../services/localSession.service";
 
 const initialState: IUserState = {
-  user: userService.getLoggedinUser(),
+  user: getSessionData("user"),
 };
 
 export function userReducer(

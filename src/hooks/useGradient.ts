@@ -8,10 +8,10 @@ interface ColorMap {
 
 export const useGradient = () => {
   const { imgUrl, gradient } = useAppSelector((state) => state.imgGradient);
-
+  
   useEffectUpdate(() => {
     if (!imgUrl) {
-      setGradientForBackground("");
+      setGradientForBackground(null);
       return;
     }
     const img: HTMLImageElement = new Image();

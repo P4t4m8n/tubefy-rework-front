@@ -108,6 +108,7 @@ const togglePlaylistLIke = async (
     throw new Error(`Unable to like playlist`);
   }
 };
+
 // Private functions
 const _create = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
   return httpService.post<IPlaylistDetailed>(`${BASE_URL}edit`, playlist);

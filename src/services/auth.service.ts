@@ -1,46 +1,44 @@
-import { IFullUserDTO, IUserDTO } from "../models/user.model";
+import { IFriend } from "../models/friend.model";
+import { IPlaylistDetailed } from "../models/playlist.model";
+import { IFullUserDTO, IUser, IUserDTO } from "../models/user.model";
 import { httpService } from "./http.service";
+import { storeSessionData } from "./localSession.service";
 
-const STORAGE_KEY = "loggedInUser";
 const BASE_URL = "auth/";
 
-const getLoggedinUser = (): null | IFullUserDTO => {
-  const session = sessionStorage.getItem(STORAGE_KEY);
-  if (!session) {
-    return null;
-  }
-  return JSON.parse(session);
-};
-
 const login = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
-  const user = await httpService.post<IFullUserDTO>(
+  const fullUser = await httpService.post<IFullUserDTO>(
     BASE_URL + "login",
     userCreateDTO
   );
-  _setLoggedInUser(user);
-  return user;
+  _setSessionData(fullUser);
+  return fullUser;
 };
 
 const logout = async (): Promise<boolean> => {
-  sessionStorage.removeItem(STORAGE_KEY);
-  _setLoggedInUser();
-  return httpService.post<boolean>(BASE_URL + "logout");
+  const isDeleted = await httpService.post<boolean>(BASE_URL + "logout");
+  _setSessionData();
+  return isDeleted;
 };
 
 const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
-  const user = await httpService.post<IFullUserDTO>(
+  const fullUser = await httpService.post<IFullUserDTO>(
     BASE_URL + "signup",
     userCreateDTO
   );
-  _setLoggedInUser(user);
-  return user;
+  _setSessionData(fullUser);
+  return fullUser;
 };
 
-const _setLoggedInUser = (user?: IFullUserDTO) => {
-  if (user) {
-    return sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-  }
-  sessionStorage.removeItem(STORAGE_KEY);
+const _setSessionData = (fullUser?: IFullUserDTO): void => {
+  storeSessionData<IUser>("user", fullUser?.user);
+  storeSessionData<IPlaylistDetailed[]>("playlists", fullUser?.playlists);
+  storeSessionData<IPlaylistDetailed>(
+    "likedPlaylist",
+    fullUser?.likedSongsPlaylist
+  );
+  storeSessionData<IFriend[]>("friends", fullUser?.friends);
+  storeSessionData<IFriend[]>("friendRequests", fullUser?.friendsRequest);
 };
 
-export const userService = { getLoggedinUser, login, logout, signup };
+export const userService = { login, logout, signup };

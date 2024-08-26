@@ -6,10 +6,11 @@ import {
   SET_FRIENDS_BULK,
   SET_FRIENDS_REQUEST,
 } from "../../models/friend.model";
+import { getSessionData } from "../../services/localSession.service";
 
 const initialState: IFriendState = {
-  friends: [],
-  friendsRequest: [],
+  friends: getSessionData("friends") || [],
+  friendsRequest: getSessionData("friendRequests") || [],
 };
 
 export const friendReducer = (
