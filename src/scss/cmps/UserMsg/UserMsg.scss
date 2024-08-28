@@ -1,0 +1,43 @@
+.user-msg {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  bottom: -3rem;
+  background-color: $gray-2;
+  height: 3rem;
+  width: clamp(10rem, 100%, 13rem);
+  border-radius: $border-radius-1-2;
+  transition: bottom 0.5s;
+  @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
+
+  img {
+    height: 3rem;
+    width: 3rem;
+    border-radius: $border-radius-1-2;
+    object-fit: fill;
+  }
+
+  &.success {
+    border: 1px solid $green-1;
+  }
+  &.error {
+    border: 1px solid red;
+  }
+  &.up {
+    bottom: .5rem;
+    height: 3rem;
+    background-color: $gray-2;
+
+  }
+}
+
+@keyframes down {
+  0% {
+    bottom: 3rem;
+    height: 3rem;
+  }
+  100% {
+    bottom: 0;
+    height: 0;
+  }
+}

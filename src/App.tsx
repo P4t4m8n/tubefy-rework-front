@@ -23,10 +23,10 @@ export function App() {
           <section className="main-content">
             <Header />
             <Routes>{renderRoutes(routes)}</Routes>
+            <UserMsg />
           </section>
         </Router>
         <Player />
-        <UserMsg/>
       </main>
     </>
   );

@@ -26,18 +26,20 @@ export default function UserMsg() {
     setMsg(null);
   }
 
-  if (!msg) return <span></span>;
-
   return (
-    <section className={`user-msg ${msg.status}`}>
-      <img
-        src={
-          msg.imgUrl
-            ? msg.imgUrl
-            : "https://res.cloudinary.com/dpnevk8db/image/upload/v1705844322/zvo0mhdh6lyqgvpavfob.png"
-        }
-      ></img>
-      {<h5>{msg.text}</h5>}
+    <section className={`user-msg ${msg?.status} ${msg ? "up" : ""}`}>
+      {msg && (
+        <>
+          <img
+            src={
+              msg.imgUrl
+                ? msg.imgUrl
+                : "https://res.cloudinary.com/dpnevk8db/image/upload/v1705844322/zvo0mhdh6lyqgvpavfob.png"
+            }
+          ></img>
+          <h5>{msg.text}</h5>
+        </>
+      )}
     </section>
   );
 }

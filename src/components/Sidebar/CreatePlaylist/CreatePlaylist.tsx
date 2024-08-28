@@ -21,7 +21,8 @@ export default function CreatePlaylist({ setIsFullSize }: Props) {
 
       const userPlaylistsLength = getUserPlaylistsState().length;
       const emptyPlaylist = getEmptyPlaylist(userPlaylistsLength);
-      emptyPlaylist.owner = user;
+      const { id, username, imgUrl } = user;
+      emptyPlaylist.owner = { id, username, imgUrl };
 
       const savedPlaylistId = await saveUserPlaylist(emptyPlaylist);
 

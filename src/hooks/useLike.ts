@@ -61,6 +61,7 @@ export const useLike = (
         type: "like",
         status: "success",
         text: isLiked ? "Removed from Liked" : "Added to Liked",
+        imgUrl:"/sucess-img.jpg"
       });
     } catch (error) {
       showUserMsg({

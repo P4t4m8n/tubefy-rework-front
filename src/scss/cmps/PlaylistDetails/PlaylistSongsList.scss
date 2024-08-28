@@ -1,4 +1,7 @@
 .playlist-songs-list {
+  max-height:10rem;
+  overflow: auto;
+  @include no-scrollBar;
   .song-list {
     display: grid;
     grid-template-columns: auto 8fr 4fr 2fr 2fr;

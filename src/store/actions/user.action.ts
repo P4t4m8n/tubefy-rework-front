@@ -23,6 +23,12 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
     loadFriendsBulk(friends, friendsRequest);
     socketService.connect();
     store.dispatch(setUser(user));
+    showUserMsg({
+      text: `Welcome back ${user.username}`,
+      type: "welcome",
+      status: "success",
+      imgUrl: "/welcome-img.jpg",
+    });
     return;
   } catch (error) {
     console.error(`Error while logging in: ${error}`);
@@ -40,18 +46,19 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
 export const signup = async (userToCreate: IUserDTO): Promise<void> => {
   try {
     const fullUser = await userService.signup(userToCreate);
-    const {
-      playlists,
-      friends,
-      friendsRequest,
-      likedSongsPlaylist,
-      user,
-    } = fullUser;
+    const { playlists, friends, friendsRequest, likedSongsPlaylist, user } =
+      fullUser;
 
     loadUserPlaylists(playlists, likedSongsPlaylist);
     loadFriendsBulk(friends, friendsRequest);
     socketService.connect();
     store.dispatch(setUser(user));
+    showUserMsg({
+      text: `Welcome ${user.username}`,
+      type: "welcome",
+      status: "success",
+      imgUrl: "/welcome-img.jpg",
+    });
     return;
   } catch (error) {
     console.error(`Error while signing up: ${error}`);
@@ -59,7 +66,7 @@ export const signup = async (userToCreate: IUserDTO): Promise<void> => {
       text: "Failed to sign up",
       type: "general-error",
       status: "error",
-      imgUrl: "error-img.png",
+      imgUrl: "/error-img.png",
     });
 
     return;
@@ -71,6 +78,12 @@ export const logout = async (): Promise<void> => {
     await userService.logout();
     socketService.disconnect();
     store.dispatch(setUser(null));
+    showUserMsg({
+      text: `Goodbye`,
+      type: "goodbye",
+      status: "success",
+      imgUrl: "/goodbye-img.jpg",
+    });
     return;
   } catch (error) {
     console.error(`Error while logging out: ${error}`);
@@ -78,7 +91,7 @@ export const logout = async (): Promise<void> => {
       text: "Failed to logout",
       type: "general-error",
       status: "error",
-      imgUrl: "error-img.png",
+      imgUrl: "/error-img.png",
     });
     return;
   }

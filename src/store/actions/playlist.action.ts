@@ -94,6 +94,7 @@ export const saveUserPlaylist = async (
       userPlaylists.push(savedPlaylist);
     }
 
+    storeSessionData("playlists", userPlaylists);
     store.dispatch(setUserPlaylists(userPlaylists));
     return savedPlaylist.id!;
   } catch (error) {

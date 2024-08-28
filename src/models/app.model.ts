@@ -15,13 +15,15 @@ export interface IModelCoords {
 export interface INotification {
   text: string;
   imgUrl?: string;
-  type: string;
+  type: TNotificationType;
   status: "success" | "error";
 }
-export type TNotificationType = "like" | "general-error";
+export type TNotificationType =
+  | "like"
+  | "general-error"
+  | "welcome"
+  | "goodbye";
 
 export interface IItemType {
   itemType: "song" | "playlist" | "YTsong" | "YTplaylist";
 }
-
-
