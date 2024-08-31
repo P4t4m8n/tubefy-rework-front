@@ -1,19 +1,20 @@
-import { MouseEvent, useCallback } from "react";
+import { useCallback } from "react";
 import { useAppSelector } from "../../../hooks/useStore";
 import FriendsList from "./FriendsList";
 import { IModelAction } from "../../../models/app.model";
 import { IFriend, TFriendStatus } from "../../../models/friend.model";
 import { MessageSVG } from "../../svg/SVGs";
-import { updateFriend } from "../../../store/actions/friend.action";
+import { handleFriendRequestActions } from "../../../store/actions/friend.action";
 
 export default function ProfileFriendRequests() {
   const friendsRequest = useAppSelector(
     (state) => state.friends.friendsRequest
   );
 
+  console.log("friendsRequest");
   const onUpdateFriendStatus = useCallback(
-    async (ev: MouseEvent, friend: IFriend, status: TFriendStatus) => {
-      await updateFriend(friend, status);
+    async (friend: IFriend, status: TFriendStatus) => {
+      await handleFriendRequestActions(friend, status);
     },
     []
   );
@@ -22,15 +23,14 @@ export default function ProfileFriendRequests() {
 
   const modelActions: IModelAction<IFriend>[] = friendStatus.map((status) => ({
     text: status,
-    action: (ev: MouseEvent, friend: IFriend) =>
-      onUpdateFriendStatus(ev, friend, status),
+    action: (friend: IFriend) => onUpdateFriendStatus(friend, status),
     icon: <div className={`${status}`}></div>,
   }));
 
   modelActions.push({
     text: "MESSAGE",
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    action: (_ev: MouseEvent, _friend: IFriend) => {
+    action: (friend: IFriend) => {
+      console.log("friend:", friend)
       //TODO: implement message
     },
     icon: <MessageSVG />,

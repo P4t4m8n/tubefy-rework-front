@@ -5,9 +5,10 @@ import Login from "./Login";
 import { IGenericModelItem } from "../../models/app.model";
 import GenericModel from "../GenericComponents/GenericModel";
 import { logout } from "../../store/actions/user.action";
+import UserSocketsListener from "./UserSocketsListener";
 
 export function User() {
-  const { user } = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.user);
 
   async function onLogout(ev?: MouseEvent) {
     if (!ev) return;
@@ -38,6 +39,7 @@ export function User() {
           btnSvg={ifNoUserAvatar}
         />
       )}
+      <UserSocketsListener user={user}/>
     </div>
   );
 }

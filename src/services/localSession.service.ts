@@ -1,7 +1,7 @@
 import LZString from "lz-string";
 import CryptoJS from "crypto-js";
 
-const SECRET_KEY = "your-secret-key";
+const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
 
 export const storeSessionData = <T>(
   key:

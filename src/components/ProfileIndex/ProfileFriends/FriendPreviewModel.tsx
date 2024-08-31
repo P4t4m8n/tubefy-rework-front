@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { IUserSmall } from "../../../models/user.model";
 import { IFriend } from "../../../models/friend.model";
 import { ArrowSVG } from "../../svg/SVGs";
+import { MouseEvent } from "react";
 
 interface Props {
   modelActions: IModelAction<any>[];
@@ -16,6 +17,19 @@ export default function FriendPreviewModel({
   friend,
   setModelOpen,
 }: Props) {
+  const handleClick = async (
+    ev: MouseEvent,
+    action: ((item: any, ev?: MouseEvent) => void | Promise<void>) | undefined
+  ) => {
+    try {
+      ev.stopPropagation();
+      action && action(friend);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setModelOpen(false);
+    }
+  };
   return (
     <section className="friend-preview-model-con">
       <ul className="friend-preview-model">
@@ -24,7 +38,7 @@ export default function FriendPreviewModel({
             {action.action ? (
               <button
                 className="friend-preview-model-item-action"
-                onClick={(ev) => action.action!(ev, friend)}
+                onClick={(ev) => handleClick(ev, action.action)}
               >
                 {action.icon}
                 <span>{action.text}</span>

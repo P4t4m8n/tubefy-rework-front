@@ -1,4 +1,3 @@
-import { IFriend } from "../models/friend.model";
 import { IPlaylistDetailed } from "../models/playlist.model";
 import { IFullUserDTO, IUser, IUserDTO } from "../models/user.model";
 import { httpService } from "./http.service";
@@ -37,8 +36,10 @@ const _setSessionData = (fullUser?: IFullUserDTO): void => {
     "likedPlaylist",
     fullUser?.likedSongsPlaylist
   );
-  storeSessionData<IFriend[]>("friends", fullUser?.friends);
-  storeSessionData<IFriend[]>("friendRequests", fullUser?.friendsRequest);
+  if (!fullUser) {
+    storeSessionData("friends");
+    storeSessionData("friendRequests");
+  }
 };
 
 export const authService = { login, logout, signup };

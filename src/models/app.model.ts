@@ -12,7 +12,7 @@ export interface IModelCoords {
 }
 
 export interface IModelAction<T> {
-  action?: (ev: MouseEvent, item: T) => void | Promise<void>;
+  action?: (item: T, ev?: MouseEvent) => void | Promise<void>;
   text: string;
   link?: string;
   icon?: JSX.Element;
@@ -22,9 +22,11 @@ export interface INotification {
   text: string;
   imgUrl?: string;
   type: TNotificationType;
-  status: "success" | "error";
+  status: TNotificationStatus;
   link?: string;
 }
+
+export type TNotificationStatus = "success" | "error";
 export type TNotificationType =
   | "like"
   | "general-error"

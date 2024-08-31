@@ -60,7 +60,7 @@ export default function AddFriend() {
     () => [
       {
         text: "ADD",
-        action: (_, friend) => {
+        action: (friend) => {
           onAddFriend(friend.id);
         },
         icon: <PlusSVG />,

@@ -18,4 +18,9 @@ export type TSocketEvent =
   | "sharePlaylist"
   | "sendFriendRequest"
   | "rejectFriendRequest"
-  | "approveFriendRequest";
+  | "approveFriendRequest"
+  | "blockFriendRequest"
+  | "removeFriendRequest";
+
+
+  

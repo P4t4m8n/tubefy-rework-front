@@ -1,3 +1,6 @@
+import { TNotificationType } from "../models/app.model";
+import { showUserMsg } from "../services/eventEmitter";
+
 const createArrayFromType = <T extends string>(obj: {
   [K in T]: K;
 }): T[] => {
@@ -54,6 +57,16 @@ const getRandomColor = (): string => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const deepClone = <T>(obj: T[]): T[] => JSON.parse(JSON.stringify(obj));
 
+const handleError = (action: string, type: TNotificationType, error: Error) => {
+  console.error(`Error in ${action}`, error);
+  showUserMsg({
+    text: `Error in ${action}`,
+    type,
+    status: "error",
+    imgUrl: "/error-img.jpg",
+  });
+};
+
 export const utilService = {
   createArrayFromType,
   debounce,
@@ -61,4 +74,5 @@ export const utilService = {
   getDaysSince,
   getRandomColor,
   deepClone,
+  handleError,
 };

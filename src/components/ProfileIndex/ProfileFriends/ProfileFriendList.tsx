@@ -1,28 +1,44 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useAppSelector } from "../../../hooks/useStore";
 import FriendsList from "./FriendsList";
 import { IModelAction } from "../../../models/app.model";
-import { DeleteSVG } from "../../svg/SVGs";
+import { DeleteSVG, MessageSVG } from "../../svg/SVGs";
+import { IFriend } from "../../../models/friend.model";
+import { removeFriend } from "../../../store/actions/friend.action";
+import { showUserMsg } from "../../../services/eventEmitter";
 
 export default function ProfileFriendList() {
   const friends = useAppSelector((state) => state.friends.friends);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onRemoveFriend = (_ev: React.MouseEvent, _friendId: string) => {
-    //TODO: implement remove friend
-  };
+  const onRemoveFriend = useCallback(async (friend: IFriend) => {
+    await removeFriend(friend);
 
-  const modelActions: IModelAction<string>[] = useMemo(
+    showUserMsg({
+      text: `${friend.friend.username} was removed"`,
+      type: "friend",
+      status: "success",
+    });
+  }, []);
+
+  const modelActions: IModelAction<IFriend>[] = useMemo(
     () => [
       {
-        text: "Add Friend",
-        action: (ev, friendId) => {
-          onRemoveFriend(ev, friendId);
+        text: "REMOVE",
+        action: (friend: IFriend) => {
+          onRemoveFriend(friend);
         },
         icon: <DeleteSVG />,
       },
+      {
+        text: "MESSAGE",
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        action: () => {
+          //TODO: implement message
+        },
+        icon: <MessageSVG />,
+      },
     ],
-    []
+    [onRemoveFriend]
   );
 
   return (

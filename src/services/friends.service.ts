@@ -19,9 +19,14 @@ const update = async (friend: IFriend): Promise<IFriend> => {
   return await httpService.put<IFriend>(`${BASE_URL}${friend.id}`, friend);
 };
 
+const remove = async (id: string, friendId: string): Promise<boolean> => {
+  return await httpService.delete<boolean>(`${BASE_URL}${id}`, { friendId });
+};
+
 export const friendsService = {
   query,
   get,
   create,
   update,
+  remove,
 };
