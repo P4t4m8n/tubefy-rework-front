@@ -4,7 +4,7 @@
   background-color: $black-2;
   align-items: center;
   .sidebar-nav-link {
-    @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
+    @include flex-direction-align-gap-padding(row, center, 1rem, 0);
     svg {
       height: 1.5rem;
       width: 1.5rem;

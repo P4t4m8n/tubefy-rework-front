@@ -1,5 +1,8 @@
 import { IUserSmall } from "./user.model";
 
+//Constants
+export const friendStatuses = ["PENDING", "ACCEPTED", "BLOCKED", "REJECTED"] as const;
+
 //Interfaces
 export interface IFriend {
   id?: string;
@@ -8,16 +11,21 @@ export interface IFriend {
   friend: IUserSmall;
 }
 
+export interface IFriendFilter {
+  username?: string;
+  email?: string;
+}
+
 //DTOs
 export interface IFriendDTO {
   userId: string;
   id?: string;
   friendId: string;
-  status: TFriendStatus;
+  status?: TFriendStatus;
 }
 
 //Types
-export type TFriendStatus = "PENDING" | "ACCEPTED" | "BLOCKED" | "REJECTED";
+export type TFriendStatus = (typeof friendStatuses)[number];
 
 //Redux
 export const SET_FRIENDS = "SET_FRIENDS";

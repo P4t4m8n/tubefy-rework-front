@@ -8,7 +8,7 @@
   );
   position: relative;
   .your-library-btn {
-    @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
+    @include flex-direction-align-gap-padding(row, center, 1rem, 0);
     background-color: inherit;
     svg {
       fill: $gray-1;
@@ -108,7 +108,7 @@
     li {
       width: 100%;
       a {
-        @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
+        @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
         width: 100%;
         svg {
           width: 1rem;

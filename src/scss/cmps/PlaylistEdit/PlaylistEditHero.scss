@@ -1,5 +1,5 @@
 .playlist-edit-hero {
-  @include flex-direction-alignItems-gap-padding(row, flex-end, 2rem, 0 1rem);
+  @include flex-direction-align-gap-padding(row, flex-end, 2rem, 0 1rem);
   .img-upload-con {
     position: relative;
     box-shadow: $black-1 0px 0px 2px 1px;
@@ -78,7 +78,7 @@
       }
 
       .playlists-details-hero-info-owner {
-        @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
+        @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
 
         img {
           width: 2rem;

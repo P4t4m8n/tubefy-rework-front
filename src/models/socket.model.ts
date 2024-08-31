@@ -1,4 +1,3 @@
-
 //Interfaces
 export interface ISocketService {
   connect(): void;
@@ -16,4 +15,7 @@ export type TSocketEvent =
   | "disconnect"
   | "message"
   | "error"
-  | "sharePlaylist";
+  | "sharePlaylist"
+  | "sendFriendRequest"
+  | "rejectFriendRequest"
+  | "approveFriendRequest";

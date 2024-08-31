@@ -1,6 +1,6 @@
 .search-index-songs {
   color: $white-2;
-  @include flex-direction-alignItems-gap-padding(row, baseline, 1rem, 0);
+  @include flex-direction-align-gap-padding(row, baseline, 1rem, 0);
   .top-result {
     @include flex-direction-gap-padding(column, 1rem, 0);
     width: 50%;
@@ -66,11 +66,11 @@
     @include flex-direction-gap-padding(column, 1rem, 0);
 
     .search-index-songs-list {
-      @include flex-direction-alignItems-gap-padding(column, center, 1rem, 0);
+      @include flex-direction-align-gap-padding(column, center, 1rem, 0);
       .search-index-songs-list-item {
         height: 3rem;
         width: 100%;
-        @include flex-direction-alignItems-gap-padding(
+        @include flex-direction-align-gap-padding(
           row,
           center,
           1rem,
@@ -107,7 +107,7 @@
         }
         .playlist-songs-list-preview-actions {
           margin-left: auto;
-          @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
+          @include flex-direction-align-gap-padding(row, center, 1rem, 0);
           opacity: 0;
           transition: opacity 0.25s ease-in-out;
           .like-btn,

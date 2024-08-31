@@ -6,12 +6,12 @@ export default function ProfileNav() {
 
   return (
     <nav className="profile-nav">
-      <Link to={"details"}>
-        <span className={route === "details" ? "highlight" : ""}>Profile</span>
+      <Link className={route === "details" ? "highlight" : ""} to={"details"}>
+        <span>Profile</span>
       </Link>
 
-      <Link to={"friends"}>
-        <span className={route === "friends" ? "highlight" : ""}>Friends</span>
+      <Link className={route === "friends" ? "highlight" : ""} to={"friends"}>
+        <span>Friends</span>
       </Link>
     </nav>
   );

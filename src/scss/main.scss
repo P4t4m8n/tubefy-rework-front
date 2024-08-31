@@ -14,7 +14,7 @@
 @import "./views/PlaylistDetails.scss";
 @import "./views/SearchIndex.scss";
 @import "./views/PlaylistEdit.scss";
-@import "./views/Profile.scss";
+@import "./views/ProfileIndex.scss";
 
 /* ***Components*** */
 
@@ -69,10 +69,20 @@
 @import "./cmps/PlaylistEdit/PlaylistEditSongsList.scss";
 @import "./cmps/PlaylistEdit/PlaylistEditSongsListSearch.scss";
 
+//ProfileIndex
+@import "./cmps/ProfileIndex/ProfileFriendIndex.scss";
+@import "./cmps/ProfileIndex/ProfileNav.scss";
+//ProfileIndexFriends
+@import "./cmps/ProfileIndex/ProfileFriendIndex/FriendList.scss";
+@import "./cmps/ProfileIndex/ProfileFriendIndex/FriendPreview.scss";
+@import "./cmps/ProfileIndex/ProfileFriendIndex/AddFriends.scss";
+@import "./cmps/ProfileIndex/ProfileFriendIndex/FriendPreviewModel.scss";
+
 //GenericComponents
 @import "./cmps/GenericComponents/GenericModel.scss";
 @import "./cmps/SongModel/SongModel.scss";
 @import "./cmps/GenericComponents/BackgroundGradient.scss";
+@import "./cmps/GenericComponents/Loader.scss";
 
 //Buttons
 @import "./cmps/Buttons/LikeBtn.scss";

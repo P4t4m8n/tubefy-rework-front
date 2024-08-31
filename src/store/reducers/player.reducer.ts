@@ -17,6 +17,7 @@ export const playerReducer = (
   state = initialState,
   action: TPlayerActionTypes
 ): IPlayerState => {
+
   switch (action.type) {
     case SET_PLAYING_SONG:
       return { ...state, playingSong: action.payload };

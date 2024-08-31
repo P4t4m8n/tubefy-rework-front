@@ -22,7 +22,7 @@ export default function UserLibraryListPreviewModel({
     type: "delete" | "share" | "edit",
     friendId?: string
   ) => {
-    console.info("friendId:", friendId)
+    console.info("friendId:", friendId);
     ev.preventDefault();
     ev.stopPropagation();
     switch (type) {

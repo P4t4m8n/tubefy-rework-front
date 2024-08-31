@@ -11,7 +11,10 @@ export interface IUser extends IUserSmall {
   password?: string;
   email: string;
 }
-
+export interface IUserFilter {
+  username?: string;
+  email?: string;
+}
 // DTO
 export interface IFullUserDTO {
   email: string;
@@ -29,9 +32,7 @@ export interface IUserDTO {
   isAdmin?: boolean;
   id?: string;
 }
-
 //Redux
-
 export const SET_USER = "SET_USER";
 export interface IUserState {
   user: IUser | null;

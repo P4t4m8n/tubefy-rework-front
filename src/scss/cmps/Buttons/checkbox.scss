@@ -2,7 +2,7 @@
   -webkit-tap-highlight-color: transparent;
   outline: none;
   justify-self: flex-start;
-  @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
+  @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
   input[type="checkbox"] {
     display: none;
   }

@@ -5,8 +5,8 @@ import SearchIndex from "./pages/SearchIndex";
 import { AuthProtectedRoute } from "./guards/AuthProtectedRoute";
 import PlaylistEdit from "./pages/PlaylistEdit";
 import ProfileIndex from "./pages/ProfileIndex";
-import ProfileFriends from "./components/ProfileIndex/ProfileFriends";
-import ProfileDetails from "./components/ProfileIndex/ProfileDetails";
+import ProfileFriendIndex from "./components/ProfileIndex/ProfileFriends/ProfileFriendIndex";
+import ProfileDetails from "./components/ProfileIndex/ProfileEdit/ProfileDetails";
 
 export interface RouteConfig {
   path: string;
@@ -41,7 +41,7 @@ const routes: RouteConfig[] = [
     children: [
       {
         path: "friends",
-        element: <ProfileFriends />,
+        element: <ProfileFriendIndex />,
       },
       {
         path: "details",

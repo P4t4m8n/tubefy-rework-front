@@ -1,9 +1,9 @@
 .player {
-  @include flex-direction-alignItems-gap-padding(column, center, 0.25rem, 0);
+  @include flex-direction-align-gap-padding(column, center, 0.25rem, 0);
   width: clamp(15rem, 70%, 40rem);
   height: 100%;
   .player-control {
-    @include flex-direction-alignItems-gap-padding(row, center, 2rem, 0 1rem);
+    @include flex-direction-align-gap-padding(row, center, 2rem, 0 1rem);
     button {
       width: 1rem;
       height: 1rem;
@@ -36,7 +36,7 @@
   }
 
   .progress-bar {
-    @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 0);
+    @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
     width: 100%;
     p {
       font-size: $font-size-13;

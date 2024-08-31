@@ -1,5 +1,5 @@
 .volume-control {
-  @include flex-direction-alignItems-gap-padding(row, center, 0.75rem, 0);
+  @include flex-direction-align-gap-padding(row, center, 0.75rem, 0);
   button {
     background-color: inherit;
     width: 1rem;

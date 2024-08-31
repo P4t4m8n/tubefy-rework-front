@@ -18,7 +18,7 @@
         width: 100%;
         background-color: inherit;
         border-radius: $border-radius-1-2;
-        @include flex-direction-alignItems-gap-padding(
+        @include flex-direction-align-gap-padding(
           row,
           center,
           1rem,
@@ -85,7 +85,7 @@
         @include no-scrollBar;
         li {
           button {
-            @include flex-direction-alignItems-gap-padding(
+            @include flex-direction-align-gap-padding(
               row,
               center,
               1rem,

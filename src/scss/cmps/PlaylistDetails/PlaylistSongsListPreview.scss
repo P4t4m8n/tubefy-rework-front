@@ -21,7 +21,7 @@
     }
   }
   .artist-and-image {
-    @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
+    @include flex-direction-align-gap-padding(row, center, 1rem, 0);
     @include text-overflow-ellipsis-warp;
   }
   .playlist-songs-list-preview-actions {

@@ -41,4 +41,4 @@ const _setSessionData = (fullUser?: IFullUserDTO): void => {
   storeSessionData<IFriend[]>("friendRequests", fullUser?.friendsRequest);
 };
 
-export const userService = { login, logout, signup };
+export const authService = { login, logout, signup };

@@ -2,11 +2,11 @@
   .search-box {
   }
   ul {
-    @include flex-direction-alignItems-gap-padding(column, center, 1rem, 0);
+    @include flex-direction-align-gap-padding(column, center, 1rem, 0);
     .search-songs-list {
       height: 3rem;
       width: 100%;
-      @include flex-direction-alignItems-gap-padding(
+      @include flex-direction-align-gap-padding(
         row,
         center,
         1rem,
@@ -46,7 +46,7 @@
       }
       .playlist-songs-list-preview-actions {
         margin-left: auto;
-        @include flex-direction-alignItems-gap-padding(row, center, 1rem, 0);
+        @include flex-direction-align-gap-padding(row, center, 1rem, 0);
         button {
           width: 1rem;
           height: 1rem;

@@ -1,6 +1,6 @@
 .app-header {
   height: 5rem;
-  @include flex-direction-alignItems-gap-padding(row, center, 0.5rem, 1rem);
+  @include flex-direction-align-gap-padding(row, center, 0.5rem, 1rem);
   z-index: 1;
   .back-btn {
     background-color: $black-1;

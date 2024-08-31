@@ -14,6 +14,7 @@ export const imgGradientReducer = (
   state = initialState,
   action: TAppActionTypes
 ): IImageGradientState => {
+
   switch (action.type) {
     case SET_IMAGE_URL:
       return { ...state, imgUrl: action.payload };

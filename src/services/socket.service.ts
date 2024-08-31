@@ -16,8 +16,8 @@ export class SocketService {
     this.socket?.disconnect();
   }
 
-  get(){
-    return this.socket?.id;
+  get(): Socket | null {
+    return this.socket;
   }
 
   on<T>(evName: TSocketEvent, listener: TListener<T>) {

@@ -61,7 +61,6 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
   const onSharePlaylist = useCallback(
     (playlistId: string, friendId: string) => {
       try {
-       
         socketService.emit<{ playlistId: string; friendId: string }>(
           "sharePlaylist",
           { playlistId, friendId }
@@ -69,14 +68,14 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
         showUserMsg({
           text: "Playlist shared successfully",
           imgUrl: "/success-img.png",
-          type: "success",
+          type: "playlist-share",
           status: "success",
         });
       } catch (error) {
         showUserMsg({
           text: "Failed to share playlist",
           imgUrl: "/error-img.jpg",
-          type: "error",
+          type: "playlist-share",
           status: "error",
         });
       }

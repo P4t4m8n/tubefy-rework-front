@@ -1,6 +1,6 @@
 import { IUser, IUserAction, IUserDTO } from "../../models/user.model";
 import { socketService } from "../../services/socket.service";
-import { userService } from "../../services/auth.service";
+import { authService } from "../../services/auth.service";
 import { store } from "../store";
 import { loadUserPlaylists } from "./playlist.action";
 import { loadFriendsBulk } from "./friend.action";
@@ -14,7 +14,7 @@ const setUser = (user: IUser | null): IUserAction => ({
 //TODO add validation
 export const login = async (userLogin: IUserDTO): Promise<void> => {
   try {
-    const fullUser = await userService.login(userLogin);
+    const fullUser = await authService.login(userLogin);
 
     const { playlists, friends, friendsRequest, likedSongsPlaylist, user } =
       fullUser;
@@ -45,7 +45,7 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
 //TODO add validation
 export const signup = async (userToCreate: IUserDTO): Promise<void> => {
   try {
-    const fullUser = await userService.signup(userToCreate);
+    const fullUser = await authService.signup(userToCreate);
     const { playlists, friends, friendsRequest, likedSongsPlaylist, user } =
       fullUser;
 
@@ -75,7 +75,7 @@ export const signup = async (userToCreate: IUserDTO): Promise<void> => {
 
 export const logout = async (): Promise<void> => {
   try {
-    await userService.logout();
+    await authService.logout();
     socketService.disconnect();
     store.dispatch(setUser(null));
     showUserMsg({

@@ -1,0 +1,31 @@
+.profile-nav {
+  @include flex-direction-align-justify-gap-padding(
+    row,
+    center,
+    space-around,
+    2rem,
+    0
+  );
+  a {
+    &:after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 1px;
+      background-color: $white-1;
+      transition: all 0.3s;
+    }
+
+    &:hover:after {
+      width: 100%;
+    }
+
+    &.highlight {
+      color: $white-1;
+      &:after {
+        width: 100%;
+        background-color: $green-1;
+      }
+    }
+  }
+}
