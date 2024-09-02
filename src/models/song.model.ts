@@ -3,12 +3,15 @@ import { TGenres } from "./playlist.model";
 import { IUserSmall } from "./user.model";
 
 //Interfaces
-export interface ISong extends IItemType {
-  youtubeId: string;
-  imgUrl: string;
-  name: string;
-  isLikedByUser: boolean;
+
+export interface ISongSmall extends IItemType {
   id: string;
+  youtubeId: string;
+  name: string;
+  imgUrl: string;
+}
+export interface ISong extends ISongSmall {
+  isLikedByUser: boolean;
   genres: TGenres[];
   duration: string;
   artist: string;

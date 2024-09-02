@@ -11,7 +11,7 @@ interface ChildProps {
 }
 
 export const AuthProtectedRoute = ({ children }: Props) => {
-  const { user } = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.user);
 
   if (!user) {
     return <Navigate to="/" />;

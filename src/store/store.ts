@@ -4,6 +4,7 @@ import { userReducer } from "./reducers/user.reducer";
 import { playerReducer } from "./reducers/player.reducer";
 import { imgGradientReducer } from "./reducers/imgGradient.reducer";
 import { friendReducer } from "./reducers/friend.reducer";
+import { notificationReducer } from "./reducers/notification";
 
 const rootReducer = combineReducers({
   playlists: playlistReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   player: playerReducer,
   imgGradient: imgGradientReducer,
   friends: friendReducer,
+  notification: notificationReducer,
 });
 
 export const store = configureStore({

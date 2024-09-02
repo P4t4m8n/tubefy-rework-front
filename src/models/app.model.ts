@@ -1,39 +1,29 @@
 import { MouseEvent } from "react";
+import { TGenericModelBtn } from "./genericModel.model";
+import { IUserSmall } from "./user.model";
+import { IFriend } from "./friend.model";
+import { INotification } from "./notification.model";
 
 export interface IGenericModelItem {
   svg?: JSX.Element;
   text?: string;
   link?: string;
   onClick?: (ev?: MouseEvent) => void;
+  items?: IGenericModelItem[];
+  modelBtn?: TGenericModelBtn;
 }
 export interface IModelCoords {
   x: number;
   y: number;
 }
 
-export interface IModelAction<T> {
-  action?: (item: T, ev?: MouseEvent) => void | Promise<void>;
+export interface IModelAction<ModelItem> {
+  action?: (item: ModelItem, ev?: MouseEvent) => void | Promise<void>;
   text: string;
   link?: string;
   icon?: JSX.Element;
 }
-
-export interface INotification {
-  text: string;
-  imgUrl?: string;
-  type: TNotificationType;
-  status: TNotificationStatus;
-  link?: string;
-}
-
-export type TNotificationStatus = "success" | "error";
-export type TNotificationType =
-  | "like"
-  | "general-error"
-  | "welcome"
-  | "goodbye"
-  | "playlist-share"
-  | "friend";
+export type TModelItem = IUserSmall | IFriend | INotification;
 
 export interface IItemType {
   itemType: "song" | "playlist" | "YTsong" | "YTplaylist";

@@ -26,7 +26,7 @@ export default function PlaylistEditSearch({
     } catch (error) {
       showUserMsg({
         text: error as string,
-        type: "general-error",
+        type:"GENERAL_ERROR",
         status: "error",
       });
     }

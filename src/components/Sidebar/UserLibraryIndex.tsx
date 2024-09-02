@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
 import { useAppSelector } from "../../hooks/useStore";
 import { IPlaylistDetailed } from "../../models/playlist.model";
 import CreatePlaylist from "./CreatePlaylist/CreatePlaylist";
@@ -13,8 +6,6 @@ import UserLibraryFilter from "./UserLibraryFilter/UserLibraryFilter";
 import Login from "../User/Login";
 import Loader from "../Loader";
 import UserLibraryList from "./UserLibraryList/UserLibraryList";
-import { showUserMsg } from "../../services/eventEmitter";
-import { socketService } from "../../services/socket.service";
 
 interface Props {
   setIsFullSize: Dispatch<SetStateAction<boolean>>;
@@ -22,6 +13,7 @@ interface Props {
 
 export function UserLibraryIndex({ setIsFullSize }: Props) {
   const user = useAppSelector((state) => state.user.user);
+
   const userPlaylists = useAppSelector(
     (state) => state.playlists.userPlaylists
   );
@@ -58,31 +50,6 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
     setFilteredPlaylists(_filteredPlaylists);
   };
 
-  const onSharePlaylist = useCallback(
-    (playlistId: string, friendId: string) => {
-      try {
-        socketService.emit<{ playlistId: string; friendId: string }>(
-          "sharePlaylist",
-          { playlistId, friendId }
-        );
-        showUserMsg({
-          text: "Playlist shared successfully",
-          imgUrl: "/success-img.png",
-          type: "playlist-share",
-          status: "success",
-        });
-      } catch (error) {
-        showUserMsg({
-          text: "Failed to share playlist",
-          imgUrl: "/error-img.jpg",
-          type: "playlist-share",
-          status: "error",
-        });
-      }
-    },
-    []
-  );
-
   if (user && (!userPlaylists || !likedPlaylist)) return <Loader />;
 
   const playlists = filteredPlaylists.length
@@ -108,7 +75,6 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
           <UserLibraryList
             playlists={playlists}
             likedPlaylist={likedPlaylist!}
-            onSharePlaylist={onSharePlaylist}
           />
         </>
       )}

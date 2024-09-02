@@ -40,13 +40,10 @@ const createSong = async (song: ISongYT): Promise<ISong> => {
   }
 };
 
-const likeSongYT = async (songYT: ISongYT): Promise<ISong> => {
-  return await createSong(songYT);
-};
+
 
 export const songService = {
   query,
   toggleSongLike,
   createSong,
-  likeSongYT,
 };

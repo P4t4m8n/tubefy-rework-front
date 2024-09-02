@@ -1,4 +1,4 @@
-import { INotification } from "../models/app.model";
+import { INotificationProps } from "../models/notification.model";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TListener<T = any> = (data: T) => void;
@@ -34,16 +34,13 @@ const createEventEmitter = (): {
 
 export const eventBus = createEventEmitter();
 
-export const showUserMsg = (notification: INotification) => {
+export const showUserMsg = (notification: INotificationProps) => {
   if (!notification?.imgUrl) {
     notification.imgUrl =
       notification.status === "success"
         ? "/img/success-img.jpg"
         : "/img/error-img.jpg";
   }
-  eventBus.emit<INotification>(SHOW_MSG, notification);
+  eventBus.emit<INotificationProps>(SHOW_MSG, notification);
   return;
 };
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(window as any).showUserMsg = showUserMsg;

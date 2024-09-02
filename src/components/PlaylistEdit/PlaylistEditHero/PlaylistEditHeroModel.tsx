@@ -39,15 +39,8 @@ export default function PlaylistEditHeroModel({
     if (imgUrl) setImgPreview(imgUrl);
   }, [imgUrl]);
 
-  const {
-    name,
-    description,
-    username,
-    avatarUrl,
-    songs,
-    duration,
-    isPublic,
-  } = infoData;
+  const { name, description, username, avatarUrl, songs, duration, isPublic } =
+    infoData;
 
   const handleUploadImg = (ev: ChangeEvent<HTMLInputElement>) => {
     if (!ev.target.files || !ev.target.files[0]) return;
@@ -72,7 +65,7 @@ export default function PlaylistEditHeroModel({
     } catch (error) {
       showUserMsg({
         text: "Failed to save playlist",
-        type: "general-error",
+        type: "GENERAL_ERROR",
         status: "error",
       });
     } finally {

@@ -10,6 +10,7 @@ const login = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
     BASE_URL + "login",
     userCreateDTO
   );
+  console.log("fullUser:", fullUser);
   _setSessionData(fullUser);
   return fullUser;
 };
@@ -39,6 +40,7 @@ const _setSessionData = (fullUser?: IFullUserDTO): void => {
   if (!fullUser) {
     storeSessionData("friends");
     storeSessionData("friendRequests");
+    storeSessionData("notifications");
   }
 };
 

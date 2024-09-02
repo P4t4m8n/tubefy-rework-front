@@ -53,7 +53,7 @@ export const usePlaylistEdit = (
     } catch (error) {
       showUserMsg({
         text: "Failed to load playlist",
-        type: "general-error",
+        type: "GENERAL_ERROR",
         status: "error",
       });
     }
@@ -99,7 +99,7 @@ export const usePlaylistEdit = (
       } catch (error) {
         showUserMsg({
           text: "Failed to save song",
-          type: "general-error",
+          type: "GENERAL_ERROR",
           status: "error",
         });
       }

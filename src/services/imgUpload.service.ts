@@ -17,7 +17,6 @@ export const uploadImg = async (file: Blob): Promise<string> => {
     const { secure_url: imgUrl } = res;
     return imgUrl;
   } catch (err) {
-    console.error(`Failed to upload image to cloudinary: ${err}`);
-    throw new Error("Failed to upload image to cloudinary");
+    throw new Error(`Failed to upload image to cloudinary: ${err}`);
   }
 };

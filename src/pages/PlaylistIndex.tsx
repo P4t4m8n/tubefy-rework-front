@@ -22,7 +22,7 @@ export default function PlaylistIndex() {
       } catch (error) {
         showUserMsg({
           text: "Failed to load playlists",
-          type: "general-error",
+          type: "GENERAL_ERROR",
           status: "error",
         });
       } finally {

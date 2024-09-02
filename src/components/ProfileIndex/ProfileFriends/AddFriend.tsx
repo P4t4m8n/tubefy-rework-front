@@ -26,7 +26,7 @@ export default function AddFriend() {
     } catch (error) {
       showUserMsg({
         text: "Error in searching friends",
-        type: "general-error",
+        type: "GENERAL_ERROR",
         status: "error",
         imgUrl: "/error-img.jpg",
       });
@@ -45,12 +45,11 @@ export default function AddFriend() {
 
   const onAddFriend = async (friendId?: string) => {
     if (!friendId) {
-      showUserMsg({
-        text: "Error in adding friend-problem with search",
-        type: "general-error",
-        status: "error",
-        imgUrl: "/error-img.jpg",
-      });
+      utilService.handleError(
+        "Error in adding friend",
+        "GENERAL_ERROR",
+        new Error("No friend id")
+      );
       return;
     }
     await addFriend(friendId);

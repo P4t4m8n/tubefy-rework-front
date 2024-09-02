@@ -1,5 +1,6 @@
 import LZString from "lz-string";
 import CryptoJS from "crypto-js";
+import { utilService } from "../util/util.util";
 
 const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
 
@@ -10,9 +11,11 @@ export const storeSessionData = <T>(
     | "likedPlaylist"
     | "friends"
     | "friendRequests"
-    | "chats",
+    | "chats"
+    | "notifications",
   item?: T | T[]
 ): void => {
+  // Remove the item from the session storage and return
   if (!item) {
     sessionStorage.removeItem(key);
     return;
@@ -44,8 +47,8 @@ export const getSessionData = <T>(key: string): T | null => {
     const jsonData = LZString.decompressFromUTF16(compressedData);
 
     return jsonData ? JSON.parse(jsonData) : null;
-  } catch (e) {
-    console.error("Error decrypting or decompressing session storage data:", e);
+  } catch (error) {
+    utilService.handleError("getSessionData", "GENERAL_ERROR", error as Error);
     return null;
   }
 };

@@ -1,3 +1,4 @@
+import { INotification } from "./app.model";
 import { IFriend } from "./friend.model";
 import { IPlaylistDetailed } from "./playlist.model";
 
@@ -23,6 +24,7 @@ export interface IFullUserDTO {
   likedSongsPlaylist: IPlaylistDetailed;
   playlists: IPlaylistDetailed[];
   user: IUser;
+  notifications: INotification[];
 }
 export interface IUserDTO {
   email?: string;

@@ -10,17 +10,18 @@ export interface ISocketService {
 
 //Types
 export type TListener<T> = (data: T) => void;
-export type TSocketEvent =
-  | "connect"
-  | "disconnect"
-  | "message"
-  | "error"
+
+export type TSocketEvent = TSocketEventShare | TSocketEventFriend;
+
+export type TSocketEventShare =
   | "sharePlaylist"
+  | "isOpenPlaylist"
+  | "joinPlaylist"
+  | "leavePlaylist";
+
+export type TSocketEventFriend =
   | "sendFriendRequest"
   | "rejectFriendRequest"
   | "approveFriendRequest"
   | "blockFriendRequest"
   | "removeFriendRequest";
-
-
-  

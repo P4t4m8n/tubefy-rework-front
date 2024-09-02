@@ -31,7 +31,7 @@ export default function CreatePlaylist({ setIsFullSize }: Props) {
     } catch (error) {
       showUserMsg({
         text: "Failed to create playlist",
-        type: "general-error",
+        type: "GENERAL_ERROR",
         status: "error",
       });
     }

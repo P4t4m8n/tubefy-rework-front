@@ -7,6 +7,7 @@ import PlaylistEdit from "./pages/PlaylistEdit";
 import ProfileIndex from "./pages/ProfileIndex";
 import ProfileFriendIndex from "./components/ProfileIndex/ProfileFriends/ProfileFriendIndex";
 import ProfileDetails from "./components/ProfileIndex/ProfileEdit/ProfileDetails";
+import ProfileNotificationIndex from "./components/ProfileIndex/ProfileNotification/ProfileNotificationIndex";
 
 export interface RouteConfig {
   path: string;
@@ -46,6 +47,10 @@ const routes: RouteConfig[] = [
       {
         path: "details",
         element: <ProfileDetails />,
+      },
+      {
+        path: "notifications",
+        element: <ProfileNotificationIndex />,
       },
     ],
   },

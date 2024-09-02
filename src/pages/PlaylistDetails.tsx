@@ -28,7 +28,7 @@ export default function PlaylistDetails() {
       } catch (error) {
         showUserMsg({
           text: "Failed to load playlist",
-          type: "general-error",
+          type: "GENERAL_ERROR",
           status: "error",
         });
       }

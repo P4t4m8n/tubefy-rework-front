@@ -3,17 +3,15 @@ import { IPlaylistDetailed } from "../../../models/playlist.model";
 import { NoteSVG } from "../../svg/SVGs";
 import { getCurrentPlaylist } from "../../../store/getStore";
 import PlayBtn from "../../Buttons/PlayBtn";
-import UserLibraryListPreview from "./UserLibraryListPreview";
+import UserLibraryListItem from "./UserLibraryListItem";
 
 interface Props {
   likedPlaylist: IPlaylistDetailed;
   playlists: IPlaylistDetailed[];
-  onSharePlaylist: (playlistId: string, friendId: string) => void;
 }
 export default function UserLibraryList({
   likedPlaylist,
   playlists,
-  onSharePlaylist,
 }: Props) {
   const currentPlaylistId = getCurrentPlaylist()?.id;
   const location = useLocation();
@@ -45,8 +43,7 @@ export default function UserLibraryList({
         </Link>
       </li>
       {playlists.map((playlist) => (
-        <UserLibraryListPreview
-          onSharePlaylist={onSharePlaylist}
+        <UserLibraryListItem
           playlist={playlist}
           key={playlist.id}
           isHighlighted={

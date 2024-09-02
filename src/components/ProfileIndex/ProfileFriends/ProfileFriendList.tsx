@@ -15,7 +15,7 @@ export default function ProfileFriendList() {
 
     showUserMsg({
       text: `${friend.friend.username} was removed"`,
-      type: "friend",
+      type: "FRIEND_REMOVED",
       status: "success",
     });
   }, []);

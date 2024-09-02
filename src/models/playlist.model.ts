@@ -4,12 +4,15 @@ import { ISong, ISongYT } from "./song.model";
 import { IUserSmall } from "./user.model";
 
 //Interfaces
-export interface IPlaylist extends IItemType {
-  id?: string;
+
+export interface IPlaylistSmall extends IItemType {
+  id: string;
   name: string;
-  createdAt: string;
   imgUrl: string;
-  isPublic: boolean;
+  isPublic?: boolean;
+}
+export interface IPlaylist extends IPlaylistSmall {
+  createdAt: string;
   owner: IUserSmall;
   duration: string;
   genres: TGenres[];
@@ -56,7 +59,7 @@ export interface IPlaylistDTO {
   id?: string;
   name: string;
   ownerId: string;
-  isPublic: boolean;
+  isPublic?: boolean;
   imgUrl: string;
   description: string;
   duration: string;

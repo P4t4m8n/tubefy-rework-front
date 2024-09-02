@@ -3,8 +3,8 @@ import { Player } from "./components/Footer/Player";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import routes, { RouteConfig } from "./route";
-import "./scss/main.scss";
 import UserMsg from "./components/User/UserMsg";
+import "./scss/main.scss";
 
 export function App() {
   const renderRoutes = (routes: RouteConfig[]) => {

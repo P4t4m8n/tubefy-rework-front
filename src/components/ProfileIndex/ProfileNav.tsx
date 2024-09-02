@@ -13,6 +13,13 @@ export default function ProfileNav() {
       <Link className={route === "friends" ? "highlight" : ""} to={"friends"}>
         <span>Friends</span>
       </Link>
+
+      <Link
+        className={route === "notification" ? "highlight" : ""}
+        to={"notification"}
+      >
+        <span>Notifications</span>
+      </Link>
     </nav>
   );
 }

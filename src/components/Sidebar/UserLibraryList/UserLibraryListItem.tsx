@@ -3,19 +3,16 @@ import { Link } from "react-router-dom";
 import { IPlaylist, IPlaylistDetailed } from "../../../models/playlist.model";
 import { NoteSVG } from "../../svg/SVGs";
 import PlayBtn from "../../Buttons/PlayBtn";
-import UserLibraryListPreviewModel from "./UserLibraryListPreviewModel";
+import UserLibraryListItemModel from "./UserLibraryListItemModel";
 
 interface Props {
   playlist: IPlaylist | IPlaylistDetailed;
   isHighlighted: boolean;
-  onSharePlaylist: (playlistId: string, friendId: string) => void;
-
 }
 
-export default function UserLibraryListPreview({
+export default function UserLibraryListItem({
   playlist,
   isHighlighted,
-  onSharePlaylist
 }: Props) {
   const itemClass = `user-playlist-item ${isHighlighted ? "highlight" : ""}`;
   const { id, imgUrl, name, songs } = playlist;
@@ -30,8 +27,7 @@ export default function UserLibraryListPreview({
         <span>{playlist.name}</span>
         <p>{songs.length} songs</p>
       </Link>
-      {/*TODO Model won't close when click a different button, still no solution /*/}
-      <UserLibraryListPreviewModel playlistId={id!} onSharePlaylist={onSharePlaylist} />
+      <UserLibraryListItemModel playlistId={id!} />
     </li>
   );
 }

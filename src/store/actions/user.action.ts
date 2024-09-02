@@ -5,6 +5,7 @@ import { store } from "../store";
 import { loadUserPlaylists } from "./playlist.action";
 import { loadFriendsBulk } from "./friend.action";
 import { showUserMsg } from "../../services/eventEmitter";
+import { loadNotifications } from "./notification.action";
 
 const setUser = (user: IUser | null): IUserAction => ({
   type: "SET_USER",
@@ -16,16 +17,23 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
   try {
     const fullUser = await authService.login(userLogin);
 
-    const { playlists, friends, friendsRequest, likedSongsPlaylist, user } =
-      fullUser;
+    const {
+      playlists,
+      friends,
+      friendsRequest,
+      likedSongsPlaylist,
+      user,
+      notifications,
+    } = fullUser;
 
     loadUserPlaylists(playlists, likedSongsPlaylist);
     loadFriendsBulk(friends, friendsRequest);
+    loadNotifications(notifications);
     socketService.connect();
     store.dispatch(setUser(user));
     showUserMsg({
       text: `Welcome back ${user.username}`,
-      type: "welcome",
+      type: "WELCOME",
       status: "success",
       imgUrl: "/welcome-img.jpg",
     });
@@ -34,7 +42,7 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
     console.error(`Error while logging in: ${error}`);
     showUserMsg({
       text: "Failed to logging in",
-      type: "general-error",
+      type: "GENERAL_ERROR",
       status: "error",
       imgUrl: "error-img.png",
     });
@@ -55,7 +63,7 @@ export const signup = async (userToCreate: IUserDTO): Promise<void> => {
     store.dispatch(setUser(user));
     showUserMsg({
       text: `Welcome ${user.username}`,
-      type: "welcome",
+      type: "WELCOME",
       status: "success",
       imgUrl: "/welcome-img.jpg",
     });
@@ -64,7 +72,7 @@ export const signup = async (userToCreate: IUserDTO): Promise<void> => {
     console.error(`Error while signing up: ${error}`);
     showUserMsg({
       text: "Failed to sign up",
-      type: "general-error",
+      type: "GENERAL_ERROR",
       status: "error",
       imgUrl: "/error-img.png",
     });
@@ -80,7 +88,7 @@ export const logout = async (): Promise<void> => {
     store.dispatch(setUser(null));
     showUserMsg({
       text: `Goodbye`,
-      type: "goodbye",
+      type: "GOODBYE",
       status: "success",
       imgUrl: "/goodbye-img.jpg",
     });
@@ -89,7 +97,7 @@ export const logout = async (): Promise<void> => {
     console.error(`Error while logging out: ${error}`);
     showUserMsg({
       text: "Failed to logout",
-      type: "general-error",
+      type: "GENERAL_ERROR",
       status: "error",
       imgUrl: "/error-img.png",
     });

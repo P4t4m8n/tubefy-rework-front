@@ -39,7 +39,7 @@ export default function SearchIndex() {
       } catch (error) {
         showUserMsg({
           text: "Failed to load search results",
-          type: "general-error",
+          type: "GENERAL_ERROR",
           status: "error",
         });
       }
@@ -66,7 +66,7 @@ export default function SearchIndex() {
       } catch (error) {
         showUserMsg({
           text: "Failed to save song",
-          type: "general-error",
+          type: "GENERAL_ERROR",
           status: "error",
         });
       }

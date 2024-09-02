@@ -20,7 +20,7 @@ export const loadFriendsBulk = (
   } catch (error) {
     utilService.handleError(
       "loading friends bulk -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -32,7 +32,7 @@ export const loadFriends = (friends: IFriend[]) => {
   } catch (error) {
     utilService.handleError(
       "loading friends -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -44,7 +44,7 @@ export const loadFriendsRequests = (friends: IFriend[]) => {
   } catch (error) {
     utilService.handleError(
       "loading friends requests -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -58,7 +58,7 @@ export const addFriend = async (friendId: string) => {
   } catch (error) {
     utilService.handleError(
       "adding friend -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -69,7 +69,7 @@ export const removeFriend = async (friend: IFriend) => {
     const { id } = friend;
 
     const friendId = friend.friend.id;
-    
+
     if (!id) {
       throw new Error("Friend id is missing");
     }
@@ -79,7 +79,7 @@ export const removeFriend = async (friend: IFriend) => {
   } catch (error) {
     utilService.handleError(
       "removing friend -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -106,7 +106,7 @@ export const handleIncomingFriendsUpdate = (data: IFriend | string) => {
   } catch (error) {
     utilService.handleError(
       "handling incoming friends update -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -134,7 +134,7 @@ export const handleFriendRequestActions = async (
   } catch (error) {
     utilService.handleError(
       "handling friend request actions -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -147,7 +147,7 @@ export const addFriendRequest = (friend: IFriend) => {
   } catch (error) {
     utilService.handleError(
       "adding friend request -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -173,7 +173,7 @@ const removeFriendRequest = (friendId: string) => {
   } catch (error) {
     utilService.handleError(
       "removing friend request -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -191,7 +191,7 @@ const approveFriendRequest = (friend: IFriend) => {
   } catch (error) {
     utilService.handleError(
       "approving friend request -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }
@@ -207,7 +207,7 @@ const rejectFriendRequest = (friend: IFriend) => {
   } catch (error) {
     utilService.handleError(
       "rejecting friend request -> friend.action",
-      "general-error",
+      "GENERAL_ERROR",
       error as Error
     );
   }

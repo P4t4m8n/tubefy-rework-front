@@ -15,7 +15,9 @@ import { showUserMsg } from "../../services/eventEmitter";
 import { storeSessionData } from "../../services/localSession.service";
 import { playlistService } from "../../services/playlist.service";
 import { playlistsToPlaylistsGroup } from "../../util/playlist.util";
+import { utilService } from "../../util/util.util";
 import { store } from "../store";
+import { removeNotification } from "./notification.action";
 
 export const setMainPlaylists = (
   playlists: IPlaylistsGroup[]
@@ -58,7 +60,7 @@ export const loadDefaultPlaylists = async (): Promise<IPlaylistsGroup[]> => {
   } catch (error) {
     showUserMsg({
       text: "Failed to load playlists",
-      type: "general-error",
+      type: "GENERAL_ERROR",
       status: "error",
     });
     return [];
@@ -231,5 +233,31 @@ export const removeSongFromPlaylist = async (
     store.dispatch(setUserPlaylists(updatedPlaylists));
   } catch (error) {
     console.error(`Error while removing song from playlist: ${error}`);
+  }
+};
+
+export const approveSharePlaylist = async (
+  playlistId: string,
+  notificationId: string
+) => {
+  try {
+    const playlist = await playlistService.approveSharedPlaylist(playlistId);
+    updateUserPlaylists(playlist);
+    removeNotification(notificationId);
+  } catch (error) {
+    utilService.handleError("playlist-share", "PLAYLIST_SHARE", error as Error);
+  }
+};
+
+export const rejectSharedPlaylist = async (
+  playlistId: string,
+  notificationId: string
+) => {
+  try {
+    await playlistService.rejectSharedPlaylist(playlistId);
+    removeNotification(notificationId);
+    utilService.handleSuccess("Playlist removed", "PLAYLIST_SHARE");
+  } catch (error) {
+    utilService.handleError("playlist-share", "PLAYLIST_SHARE", error as Error);
   }
 };

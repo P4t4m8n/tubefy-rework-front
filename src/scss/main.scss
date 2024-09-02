@@ -28,6 +28,9 @@
 @import "./cmps/Sidebar/UserLibrary/UserLibraryList.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryFilter.scss";
 
+@import "./cmps/Sidebar/UserLibrary/UserLibraryItem/UserLibraryItem.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryItem/UserLibraryItemModel.scss";
+
 //Header
 @import "./cmps/Header/Header.scss";
 
@@ -71,18 +74,23 @@
 
 //ProfileIndex
 @import "./cmps/ProfileIndex/ProfileFriendIndex.scss";
+@import "./cmps/ProfileIndex/ProfileNotifications/NotificationsIndex.scss";
 @import "./cmps/ProfileIndex/ProfileNav.scss";
+
 //ProfileIndexFriends
 @import "./cmps/ProfileIndex/ProfileFriendIndex/FriendList.scss";
 @import "./cmps/ProfileIndex/ProfileFriendIndex/FriendPreview.scss";
 @import "./cmps/ProfileIndex/ProfileFriendIndex/AddFriends.scss";
 @import "./cmps/ProfileIndex/ProfileFriendIndex/FriendPreviewModel.scss";
 
+//ProfileIndexNotifications
+
 //GenericComponents
 @import "./cmps/GenericComponents/GenericModel.scss";
 @import "./cmps/SongModel/SongModel.scss";
 @import "./cmps/GenericComponents/BackgroundGradient.scss";
 @import "./cmps/GenericComponents/Loader.scss";
+@import "./cmps/GenericComponents/GenericBtn.scss";
 
 //Buttons
 @import "./cmps/Buttons/LikeBtn.scss";

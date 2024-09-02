@@ -85,7 +85,7 @@ const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
     ownerId: playlist.owner.id,
     duration: playlist.duration,
     description: "",
-    isPublic: playlist.isPublic,
+    isPublic: playlist?.isPublic,
   };
 };
 
@@ -109,6 +109,42 @@ const togglePlaylistLIke = async (
   }
 };
 
+const sharePlaylist = async (
+  playlistId: string,
+  friendId: string
+): Promise<void> => {
+  return await httpService.post(`${BASE_URL}${playlistId}/share`, { friendId });
+};
+
+const updateSharedPlaylist = async (
+  playlistId: string,
+  friendId: string,
+  isOpen: boolean
+): Promise<void> => {
+  return await httpService.put(`${BASE_URL}${playlistId}/share`, {
+    friendId,
+    isOpen,
+  });
+};
+
+const approveSharedPlaylist = async (
+  playlistId: string
+): Promise<IPlaylistDetailed> => {
+  return await httpService.put(`${BASE_URL}${playlistId}/share/approve`);
+};
+const rejectSharedPlaylist = async (playlistId: string): Promise<void> => {
+  return await httpService.delete(`${BASE_URL}${playlistId}/share/reject`);
+};
+
+const removeSharedPlaylist = async (
+  playlistId: string,
+  friendId: string
+): Promise<void> => {
+  return await httpService.delete(`${BASE_URL}${playlistId}/share`, {
+    friendId,
+  });
+};
+
 // Private functions
 const _create = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
   return httpService.post<IPlaylistDetailed>(`${BASE_URL}edit`, playlist);
@@ -121,6 +157,7 @@ const _update = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
   );
 };
 
+//Service Object
 export const playlistService = {
   query,
   get,
@@ -131,4 +168,9 @@ export const playlistService = {
   playlistToPlayListDTO,
   getDefaultStations,
   togglePlaylistLIke,
+  sharePlaylist,
+  updateSharedPlaylist,
+  removeSharedPlaylist,
+  approveSharedPlaylist,
+  rejectSharedPlaylist,
 };
