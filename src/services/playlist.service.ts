@@ -128,12 +128,20 @@ const updateSharedPlaylist = async (
 };
 
 const approveSharedPlaylist = async (
-  playlistId: string
+  playlistId: string,
+  notificationId: string
 ): Promise<IPlaylistDetailed> => {
-  return await httpService.put(`${BASE_URL}${playlistId}/share/approve`);
+  return await httpService.put(
+    `${BASE_URL}${playlistId}/share/${notificationId}`
+  );
 };
-const rejectSharedPlaylist = async (playlistId: string): Promise<void> => {
-  return await httpService.delete(`${BASE_URL}${playlistId}/share/reject`);
+const rejectSharedPlaylist = async (
+  playlistId: string,
+  notificationId: string
+): Promise<void> => {
+  return await httpService.delete(
+    `${BASE_URL}${playlistId}/share/${notificationId}`
+  );
 };
 
 const removeSharedPlaylist = async (

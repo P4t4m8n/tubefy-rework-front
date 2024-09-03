@@ -8,8 +8,8 @@ import { IUser } from "../../models/user.model";
 import { showUserMsg } from "../../services/eventEmitter";
 import { socketService } from "../../services/socket.service";
 import { addNotification } from "../../store/actions/notification.action";
-
-import SharePlaylistNotification from "./UserSocketNotifications/SharePlaylistNotfication";
+import { addSongFromSocket } from "../../store/actions/playlist.action";
+import { utilService } from "../../util/util.util";
 
 export default function UserSocketsListener({ user }: { user: IUser | null }) {
   useEffectUpdate(() => {
@@ -29,9 +29,13 @@ export default function UserSocketsListener({ user }: { user: IUser | null }) {
           showSuccessMsg({
             ...data,
             status: "success",
-            imgUrl: data.playlist?.imgUrl || data.fromUser?.imgUrl,
-            children: <SharePlaylistNotification data={data} />,
+            imgUrl: data.imgUrl,
           });
+          break;
+
+        case "addSongToPlaylist":
+          addSongFromSocket(data.playlist?.id, data?.song);
+          utilService.handleSocketMsg(data);
           break;
         // case "approveFriendRequest":
         //   handleIncomingFriendsUpdate(data as IFriend);

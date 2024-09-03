@@ -1,5 +1,5 @@
 import { IPlaylistSmall } from "./playlist.model";
-import { ISongSmall } from "./song.model";
+import { ISong } from "./song.model";
 import { IUserSmall } from "./user.model";
 
 export interface ISharePlaylistNotification {
@@ -25,15 +25,15 @@ export interface INotificationDTO {
 
 export interface INotification {
   id?: string;
+  imgUrl: string;
   fromUser?: IUserSmall;
   type: TNotificationType;
   text: string;
   playlist?: IPlaylistSmall | null;
-  song?: ISongSmall | null;
+  song?: ISong | null;
 }
 
 export interface INotificationProps extends INotification {
-  imgUrl?: string;
   status: TNotificationStatus;
   link?: string;
   children?: JSX.Element;
@@ -45,15 +45,21 @@ enum NotificationType {
   FRIEND_REJECTED,
   FRIEND_BLOCKED,
   FRIEND_REMOVED,
+
   PLAYLIST_LIKE,
   PLAYLIST_SHARE,
+
   PLAYLIST_COMMENT,
   SONG_LIKE,
   SONG_COMMENT,
   SONG_SHARE,
+  PLAYLIST_SONG_ADD,
+
+  GENERAL_NOTIFICATION,
   GENERAL_ERROR,
   WELCOME,
   GOODBYE,
+
   PLAYLIST_DELETE,
   PLAYLIST_EDIT,
   PLAYLIST_CREATE,

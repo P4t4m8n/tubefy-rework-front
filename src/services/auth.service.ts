@@ -10,7 +10,6 @@ const login = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
     BASE_URL + "login",
     userCreateDTO
   );
-  console.log("fullUser:", fullUser);
   _setSessionData(fullUser);
   return fullUser;
 };
@@ -32,12 +31,9 @@ const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
 
 const _setSessionData = (fullUser?: IFullUserDTO): void => {
   storeSessionData<IUser>("user", fullUser?.user);
-  storeSessionData<IPlaylistDetailed[]>("playlists", fullUser?.playlists);
-  storeSessionData<IPlaylistDetailed>(
-    "likedPlaylist",
-    fullUser?.likedSongsPlaylist
-  );
   if (!fullUser) {
+    storeSessionData<IPlaylistDetailed[]>("playlists");
+    storeSessionData<IPlaylistDetailed>("likedPlaylist");
     storeSessionData("friends");
     storeSessionData("friendRequests");
     storeSessionData("notifications");

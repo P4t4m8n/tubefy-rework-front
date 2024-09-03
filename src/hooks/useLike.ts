@@ -8,7 +8,8 @@ import {
   updateUserLikedSongPlaylist,
 } from "../store/actions/playlist.action";
 import { playlistService } from "../services/playlist.service";
-import { showUserMsg } from "../services/eventEmitter";
+import { utilService } from "../util/util.util";
+import { TNotificationType } from "../models/notification.model";
 
 export const useLike = (
   item: ISongYT | ISong | IPlaylistDetailed
@@ -57,18 +58,11 @@ export const useLike = (
           break;
       }
 
-      showUserMsg({
-        type: "like",
-        status: "success",
-        text: isLiked ? "Removed from Liked" : "Added to Liked",
-        imgUrl:"/sucess-img.jpg"
-      });
+      const notificationType = (itemType.toUpperCase() +
+        "_LIKE") as TNotificationType;
+      utilService.handleSuccess(itemType, notificationType, item.imgUrl);
     } catch (error) {
-      showUserMsg({
-        type: "like",
-        status: "error",
-        text: error as string,
-      });
+      utilService.handleError("like", "GENERAL_ERROR", error as Error);
     } finally {
       if (!finishCheck) {
         setIsLiked(isLiked);

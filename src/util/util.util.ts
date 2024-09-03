@@ -1,4 +1,4 @@
-import { TNotificationType } from "../models/notification.model";
+import { INotification, TNotificationType } from "../models/notification.model";
 import { showUserMsg } from "../services/eventEmitter";
 
 const debounce = <Args extends unknown[]>(
@@ -71,6 +71,10 @@ const handleSuccess = (
   });
 };
 
+const handleSocketMsg = (notification: INotification) => {
+  showUserMsg({ ...notification, status: "success" });
+};
+
 export const utilService = {
   debounce,
   getRandomIntInclusive,
@@ -78,4 +82,5 @@ export const utilService = {
   getRandomColor,
   handleSuccess,
   handleError,
+  handleSocketMsg,
 };

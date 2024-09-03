@@ -7,15 +7,15 @@ import {
 import { utilService } from "../../../util/util.util";
 import { useMemo, useRef } from "react";
 import { IModelAction } from "../../../models/app.model";
-import { CheckSVG, PlusSVG } from "../../svg/SVGs";
+import { CheckSVG, RejectSVG } from "../../svg/SVGs";
 import GenericProfileModel from "../../GenericComponents/GenericProfileModel";
 import { useModel } from "../../../hooks/useModel";
 
 interface Props {
-  data: INotification;
+  notification: INotification;
 }
 
-export default function SharePlaylistNotification({ data }: Props) {
+export default function SharePlaylistNotification({ notification }: Props) {
   const modelRef = useRef<HTMLLIElement>(null);
   const [isModelOpen, setModelOpen] = useModel(modelRef);
   const handleClick = async (
@@ -23,6 +23,7 @@ export default function SharePlaylistNotification({ data }: Props) {
     notificationId?: string,
     playlistId?: string
   ) => {
+
     if (!playlistId || !notificationId) {
       utilService.handleError(
         "Playlist not found",
@@ -59,25 +60,23 @@ export default function SharePlaylistNotification({ data }: Props) {
         action: ({ playlist, id }) => {
           handleClick(false, id, playlist?.id);
         },
-        icon: <PlusSVG />,
+        icon: <RejectSVG />,
       },
     ],
     []
   );
 
-  const imgUrl =
-    data?.fromUser?.imgUrl || data?.playlist?.imgUrl || "/success-img.jpg";
   const openClass = isModelOpen ? "open" : "";
-  console.log("imgUrl:", imgUrl);
-  console.log("data:", data)
+  const { text, imgUrl, playlist } = notification;
+  const playlistId = playlist?.id;
 
   return (
-    <li ref={modelRef} className={"share-playlist-notification " + openClass}>
+    <li ref={modelRef} className={"notification-list-item share " + openClass}>
       <img src={imgUrl}></img>
-      <h3>{`${data.fromUser?.username} shared playlist ${data.playlist?.name} with you`}</h3>
-      <Link to={`/playlist/${data.playlist?.id} `}></Link>
+      <h3>{text}</h3>
+      <Link to={`/playlist/${playlistId} `}>{playlist?.name}</Link>
       <GenericProfileModel
-        item={data}
+        item={notification}
         modelActions={modelActions}
         setModelOpen={setModelOpen}
       />

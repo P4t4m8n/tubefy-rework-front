@@ -6,7 +6,7 @@ interface Props {
   location: Location;
 }
 export default function NotificationsLink({ location }: Props) {
-  const notificationsLLength =
+  const notificationsLength =
     useAppSelector((state) => state.notification.notifications?.length) || 0;
 
   const isNotificationsOpen = location.pathname.includes("notifications");
@@ -14,12 +14,16 @@ export default function NotificationsLink({ location }: Props) {
   return (
     <Link
       to={"/profile/notifications"}
-      className={`sidebar-nav-link ${isNotificationsOpen && "link-clicked"}`}
+      className={`sidebar-nav-link ${
+        isNotificationsOpen && "link-clicked"
+      } notification`}
     >
       <NotificationSVG />
       <span>Notifications</span>
-      {notificationsLLength > 0 && (
-        <span className="notification-badge">{notificationsLLength}</span>
+      {notificationsLength > 0 && (
+        <span className="notification-badge">
+          {notificationsLength > 99 ? "99" : notificationsLength}
+        </span>
       )}
     </Link>
   );

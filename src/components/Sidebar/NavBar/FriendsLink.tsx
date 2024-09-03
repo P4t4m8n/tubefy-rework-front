@@ -10,12 +10,13 @@ export default function FriendsLink({ location }: Props) {
     useAppSelector((state) => state.friends.friendsRequest.length) || 0;
 
   const isFriendsOpen = location.pathname.includes("friends");
-  console.log("isFriendsOpen:", isFriendsOpen)
 
   return (
     <Link
       to={"/profile/friends"}
-      className={`sidebar-nav-link ${isFriendsOpen && "link-clicked"}`}
+      className={`sidebar-nav-link ${
+        isFriendsOpen && "link-clicked notification"
+      }`}
     >
       <FriendsSVG />
       <span>Friends</span>

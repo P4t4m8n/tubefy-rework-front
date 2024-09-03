@@ -11,7 +11,6 @@ export default function ProfileFriendRequests() {
     (state) => state.friends.friendsRequest
   );
 
-  console.log("friendsRequest");
   const onUpdateFriendStatus = useCallback(
     async (friend: IFriend, status: TFriendStatus) => {
       await handleFriendRequestActions(friend, status);

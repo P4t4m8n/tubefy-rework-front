@@ -320,14 +320,22 @@ export const SaveSVG = () => {
 export const CheckSVG = () => {
   return (
     <svg viewBox="0 0 24 24">
-      <g strokeWidth="0"></g>
-      <g strokeLinecap="round" strokeLinejoin="round"></g>
       <g>
         <path
-          d="M4 12.6111L8.92308 17.5L20 6.5"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          d="M1008,120a12,12,0,1,1,12-12A12,12,0,0,1,1008,120Zm0-22a10,10,0,1,0,10,10A10,10,0,0,0,1008,98Zm-0.08,14.333a0.819,0.819,0,0,1-.22.391,0.892,0.892,0,0,1-.72.259,0.913,0.913,0,0,1-.94-0.655l-2.82-2.818a0.9,0.9,0,0,1,1.27-1.271l2.18,2.184,4.46-7.907a1,1,0,0,1,1.38-.385,1.051,1.051,0,0,1,.36,1.417Z"
+          transform="translate(-996 -96)"
+        ></path>
+      </g>
+    </svg>
+  );
+};
+export const RejectSVG = () => {
+  return (
+    <svg className="reject" viewBox="0 0 24 24">
+      <g>
+        <path
+          d="M936,120a12,12,0,1,1,12-12A12,12,0,0,1,936,120Zm0-22a10,10,0,1,0,10,10A10,10,0,0,0,936,98Zm4.706,14.706a0.951,0.951,0,0,1-1.345,0l-3.376-3.376-3.376,3.376a0.949,0.949,0,1,1-1.341-1.342l3.376-3.376-3.376-3.376a0.949,0.949,0,1,1,1.341-1.342l3.376,3.376,3.376-3.376a0.949,0.949,0,1,1,1.342,1.342l-3.376,3.376,3.376,3.376A0.95,0.95,0,0,1,940.706,112.706Z"
+          transform="translate(-924 -96)"
         ></path>
       </g>
     </svg>
@@ -380,7 +388,6 @@ export const MessageSVG = () => {
     </svg>
   );
 };
-
 export const NotificationSVG = () => {
   return (
     <svg viewBox="0 0 24 24">

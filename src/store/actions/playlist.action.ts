@@ -3,50 +3,18 @@ import {
   IPlaylistDetailed,
   IPlaylistsGroup,
   ISetLikedPlaylistAction,
-  ISetMainPlaylistsAction,
   ISetUserPlaylistsAction,
   SET_LIKED_PLAYLIST,
-  SET_MAIN_PLAYLISTS,
   SET_PLAYLISTS_BULK,
   SET_USER_PLAYLISTS,
 } from "../../models/playlist.model";
 import { ISong } from "../../models/song.model";
-import { showUserMsg } from "../../services/eventEmitter";
 import { storeSessionData } from "../../services/localSession.service";
 import { playlistService } from "../../services/playlist.service";
 import { playlistsToPlaylistsGroup } from "../../util/playlist.util";
 import { utilService } from "../../util/util.util";
 import { store } from "../store";
 import { removeNotification } from "./notification.action";
-
-export const setMainPlaylists = (
-  playlists: IPlaylistsGroup[]
-): ISetMainPlaylistsAction => ({
-  type: SET_MAIN_PLAYLISTS,
-  payload: playlists,
-});
-
-export const setUserPlaylists = (
-  playlists: IPlaylistDetailed[]
-): ISetUserPlaylistsAction => ({
-  type: SET_USER_PLAYLISTS,
-  payload: playlists,
-});
-
-export const setUserLikedSongsPlaylist = (
-  playlist: IPlaylistDetailed
-): ISetLikedPlaylistAction => ({
-  type: SET_LIKED_PLAYLIST,
-  payload: playlist,
-});
-
-export const setPlaylistsBulk = (playlists: {
-  userPlaylists: IPlaylistDetailed[];
-  likedPlaylist: IPlaylistDetailed;
-}) => ({
-  type: SET_PLAYLISTS_BULK,
-  payload: playlists,
-});
 
 export const loadDefaultPlaylists = async (): Promise<IPlaylistsGroup[]> => {
   try {
@@ -58,11 +26,11 @@ export const loadDefaultPlaylists = async (): Promise<IPlaylistsGroup[]> => {
       playlistsToPlaylistsGroup(playlists);
     return playlistsObject;
   } catch (error) {
-    showUserMsg({
-      text: "Failed to load playlists",
-      type: "GENERAL_ERROR",
-      status: "error",
-    });
+    utilService.handleError(
+      "default-playlists",
+      "GENERAL_ERROR",
+      error as Error
+    );
     return [];
   }
 };
@@ -71,12 +39,18 @@ export const loadUserPlaylists = (
   userPlaylists: IPlaylistDetailed[],
   likedPlaylist: IPlaylistDetailed
 ): void => {
-  store.dispatch(
-    setPlaylistsBulk({
-      userPlaylists,
-      likedPlaylist,
-    })
-  );
+  try {
+    storeSessionData<IPlaylistDetailed[]>("playlists", userPlaylists);
+    storeSessionData<IPlaylistDetailed>("likedPlaylist", likedPlaylist);
+    store.dispatch(
+      setPlaylistsBulk({
+        userPlaylists,
+        likedPlaylist,
+      })
+    );
+  } catch (error) {
+    utilService.handleError("user-playlists", "GENERAL_ERROR", error as Error);
+  }
 };
 
 export const saveUserPlaylist = async (
@@ -100,49 +74,58 @@ export const saveUserPlaylist = async (
     store.dispatch(setUserPlaylists(userPlaylists));
     return savedPlaylist.id!;
   } catch (error) {
-    console.error(`Error while saving user playlist: ${error}`);
-    throw new Error("Failed to save playlist, please try again later");
+    utilService.handleError("playlist-save", "GENERAL_ERROR", error as Error);
   }
 };
 
 export const updateUserPlaylists = (playlist: IPlaylistDetailed) => {
-  const userPlaylists = [...store.getState().playlists.userPlaylists];
+  try {
+    const userPlaylists = [...store.getState().playlists.userPlaylists];
 
-  if (!userPlaylists) return;
+    if (!userPlaylists) return;
 
-  const idx = userPlaylists.findIndex(
-    (_playlist) => _playlist.id === playlist.id
-  );
+    const idx = userPlaylists.findIndex(
+      (_playlist) => _playlist.id === playlist.id
+    );
 
-  if (idx === -1) {
-    store.dispatch(setUserPlaylists([...userPlaylists, playlist]));
-    storeSessionData("playlists", [...userPlaylists, playlist]);
-  } else {
-    userPlaylists.splice(idx, 1);
-    store.dispatch(setUserPlaylists([...userPlaylists]));
-    storeSessionData("playlists", [...userPlaylists]);
+    if (idx === -1) {
+      store.dispatch(setUserPlaylists([...userPlaylists, playlist]));
+      storeSessionData("playlists", [...userPlaylists, playlist]);
+    } else {
+      userPlaylists.splice(idx, 1);
+      store.dispatch(setUserPlaylists([...userPlaylists]));
+      storeSessionData("playlists", [...userPlaylists]);
+    }
+  } catch (error) {
+    utilService.handleError("playlist-update", "GENERAL_ERROR", error as Error);
   }
 };
 
 export const updateUserLikedSongPlaylist = (song: ISong) => {
-  const userLikedSongsPlaylist = store.getState().playlists.likedPlaylist;
+  try {
+    const userLikedSongsPlaylist = store.getState().playlists.likedPlaylist;
+    if (!userLikedSongsPlaylist) return;
 
-  if (!userLikedSongsPlaylist) return;
+    let idx = -1;
+    const songs =
+      userLikedSongsPlaylist.songs?.map((_song, index) => {
+        if (_song.id === song.id) idx = index;
+        return _song;
+      }) || [];
 
-  const songs = userLikedSongsPlaylist.songs?.map((_song) => _song) || [];
+    if (idx === -1) {
+      songs.push(song);
+    } else {
+      songs.splice(idx, 1);
+    }
 
-  const idx = songs.findIndex((_song) => _song.id === song.id);
-
-  if (idx === -1) {
-    songs.push(song);
-  } else {
-    songs.splice(idx, 1);
+    store.dispatch(
+      setUserLikedSongsPlaylist({ ...userLikedSongsPlaylist, songs })
+    );
+    storeSessionData("likedPlaylist", { ...userLikedSongsPlaylist, songs });
+  } catch (error) {
+    utilService.handleError("liked-playlist", "GENERAL_ERROR", error as Error);
   }
-
-  store.dispatch(
-    setUserLikedSongsPlaylist({ ...userLikedSongsPlaylist, songs })
-  );
-  storeSessionData("likedPlaylist", { ...userLikedSongsPlaylist, songs });
 };
 
 export const deletePlaylist = async (playlistId: string): Promise<void> => {
@@ -159,8 +142,9 @@ export const deletePlaylist = async (playlistId: string): Promise<void> => {
     userPlaylists.splice(idx, 1);
 
     store.dispatch(setUserPlaylists(userPlaylists));
+    storeSessionData("playlists", userPlaylists);
   } catch (error) {
-    console.error(`Error while deleting playlist: ${error}`);
+    utilService.handleError("playlist-delete", "GENERAL_ERROR", error as Error);
   }
 };
 
@@ -174,27 +158,28 @@ export const addSongToPlaylist = async (playlistId: string, song: ISong) => {
     const state = store.getState();
     const userPlaylists = state.playlists.userPlaylists;
 
-    // Map through the playlists and update the specific one immutably
     const updatedPlaylists = userPlaylists.map((playlist) => {
       if (playlist.id === playlistId) {
-        // Check if song already exists
         const songExists = playlist.songs.some((_song) => _song.id === song.id);
         if (songExists) throw new Error("Song already exists in playlist");
 
-        // Return a new playlist object with updated songs
         return {
           ...playlist,
           songs: [...playlist.songs, song],
         };
       }
 
-      // Return unchanged playlist
       return playlist;
     });
 
     store.dispatch(setUserPlaylists(updatedPlaylists));
+    storeSessionData("playlists", updatedPlaylists);
   } catch (error) {
-    console.error(`Error while adding song to playlist: ${error}`);
+    utilService.handleError(
+      "playlist-add-song",
+      "GENERAL_ERROR",
+      error as Error
+    );
   }
 };
 
@@ -216,21 +201,19 @@ export const removeSongFromPlaylist = async (
     const state = store.getState();
     const userPlaylists = state.playlists.userPlaylists;
 
-    // Map through the playlists and update the specific one immutably
     const updatedPlaylists = userPlaylists.map((playlist) => {
       if (playlist.id === playlistId) {
-        // Return a new playlist object with updated songs
         return {
           ...playlist,
           songs: playlist.songs.filter((_song) => _song.id !== songId),
         };
       }
 
-      // Return unchanged playlist
       return playlist;
     });
 
     store.dispatch(setUserPlaylists(updatedPlaylists));
+    storeSessionData("playlists", updatedPlaylists);
   } catch (error) {
     console.error(`Error while removing song from playlist: ${error}`);
   }
@@ -241,7 +224,10 @@ export const approveSharePlaylist = async (
   notificationId: string
 ) => {
   try {
-    const playlist = await playlistService.approveSharedPlaylist(playlistId);
+    const playlist = await playlistService.approveSharedPlaylist(
+      playlistId,
+      notificationId
+    );
     updateUserPlaylists(playlist);
     removeNotification(notificationId);
   } catch (error) {
@@ -254,10 +240,53 @@ export const rejectSharedPlaylist = async (
   notificationId: string
 ) => {
   try {
-    await playlistService.rejectSharedPlaylist(playlistId);
+    await playlistService.rejectSharedPlaylist(playlistId, notificationId);
     removeNotification(notificationId);
     utilService.handleSuccess("Playlist removed", "PLAYLIST_SHARE");
   } catch (error) {
     utilService.handleError("playlist-share", "PLAYLIST_SHARE", error as Error);
   }
 };
+
+export const addSongFromSocket = (playlistId?: string, song?: ISong|null) => {
+  try {
+    if (!playlistId || !song) throw new Error("Playlist id or song not found");
+    const userPlaylists = store.getState().playlists.userPlaylists;
+
+    const updatedUserPlaylist = userPlaylists.map((playlist) => {
+      return playlist.id === playlistId
+        ? { ...playlist, songs: [...playlist.songs, song] }
+        : playlist;
+    });
+    storeSessionData("playlists", updatedUserPlaylist);
+    store.dispatch(setUserPlaylists(updatedUserPlaylist));
+  } catch (error) {
+    utilService.handleError(
+      "playlist-add-song",
+      "GENERAL_ERROR",
+      error as Error
+    );
+  }
+};
+
+const setUserPlaylists = (
+  playlists: IPlaylistDetailed[]
+): ISetUserPlaylistsAction => ({
+  type: SET_USER_PLAYLISTS,
+  payload: playlists,
+});
+
+const setUserLikedSongsPlaylist = (
+  playlist: IPlaylistDetailed
+): ISetLikedPlaylistAction => ({
+  type: SET_LIKED_PLAYLIST,
+  payload: playlist,
+});
+
+const setPlaylistsBulk = (playlists: {
+  userPlaylists: IPlaylistDetailed[];
+  likedPlaylist: IPlaylistDetailed;
+}) => ({
+  type: SET_PLAYLISTS_BULK,
+  payload: playlists,
+});
