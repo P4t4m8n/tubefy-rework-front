@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom";
-import { INotification } from "../../../models/notification.model";
-import {
-  approveSharePlaylist,
-  rejectSharedPlaylist,
-} from "../../../store/actions/playlist.action";
-import { utilService } from "../../../util/util.util";
 import { useMemo, useRef } from "react";
-import { IModelAction } from "../../../models/app.model";
-import { CheckSVG, RejectSVG } from "../../svg/SVGs";
-import GenericProfileModel from "../../GenericComponents/GenericProfileModel";
-import { useModel } from "../../../hooks/useModel";
+import { INotification } from "../../../../models/notification.model";
+import { useModel } from "../../../../hooks/useModel";
+import { utilService } from "../../../../util/util.util";
+import { approveSharePlaylist, rejectSharedPlaylist } from "../../../../store/actions/playlist.action";
+import { IModelAction } from "../../../../models/app.model";
+import { CheckSVG, RejectSVG } from "../../../svg/SVGs";
+import { Link } from "react-router-dom";
+import GenericProfileModel from "../../../GenericComponents/GenericProfileModel";
 
 interface Props {
   notification: INotification;
@@ -23,7 +20,6 @@ export default function SharePlaylistNotification({ notification }: Props) {
     notificationId?: string,
     playlistId?: string
   ) => {
-
     if (!playlistId || !notificationId) {
       utilService.handleError(
         "Playlist not found",

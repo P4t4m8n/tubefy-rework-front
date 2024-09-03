@@ -63,7 +63,6 @@ enum NotificationType {
   PLAYLIST_DELETE,
   PLAYLIST_EDIT,
   PLAYLIST_CREATE,
-  PLAYLIST_ADD_SONG,
   PLAYLIST_REMOVE_SONG,
 }
 export type TNotificationStatus = "success" | "error";

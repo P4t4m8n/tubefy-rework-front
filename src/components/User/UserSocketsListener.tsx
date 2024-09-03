@@ -17,8 +17,7 @@ export default function UserSocketsListener({ user }: { user: IUser | null }) {
       eventName: TSocketEvent,
       data: INotification
     ) => {
-      console.log("data:", data);
-      console.log("eventName:", eventName);
+     
       switch (eventName) {
         // case "sendFriendRequest":
         //   addFriendRequest(data as IFriend);

@@ -29,7 +29,6 @@ export default function ProfileFriendRequests() {
   modelActions.push({
     text: "MESSAGE",
     action: (friend: IFriend) => {
-      console.log("friend:", friend)
       //TODO: implement message
     },
     icon: <MessageSVG />,
