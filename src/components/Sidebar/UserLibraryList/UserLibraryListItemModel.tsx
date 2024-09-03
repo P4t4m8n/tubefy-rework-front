@@ -7,6 +7,7 @@ import UserLibraryListItemModelShare from "./UserLibraryListItemModelShare";
 import { playlistService } from "../../../services/playlist.service";
 import { utilService } from "../../../util/util.util";
 import GenericModelBtn from "../../GenericComponents/GenericBtn";
+import { TNotificationType } from "../../../models/notification.model";
 
 interface Props {
   playlistId: string;
@@ -39,20 +40,20 @@ export default function UserLibraryListItemModel({ playlistId }: Props) {
     }
     setIsModelOpen(false);
     if (type === "edit") return;
-    utilService.handleSuccess(type, `playlist-${type}`);
+    const notificationType = `playlist-${type}`.toUpperCase();
+    utilService.handleSuccess(type, notificationType as TNotificationType);
   };
 
   const onSharePlaylist = useCallback(
     async (playlistId: string, friendId?: string) => {
-    
       try {
         if (!friendId) throw new Error("Friend not found");
         await playlistService.sharePlaylist(playlistId, friendId);
-        utilService.handleSuccess("Playlist shared", "playlist-share");
+        utilService.handleSuccess("Playlist shared", "PLAYLIST_SHARE");
       } catch (error) {
         utilService.handleError(
           "playlist-share",
-          "playlist-share",
+          "PLAYLIST_SHARE",
           error as Error
         );
       }

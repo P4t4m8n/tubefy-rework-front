@@ -17,7 +17,7 @@ export default function PlaylistSongsList({
 }: Props) {
   return (
     <section className="playlist-songs-list">
-      <ul className="song-list ">
+      <ul className="song-list song-list-header ">
         <li className="list-header">
           <p> #</p>
           <p>Title</p>

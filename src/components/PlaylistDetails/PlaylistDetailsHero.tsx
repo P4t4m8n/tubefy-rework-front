@@ -21,18 +21,18 @@ export default function PlaylistDetailsHero({
 }: Props) {
   return (
     <header className="playlists-details-hero">
-      <img src={imgUrl} alt={name} />
+      <img src={imgUrl || "/default-playlist.png"} alt={name} />
       <div className="playlists-details-hero-info">
         <h3>{name}</h3>
-        <h4>{description || ""}</h4>
+        <h4>{description}</h4>
         <div className="playlists-details-hero-info-owner">
-          <img src={avatarUrl}></img>
+          <img src={avatarUrl || "/default-user.png"}></img>
           <p>{username || "TubeFy"}</p>
           <p>{songs} songs</p>
           <p>About {duration}</p>
         </div>
       </div>
-      <BackgroundGradient/>
+      <BackgroundGradient />
     </header>
   );
 }

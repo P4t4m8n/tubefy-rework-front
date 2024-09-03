@@ -11,7 +11,7 @@ import PlayBtn from "../components/Buttons/PlayBtn";
 import { removeSongFromPlaylist } from "../store/actions/playlist.action";
 import Loader from "../components/Loader";
 import { setImgForBackground } from "../store/actions/imgGradient.action";
-import { showUserMsg } from "../services/eventEmitter";
+import { utilService } from "../util/util.util";
 
 export default function PlaylistDetails() {
   const [playlist, setPlaylist] = useState<IPlaylistDetailed | null>(null);
@@ -24,13 +24,13 @@ export default function PlaylistDetails() {
       try {
         const playlist = await playlistService.get(id);
         setPlaylist(playlist);
-        setImgForBackground(playlist.imgUrl);
+        setImgForBackground(playlist.imgUrl || "/default-playlist.png");
       } catch (error) {
-        showUserMsg({
-          text: "Failed to load playlist",
-          type: "GENERAL_ERROR",
-          status: "error",
-        });
+        utilService.handleError(
+          "Playlist not found",
+          "GENERAL_ERROR",
+          error as Error
+        );
       }
     };
 

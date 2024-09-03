@@ -6,12 +6,11 @@ import PlaylistIndexList from "../components/PlaylistIndex/PlaylistIndexList";
 import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";
 import Loader from "../components/Loader";
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
-import { showUserMsg } from "../services/eventEmitter";
+import { utilService } from "../util/util.util";
 
 export default function PlaylistIndex() {
   const [mainPlaylists, setMainPlaylists] = useState<IPlaylistsGroup[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffectUpdate(() => {
     const handleLoading = async () => {
@@ -20,11 +19,11 @@ export default function PlaylistIndex() {
         const playlists = await loadDefaultPlaylists();
         setMainPlaylists(playlists);
       } catch (error) {
-        showUserMsg({
-          text: "Failed to load playlists",
-          type: "GENERAL_ERROR",
-          status: "error",
-        });
+        utilService.handleError(
+          "playlist-index",
+          "GENERAL_ERROR",
+          error as Error
+        );
       } finally {
         setIsLoading(false);
       }

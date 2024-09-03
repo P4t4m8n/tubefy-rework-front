@@ -28,6 +28,7 @@ export default function ProfileFriendRequests() {
 
   modelActions.push({
     text: "MESSAGE",
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     action: (friend: IFriend) => {
       //TODO: implement message
     },

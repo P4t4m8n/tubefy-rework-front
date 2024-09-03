@@ -13,6 +13,7 @@ export default function PlaylistEditHeroImg({
   onUploadImg,
   idForInput,
 }: Props) {
+  console.log("imgUrl:", imgUrl)
   return (
     <label
       className="img-upload-con"

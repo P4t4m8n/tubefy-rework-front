@@ -1,8 +1,9 @@
 .playlist-songs-list {
-  max-height:10rem;
-  overflow: auto;
-  @include no-scrollBar;
-  .song-list {
+  height: 22rem;
+  display: grid;
+  grid-template-rows: 3rem 19rem;
+  .song-list,
+  .list-header {
     display: grid;
     grid-template-columns: auto 8fr 4fr 2fr 2fr;
     gap: 1rem;
@@ -14,8 +15,6 @@
       font-size: $font-size-14;
       align-items: center;
       grid-column: 1/-1;
-      display: grid;
-      grid-template-columns: subgrid;
       padding-inline: 1rem;
       svg {
         width: 1rem;
@@ -28,5 +27,13 @@
         }
       }
     }
+  }
+  .song-list {
+    grid-area: 2/1/-1/-1;
+    overflow: auto;
+  }
+  .song-list-header {
+    grid-area: 1/1/2/-1;
+    height: 100%;
   }
 }

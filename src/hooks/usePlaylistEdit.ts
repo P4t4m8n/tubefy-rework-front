@@ -12,7 +12,7 @@ import {
 } from "../store/actions/playlist.action";
 import { songService } from "../services/song.service";
 import { ISongYT } from "../models/song.model";
-import { showUserMsg } from "../services/eventEmitter";
+import { utilService } from "../util/util.util";
 
 export const usePlaylistEdit = (
   userId: string | null | undefined
@@ -51,11 +51,11 @@ export const usePlaylistEdit = (
       setPlaylistToEdit(playlist);
       setImgForBackground(playlist.imgUrl);
     } catch (error) {
-      showUserMsg({
-        text: "Failed to load playlist",
-        type: "GENERAL_ERROR",
-        status: "error",
-      });
+      utilService.handleError(
+        "Failed to load playlist",
+        "PLAYLIST_EDIT",
+        error as Error
+      );
     }
   };
 
@@ -97,11 +97,11 @@ export const usePlaylistEdit = (
           return { ...prev, songs: [...prev.songs, song] };
         });
       } catch (error) {
-        showUserMsg({
-          text: "Failed to save song",
-          type: "GENERAL_ERROR",
-          status: "error",
-        });
+        utilService.handleError(
+          "Failed to save song",
+          "PLAYLIST_EDIT",
+          error as Error
+        );
       }
     },
     []

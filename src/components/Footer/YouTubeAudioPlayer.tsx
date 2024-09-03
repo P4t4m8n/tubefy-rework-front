@@ -11,11 +11,11 @@ import {
   ShuffleSVG,
 } from "../svg/SVGs";
 import { usePlay } from "../../hooks/usePlay";
-import { ProgressBar } from "./ProgressBar";
+import ProgressBar from "./ProgressBar";
 import { youTubePlayer } from "../../services/player.service";
 import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 
-export function YouTubeAudioPlayer() {
+export default function YouTubeAudioPlayer() {
   const { playingSong, isPlaying, currentPlaylist, togglePlayPause } =
     usePlay();
 

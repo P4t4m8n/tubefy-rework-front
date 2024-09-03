@@ -8,7 +8,7 @@ interface Props {
   song: ISong | null | ISongYT;
 }
 
-export function ProgressBar({ song }: Props) {
+export default function ProgressBar({ song }: Props) {
   const [progress, setProgress] = useState<{
     progressPercentage: number;
     timeElapsed: string;

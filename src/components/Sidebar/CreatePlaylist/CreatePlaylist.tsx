@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Dispatch } from "react";
 import { getUserPlaylistsState, getUserState } from "../../../store/getStore";
 import CreatePlaylistModel from "./CreatePlaylistModel";
-import { showUserMsg } from "../../../services/eventEmitter";
 
 interface Props {
   setIsFullSize: Dispatch<React.SetStateAction<boolean>>;
@@ -15,26 +14,18 @@ export default function CreatePlaylist({ setIsFullSize }: Props) {
   const navigate = useNavigate();
 
   const onCreatePlaylist = async () => {
-    try {
-      const user = getUserState();
-      if (!user) return;
+    const user = getUserState();
+    if (!user) return;
 
-      const userPlaylistsLength = getUserPlaylistsState().length;
-      const emptyPlaylist = getEmptyPlaylist(userPlaylistsLength);
-      const { id, username, imgUrl } = user;
-      emptyPlaylist.owner = { id, username, imgUrl };
+    const userPlaylistsLength = getUserPlaylistsState().length;
+    const emptyPlaylist = getEmptyPlaylist(userPlaylistsLength);
 
-      const savedPlaylistId = await saveUserPlaylist(emptyPlaylist);
+    const { id, username, imgUrl } = user;
+    emptyPlaylist.owner = { id, username, imgUrl };
 
-      if (!savedPlaylistId) throw new Error("Failed to save playlist");
-      navigate(`/playlist/edit/${savedPlaylistId}`);
-    } catch (error) {
-      showUserMsg({
-        text: "Failed to create playlist",
-        type: "GENERAL_ERROR",
-        status: "error",
-      });
-    }
+    const savedPlaylistId = await saveUserPlaylist(emptyPlaylist);
+
+    navigate(`/playlist/edit/${savedPlaylistId}`);
   };
 
   return (

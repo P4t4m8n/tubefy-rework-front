@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { FullScreenSVG, VolumeSVG } from "../svg/SVGs";
 import { youTubePlayer } from "../../services/player.service";
 
-export function PlayerVolumeControl() {
+export default function PlayerVolumeControl() {
   const [volume, setVolume] = useState(50);
 
   const handleVolumeChange = (ev: ChangeEvent<HTMLInputElement>) => {

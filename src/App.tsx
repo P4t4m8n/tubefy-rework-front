@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Player } from "./components/Footer/Player";
+import Player from "./components/Footer/Player";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import routes, { RouteConfig } from "./route";

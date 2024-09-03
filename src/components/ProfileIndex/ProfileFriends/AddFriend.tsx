@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { IUserSmall } from "../../../models/user.model";
 import { userService } from "../../../services/user.service";
-import { showUserMsg } from "../../../services/eventEmitter";
 import { utilService } from "../../../util/util.util";
 import { IModelAction } from "../../../models/app.model";
 import { AddFriendSVG, MessageSVG, PlusSVG } from "../../svg/SVGs";
@@ -24,12 +23,11 @@ export default function AddFriend() {
       const _searchFriends = await userService.query(filter);
       setSearchFriends(_searchFriends);
     } catch (error) {
-      showUserMsg({
-        text: "Error in searching friends",
-        type: "GENERAL_ERROR",
-        status: "error",
-        imgUrl: "/error-img.jpg",
-      });
+      utilService.handleError(
+        "Error in searching friends",
+        "GENERAL_ERROR",
+        error as Error
+      );
     }
   }, []);
 

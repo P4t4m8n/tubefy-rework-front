@@ -46,6 +46,7 @@ export const extractHeroPlaylists = (
 };
 export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
   return {
+    id: "",
     name: `New Playlist ${num + 1}`,
     imgUrl: "",
     songs: [],

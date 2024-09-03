@@ -3,7 +3,7 @@ import { useModel } from "../../../hooks/useModel";
 import PlaylistEditHeroImg from "./PlaylistEditHeroImg";
 import { PlusSVG, UserIconSVG } from "../../svg/SVGs";
 import Loader from "../../Loader";
-import { showUserMsg } from "../../../services/eventEmitter";
+import { utilService } from "../../../util/util.util";
 
 interface Props {
   imgUrl: string;
@@ -63,11 +63,11 @@ export default function PlaylistEditHeroModel({
 
       await onSaveHero({ name, description, imgUrlData, isPublic });
     } catch (error) {
-      showUserMsg({
-        text: "Failed to save playlist",
-        type: "GENERAL_ERROR",
-        status: "error",
-      });
+      utilService.handleError(
+        "Failed to save playlist",
+        "GENERAL_ERROR",
+        error as Error
+      );
     } finally {
       setIsLoading(false);
       setIsModelOpen(false);
