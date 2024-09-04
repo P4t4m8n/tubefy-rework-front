@@ -34,10 +34,7 @@ export const useModelPosition = (
     coords: IModelCoords,
     elHeight: number
   ) => {
-    const position = ev.currentTarget.getBoundingClientRect();
-    if (position.bottom + elHeight > window.innerHeight) {
-      setModelPosition(coords);
-    }
+    setModelPosition(coords);
   };
 
   return { modelPosition, handleMouseEnter, handleMouseClick };

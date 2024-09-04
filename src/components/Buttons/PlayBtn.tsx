@@ -1,12 +1,12 @@
 import { memo, MouseEvent } from "react";
 import { usePlay } from "../../hooks/usePlay";
-import {  IPlaylist } from "../../models/playlist.model";
+import { IPlaylist } from "../../models/playlist.model";
 import { ISong, ISongYT } from "../../models/song.model";
 import { PauseSVG, PlaySVG } from "../svg/SVGs";
 import { isSong } from "../../util/player.util";
 
 interface Props {
-  item: ISong | IPlaylist | ISongYT ;
+  item: ISong | IPlaylist | ISongYT;
 }
 
 function PlayBtn({ item }: Props) {
@@ -23,8 +23,8 @@ function PlayBtn({ item }: Props) {
     ev.preventDefault();
     ev.stopPropagation();
 
-    if (itemType === "playlist") {
-      onPlaylistPlay(item as IPlaylist );
+    if (itemType === "PLAYLIST") {
+      onPlaylistPlay(item as IPlaylist);
       return;
     }
     onSongPlay(item as ISong | ISongYT);

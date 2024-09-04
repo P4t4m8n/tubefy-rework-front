@@ -13,3 +13,6 @@ export const getCurrentPlaylist = () => {
   return store.getState().player.currentPlaylist;
 };
 
+export const getFriendsState = () => {
+  return store.getState().friends.friends;
+};

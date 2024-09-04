@@ -128,7 +128,7 @@ export const updateUserLikedSongPlaylist = (song: ISong) => {
   }
 };
 
-export const deletePlaylist = async (playlistId: string): Promise<void> => {
+export const removePlaylist = async (playlistId: string): Promise<void> => {
   try {
     const isRemoved = await playlistService.remove(playlistId);
     if (!isRemoved)

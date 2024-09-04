@@ -11,9 +11,11 @@ export default function GenericBtn({
   className,
   onModelBtnClick,
 }: TGenericModelBtn & TGenericModelFunction) {
+  console.log("text:", text)
+  console.log("imgUrl:", imgUrl)
   return (
     <button
-      className={className ? className : "generic-model-btn "}
+      className={"generic-model-btn " + className}
       onClick={onModelBtnClick}
     >
       {text && <h2>{text}</h2>}

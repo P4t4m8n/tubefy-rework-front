@@ -21,7 +21,7 @@ export const useLike = (
 
   const itemType = item.itemType;
   useEffectUpdate(() => {
-    if (item && itemType !== "YTsong") {
+    if (item && itemType !== "YT_SONG") {
       setIsLiked((item as ISong | IPlaylistDetailed).isLikedByUser);
     }
   }, [item]);
@@ -34,21 +34,21 @@ export const useLike = (
     try {
       const itemType = item.itemType;
       switch (itemType) {
-        case "song":
+        case "SONG":
           finishCheck = await songService.toggleSongLike(
             (item as ISong).id,
             isLiked
           );
           updateUserLikedSongPlaylist(item as ISong);
           break;
-        case "playlist":
+        case "PLAYLIST":
           finishCheck = await playlistService.togglePlaylistLIke(
             (item as IPlaylistDetailed).id!,
             isLiked
           );
           updateUserPlaylists(item as IPlaylistDetailed);
           break;
-        case "YTsong": {
+        case "YT_SONG": {
           const song = await songService.createSong(item as ISongYT);
           updateUserLikedSongPlaylist(song);
           finishCheck = await songService.toggleSongLike(song.id, isLiked);
@@ -60,7 +60,11 @@ export const useLike = (
 
       const notificationType = (itemType.toUpperCase() +
         "_LIKE") as TNotificationType;
-      utilService.handleSuccess(itemType, notificationType, item.imgUrl);
+
+      const str = `${
+        !isLiked ? "You liked" : "You dislike"
+      } ${itemType.toLowerCase()} ${item.name}`;
+      utilService.handleSuccess(str, notificationType, item.imgUrl);
     } catch (error) {
       utilService.handleError("like", "GENERAL_ERROR", error as Error);
     } finally {

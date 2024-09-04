@@ -1,35 +1,38 @@
-import { MouseEvent, ReactNode, useRef } from "react";
+import { MouseEvent, useRef } from "react";
 import { useModel } from "../../hooks/useModel";
 import { useNavigate } from "react-router-dom";
-import { IGenericModelItem } from "../../models/app.model";
+import { IGenericModelItem, IModelCoords } from "../../models/app.model";
 import { useModelPosition } from "../../hooks/useModelPosition";
+import GenericBtn from "./GenericBtn";
 
 interface Props {
-  children?: ReactNode;
-  uniqueButton?: ReactNode;
-  items?: IGenericModelItem[];
+  items: IGenericModelItem[];
   btnSvg?: JSX.Element;
+  btnText?: string;
   imgUrl?: string;
   idKey?: string;
+  className?: string;
+  coords?: IModelCoords;
+  modelSize?: IModelCoords;
 }
 
 export default function GenericModel({
-  children,
   items,
   btnSvg,
+  btnText,
   imgUrl,
   idKey,
-  uniqueButton,
+  coords,
+  className,
 }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+  const { modelPosition, handleMouseClick } = useModelPosition({ x: 0, y: 0 });
   const navigate = useNavigate();
-
-  const { modelPosition, handleMouseClick } = useModelPosition({ x: 0, y: 24 });
 
   const onModelBtnClick = (ev: MouseEvent) => {
     ev.stopPropagation();
-    handleMouseClick(ev, { x: 0, y: -112 }, 102);
+    handleMouseClick(ev, coords ? coords : { x: 0, y: 24 }, 200);
     setIsModelOpen((prev) => !prev);
   };
 
@@ -40,7 +43,7 @@ export default function GenericModel({
     ev.stopPropagation();
     ev.preventDefault();
     if (item) {
-      await item(ev);
+      item(ev);
       setIsModelOpen(false);
     }
     return;
@@ -60,34 +63,53 @@ export default function GenericModel({
   };
 
   return (
-    <div key={idKey} ref={modelRef} className="generic-model-con">
-      <button
-        key={idKey}
-        className="generic-model-btn"
-        onClick={onModelBtnClick}
-      >
-        {btnSvg && !uniqueButton ? btnSvg : <img src={imgUrl} alt="user" />}
-        {uniqueButton}
-      </button>
+    <div
+      key={idKey}
+      ref={modelRef}
+      className={"generic-model-con " + className}
+    >
+      <GenericBtn
+        onModelBtnClick={onModelBtnClick}
+        {...(imgUrl ? { imgUrl } : { btnSvg: btnSvg! })}
+        text={btnText}
+        className={className}
+      />
+
       {isModelOpen && (
-        <ul style={{ top: modelPosition.y }} className="generic-model">
-          {children}
-          {items &&
-            items.map((item, index) => (
-              <li key={index}>
-                {item.link ? (
-                  <button onClick={(ev) => handleLink(ev, item.link)}>
-                    <span>{item.text}</span>
-                    {item.svg}
-                  </button>
-                ) : (
-                  <button onClick={(ev) => handleClick(ev, item.onClick)}>
-                    <span>{item.text}</span>
-                    {item.svg}
-                  </button>
-                )}
-              </li>
-            ))}
+        <ul
+          style={{ top: modelPosition.y, left: modelPosition.x }}
+          className="generic-model"
+        >
+          {items.map((item, index) => (
+            <li key={index}>
+              {!item.children && item.link && (
+                <GenericBtn
+                  onModelBtnClick={(ev) => handleLink(ev, item.link)}
+                  text={item.text}
+                  btnSvg={item.btnSvg!}
+                />
+              )}
+              {!item.children && item.onClick && (
+                <GenericBtn
+                  onModelBtnClick={(ev) => handleClick(ev, item.onClick)}
+                  text={item.text}
+                  {...(item.imgUrl
+                    ? { imgUrl: item.imgUrl! }
+                    : { btnSvg: item.btnSvg! })}
+                />
+              )}
+
+              {item.children && (
+                <GenericModel
+                  items={item.children}
+                  btnSvg={item.btnSvg}
+                  btnText={item.text}
+                  className={`${className}-sub-model`}
+                  coords={item.coords}
+                />
+              )}
+            </li>
+          ))}
         </ul>
       )}
     </div>

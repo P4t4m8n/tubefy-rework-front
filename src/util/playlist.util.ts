@@ -97,3 +97,13 @@ export const transformUserPlaylistsForModel = (
     return acc;
   }, []);
 };
+export const isAllowedToEditPlaylist = (
+  playlistId: string,
+  userId?: string
+) => {
+  if (!userId) return false;
+
+  const userPlaylists = getUserPlaylistsState();
+
+  return userPlaylists.some((playlist) => playlist.id === playlistId);
+};

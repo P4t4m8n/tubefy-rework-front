@@ -1,4 +1,3 @@
-import BackgroundGradient from "../BackgroundGradient";
 
 interface Props {
   imgUrl: string;
@@ -21,7 +20,7 @@ export default function PlaylistDetailsHero({
 }: Props) {
   return (
     <header className="playlists-details-hero">
-      <img src={imgUrl || "/default-playlist.png"} alt={name} />
+      <img src={imgUrl} alt={name} />
       <div className="playlists-details-hero-info">
         <h3>{name}</h3>
         <h4>{description}</h4>
@@ -32,7 +31,6 @@ export default function PlaylistDetailsHero({
           <p>About {duration}</p>
         </div>
       </div>
-      <BackgroundGradient />
     </header>
   );
 }

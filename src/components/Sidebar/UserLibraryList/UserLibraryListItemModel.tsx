@@ -2,7 +2,7 @@ import { MouseEvent, useCallback, useRef } from "react";
 import { useModel } from "../../../hooks/useModel";
 import { DeleteSVG, DotsSVG, PencilSVG } from "../../svg/SVGs";
 import { useNavigate } from "react-router-dom";
-import { deletePlaylist } from "../../../store/actions/playlist.action";
+import { removePlaylist } from "../../../store/actions/playlist.action";
 import UserLibraryListItemModelShare from "./UserLibraryListItemModelShare";
 import { playlistService } from "../../../services/playlist.service";
 import { utilService } from "../../../util/util.util";
@@ -27,7 +27,7 @@ export default function UserLibraryListItemModel({ playlistId }: Props) {
     ev.stopPropagation();
     switch (type) {
       case "delete":
-        await deletePlaylist(playlistId);
+        await removePlaylist(playlistId);
         break;
       case "share":
         onSharePlaylist(playlistId, friendId);

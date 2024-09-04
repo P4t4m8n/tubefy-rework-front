@@ -29,13 +29,19 @@ $font-size-16: 1rem;
 $font-size-14: 0.875rem;
 $font-size-13: 0.8125rem;
 $font-size-12: 0.75rem;
-$font-size-10: 0.625rem;  
+$font-size-10: 0.625rem;
 
 //Border radius
 $border-radius-1-4: 0.25rem;
 $border-radius-1-2: 0.5rem;
 $border-radius-1: 1rem;
 $border-radius-2: 2rem;
+
+//Z-index
+$z-index-regular: 0;
+$z-index-model: 15;
+$z-index-btn: 2;
+$z-index-background: -1;
 
 //Flex allowed values
 $allowed-directions: row, row-reverse, column, column-reverse;

@@ -1,49 +1,58 @@
-.generic-model {
-  @include flex-direction-gap-padding(column, 0.75rem, 0.75rem);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
-    rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
-  background-color: $black-3;
-  position: absolute;
-  top: 2rem;
-  width: clamp(11rem, 100%, 13rem);
-  right: 0;
-  z-index: 100;
-  border-radius: $border-radius-1-4;
-  li {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    a,
-    button {
-      @include flex-direction-align-justify-gap-padding(
-        row,
-        center,
-        space-between,
-        0,
-        0.25rem 0.5rem
-      );
-      cursor: pointer;
+.generic-model-con {
+  position: relative;
+  width: 100%;
+  z-index: $z-index-model;
 
+  .generic-model {
+    @include flex-direction-gap-padding(column, 0.75rem, 0.75rem);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
+      rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
+    background-color: $black-3;
+    position: absolute;
+    width: 13rem;
+    max-width: 80vw;
+    border-radius: $border-radius-1-4;
+    li {
       width: 100%;
-      background-color: inherit;
+      position: relative;
+      // overflow: hidden;
+      a,
+      button {
+        @include flex-direction-align-justify-gap-padding(
+          row,
+          center,
+          space-between,
+          0,
+          0.25rem 0.5rem
+        );
+        cursor: pointer;
 
-      border-radius: $border-radius-1-2;
-      svg {
-        width: 1rem;
-        fill: $white-2;
+        width: 100%;
         background-color: inherit;
+
+        border-radius: $border-radius-1-2;
+        svg {
+          width: 1rem;
+          fill: $white-2;
+          background-color: inherit;
+        }
+        img {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+        img,
+        span,
+        svg {
+          z-index: $z-index-btn;
+        }
+        h2 {
+          color: $white-2;
+          font-size: $font-size-16;
+          font-weight: 600;
+          z-index: $z-index-btn;
+        }
+        @include btn-hover-animation($black-6);
       }
-      img,
-      span,
-      svg {
-        z-index: 2;
-      }
-      span {
-        color: $white-2;
-        font-size: $font-size-13;
-        font-weight: 600;
-      }
-      @include btn-hover-animation($black-6);
     }
   }
 }

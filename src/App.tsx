@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import routes, { RouteConfig } from "./route";
 import UserMsg from "./components/User/UserMsg";
 import "./scss/main.scss";
+import BackgroundGradient from "./components/BackgroundGradient";
 
 export function App() {
   const renderRoutes = (routes: RouteConfig[]) => {
@@ -23,6 +24,7 @@ export function App() {
           <section className="main-content">
             <Header />
             <Routes>{renderRoutes(routes)}</Routes>
+            <BackgroundGradient/>
             <UserMsg />
           </section>
         </Router>

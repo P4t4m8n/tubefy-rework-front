@@ -8,7 +8,6 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  z-index: 0;
 
   &::before {
     content: "";
@@ -20,7 +19,6 @@
     background-color: $gray-1;
     transform: translateX(-100%);
     transition: transform 0.4s ease-in-out;
-    z-index: 0;
   }
   
   &:hover::before {
@@ -28,7 +26,6 @@
   }
   span {
     position: relative;
-    z-index: 1;
   }
 }
 
@@ -42,7 +39,6 @@
   min-height: fit-content;
   background-color: $black-2;
   border-radius: $border-radius-1-2;
-  z-index: 10;
   color: $white-1;
   form {
     height: 100%;
@@ -80,7 +76,6 @@
         cursor: pointer;
         position: relative;
         overflow: hidden;
-        z-index: inherit;
 
         &::before {
           content: "";
@@ -92,11 +87,9 @@
           background-color: $gray-1;
           transform: translateX(-100%);
           transition: transform 0.4s ease-in-out;
-          z-index: inherit;
         }
         span {
           position: relative;
-          z-index: 110;
         }
 
         &:hover::before {

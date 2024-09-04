@@ -1,58 +1,31 @@
-import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { playlistService } from "../services/playlist.service";
-import { IPlaylistDetailed } from "../models/playlist.model";
 import { LikeBtn } from "../components/Buttons/LikeBtn";
-import { getUserState } from "../store/getStore";
-import { transformUserPlaylistsStateForModel } from "../util/playlist.util";
+import {
+  isAllowedToEditPlaylist,
+  transformUserPlaylistsStateForModel,
+} from "../util/playlist.util";
 import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList";
 import PlaylistDetailsHero from "../components/PlaylistDetails/PlaylistDetailsHero";
 import PlayBtn from "../components/Buttons/PlayBtn";
-import { removeSongFromPlaylist } from "../store/actions/playlist.action";
 import Loader from "../components/Loader";
-import { setImgForBackground } from "../store/actions/imgGradient.action";
-import { utilService } from "../util/util.util";
+import { usePlaylistEdit } from "../hooks/usePlaylistEdit";
+import { useAppSelector } from "../hooks/useStore";
+import GenericModel from "../components/GenericComponents/GenericModel";
+import { DotsSVG } from "../components/svg/SVGs";
+import { redirect } from "react-router-dom";
 
 export default function PlaylistDetails() {
-  const [playlist, setPlaylist] = useState<IPlaylistDetailed | null>(null);
+  const user = useAppSelector((state) => state.user.user);
+  const {
+    playlistToEdit: playlist,
+    onRemoveSongFromPlaylist,
+    isLoading,
+    getPlaylistItemActions,
+  } = usePlaylistEdit(user?.id);
 
-  const params = useParams<{ id: string }>();
-  const userId = getUserState()?.id;
+  if (isLoading) return <Loader />;
+  if (!playlist) return redirect("/");
 
-  useEffect(() => {
-    const loadPlaylist = async (id: string) => {
-      try {
-        const playlist = await playlistService.get(id);
-        setPlaylist(playlist);
-        setImgForBackground(playlist.imgUrl || "/default-playlist.png");
-      } catch (error) {
-        utilService.handleError(
-          "Playlist not found",
-          "GENERAL_ERROR",
-          error as Error
-        );
-      }
-    };
-
-    if (params.id) loadPlaylist(params.id);
-  }, [params.id]);
-
-  const onRemoveSongFromPlaylist = useCallback(
-    async (songId: string) => {
-      if (!playlist || !userId || !playlist.id) return;
-      await removeSongFromPlaylist(playlist.id, songId, userId);
-      setPlaylist((prev) => {
-        if (!prev) return prev;
-        const updatedSongs = prev.songs.filter((song) => song.id !== songId);
-        return { ...prev, songs: updatedSongs };
-      });
-    },
-    [playlist, userId]
-  );
-
-  if (!playlist) return <Loader />;
-
-  const { name, imgUrl, owner, songs, duration, id } = playlist;
+  const { name, imgUrl, owner, songs, duration, id } = playlist!;
   const playlistModelData = transformUserPlaylistsStateForModel(id);
 
   const heroProps = {
@@ -65,7 +38,9 @@ export default function PlaylistDetails() {
     duration,
   };
 
-  const isOwner = owner.id === userId;
+  const isAllowedToEdit = isAllowedToEditPlaylist(id, user?.id);
+  const items = getPlaylistItemActions();
+  console.log("items:", items);
 
   return (
     <section className="playlists-details">
@@ -73,9 +48,18 @@ export default function PlaylistDetails() {
       <div className="playlist-details-actions">
         <PlayBtn item={playlist} />
         <LikeBtn item={playlist} />
+        {user && isAllowedToEdit && (
+          <GenericModel
+            items={items}
+            btnSvg={<DotsSVG />}
+            className="details"
+            coords={{ x: 0, y: 24 }}
+            modelSize={{ x: 208, y: 30 * items.length + 48 }}
+          />
+        )}
       </div>
       <PlaylistSongsList
-        isOwner={isOwner}
+        isOwner={isAllowedToEdit}
         songs={songs}
         playlistModelData={playlistModelData}
         onRemoveSongFromPlaylist={onRemoveSongFromPlaylist}
