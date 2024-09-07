@@ -9,36 +9,55 @@ import {
 } from "../../models/player.model";
 import { store } from "../store";
 import { IPlaylist } from "../../models/playlist.model";
+import { utilService } from "../../util/util.util";
 
-export const setPlayingSong = (
-  song: ISong | ISongYT
-): ISetPlayingSongAction => ({
+export const setIsPlaying = (isPlaying: boolean) => {
+  try {
+    store.dispatch(toggleIsPlaying(isPlaying));
+  } catch (error) {
+    utilService.handleError("Unable to play", "GENERAL_ERROR", error as Error);
+  }
+};
+
+export const loadSong = (song: ISong | ISongYT) => {
+  try {
+    store.dispatch(setPlayingSong(song));
+    utilService.handleSuccess(
+      `Playing ${song.name}`,
+      "GENERAL_NOTIFICATION",
+      song.imgUrl
+    );
+  } catch (error) {
+    utilService.handleError("Unable to play", "GENERAL_ERROR", error as Error);
+  }
+};
+
+export const loadCurrentPlaylist = (playlist: IPlaylist) => {
+  try {
+    store.dispatch(setCurrentPlaylist(playlist));
+    utilService.handleSuccess(
+      `Playing ${playlist.name}`,
+      "GENERAL_NOTIFICATION",
+      playlist.imgUrl
+    );
+  } catch (error) {
+    utilService.handleError("Unable to play", "GENERAL_ERROR", error as Error);
+  }
+};
+
+const setPlayingSong = (song: ISong | ISongYT): ISetPlayingSongAction => ({
   type: SET_PLAYING_SONG,
   payload: song,
 });
 
-export const setCurrentPlaylist = (
-  playlist: IPlaylist 
+const setCurrentPlaylist = (
+  playlist: IPlaylist
 ): ISetCurrentPlaylistAction => ({
   type: SET_CURRENT_PLAYLIST,
   payload: playlist,
 });
 
-export const toggleIsPlaying = (isPlaying: boolean): ISetIsPlayingAction => ({
+const toggleIsPlaying = (isPlaying: boolean): ISetIsPlayingAction => ({
   type: SET_IS_PLAYING,
   payload: isPlaying,
 });
-
-export const setIsPlaying = (isPlaying: boolean) => {
-  store.dispatch(toggleIsPlaying(isPlaying));
-};
-
-export const loadSong = (song: ISong | ISongYT) => {
-  store.dispatch(setPlayingSong(song));
-};
-
-export const loadCurrentPlaylist = (
-  playlist: IPlaylist 
-) => {
-  store.dispatch(setCurrentPlaylist(playlist));
-};

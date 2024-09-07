@@ -1,4 +1,9 @@
-import { IUser, IUserAction, IUserDTO } from "../../models/user.model";
+import {
+  IFullUserDTO,
+  IUser,
+  IUserAction,
+  IUserDTO,
+} from "../../models/user.model";
 import { socketService } from "../../services/socket.service";
 import { authService } from "../../services/auth.service";
 import { store } from "../store";
@@ -6,6 +11,8 @@ import { loadUserPlaylists } from "./playlist.action";
 import { loadFriendsBulk } from "./friend.action";
 import { showUserMsg } from "../../services/eventEmitter";
 import { loadNotifications } from "./notification.action";
+import { utilService } from "../../util/util.util";
+import { storeSessionData } from "../../services/localSession.service";
 
 const setUser = (user: IUser | null): IUserAction => ({
   type: "SET_USER",
@@ -17,35 +24,18 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
   try {
     const fullUser = await authService.login(userLogin);
 
-    const {
-      playlists,
-      friends,
-      friendsRequest,
-      likedSongsPlaylist,
-      user,
-      notifications,
-    } = fullUser;
+    _handleUser(fullUser);
 
-    loadUserPlaylists(playlists, likedSongsPlaylist);
-    loadFriendsBulk(friends, friendsRequest);
-    loadNotifications(notifications);
-    socketService.connect();
-    store.dispatch(setUser(user));
-    showUserMsg({
-      text: `Welcome back ${user.username}`,
-      type: "WELCOME",
-      status: "success",
-      imgUrl: "/welcome-img.jpg",
-    });
+    utilService.handleSuccess(
+      `Welcome back ${fullUser.user.username}`,
+      "WELCOME",
+      "/welcome-img.jpg"
+    );
+
     return;
   } catch (error) {
     console.error(`Error while logging in: ${error}`);
-    showUserMsg({
-      text: "Failed to logging in",
-      type: "GENERAL_ERROR",
-      status: "error",
-      imgUrl: "error-img.png",
-    });
+    utilService.handleError("Failed to login", "GENERAL_ERROR", error as Error);
     return;
   }
 };
@@ -54,19 +44,13 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
 export const signup = async (userToCreate: IUserDTO): Promise<void> => {
   try {
     const fullUser = await authService.signup(userToCreate);
-    const { playlists, friends, friendsRequest, likedSongsPlaylist, user } =
-      fullUser;
+    _handleUser(fullUser);
 
-    loadUserPlaylists(playlists, likedSongsPlaylist);
-    loadFriendsBulk(friends, friendsRequest);
-    socketService.connect();
-    store.dispatch(setUser(user));
-    showUserMsg({
-      text: `Welcome ${user.username}`,
-      type: "WELCOME",
-      status: "success",
-      imgUrl: "/welcome-img.jpg",
-    });
+    utilService.handleSuccess(
+      `Welcome ${fullUser.user.username}`,
+      "WELCOME",
+      "/welcome-img.jpg"
+    );
     return;
   } catch (error) {
     console.error(`Error while signing up: ${error}`);
@@ -86,21 +70,44 @@ export const logout = async (): Promise<void> => {
     await authService.logout();
     socketService.disconnect();
     store.dispatch(setUser(null));
-    showUserMsg({
-      text: `Goodbye`,
-      type: "GOODBYE",
-      status: "success",
-      imgUrl: "/goodbye-img.jpg",
-    });
+
+    utilService.handleSuccess("Logged out", "GOODBYE", "/goodbye-img.jpg");
+
     return;
   } catch (error) {
     console.error(`Error while logging out: ${error}`);
-    showUserMsg({
-      text: "Failed to logout",
-      type: "GENERAL_ERROR",
-      status: "error",
-      imgUrl: "/error-img.png",
-    });
+    utilService.handleError(
+      "Failed to logout",
+      "GENERAL_ERROR",
+      error as Error
+    );
     return;
+  }
+};
+
+const _handleUser = (fullUser: IFullUserDTO): void => {
+  try {
+    const {
+      playlists,
+      friends,
+      friendsRequest,
+      likedSongsPlaylist,
+      user,
+      notifications,
+    } = fullUser;
+
+    loadUserPlaylists(playlists, likedSongsPlaylist);
+    loadFriendsBulk(friends, friendsRequest);
+    loadNotifications(notifications);
+    storeSessionData("user", user);
+
+    socketService.connect();
+    store.dispatch(setUser(user));
+  } catch (error) {
+    utilService.handleError(
+      "Failed to handle user",
+      "GENERAL_ERROR",
+      error as Error
+    );
   }
 };

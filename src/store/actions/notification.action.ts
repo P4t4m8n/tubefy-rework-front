@@ -7,13 +7,6 @@ import { notificationService } from "../../services/notification.service";
 import { utilService } from "../../util/util.util";
 import { store } from "../store";
 
-const setNotification = (
-  notifications: INotification[]
-): INotificationAction => ({
-  type: "SET_NOTIFICATIONS",
-  payload: notifications,
-});
-
 export const loadNotifications = (notifications: INotification[]) => {
   try {
     storeSessionData("notifications", notifications);
@@ -39,6 +32,7 @@ export const removeNotificationServer = async (notificationId: string) => {
     );
   }
 };
+
 export const removeNotification = async (notificationId: string) => {
   try {
     const notifications = store.getState().notification.notifications;
@@ -67,3 +61,10 @@ export const addNotification = (notification: INotification) => {
     );
   }
 };
+
+const setNotification = (
+  notifications: INotification[]
+): INotificationAction => ({
+  type: "SET_NOTIFICATIONS",
+  payload: notifications,
+});

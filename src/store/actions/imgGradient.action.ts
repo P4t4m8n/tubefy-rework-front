@@ -3,21 +3,38 @@ import {
   SET_IMAGE_URL,
 } from "../../models/imgGradient.model";
 import { store } from "../store";
+import { utilService } from "../../util/util.util";
 
-export const setImg = (url: string) => ({
+export const setImgForBackground = (url: string) => {
+  try {
+    store.dispatch(setImg(url));
+  } catch (error) {
+    utilService.handleError(
+      "Error setting image background",
+      "GENERAL_ERROR",
+      error as Error
+    );
+  }
+};
+
+export const setGradientForBackground = (gradient: string | null) => {
+  try {
+    store.dispatch(setGradient(gradient));
+  } catch (error) {
+    utilService.handleError(
+      "Error setting gradient background",
+      "GENERAL_ERROR",
+      error as Error
+    );
+  }
+};
+
+const setImg = (url: string) => ({
   type: SET_IMAGE_URL,
   payload: url,
 });
 
-export const setGradient = (gradient: string|null) => ({
+const setGradient = (gradient: string | null) => ({
   type: SET_IMAGE_GRADIENT,
   payload: gradient,
 });
-
-export const setImgForBackground = (url: string) => {
-  store.dispatch(setImg(url));
-};
-
-export const setGradientForBackground = (gradient: string|null) => {
-  store.dispatch(setGradient(gradient));
-};

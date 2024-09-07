@@ -1,23 +1,18 @@
-import { IPlaylistDetailed } from "../models/playlist.model";
-import { IFullUserDTO, IUser, IUserDTO } from "../models/user.model";
+import { IFullUserDTO, IUserDTO } from "../models/user.model";
 import { httpService } from "./http.service";
 import { storeSessionData } from "./localSession.service";
 
 const BASE_URL = "auth/";
 
 const login = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
-  const fullUser = await httpService.post<IFullUserDTO>(
+  return await httpService.post<IFullUserDTO>(
     BASE_URL + "login",
     userCreateDTO
   );
-  _setSessionData(fullUser);
-  return fullUser;
 };
 
 const logout = async (): Promise<boolean> => {
-  const isDeleted = await httpService.post<boolean>(BASE_URL + "logout");
-  _setSessionData();
-  return isDeleted;
+  return await httpService.post<boolean>(BASE_URL + "logout");
 };
 
 const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
@@ -25,18 +20,20 @@ const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
     BASE_URL + "signup",
     userCreateDTO
   );
-  _setSessionData(fullUser);
+  removeSessionData();
   return fullUser;
 };
 
-const _setSessionData = (fullUser?: IFullUserDTO): void => {
-  storeSessionData<IUser>("user", fullUser?.user);
-  if (!fullUser) {
-    storeSessionData<IPlaylistDetailed[]>("playlists");
-    storeSessionData<IPlaylistDetailed>("likedPlaylist");
+const removeSessionData = (): void => {
+  try {
+    storeSessionData("user");
+    storeSessionData("playlists");
+    storeSessionData("likedPlaylist");
     storeSessionData("friends");
     storeSessionData("friendRequests");
     storeSessionData("notifications");
+  } catch (error) {
+    throw new Error(`Failed to remove session data: ${error}`);
   }
 };
 

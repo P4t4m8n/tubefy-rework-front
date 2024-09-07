@@ -11,6 +11,7 @@ import {
 } from "../../../store/getStore";
 import { addSongToPlaylist } from "../../../store/actions/playlist.action";
 import SongMenuSlide from "./SongMenuSlide";
+import { utilService } from "../../../util/util.util";
 
 interface Props {
   song: ISong | ISongYT;
@@ -57,6 +58,12 @@ export default function SongMenu({
       if (playlistId && addSongToPlaylistEdit && playlistId === playlist.id) {
         addSongToPlaylistEdit(newSong!);
       }
+      utilService.handleSuccess(
+        "Song added to playlist",
+        "PLAYLIST_SONG_ADD",
+        newSong?.imgUrl
+      );
+      setIsModelOpen(false);
     },
     modelSize: { width: 208, height: 144 },
   }));
@@ -79,7 +86,15 @@ export default function SongMenu({
     items.push({
       btnSvg: <DeleteSVG />,
       text: "Delete",
-      onClick: () => onRemoveSongFromPlaylist((song as ISong).id),
+      onClick: () => {
+        onRemoveSongFromPlaylist((song as ISong).id);
+        utilService.handleSuccess(
+          "Song removed from playlist",
+          "PLAYLIST_REMOVE_SONG",
+          (song as ISong).imgUrl
+        );
+        setIsModelOpen(false);
+      },
     });
   }
 

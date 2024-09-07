@@ -5,8 +5,8 @@
   container-name: playlist-edit;
   position: relative;
   overflow: auto;
-  @include no-scrollBar;
   padding-bottom: 2rem;
+  @include no-scrollBar;
   .actions-sentinel {
     position: fixed;
     height: 0;

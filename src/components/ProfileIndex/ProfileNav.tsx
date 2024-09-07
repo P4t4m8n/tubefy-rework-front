@@ -15,8 +15,8 @@ export default function ProfileNav() {
       </Link>
 
       <Link
-        className={route === "notification" ? "highlight" : ""}
-        to={"notification"}
+        className={route === "notifications" ? "highlight" : ""}
+        to={"notifications"}
       >
         <span>Notifications</span>
       </Link>

@@ -38,10 +38,7 @@ export default function Login() {
         <LoginSVG />
       </button>
       {isModelOpen && (
-        <div
-          className="login-model"
-          style={{ display: isModelOpen ? "block" : "none" }}
-        >
+        <div className="login-model">
           <h2>{!isLogin ? "Sign up to start listing" : "Login to Tubefy"}</h2>
           <form onSubmit={onSubmit}>
             {inputs.map((input, idx) => (

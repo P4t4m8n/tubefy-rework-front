@@ -32,8 +32,8 @@ export interface IItemType {
 export interface IModelItem {
   btnSvg?: JSX.Element;
   text: string;
-
   imgUrl?: string;
+  link?: string;
   onClick?: () => void;
   items?: IModelItem[];
   modelSize?: { width: number; height: number };

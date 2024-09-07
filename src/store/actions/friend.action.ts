@@ -26,30 +26,6 @@ export const loadFriendsBulk = (
   }
 };
 
-export const loadFriends = (friends: IFriend[]) => {
-  try {
-    store.dispatch(setFriends(friends));
-  } catch (error) {
-    utilService.handleError(
-      "loading friends -> friend.action",
-      "GENERAL_ERROR",
-      error as Error
-    );
-  }
-};
-
-export const loadFriendsRequests = (friends: IFriend[]) => {
-  try {
-    store.dispatch(setFriendsRequests(friends));
-  } catch (error) {
-    utilService.handleError(
-      "loading friends requests -> friend.action",
-      "GENERAL_ERROR",
-      error as Error
-    );
-  }
-};
-
 export const addFriend = async (friendId: string) => {
   try {
     const friend = await friendsService.create(friendId);
@@ -73,8 +49,10 @@ export const removeFriend = async (friend: IFriend) => {
     if (!id) {
       throw new Error("Friend id is missing");
     }
+
     await friendsService.remove(id, friendId);
     const friends = store.getState().friends.friends.filter((f) => f.id !== id);
+
     updateFriends(friends);
   } catch (error) {
     utilService.handleError(
@@ -100,7 +78,7 @@ export const handleIncomingFriendsUpdate = (data: IFriend | string) => {
       throw new Error("Friend not found in friends list");
     }
 
-    friends[idx] = data;
+    friends.splice(idx, 1, data);
 
     updateFriends(friends);
   } catch (error) {
