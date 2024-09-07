@@ -7,21 +7,11 @@ import { setImgForBackground } from "../store/actions/imgGradient.action";
 import { uploadImg } from "../services/imgUpload.service";
 import {
   addSongToPlaylist,
-  removePlaylist,
   removeSongFromPlaylist,
   saveUserPlaylist,
 } from "../store/actions/playlist.action";
-import { songService } from "../services/song.service";
 import { ISong, ISongYT } from "../models/song.model";
 import { utilService } from "../util/util.util";
-import { getFriendsState, getUserPlaylistsState } from "../store/getStore";
-import {
-  DeleteSVG,
-  PencilSVG,
-  PlusSVG,
-  ShareSVG,
-} from "../components/svg/SVGs";
-import { IModelItem } from "../models/app.model";
 
 export const usePlaylistEdit = (
   userId: string | null | undefined
@@ -29,7 +19,7 @@ export const usePlaylistEdit = (
   playlistToEdit: IPlaylistDetailed | null;
   isLoading: boolean;
   onUploadImg: (ev: ChangeEvent<HTMLInputElement>) => void;
-  onSavePlaylist: (HeroData: {
+  onUpdatePlaylist: (HeroData: {
     imgUrlData: File | null;
     name: string;
     description: string;
@@ -37,12 +27,7 @@ export const usePlaylistEdit = (
   }) => Promise<void>;
   onSaveYTSong: (songYT: ISongYT, playlistId: string) => Promise<void>;
   onRemoveSongFromPlaylist: (songId: string) => void;
-  onSharePlaylist: (playlistId: string, friendId?: string) => Promise<void>;
-  onRemovePlaylist: (playlistId: string) => Promise<void>;
-  onNavigateToEdit: (playlistId: string) => void;
-  getPlaylistItemActions: () => IModelItem[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getSongItemActions: (song: ISong) => any[];
+  addSongToPlaylistEdit: (song: ISong) => void;
 } => {
   const [playlistToEdit, setPlaylistToEdit] =
     useState<IPlaylistDetailed | null>(null);
@@ -52,6 +37,11 @@ export const usePlaylistEdit = (
 
   useEffectUpdate(() => {
     if (!id) {
+      utilService.handleError(
+        "Playlist not found",
+        "PLAYLIST_EDIT",
+        new Error("Playlist not found")
+      );
       navigate("/");
       return;
     }
@@ -61,13 +51,9 @@ export const usePlaylistEdit = (
   const loadPlaylist = async (id: string) => {
     try {
       const playlist = await playlistService.get(id);
-      // if (playlist.owner.id !== userId) {
-      //   navigate("/");
-      //   return;
-      // }
-      playlist.imgUrl = playlist.imgUrl || "/default-playlist.png";
+
       setPlaylistToEdit(playlist);
-      setImgForBackground(playlist.imgUrl);
+      setImgForBackground(playlist.imgUrl || "/default-playlist.png");
     } catch (error) {
       utilService.handleError(
         "Failed to load playlist",
@@ -79,39 +65,44 @@ export const usePlaylistEdit = (
     }
   };
 
-  const onUploadImg = (ev: ChangeEvent<HTMLInputElement>) => {
-    const file = ev?.target.files?.[0];
-    if (!file) return;
-    const imgUrl = URL.createObjectURL(file);
-    setImgForBackground(imgUrl);
-
-    setPlaylistToEdit((prev) => ({ ...prev!, imgUrl }));
+  const onUploadImg = async (ev: ChangeEvent<HTMLInputElement>) => {
+    const imgUrl = await _saveImage(ev.target.files?.[0]);
+    await _savePlaylist({ ...playlistToEdit!, imgUrl });
   };
 
-  const onSavePlaylist = async (HeroData: {
+  const onUpdatePlaylist = async (HeroData: {
     imgUrlData: File | null;
     name: string;
     description: string;
     isPublic: boolean;
   }) => {
     const { imgUrlData, name, description, isPublic } = HeroData;
-    const imgUrl = imgUrlData ? await uploadImg(imgUrlData) : "";
+    const imgUrl = imgUrlData?.name
+      ? await _saveImage(imgUrlData)
+      : playlistToEdit?.imgUrl || "";
     const updatedPlaylist = {
       ...playlistToEdit!,
-      imgUrl,
-      name,
-      description,
-      isPublic,
+      imgUrl: imgUrl || playlistToEdit?.imgUrl || "",
+      name: name || playlistToEdit?.name || "",
+      description: description || playlistToEdit?.description || "",
+      isPublic: isPublic || playlistToEdit?.isPublic || false,
     };
 
-    await saveUserPlaylist(updatedPlaylist);
+    await _savePlaylist(updatedPlaylist);
   };
 
   const onSaveYTSong = useCallback(
     async (songYT: ISongYT, playlistId: string) => {
       try {
-        const song = await songService.createSong(songYT);
-        await addSongToPlaylist(playlistId, song);
+        const song = await addSongToPlaylist(playlistId, songYT);
+        if (!song) {
+          utilService.handleError(
+            "Failed to save song, please try again later.",
+            "PLAYLIST_EDIT",
+            "Song return undefined" as unknown as Error
+          );
+          return;
+        }
         setPlaylistToEdit((prev) => {
           if (!prev) return prev;
           return { ...prev, songs: [...prev.songs, song] };
@@ -137,119 +128,59 @@ export const usePlaylistEdit = (
     });
   };
 
-  const onSharePlaylist = useCallback(
-    async (playlistId: string, friendId?: string) => {
-      try {
-        if (!friendId) throw new Error("Friend not found");
-        await playlistService.sharePlaylist(playlistId, friendId);
-        utilService.handleSuccess("Playlist shared", "PLAYLIST_SHARE");
-      } catch (error) {
-        utilService.handleError(
-          "playlist-share",
-          "PLAYLIST_SHARE",
-          error as Error
-        );
-      }
-    },
-    []
-  );
-
-  const onRemovePlaylist = useCallback(async (playlistId: string) => {
-    await removePlaylist(playlistId);
-    utilService.handleSuccess("Playlist removed", "PLAYLIST_DELETE");
-  }, []);
-
-  const onNavigateToEdit = useCallback((playlistId: string) => {
-    navigate(`/playlist/edit/${playlistId}`);
-    return;
-  }, [navigate]);
-
-  const getPlaylistItemActions = () => {
-    if (!playlistToEdit) {
-      utilService.handleError(
-        "Playlist not found",
-        "PLAYLIST_EDIT",
-        new Error("Playlist not found")
-      );
-      return [];
-    }
-    const friends = getFriendsState();
-
-    const shareItems = friends.map((friend) => ({
-      text: friend.friend.username,
-      imgUrl: friend.friend.imgUrl || "/default-user.png",
-      onClick: () => onSharePlaylist(playlistToEdit.id, friend.id),
-      modelSize: { width: 208, height: 30 * 3 + 24 },
-    }));
-
-    const items: IModelItem[] = [
-      {
-        btnSvg: <DeleteSVG />,
-        text: "Delete",
-        onClick: () => onRemovePlaylist(playlistToEdit.id),
-      },
-      {
-        btnSvg: <PencilSVG />,
-        text: "Edit",
-        onClick: () => onNavigateToEdit(playlistToEdit.id),
-      },
-      {
-        items: shareItems,
-        text: "Share",
-        btnSvg: <ShareSVG />,
-        modelSize: { width: 208, height: 30 * 3 + 24 },
-      },
-    ];
-
-    return items;
+  const addSongToPlaylistEdit = (song: ISong) => {
+    setPlaylistToEdit((prev) => {
+      if (!prev) return prev;
+      return { ...prev, songs: [...prev.songs, song] };
+    });
   };
 
-  const getSongItemActions = (song: ISong) => {
-    const friends = getFriendsState();
-    const playlists = getUserPlaylistsState();
+  const _savePlaylist = async (playlist: IPlaylistDetailed) => {
+    try {
+      const savedPlaylist = await saveUserPlaylist(playlist);
+      if (!savedPlaylist) {
+        utilService.handleError(
+          "Failed to create playlist, please try again later.",
+          "PLAYLIST_CREATE",
+          "Playlist return undefined" as unknown as Error
+        );
+        return;
+      }
+      setPlaylistToEdit(savedPlaylist);
+    } catch (error) {
+      utilService.handleError(
+        "Failed to save playlist",
+        "PLAYLIST_EDIT",
+        error as Error
+      );
+    }
+  };
 
-    const items = [
-      {
-        btnSvg: <DeleteSVG />,
-        text: "Remove",
-        onClick: () => onRemoveSongFromPlaylist(song.id),
-      },
-      {
-        btnSvg: <ShareSVG />,
-        text: "Share",
-        children: friends.map((friend) => ({
-          text: friend.friend.username,
-          imgUrl: friend.friend.imgUrl || "/default-playlist.png",
-          onClick: () => onSharePlaylist(friend.friend.id, song.id),
-          modelSize: { x: 208, y: 30 * 3 + 24 },
-        })),
-      },
-      {
-        text: "Add to playlist",
-        children: playlists.map((playlist) => ({
-          text: playlist.name,
-          imgUrl: playlist.imgUrl || "/default-playlist.png",
-          onClick: () => addSongToPlaylist(playlist.id, song),
-          modelSize: { x: 208, y: 30 * 3 + 24 },
-        })),
-        btnSvg: <PlusSVG />,
-      },
-    ];
-
-    return items;
+  const _saveImage = async (imgUrlData?: File | null): Promise<string> => {
+    try {
+      if (!imgUrlData) {
+        throw new Error("No image data or image data invalid");
+      }
+      const imgUrl = await uploadImg(imgUrlData);
+      setImgForBackground(imgUrl);
+      return imgUrl;
+    } catch (error) {
+      utilService.handleError(
+        "Failed to upload image",
+        "PLAYLIST_EDIT",
+        error as Error
+      );
+      return "";
+    }
   };
 
   return {
     playlistToEdit,
     isLoading,
     onUploadImg,
-    onSavePlaylist,
+    onUpdatePlaylist,
     onSaveYTSong,
     onRemoveSongFromPlaylist,
-    onSharePlaylist,
-    onRemovePlaylist,
-    onNavigateToEdit,
-    getPlaylistItemActions,
-    getSongItemActions,
+    addSongToPlaylistEdit,
   };
 };

@@ -1,7 +1,6 @@
 import { ChangeEvent } from "react";
 import PlaylistEditHeroImg from "./PlaylistEditHero/PlaylistEditHeroImg";
 import PlaylistEditHeroModel from "./PlaylistEditHero/PlaylistEditHeroModel";
-import BackgroundGradient from "../BackgroundGradient";
 
 interface Props {
   imgUrl: string;
@@ -30,7 +29,6 @@ export default function PlaylistEditHero({
 }: Props) {
   return (
     <header className="playlist-edit-hero">
-      <BackgroundGradient/>
       <PlaylistEditHeroImg imgUrl={imgUrl} onUploadImg={onUploadImg} name="" />
       <PlaylistEditHeroModel
         imgUrl={imgUrl}

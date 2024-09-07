@@ -30,17 +30,21 @@ const toggleSongLike = async (
   }
 };
 
-const createSong = async (song: ISongYT): Promise<ISong> => {
+const createSong = async (
+  playlistId: string,
+  song: ISongYT
+): Promise<ISong> => {
   try {
-    const savedSong = await httpService.post<ISong>(BASE_URL + "edit", song);
+    const savedSong = await httpService.post<ISong>(BASE_URL + "edit", {
+      song,
+      playlistId,
+    });
     return savedSong;
   } catch (error) {
     console.error(`Error while saving song: ${error}`);
     throw new Error(`Unable to save song`);
   }
 };
-
-
 
 export const songService = {
   query,

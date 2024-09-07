@@ -18,12 +18,16 @@ interface Props {
   container: RefObject<HTMLDivElement | HTMLUListElement>;
   modelSize: TModelSize;
   onRemoveSongFromPlaylist?: (songId: string) => void;
+  addSongToPlaylistEdit?: (song: ISong) => void;
+  playlistId?: string;
 }
 export default function SongMenu({
   song,
   container,
   modelSize,
   onRemoveSongFromPlaylist,
+  addSongToPlaylistEdit,
+  playlistId,
 }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
@@ -48,7 +52,12 @@ export default function SongMenu({
   const addItems = playlists.map((playlist) => ({
     text: playlist.name,
     imgUrl: playlist.imgUrl || "/default-playlist.png",
-    onClick: () => addSongToPlaylist(playlist.id, song),
+    onClick: async () => {
+      const newSong = await addSongToPlaylist(playlist.id, song!);
+      if (playlistId && addSongToPlaylistEdit && playlistId === playlist.id) {
+        addSongToPlaylistEdit(newSong!);
+      }
+    },
     modelSize: { width: 208, height: 144 },
   }));
   const items: IModelItem[] = [

@@ -72,7 +72,7 @@ const getSongsFromYT = async (search: string): Promise<ISongYT[]> => {
         imgUrl: ytItem.snippet.thumbnails.medium.url,
         addedBy: "artist",
         addedAt: new Date().toString(),
-        itemType: "YTsong",
+        itemType: "YT_SONG",
       };
     }
   );
@@ -121,7 +121,7 @@ const fetchSongsFromPlaylist = async (
         imgUrl: song.snippet.thumbnails.medium.url,
         addedBy: "artist",
         addedAt: new Date().toString(),
-        itemType: "YTplaylist",
+        itemType: "YT_SONG",
       };
     }
   );

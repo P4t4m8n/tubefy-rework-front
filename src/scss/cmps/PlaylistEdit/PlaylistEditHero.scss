@@ -1,14 +1,19 @@
 .playlist-edit-hero {
   @include flex-direction-align-gap-padding(row, flex-end, 2rem, 0 1rem);
+  container-type: inline-size;
+  container-name: playlist-edit-hero;
+  z-index: $z-index-base;
   .img-upload-con {
     position: relative;
     box-shadow: $black-1 0px 0px 2px 1px;
-    width: clamp(10rem, 100%, 15rem);
-    min-width: 6rem;
+    width: 15rem;
     aspect-ratio: 1/1;
+    display: block;
     border-radius: $border-radius-1-4;
+    transition: width 0.3s;
 
-    img {
+    img,
+    svg {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -51,14 +56,10 @@
   }
 
   .playlist-edit-hero-model-con {
-    height: clamp(10rem, 100%, 15rem);
-    width: clamp(20rem, 100%, 100vw);
-    min-width: 21rem;
-    container-type: inline-size;
-    container-name: playlist-edit-hero-model-con;
+    width: fit-content;
+    position: relative;
     .playlist-edit-hero-model-btn {
       @include flex-direction-gap-padding(column, 0, 0);
-      width: 100%;
       background-color: inherit;
       cursor: pointer;
 
@@ -66,6 +67,7 @@
         font-size: rem(96px);
         color: $white-1;
         line-height: 1.05;
+        transition: font-size 0.3s;
       }
 
       h4 {
@@ -82,14 +84,6 @@
           aspect-ratio: 1/1;
           object-fit: fill;
           border-radius: 100vw;
-        }
-        svg {
-          width: 2rem;
-          aspect-ratio: 1/1;
-          fill: $gray-1;
-          background-color: $black-6;
-          border-radius: 100vw;
-          padding: 0.1rem;
         }
         p {
           font-family: $font-size-16;
@@ -112,14 +106,16 @@
       }
     }
 
-    .edit-model {
-      @include center-position(absolute);
+    .playlist-edit-hero-model {
+      @include center-position(fixed);
+      top: 125%;
       @include model-boxShadow;
       background-color: $black-3;
       width: clamp(22rem, 100%, 34rem);
       border-radius: $border-radius-1-4;
       aspect-ratio: 1.9/1;
       padding: 2rem;
+      z-index: $z-index-model;
       .edit-model-header {
         @include flex-direction-align-justify-gap-padding(
           row,
@@ -222,6 +218,9 @@
             1rem,
             0
           );
+          img {
+            object-fit: contain;
+          }
           svg {
             width: 5rem;
             background-color: inherit;
@@ -303,21 +302,21 @@ body:has(.edit-model) {
   overflow: hidden;
 }
 
-@container playlist-edit-hero-model-con (max-width: 41rem) {
-  .playlist-edit-hero-model-con {
-    .playlist-edit-hero-model-btn {
-      h3 {
-        font-size: rem(72px) !important;
-      }
-    }
-  }
-}
-@container playlist-edit-hero-model-con (max-width: 31rem) {
-  .playlist-edit-hero-model-con {
-    .playlist-edit-hero-model-btn {
-      h3 {
-        font-size: rem(48px) !important;
-      }
-    }
-  }
-}
+// @container playlist-edit-hero-model-con (max-width: 41rem) {
+//   .playlist-edit-hero-model-con {
+//     .playlist-edit-hero-model-btn {
+//       h3 {
+//         font-size: rem(72px) !important;
+//       }
+//     }
+//   }
+// }
+// @container playlist-edit-hero-model-con (max-width: 31rem) {
+//   .playlist-edit-hero-model-con {
+//     .playlist-edit-hero-model-btn {
+//       h3 {
+//         font-size: rem(48px) !important;
+//       }
+//     }
+//   }
+// }

@@ -1,4 +1,4 @@
-import { MouseEvent, RefObject, useCallback, useRef } from "react";
+import { Fragment, MouseEvent, RefObject, useCallback, useRef } from "react";
 import { useModel } from "../../../hooks/useModel";
 import { useModelPosition } from "../../../hooks/useModelPosition";
 import GenericBtn from "../../GenericComponents/GenericBtn";
@@ -50,10 +50,14 @@ export default function PlaylistMenu({
     []
   );
 
-  const onRemovePlaylist = useCallback(async (playlistId: string) => {
-    await removePlaylist(playlistId);
-    utilService.handleSuccess("Playlist removed", "PLAYLIST_DELETE");
-  }, []);
+  const onRemovePlaylist = useCallback(
+    async (playlistId: string) => {
+      await removePlaylist(playlistId);
+      utilService.handleSuccess("Playlist removed", "PLAYLIST_DELETE");
+      navigate("/");
+    },
+    [navigate]
+  );
 
   const onNavigateToEdit = useCallback(
     (playlistId: string) => {
@@ -108,9 +112,9 @@ export default function PlaylistMenu({
           className={"playlists-model"}
         >
           {items.map((item, idx) => (
-            <>
+            <Fragment key={idx}>
               {!item?.items ? (
-                <li className={"playlists-model-item"} key={idx}>
+                <li className={"playlists-model-item"} key={idx + 500}>
                   <GenericBtn
                     btnSvg={item.btnSvg!}
                     text={item.text}
@@ -120,14 +124,15 @@ export default function PlaylistMenu({
                 </li>
               ) : (
                 <PlaylistMenuShare
-                  key={idx}
+                  key={idx + 100}
                   container={container}
                   modelClass={"playlists-model-item"}
                   items={item.items}
                   modelSize={modelSize}
+                  elKey={idx}
                 />
               )}
-            </>
+            </Fragment>
           ))}
         </ul>
       )}

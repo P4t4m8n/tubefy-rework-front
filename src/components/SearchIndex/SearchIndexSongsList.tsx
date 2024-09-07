@@ -1,7 +1,7 @@
 import { IPlaylistModelData } from "../../models/playlist.model";
 import { ISongYT } from "../../models/song.model";
 import PlayBtn from "../Buttons/PlayBtn";
-import SearchIndexSongPreview from "./SearchIndexSongPreview";
+import SearchSongsItem from "./SearchSongsItem";
 
 interface Props {
   songs: ISongYT[];
@@ -34,7 +34,7 @@ export default function SearchIndexSongsList({
         <h2>Songs</h2>
         <ul className="search-index-songs-list">
           {slicedSongs.map((song) => (
-            <SearchIndexSongPreview
+            <SearchSongsItem
               onSaveYTSong={onSaveYTSong}
               userPlaylistsForModel={userPlaylistsForModel}
               song={song}

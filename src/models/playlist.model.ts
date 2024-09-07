@@ -56,12 +56,15 @@ export interface IPlaylistModelData {
 
 //DTOs
 export interface IPlaylistDTO {
-  id?: string;
   name: string;
   ownerId: string;
-  isPublic?: boolean;
-  imgUrl: string;
+  isPublic: boolean;
   description: string;
+  types: TPlaylistType[];
+  genres: TGenres[];
+  createdAt: string;
+  id?: string;
+  imgUrl: string;
   duration: string;
 }
 

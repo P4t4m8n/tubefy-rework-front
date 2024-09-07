@@ -27,7 +27,7 @@ const get = async (id: string): Promise<IPlaylistDetailed> => {
   }
 };
 
-const save = async (playlist: IPlaylist): Promise<IPlaylistDetailed> => {
+const save = async (playlist: IPlaylist): Promise<IPlaylistDTO> => {
   const playlistDto = playlistToPlayListDTO(playlist);
   try {
     if (!playlist.id) {
@@ -154,12 +154,12 @@ const removeSharedPlaylist = async (
 };
 
 // Private functions
-const _create = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
-  return httpService.post<IPlaylistDetailed>(`${BASE_URL}edit`, playlist);
+const _create = (playlist: IPlaylistDTO): Promise<IPlaylistDTO> => {
+  return httpService.post<IPlaylistDTO>(`${BASE_URL}edit`, playlist);
 };
 
-const _update = (playlist: IPlaylistDTO): Promise<IPlaylistDetailed> => {
-  return httpService.put<IPlaylistDetailed>(
+const _update = (playlist: IPlaylistDTO): Promise<IPlaylistDTO> => {
+  return httpService.put<IPlaylistDTO>(
     `${BASE_URL}edit/${playlist.id}`,
     playlist
   );

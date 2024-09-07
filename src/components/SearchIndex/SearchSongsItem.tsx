@@ -1,20 +1,22 @@
+import { RefObject } from "react";
 import { IPlaylistModelData } from "../../models/playlist.model";
-import { ISongYT } from "../../models/song.model";
+import { ISong, ISongYT } from "../../models/song.model";
 import { LikeBtn } from "../Buttons/LikeBtn";
 import PlayBtn from "../Buttons/PlayBtn";
-import SearchIndexSongPreviewModel from "./SearchIndexSongPreviewModel";
+import SongMenu from "../Menus/SongMenu/SongMenu";
 
 interface Props {
   song: ISongYT;
-  onSaveYTSong: (song: ISongYT, playlistId: string) => void;
   userPlaylistsForModel?: IPlaylistModelData[];
+  container: RefObject<HTMLDivElement | HTMLUListElement>;
+  addSongToPlaylistEdit?: (song: ISong) => void;
   playlistId?: string;
 }
-export default function SearchIndexSongPreview({
+export default function SearchSongsItem({
   song,
-  userPlaylistsForModel,
-  onSaveYTSong,
-  playlistId
+  container,
+  playlistId,
+  addSongToPlaylistEdit,
 }: Props) {
   return (
     <li className="search-index-songs-list-item">
@@ -27,11 +29,13 @@ export default function SearchIndexSongPreview({
       <div className="playlist-songs-list-preview-actions">
         <LikeBtn item={song} />
         <p>{song.duration}</p>
-        <SearchIndexSongPreviewModel
+        <SongMenu
           song={song}
+          container={container}
+          isOwner={false}
+          modelSize={{ width: 208, height: 240 }}
           playlistId={playlistId}
-          onSaveYTSong={onSaveYTSong}
-          userPlaylistsForModel={userPlaylistsForModel}
+          addSongToPlaylistEdit={addSongToPlaylistEdit}
         />
       </div>
     </li>

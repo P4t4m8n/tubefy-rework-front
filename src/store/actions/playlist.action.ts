@@ -14,6 +14,7 @@ import { playlistService } from "../../services/playlist.service";
 import { songService } from "../../services/song.service";
 import { playlistsToPlaylistsGroup } from "../../util/playlist.util";
 import { utilService } from "../../util/util.util";
+import { getUserState } from "../getStore";
 import { store } from "../store";
 import { removeNotification } from "./notification.action";
 
@@ -56,24 +57,41 @@ export const loadUserPlaylists = (
 
 export const saveUserPlaylist = async (
   playlist: IPlaylist
-): Promise<string | undefined> => {
+): Promise<IPlaylistDetailed | undefined> => {
   try {
-    const savedPlaylist = await playlistService.save(playlist);
-    const userPlaylists = [...store.getState().playlists.userPlaylists];
+    const playlistToSave = await playlistService.save(playlist);
+    const userPlaylists = store.getState().playlists.userPlaylists;
 
     const idx = userPlaylists.findIndex(
-      (playlists) => playlists.id === savedPlaylist.id
+      (playlists) => playlists.id === playlistToSave.id
     );
 
+    let playlistSaved: IPlaylistDetailed;
+    let updatePlaylists: IPlaylistDetailed[];
+    const user = getUserState();
     if (idx >= 0) {
-      userPlaylists.toSpliced(idx, 1, savedPlaylist);
+      playlistSaved = {
+        ...userPlaylists[idx],
+        ...playlistToSave,
+        owner: user!,
+      };
+      updatePlaylists = userPlaylists.toSpliced(idx, 1, playlistSaved);
     } else {
-      userPlaylists.push(savedPlaylist);
+      playlistSaved = {
+        ...playlistToSave,
+        isLikedByUser: false,
+        owner: user!,
+        itemType: "PLAYLIST",
+        songs: [],
+        id: playlistToSave.id!,
+      };
+
+      updatePlaylists = [...userPlaylists, playlistSaved];
     }
 
-    storeSessionData("playlists", userPlaylists);
-    store.dispatch(setUserPlaylists(userPlaylists));
-    return savedPlaylist.id!;
+    storeSessionData("playlists", updatePlaylists);
+    store.dispatch(setUserPlaylists(updatePlaylists));
+    return playlistSaved;
   } catch (error) {
     utilService.handleError("playlist-save", "GENERAL_ERROR", error as Error);
   }
@@ -152,16 +170,15 @@ export const removePlaylist = async (playlistId: string): Promise<void> => {
 export const addSongToPlaylist = async (
   playlistId: string,
   songData: ISong | ISongYT
-) => {
+): Promise<ISong | undefined> => {
   try {
-    const song =
-      songData.itemType === "YT_SONG"
-        ? await songService.createSong(songData as ISongYT)
-        : (songData as ISong);
-
-    const isAdded = await playlistService.addSong(playlistId, song.id);
-    if (!isAdded) {
-      throw new Error(`Failed to add song to playlist: ${playlistId}`);
+    let song: ISong;
+    if (songData.itemType === "YT_SONG") {
+      console.log("songData.itemType:", songData.itemType)
+      song = await songService.createSong(playlistId, songData as ISongYT);
+    } else {
+      await playlistService.addSong(playlistId, (songData as ISong).id);
+      song = songData as ISong;
     }
 
     const state = store.getState();
@@ -183,6 +200,8 @@ export const addSongToPlaylist = async (
 
     store.dispatch(setUserPlaylists(updatedPlaylists));
     storeSessionData("playlists", updatedPlaylists);
+
+    return song;
   } catch (error) {
     utilService.handleError(
       "playlist-add-song",

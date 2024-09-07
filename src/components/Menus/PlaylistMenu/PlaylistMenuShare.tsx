@@ -11,7 +11,7 @@ interface Props {
   modelClass: string;
   container: RefObject<HTMLDivElement | HTMLUListElement>;
   modelSize: TModelSize;
-  key: number;
+  elKey: number;
 }
 
 export default function PlaylistMenuShare({
@@ -19,11 +19,11 @@ export default function PlaylistMenuShare({
   modelClass,
   container,
   items,
-  key,
+  elKey,
 }: Props) {
   const modelRef = useRef<HTMLLIElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
-  const { isExtendUp, handleMouseClick } = useModelPosition();
+  const { handleMouseClick } = useModelPosition();
 
   const onOpenModel = (ev?: MouseEvent) => {
     ev!.preventDefault();
@@ -37,11 +37,9 @@ export default function PlaylistMenuShare({
 
   return (
     <li
-      key={key}
+      key={elKey + 15}
       ref={modelRef}
-      className={`${modelClass}-share-con ${isModelOpen && "extend"} ${
-        isExtendUp && "extend-up"
-      }`}
+      className={`${modelClass}-share-con ${isModelOpen && "extend"} `}
     >
       <GenericModelBtn
         btnSvg={<ShareSVG />}

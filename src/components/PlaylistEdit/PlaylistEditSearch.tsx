@@ -1,17 +1,19 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, RefObject, useState } from "react";
 import { SearchSvg } from "../svg/SVGs";
-import { ISongYT } from "../../models/song.model";
+import { ISong, ISongYT } from "../../models/song.model";
 import { apiService } from "../../services/api.service";
 import { utilService } from "../../util/util.util";
-import SearchIndexSongPreview from "../SearchIndex/SearchIndexSongPreview";
+import SearchSongsItem from "../SearchIndex/SearchSongsItem";
 
 interface Props {
-  onSaveYTSong: (song: ISongYT, playlistId: string) => void;
+  addSongToPlaylistEdit: (song: ISong) => void;
   playlistId?: string;
+  container: RefObject<HTMLDivElement | HTMLUListElement>;
 }
 export default function PlaylistEditSearch({
-  onSaveYTSong,
   playlistId,
+  container,
+  addSongToPlaylistEdit,
 }: Props) {
   const [searchSongsList, setSearchSongsList] = useState<ISongYT[]>([]);
 
@@ -33,22 +35,23 @@ export default function PlaylistEditSearch({
   const debouncedSearch = utilService.debounce(searchSongs, 2000);
   return (
     <div className="search-edit-songs">
+      <h2 className="add_song_title">Add songs</h2>
       <form className="search-box">
         <SearchSvg />
         <input
           onChange={debouncedSearch}
           type="text"
-          id="searchTerm"
           name="searchTerm"
           placeholder="What do you want to listen to?"
         />
       </form>
-      <ul>
+      <ul className="search-song-list">
         {searchSongsList.map((song) => (
-          <SearchIndexSongPreview
+          <SearchSongsItem
             key={song.youtubeId}
             song={song}
-            onSaveYTSong={onSaveYTSong}
+            addSongToPlaylistEdit={addSongToPlaylistEdit}
+            container={container}
             playlistId={playlistId}
           />
         ))}
