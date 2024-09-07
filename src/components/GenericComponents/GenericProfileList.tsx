@@ -7,12 +7,9 @@ interface Props<T extends { id: string; imgUrl: string }> {
   items: T[];
   children?: React.ReactNode;
 }
-export default function GenericProfileList<T extends { id: string; imgUrl: string }>({
-  modelActions,
-  title,
-  items,
-  children,
-}: Props<T>) {
+export default function GenericProfileList<
+  T extends { id: string; imgUrl: string; text: string }
+>({ modelActions, title, items }: Props<T>) {
   return (
     <section className="profile-friend-list">
       {title && <h2>{title}</h2>}
@@ -22,9 +19,7 @@ export default function GenericProfileList<T extends { id: string; imgUrl: strin
             item={item}
             key={item.id}
             modelActions={modelActions}
-          >
-            {children}
-          </GenericProfileItem>
+          ></GenericProfileItem>
         ))}
       </ul>
     </section>

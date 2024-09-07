@@ -1,19 +1,24 @@
 import { MouseEvent, useCallback, useRef } from "react";
-import { useModel } from "../../../hooks/useModel";
-import { DeleteSVG, DotsSVG, PencilSVG } from "../../svg/SVGs";
+import { useModel } from "../src/hooks/useModel";
+import { DeleteSVG, DotsSVG, PencilSVG } from "../src/components/svg/SVGs";
 import { useNavigate } from "react-router-dom";
-import { removePlaylist } from "../../../store/actions/playlist.action";
+import { removePlaylist } from "../src/store/actions/playlist.action";
 import UserLibraryListItemModelShare from "./UserLibraryListItemModelShare";
-import { playlistService } from "../../../services/playlist.service";
-import { utilService } from "../../../util/util.util";
-import GenericModelBtn from "../../GenericComponents/GenericBtn";
-import { TNotificationType } from "../../../models/notification.model";
+import { playlistService } from "../src/services/playlist.service";
+import { utilService } from "../src/util/util.util";
+import GenericModelBtn from "../src/components/GenericComponents/GenericBtn";
+import { TNotificationType } from "../src/models/notification.model";
+import GenericBtn from "../src/components/GenericComponents/GenericBtn";
 
 interface Props {
   playlistId: string;
+  modelClass: string;
 }
 
-export default function UserLibraryListItemModel({ playlistId }: Props) {
+export default function UserLibraryListItemModel({
+  playlistId,
+  modelClass,
+}: Props) {
   const playlistModelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(playlistModelRef);
   const navigate = useNavigate();
@@ -65,28 +70,28 @@ export default function UserLibraryListItemModel({ playlistId }: Props) {
     {
       btnSvg: <DeleteSVG />,
       text: "Delete",
-      action: (ev: MouseEvent) => handleClick(ev, "delete"),
+      action: (ev?: MouseEvent) => handleClick(ev!, "delete"),
     },
     {
       btnSvg: <PencilSVG />,
       text: "Edit",
-      action: (ev: MouseEvent) => handleClick(ev, "edit"),
+      action: (ev?: MouseEvent) => handleClick(ev!, "edit"),
     },
   ];
 
   return (
-    <div ref={playlistModelRef} className="user-library-list-item-model-con">
+    <div ref={playlistModelRef} className={`${modelClass}-con"`}>
       <GenericModelBtn
-        className="user-library-list-item-model-btn"
+        className={`${modelClass}-btn`}
         btnSvg={<DotsSVG />}
         onModelBtnClick={() => setIsModelOpen((prev) => !prev)}
       />
 
       {isModelOpen && (
-        <ul className="user-library-list-item-model">
+        <ul className={modelClass}>
           {items.map((item, idx) => (
             <li key={idx}>
-              <GenericModelBtn
+              <GenericBtn
                 btnSvg={item.btnSvg}
                 text={item.text}
                 onModelBtnClick={item.action}

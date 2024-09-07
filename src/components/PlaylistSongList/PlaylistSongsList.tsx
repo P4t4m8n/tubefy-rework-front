@@ -1,41 +1,47 @@
-import { IPlaylistModelData } from "../../models/playlist.model";
+import { RefObject } from "react";
 import { ISong } from "../../models/song.model";
 import { ClockSVG } from "../svg/SVGs";
-import PlaylistSongsListPreview from "./PlaylistSongsListPreview";
+import PlaylistSongsListItem from "./PlaylistSongsListItem";
+import { utilService } from "../../util/util.util";
 
 interface Props {
   songs: ISong[];
-  playlistModelData: IPlaylistModelData[];
   isOwner: boolean;
-  onRemoveSongFromPlaylist: (songId: string) => void;
+  container: RefObject<HTMLDivElement | HTMLUListElement>;
+  onRemoveSongFromPlaylist?: (songId: string) => void;
+  isActive?: boolean;
+  isLoggedIn?: boolean;
 }
+
 export default function PlaylistSongsList({
   songs,
-  playlistModelData,
   isOwner,
+  container,
+  isActive,
+  isLoggedIn,
   onRemoveSongFromPlaylist,
 }: Props) {
+  const randomNumber = utilService.getRandomIntInclusive(1, 1000);
   return (
     <section className="playlist-songs-list">
-      <ul className="song-list song-list-header ">
-        <li className="list-header">
-          <p> #</p>
-          <p>Title</p>
-          <p>Artist</p>
-          <p>Date added</p>
-          <p>
-            <ClockSVG></ClockSVG>
-          </p>
-        </li>
-      </ul>
+      <div className={`song-list-header ${isActive && "stick"}`}>
+        <p>#</p>
+        <p>Title</p>
+        <p>Artist</p>
+        <p>Date added</p>
+        <p>
+          <ClockSVG></ClockSVG>
+        </p>
+      </div>
       <ul className="song-list ">
         {songs.map((song, idx) => (
-          <PlaylistSongsListPreview
-            key={song.id}
+          <PlaylistSongsListItem
+            key={idx + randomNumber}
             song={song}
+            isLoggedIn={isLoggedIn}
             idx={idx}
-            playlistModelData={playlistModelData}
             isOwner={isOwner}
+            container={container}
             onRemoveSongFromPlaylist={onRemoveSongFromPlaylist}
           />
         ))}

@@ -17,6 +17,6 @@ export const getDefaultSong = (): ISong => {
     addedAt: new Date(1705347571892).toString(),
     isLikedByUser: false,
     genres: ["punk"],
-    itemType: "song",
+    itemType: "SONG",
   };
 };

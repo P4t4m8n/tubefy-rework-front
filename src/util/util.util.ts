@@ -75,6 +75,27 @@ const handleSocketMsg = (notification: INotification) => {
   showUserMsg({ ...notification, status: "success" });
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const throttle = <T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): ((...args: Parameters<T>) => ReturnType<T>) => {
+  let inThrottle: boolean;
+  let lastResult: ReturnType<T>;
+
+  return function (
+      this: ThisParameterType<T>,
+      ...args: Parameters<T>
+    ): ReturnType<T> {
+      if (!inThrottle) {
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+        lastResult = func.apply(this, args);
+      }
+      return lastResult;
+    };
+};
+
 export const utilService = {
   debounce,
   getRandomIntInclusive,
@@ -83,4 +104,6 @@ export const utilService = {
   handleSuccess,
   handleError,
   handleSocketMsg,
+  throttle
+  
 };

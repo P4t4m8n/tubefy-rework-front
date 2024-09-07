@@ -3,7 +3,6 @@ import { useAppSelector } from "../../hooks/useStore";
 import { IPlaylistDetailed } from "../../models/playlist.model";
 import CreatePlaylist from "./CreatePlaylist/CreatePlaylist";
 import UserLibraryFilter from "./UserLibraryFilter/UserLibraryFilter";
-import Login from "../User/Login";
 import Loader from "../Loader";
 import UserLibraryList from "./UserLibraryList/UserLibraryList";
 
@@ -57,12 +56,12 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
     : userPlaylists;
 
   return (
-    <section className="user-library">
+    <section  className="user-library">
       <CreatePlaylist setIsFullSize={setIsFullSize} />
       {!user && (
         <div className="user-library-no-user">
           <h2>Log in to view your library</h2>
-          <Login />
+        
         </div>
       )}
       {user && (

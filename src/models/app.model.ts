@@ -4,18 +4,6 @@ import { IUserSmall } from "./user.model";
 import { IFriend } from "./friend.model";
 import { INotification } from "./notification.model";
 
-export interface IGenericModelItem {
-  btnSvg?: JSX.Element;
-  text?: string;
-  link?: string;
-  onClick?: (ev?: MouseEvent) => void;
-  items?: IGenericModelItem[];
-  modelBtn?: TGenericModelBtn;
-  children?: IGenericModelItem[];
-  coords?: IModelCoords;
-  imgUrl?: string;
-}
-
 export interface IModelCoords {
   x: number;
   y: number;
@@ -40,3 +28,26 @@ export type TItem = keyof typeof ItemType;
 export interface IItemType {
   itemType: TItem;
 }
+
+export interface IModelItem {
+  btnSvg?: JSX.Element;
+  text: string;
+
+  imgUrl?: string;
+  onClick?: () => void;
+  items?: IModelItem[];
+  modelSize?: { width: number; height: number };
+}
+
+export interface IGenericModelItem {
+  btnSvg?: JSX.Element;
+  btnText?: string;
+  link?: string;
+  onClick?: (ev?: MouseEvent) => void;
+  items?: IGenericModelItem[];
+  modelBtn?: TGenericModelBtn;
+  imgUrl?: string;
+  modelSize: { width: number; height: number };
+}
+
+export type TModelSize = { width: number; height: number };

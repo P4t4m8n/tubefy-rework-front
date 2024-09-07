@@ -55,4 +55,17 @@
       }
     }
   }
+
+  .generic-model-btn {
+    min-width: 1rem;
+    min-height: 1rem;
+    background-color: inherit;
+    fill: $gray-1;
+    transition: transform 0.25s;
+    &:hover {
+      fill: $white-1;
+      transform: scale(1.1);
+    }
+  }
 }
+

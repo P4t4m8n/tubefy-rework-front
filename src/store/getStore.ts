@@ -16,3 +16,7 @@ export const getCurrentPlaylist = () => {
 export const getFriendsState = () => {
   return store.getState().friends.friends;
 };
+
+export const getCurrentGradient = () => {
+  return store.getState().imgGradient.gradient;
+};

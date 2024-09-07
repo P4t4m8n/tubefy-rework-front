@@ -7,6 +7,7 @@ import {
 } from "../models/playlist.model";
 import { getUserPlaylistsState } from "../store/getStore";
 
+
 export const playlistsToPlaylistsGroup = (
   playlists: IPlaylist[]
 ): IPlaylistsGroup[] => {
@@ -63,7 +64,7 @@ export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
     isPublic: false,
     isLikedByUser: false,
     createdAt: "",
-    itemType: "playlist",
+    itemType: "PLAYLIST",
   };
 };
 export const transformUserPlaylistsStateForModel = (
@@ -107,3 +108,5 @@ export const isAllowedToEditPlaylist = (
 
   return userPlaylists.some((playlist) => playlist.id === playlistId);
 };
+
+

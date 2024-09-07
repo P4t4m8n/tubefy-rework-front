@@ -15,6 +15,7 @@
 @import "./views/SearchIndex.scss";
 @import "./views/PlaylistEdit.scss";
 @import "./views/ProfileIndex.scss";
+@import "./views/MainContent.scss";
 
 /* ***Components*** */
 
@@ -58,7 +59,7 @@
 @import "./cmps/PlaylistDetails/PlaylistDetailsHero.scss";
 @import "./cmps/PlaylistDetails/PlaylistDetailsActions.scss";
 @import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
-@import "./cmps/PlaylistDetails/PlaylistSongsListPreview.scss";
+@import "./cmps/PlaylistDetails/PlaylistSongsListItem.scss";
 
 //SearchIndex
 @import "./cmps/SearchIndex/SearchIndexGenreList.scss";
@@ -96,3 +97,6 @@
 @import "./cmps/Buttons/LikeBtn.scss";
 @import "./cmps/Buttons/PlayBtn.scss";
 @import "./cmps/Buttons/checkbox.scss";
+
+@import "./cmps/menus/PlaylistMenu.scss";
+@import "./cmps/menus/SongMenu.scss";

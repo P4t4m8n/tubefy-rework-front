@@ -12,7 +12,7 @@ import SearchIndexGenresList from "../components/SearchIndex/SearchIndexGenresLi
 import SearchIndexSongsList from "../components/SearchIndex/SearchIndexSongsList";
 import SearchIndexPlaylistList from "../components/SearchIndex/SearchIndexPlaylistList";
 import Loader from "../components/Loader";
-import { showUserMsg } from "../services/eventEmitter";
+import { utilService } from "../util/util.util";
 
 export default function SearchIndex() {
   const user = useAppSelector((state) => state.user.user);
@@ -37,11 +37,11 @@ export default function SearchIndex() {
         ]);
         setSearch((prev) => ({ ...prev, playlists, songs }));
       } catch (error) {
-        showUserMsg({
-          text: "Failed to load search results",
-          type: "GENERAL_ERROR",
-          status: "error",
-        });
+        utilService.handleError(
+          "Failed to load search results",
+          "GENERAL_ERROR",
+          error as Error
+        );
       }
     };
 
@@ -64,11 +64,11 @@ export default function SearchIndex() {
         const song = await songService.createSong(songYT);
         await addSongToPlaylist(playlistId, song);
       } catch (error) {
-        showUserMsg({
-          text: "Failed to save song",
-          type: "GENERAL_ERROR",
-          status: "error",
-        });
+        utilService.handleError(
+          "Failed to save song",
+          "GENERAL_ERROR",
+          error as Error
+        );
       }
     },
     [user]

@@ -8,9 +8,10 @@ import {
   SET_PLAYLISTS_BULK,
   SET_USER_PLAYLISTS,
 } from "../../models/playlist.model";
-import { ISong } from "../../models/song.model";
+import { ISong, ISongYT } from "../../models/song.model";
 import { storeSessionData } from "../../services/localSession.service";
 import { playlistService } from "../../services/playlist.service";
+import { songService } from "../../services/song.service";
 import { playlistsToPlaylistsGroup } from "../../util/playlist.util";
 import { utilService } from "../../util/util.util";
 import { store } from "../store";
@@ -148,8 +149,16 @@ export const removePlaylist = async (playlistId: string): Promise<void> => {
   }
 };
 
-export const addSongToPlaylist = async (playlistId: string, song: ISong) => {
+export const addSongToPlaylist = async (
+  playlistId: string,
+  songData: ISong | ISongYT
+) => {
   try {
+    const song =
+      songData.itemType === "YT_SONG"
+        ? await songService.createSong(songData as ISongYT)
+        : (songData as ISong);
+
     const isAdded = await playlistService.addSong(playlistId, song.id);
     if (!isAdded) {
       throw new Error(`Failed to add song to playlist: ${playlistId}`);
@@ -248,7 +257,7 @@ export const rejectSharedPlaylist = async (
   }
 };
 
-export const addSongFromSocket = (playlistId?: string, song?: ISong|null) => {
+export const addSongFromSocket = (playlistId?: string, song?: ISong | null) => {
   try {
     if (!playlistId || !song) throw new Error("Playlist id or song not found");
     const userPlaylists = store.getState().playlists.userPlaylists;

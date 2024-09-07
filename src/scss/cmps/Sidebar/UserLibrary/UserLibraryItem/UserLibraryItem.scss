@@ -55,6 +55,9 @@
       }
     }
   }
+  .playlists-model-con {
+    display: none;
+  }
 
   &:before {
     content: "";
@@ -85,11 +88,6 @@
     &::before {
       opacity: 1;
     }
-    .user-library-list-item-model-con {
-      .user-library-list-item-model-btn {
-        z-index: 10;
-      }
-    }
   }
   &.highlight {
     background-color: $black-3;
@@ -117,7 +115,7 @@
         }
       }
       .play-btn,
-      .user-library-list-item-model-con {
+      .playlists-model-con {
         display: flex;
       }
     }

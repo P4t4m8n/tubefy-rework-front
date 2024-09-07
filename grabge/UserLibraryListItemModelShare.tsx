@@ -1,8 +1,8 @@
 import { MouseEvent, useRef } from "react";
-import { store } from "../../../store/store";
-import { useModel } from "../../../hooks/useModel";
-import GenericModelBtn from "../../GenericComponents/GenericBtn";
-import { ShareSVG } from "../../svg/SVGs";
+import { store } from "../src/store/store";
+import { useModel } from "../src/hooks/useModel";
+import GenericModelBtn from "../src/components/GenericComponents/GenericBtn";
+import { ShareSVG } from "../src/components/svg/SVGs";
 
 export default function UserLibraryListItemModelShare({
   handleClick,

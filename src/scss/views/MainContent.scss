@@ -1,0 +1,15 @@
+.main-content {
+    margin: 0.5rem 0.5rem 0.5rem 0.25rem;
+    border-radius: $border-radius-1-2;
+    background-color: $black-2;
+    z-index: 0;
+    position: relative;
+    overflow: hidden;
+    container-type: inline-size;
+    @container (max-width: 31rem) {
+        .playlists-details{
+            gap: .5rem;
+        }
+    }
+
+  }

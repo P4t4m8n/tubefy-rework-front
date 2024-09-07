@@ -4,23 +4,22 @@ import { NoteSVG } from "../../svg/SVGs";
 import { getCurrentPlaylist } from "../../../store/getStore";
 import PlayBtn from "../../Buttons/PlayBtn";
 import UserLibraryListItem from "./UserLibraryListItem";
+import { useRef } from "react";
 
 interface Props {
   likedPlaylist: IPlaylistDetailed;
   playlists: IPlaylistDetailed[];
 }
-export default function UserLibraryList({
-  likedPlaylist,
-  playlists,
-}: Props) {
+export default function UserLibraryList({ likedPlaylist, playlists }: Props) {
   const currentPlaylistId = getCurrentPlaylist()?.id;
   const location = useLocation();
   const path = location.pathname;
   const segments = path.split("/");
   const playlistId = segments.pop() || null;
+  const container = useRef<HTMLUListElement>(null);
 
   return (
-    <ul className="user-playlist-list">
+    <ul ref={container} className="user-playlist-list">
       <li
         className={`user-playlist-item ${
           currentPlaylistId === likedPlaylist?.id ||
@@ -49,6 +48,7 @@ export default function UserLibraryList({
           isHighlighted={
             currentPlaylistId === playlist?.id || playlistId === playlist?.id
           }
+          container={container}
         />
       ))}
     </ul>

@@ -27,5 +27,5 @@
     "esModuleInterop": true,
     "types": ["react", "react-dom", "node"],
   },
-  "include": ["src"]
+  "include": ["src", "grabge/UserLibraryListItemModel.tsx", "grabge/UserLibraryListItemModelShare.tsx"]
 }

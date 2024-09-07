@@ -1,41 +1,66 @@
-import { useState, MouseEvent } from "react";
-import { IModelCoords } from "../models/app.model";
+import { useState, MouseEvent, RefObject } from "react";
+import { TModelSize } from "../models/app.model";
 
-export const useModelPosition = (
-  coords: IModelCoords
-): {
-  modelPosition: IModelCoords;
+export const useModelPosition = (): {
+  modelPosition: TModelSize;
   handleMouseEnter: (
     ev: MouseEvent,
-    coords: IModelCoords,
+    modelSize: TModelSize,
     elHeight: number
   ) => void;
   handleMouseClick: (
-    ev: MouseEvent,
-    coords: IModelCoords,
-    elHeight: number
+    model: RefObject<HTMLElement> | null,
+    modelSize: TModelSize,
+    parent: RefObject<HTMLElement> | null
   ) => void;
 } => {
-  const [modelPosition, setModelPosition] = useState<IModelCoords>(coords);
+  const [modelPosition, setModelPosition] = useState<TModelSize>({
+    width: 0,
+    height: 0,
+  });
 
   const handleMouseEnter = (
     ev: MouseEvent,
-    coords: IModelCoords,
+    modelSize: TModelSize,
     elHeight: number
   ) => {
     const position = ev.currentTarget.getBoundingClientRect();
     if (position.bottom + elHeight > window.innerHeight) {
-      setModelPosition(coords);
+      setModelPosition(modelSize);
     }
   };
 
   const handleMouseClick = (
-    ev: MouseEvent,
-    coords: IModelCoords,
-    elHeight: number
+    model: RefObject<HTMLElement> | null,
+    modelSize: TModelSize,
+    parent: RefObject<HTMLElement> | null
   ) => {
-    setModelPosition(coords);
+    const modelCon = model?.current?.getBoundingClientRect();
+    if (!modelCon) return;
+
+    const parentCon = parent?.current?.getBoundingClientRect();
+
+    if (modelCon.bottom + modelSize.height > parentCon!.bottom) {
+      setModelPosition({
+        width: -modelSize.width,
+        height: -modelSize.height,
+      });
+    } else if (modelCon?.right + modelSize.width > parentCon!.right) {
+      if (modelCon.left - modelSize.width < 0) {
+        setModelPosition({ width: 0, height: 48 });
+      } else
+        setModelPosition({
+          width: -(modelSize.width - modelCon.width),
+          height: 48,
+        });
+    } else {
+      setModelPosition({ width: 0, height: 48 });
+    }
   };
 
-  return { modelPosition, handleMouseEnter, handleMouseClick };
+  return {
+    modelPosition,
+    handleMouseEnter,
+    handleMouseClick,
+  };
 };

@@ -12,11 +12,16 @@ import {
   saveUserPlaylist,
 } from "../store/actions/playlist.action";
 import { songService } from "../services/song.service";
-import { ISongYT } from "../models/song.model";
+import { ISong, ISongYT } from "../models/song.model";
 import { utilService } from "../util/util.util";
-import { getFriendsState } from "../store/getStore";
-import { DeleteSVG, PencilSVG, ShareSVG } from "../components/svg/SVGs";
-import { IGenericModelItem } from "../models/app.model";
+import { getFriendsState, getUserPlaylistsState } from "../store/getStore";
+import {
+  DeleteSVG,
+  PencilSVG,
+  PlusSVG,
+  ShareSVG,
+} from "../components/svg/SVGs";
+import { IModelItem } from "../models/app.model";
 
 export const usePlaylistEdit = (
   userId: string | null | undefined
@@ -35,7 +40,9 @@ export const usePlaylistEdit = (
   onSharePlaylist: (playlistId: string, friendId?: string) => Promise<void>;
   onRemovePlaylist: (playlistId: string) => Promise<void>;
   onNavigateToEdit: (playlistId: string) => void;
-  getPlaylistItemActions: () => IGenericModelItem[];
+  getPlaylistItemActions: () => IModelItem[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getSongItemActions: (song: ISong) => any[];
 } => {
   const [playlistToEdit, setPlaylistToEdit] =
     useState<IPlaylistDetailed | null>(null);
@@ -147,14 +154,15 @@ export const usePlaylistEdit = (
     []
   );
 
-  const onRemovePlaylist = async (playlistId: string) => {
+  const onRemovePlaylist = useCallback(async (playlistId: string) => {
     await removePlaylist(playlistId);
     utilService.handleSuccess("Playlist removed", "PLAYLIST_DELETE");
-  };
+  }, []);
 
-  const onNavigateToEdit = (playlistId: string) => {
+  const onNavigateToEdit = useCallback((playlistId: string) => {
     navigate(`/playlist/edit/${playlistId}`);
-  };
+    return;
+  }, [navigate]);
 
   const getPlaylistItemActions = () => {
     if (!playlistToEdit) {
@@ -167,13 +175,14 @@ export const usePlaylistEdit = (
     }
     const friends = getFriendsState();
 
-    const children = friends.map((friend) => ({
+    const shareItems = friends.map((friend) => ({
       text: friend.friend.username,
       imgUrl: friend.friend.imgUrl || "/default-user.png",
       onClick: () => onSharePlaylist(playlistToEdit.id, friend.id),
+      modelSize: { width: 208, height: 30 * 3 + 24 },
     }));
 
-    const items = [
+    const items: IModelItem[] = [
       {
         btnSvg: <DeleteSVG />,
         text: "Delete",
@@ -185,10 +194,45 @@ export const usePlaylistEdit = (
         onClick: () => onNavigateToEdit(playlistToEdit.id),
       },
       {
-        children,
+        items: shareItems,
         text: "Share",
         btnSvg: <ShareSVG />,
-        coords: { x: 190, y: 0 },
+        modelSize: { width: 208, height: 30 * 3 + 24 },
+      },
+    ];
+
+    return items;
+  };
+
+  const getSongItemActions = (song: ISong) => {
+    const friends = getFriendsState();
+    const playlists = getUserPlaylistsState();
+
+    const items = [
+      {
+        btnSvg: <DeleteSVG />,
+        text: "Remove",
+        onClick: () => onRemoveSongFromPlaylist(song.id),
+      },
+      {
+        btnSvg: <ShareSVG />,
+        text: "Share",
+        children: friends.map((friend) => ({
+          text: friend.friend.username,
+          imgUrl: friend.friend.imgUrl || "/default-playlist.png",
+          onClick: () => onSharePlaylist(friend.friend.id, song.id),
+          modelSize: { x: 208, y: 30 * 3 + 24 },
+        })),
+      },
+      {
+        text: "Add to playlist",
+        children: playlists.map((playlist) => ({
+          text: playlist.name,
+          imgUrl: playlist.imgUrl || "/default-playlist.png",
+          onClick: () => addSongToPlaylist(playlist.id, song),
+          modelSize: { x: 208, y: 30 * 3 + 24 },
+        })),
+        btnSvg: <PlusSVG />,
       },
     ];
 
@@ -206,5 +250,6 @@ export const usePlaylistEdit = (
     onRemovePlaylist,
     onNavigateToEdit,
     getPlaylistItemActions,
+    getSongItemActions,
   };
 };

@@ -2,6 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import { getLoginInputs } from "../../util/user.util";
 import { useModel } from "../../hooks/useModel";
 import { login, signup } from "../../store/actions/user.action";
+import { LoginSVG } from "../svg/SVGs";
 
 export default function Login() {
   const loginModelRef = useRef<HTMLDivElement>(null);
@@ -34,6 +35,7 @@ export default function Login() {
         }}
       >
         <span>Log in</span>
+        <LoginSVG />
       </button>
       {isModelOpen && (
         <div

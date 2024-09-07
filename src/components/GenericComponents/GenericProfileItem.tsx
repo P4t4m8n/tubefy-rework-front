@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from "react";
+import { useRef } from "react";
 import { IModelAction } from "../../models/app.model";
 import { useModel } from "../../hooks/useModel";
 import GenericProfileModel from "./GenericProfileModel";
@@ -6,7 +6,6 @@ import GenericProfileModel from "./GenericProfileModel";
 interface Props<T extends { imgUrl: string; text: string }> {
   modelActions: IModelAction<T>[];
   item: T;
-  extraInfo?: ReactNode;
 }
 export default function GenericProfileItem<
   T extends { imgUrl: string; text: string }
