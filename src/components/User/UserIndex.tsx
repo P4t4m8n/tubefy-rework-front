@@ -1,10 +1,14 @@
 import { useAppSelector } from "../../hooks/useStore";
+import { NavigateFunction } from "react-router-dom";
 import Login from "./Login";
 import UserSocketsListener from "./UserSocketsListener";
 import UserMenu from "../Menus/UserMenu/UserMenu";
-import { NavigateFunction } from "react-router-dom";
 
-export default function User({ navigate }: { navigate: NavigateFunction }) {
+export default function UserIndex({
+  navigate,
+}: {
+  navigate: NavigateFunction;
+}) {
   const user = useAppSelector((state) => state.user.user);
 
   return (

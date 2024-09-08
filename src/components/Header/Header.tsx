@@ -1,6 +1,6 @@
 import { Location, useLocation, useNavigate } from "react-router-dom";
 import { Search } from "../Search";
-import User from "../User/User";
+import UserIndex from "../User/UserIndex";
 import { ForwardSVG } from "../svg/SVGs";
 import { MouseEvent } from "react";
 
@@ -20,7 +20,7 @@ export default function Header() {
       </button>
       {isSearchShown && <Search />}
 
-      <User navigate={navigate} />
+      <UserIndex navigate={navigate} />
     </header>
   );
 }

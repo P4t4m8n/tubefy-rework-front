@@ -28,11 +28,11 @@ export const httpService: HttpService = {
   },
 };
 
-async function ajax<T>(
+const ajax = async <T>(
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   data: unknown = null
-): Promise<T> {
+): Promise<T> => {
   try {
     const config: AxiosRequestConfig = {
       url: `${BASE_URL}${endpoint}`,
@@ -61,4 +61,4 @@ async function ajax<T>(
 
     throw err;
   }
-}
+};
