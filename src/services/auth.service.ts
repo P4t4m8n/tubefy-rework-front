@@ -1,3 +1,4 @@
+import { TSessionDataKeys } from "../models/app.model";
 import { IFullUserDTO, IUserDTO } from "../models/user.model";
 import { httpService } from "./http.service";
 import { storeSessionData } from "./localSession.service";
@@ -11,8 +12,10 @@ const login = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
   );
 };
 
-const logout = async (): Promise<boolean> => {
-  return await httpService.post<boolean>(BASE_URL + "logout");
+const logout = async (): Promise<void> => {
+  await httpService.post<boolean>(BASE_URL + "logout");
+  removeSessionData();
+  return;
 };
 
 const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
@@ -20,18 +23,14 @@ const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
     BASE_URL + "signup",
     userCreateDTO
   );
-  removeSessionData();
   return fullUser;
 };
 
 const removeSessionData = (): void => {
   try {
-    storeSessionData("user");
-    storeSessionData("playlists");
-    storeSessionData("likedPlaylist");
-    storeSessionData("friends");
-    storeSessionData("friendRequests");
-    storeSessionData("notifications");
+    Object.keys(sessionStorage).forEach((key) => {
+      storeSessionData(key as TSessionDataKeys);
+    });
   } catch (error) {
     throw new Error(`Failed to remove session data: ${error}`);
   }

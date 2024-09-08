@@ -1,6 +1,8 @@
+import { TInputUserFormKeys } from "../models/app.model";
+
 export const searchGenres = [
   "Latino",
-  
+
   "Party",
   "K-pop",
   "Soul",
@@ -26,8 +28,9 @@ export const searchGenres = [
 export const loginInputs: {
   type: "text" | "password" | "email";
   placeHolder: string;
-  name: string;
+  name: TInputUserFormKeys;
   label: string;
+  error?: string;
 }[] = [
   {
     type: "text",
@@ -36,7 +39,7 @@ export const loginInputs: {
     label: "Username",
   },
   {
-    type: "email",
+    type: "text",
     placeHolder: "Email",
     name: "email",
     label: "Email",

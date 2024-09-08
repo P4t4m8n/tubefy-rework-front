@@ -9,17 +9,10 @@ import { authService } from "../../services/auth.service";
 import { store } from "../store";
 import { loadUserPlaylists } from "./playlist.action";
 import { loadFriendsBulk } from "./friend.action";
-import { showUserMsg } from "../../services/eventEmitter";
 import { loadNotifications } from "./notification.action";
 import { utilService } from "../../util/util.util";
 import { storeSessionData } from "../../services/localSession.service";
 
-const setUser = (user: IUser | null): IUserAction => ({
-  type: "SET_USER",
-  payload: user,
-});
-
-//TODO add validation
 export const login = async (userLogin: IUserDTO): Promise<void> => {
   try {
     const fullUser = await authService.login(userLogin);
@@ -34,15 +27,14 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
 
     return;
   } catch (error) {
-    console.error(`Error while logging in: ${error}`);
-    utilService.handleError("Failed to login", "GENERAL_ERROR", error as Error);
-    return;
+    _handleAuthError(error);
   }
 };
 
-//TODO add validation
 export const signup = async (userToCreate: IUserDTO): Promise<void> => {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const fullUser = await authService.signup(userToCreate);
     _handleUser(fullUser);
 
@@ -53,15 +45,7 @@ export const signup = async (userToCreate: IUserDTO): Promise<void> => {
     );
     return;
   } catch (error) {
-    console.error(`Error while signing up: ${error}`);
-    showUserMsg({
-      text: "Failed to sign up",
-      type: "GENERAL_ERROR",
-      status: "error",
-      imgUrl: "/error-img.png",
-    });
-
-    return;
+    _handleAuthError(error);
   }
 };
 
@@ -69,13 +53,12 @@ export const logout = async (): Promise<void> => {
   try {
     await authService.logout();
     socketService.disconnect();
-    store.dispatch(setUser(null));
+    store.dispatch(_setUser(null));
 
-    utilService.handleSuccess("Logged out", "GOODBYE", "/goodbye-img.jpg");
+    utilService.handleSuccess("Goodbye!", "GOODBYE", "/goodbye-img.jpg");
 
     return;
   } catch (error) {
-    console.error(`Error while logging out: ${error}`);
     utilService.handleError(
       "Failed to logout",
       "GENERAL_ERROR",
@@ -87,22 +70,8 @@ export const logout = async (): Promise<void> => {
 
 const _handleUser = (fullUser: IFullUserDTO): void => {
   try {
-    const {
-      playlists,
-      friends,
-      friendsRequest,
-      likedSongsPlaylist,
-      user,
-      notifications,
-    } = fullUser;
-
-    loadUserPlaylists(playlists, likedSongsPlaylist);
-    loadFriendsBulk(friends, friendsRequest);
-    loadNotifications(notifications);
-    storeSessionData("user", user);
-
-    socketService.connect();
-    store.dispatch(setUser(user));
+    _handleUserData(fullUser);
+    _handleUserSession(fullUser.user);
   } catch (error) {
     utilService.handleError(
       "Failed to handle user",
@@ -110,4 +79,30 @@ const _handleUser = (fullUser: IFullUserDTO): void => {
       error as Error
     );
   }
+};
+
+const _handleUserData = (fullUser: IFullUserDTO): void => {
+  loadUserPlaylists(fullUser.playlists, fullUser.likedSongsPlaylist);
+  loadFriendsBulk(fullUser.friends, fullUser.friendsRequest);
+  loadNotifications(fullUser.notifications);
+};
+
+const _handleUserSession = (user: IUser): void => {
+  storeSessionData("user", user);
+  socketService.connect();
+  store.dispatch(_setUser(user));
+};
+
+const _setUser = (user: IUser | null): IUserAction => ({
+  type: "SET_USER",
+  payload: user,
+});
+
+const _handleAuthError = (error: unknown) => {
+  if (error instanceof Error) {
+    if (error.cause === 409) {
+      throw new Error(error.message, { cause: 409 });
+    }
+  }
+  utilService.handleError("Failed to signup", "GENERAL_ERROR", error as Error);
 };

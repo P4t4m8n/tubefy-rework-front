@@ -1,18 +1,12 @@
 import LZString from "lz-string";
 import CryptoJS from "crypto-js";
 import { utilService } from "../util/util.util";
+import { TSessionDataKeys } from "../models/app.model";
 
 const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
 
 export const storeSessionData = <T>(
-  key:
-    | "user"
-    | "playlists"
-    | "likedPlaylist"
-    | "friends"
-    | "friendRequests"
-    | "chats"
-    | "notifications",
+  key: TSessionDataKeys,
   item?: T | T[]
 ): void => {
   // Remove the item from the session storage and return

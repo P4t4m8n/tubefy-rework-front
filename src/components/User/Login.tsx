@@ -1,30 +1,73 @@
 import { FormEvent, useRef, useState } from "react";
-import { getLoginInputs } from "../../util/user.util";
+import { formDataToUserDTO, getLoginInputs } from "../../util/user.util";
 import { useModel } from "../../hooks/useModel";
 import { login, signup } from "../../store/actions/user.action";
 import { LoginSVG } from "../svg/SVGs";
+import { validateLogin, validateSignup } from "../../validations/auth";
+import { TInputUserFormKeys } from "../../models/app.model";
+import Loader from "../Loader";
 
 export default function Login() {
   const loginModelRef = useRef<HTMLDivElement>(null);
-  const [isModelOpen, setIsModelOpen] = useModel(loginModelRef);
+  const [animation, setAnimation] = useState<"" | "fade-in" | "fade-out">("");
+  const [isModelOpen, setIsModelOpen] = useModel(
+    loginModelRef,
+    handleModelClose
+  );
   const [isLogin, setIsLogin] = useState(true);
+  const [errors, setErrors] = useState<Map<TInputUserFormKeys, string>>(
+    new Map<TInputUserFormKeys, string>()
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const inputs = getLoginInputs(isLogin, errors);
 
-  const onSubmit = (ev: FormEvent<HTMLFormElement>) => {
-    ev.preventDefault();
+  const onSubmit = async (ev: FormEvent<HTMLFormElement>) => {
+    try {
+      ev.preventDefault();
 
-    const form = ev.target as HTMLFormElement;
-    const formData = new FormData(form);
+      const form = ev.target as HTMLFormElement;
+      const userDto = formDataToUserDTO(form);
 
-    const email = formData.get("email") as string;
-    const username = formData.get("username") as string;
-    const password = formData.get("password") as string;
+      const errors = isLogin ? validateLogin(userDto) : validateSignup(userDto);
+      setErrors(errors);
+      if (errors.size) {
+        return;
+      }
 
-    isLogin
-      ? login({ email, password })
-      : signup({ email, password, username });
+      setIsLoading(true);
+
+      isLogin ? await login(userDto) : await signup(userDto);
+      handleModelClose();
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.cause === 409) {
+          const field = error.message.split(" ")[0].toLowerCase();
+          setErrors(
+            new Map<TInputUserFormKeys, string>([
+              [field as TInputUserFormKeys, error.message],
+            ])
+          );
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const inputs = getLoginInputs(isLogin);
+  function handleModelClose() {
+    setAnimation("fade-out");
+    setTimeout(() => {
+      setIsModelOpen(false);
+    }, 210);
+  }
+
+  const modelClass = `login-model ${animation}`;
+
+  const isLoginText = !isLogin ? "Sign up to start listing" : "Login to Tubefy";
+
+  const changeIsLoginBtn = !isLogin
+    ? "Already a member? Login"
+    : "Don't have an account? Sign Up";
 
   return (
     <div ref={loginModelRef} className="login-model-con">
@@ -32,19 +75,30 @@ export default function Login() {
         className="login-model-btn"
         onClick={() => {
           setIsModelOpen(true);
+          setAnimation("fade-in");
         }}
       >
         <span>Log in</span>
         <LoginSVG />
       </button>
+
       {isModelOpen && (
-        <div className="login-model">
-          <h2>{!isLogin ? "Sign up to start listing" : "Login to Tubefy"}</h2>
+        <div className={modelClass}>
+          <h2>{isLoginText}</h2>
           <form onSubmit={onSubmit}>
-            {inputs.map((input, idx) => (
-              <li key={idx}>
-                <label htmlFor={input.name}>{input.label}</label>
+            {inputs.map((input) => (
+              <li key={input.name}>
+                <label htmlFor={input.name}>
+                  <span>{input.label}</span>
+                  {input.error && (
+                    <>
+                      <span className="error"> {"> "}</span>
+                      <span className="error">{input.error}</span>
+                    </>
+                  )}
+                </label>
                 <input
+                  className={input.error ? "error" : ""}
                   type={input.type}
                   placeholder={input.placeHolder}
                   name={input.name}
@@ -53,19 +107,22 @@ export default function Login() {
             ))}
             <div className="actions">
               <button
+                disabled={isLoading}
+                type="button"
                 onClick={(ev) => {
                   ev.preventDefault();
                   setIsLogin(!isLogin);
                 }}
               >
-                <span>
-                  {!isLogin
-                    ? "Already a member? Login"
-                    : "Don't have an account? Sign Up"}
-                </span>
+                <span>{changeIsLoginBtn}</span>
               </button>
-              <button type="submit">
-                <span>{!isLogin ? " Sign up" : "Sign in"}</span>
+
+              <button disabled={isLoading} type="submit">
+                {!isLoading ? (
+                  <span>{!isLogin ? " Sign up" : "Sign in"}</span>
+                ) : (
+                  <Loader />
+                )}
               </button>
             </div>
           </form>

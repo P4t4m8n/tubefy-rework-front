@@ -8,6 +8,7 @@ export interface IModelCoords {
   x: number;
   y: number;
 }
+export type TInputUserFormKeys = "email" | "username" | "password";
 
 export interface IModelAction<ModelItem> {
   action?: (item: ModelItem, ev?: MouseEvent) => void | Promise<void>;
@@ -38,7 +39,6 @@ export interface IModelItem {
   items?: IModelItem[];
   modelSize?: { width: number; height: number };
 }
-
 export interface IGenericModelItem {
   btnSvg?: JSX.Element;
   btnText?: string;
@@ -51,3 +51,12 @@ export interface IGenericModelItem {
 }
 
 export type TModelSize = { width: number; height: number };
+
+export type TSessionDataKeys =
+  | "user"
+  | "playlists"
+  | "likedPlaylist"
+  | "friends"
+  | "friendRequests"
+  | "chats"
+  | "notifications";

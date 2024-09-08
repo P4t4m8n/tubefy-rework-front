@@ -1,12 +1,4 @@
-body:has(.login-model) {
-  .login-model,
-  .login-model * {
-    pointer-events: all;
-  }
-  :not(.login-model, .login-model *) {
-    pointer-events: none;
-  }
-}
+
 body:has(.edit-model) {
   .edit-model,
   .edit-model * {

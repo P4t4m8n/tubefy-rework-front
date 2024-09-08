@@ -51,6 +51,14 @@ async function ajax<T>(
       sessionStorage.clear();
     }
 
+    if (
+      Axios.isAxiosError(err) &&
+      err.response?.status === 409 &&
+      err.response?.data?.message
+    ) {
+      throw new Error(err.response.data.message, { cause: 409 });
+    }
+
     throw err;
   }
 }

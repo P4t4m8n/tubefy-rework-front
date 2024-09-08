@@ -1,3 +1,5 @@
+import { TInputUserFormKeys } from "../models/app.model";
+import { IUserDTO } from "../models/user.model";
 import { loginInputs } from "./constants.util";
 
 export type TGreetings =
@@ -45,6 +47,25 @@ export const getGreeting = (): TGreetings => {
   }
 };
 
-export const getLoginInputs = (isLogin: boolean) => {
-  return isLogin ? loginInputs.slice(1) : loginInputs;
+export const getLoginInputs = (
+  isLogin: boolean,
+  errors: Map<TInputUserFormKeys, string>
+) => {
+  const inputs = isLogin ? loginInputs.slice(1) : loginInputs;
+  return inputs.map((input) => {
+    return { ...input, error: errors.get(input.name) };
+  });
+};
+
+export const formDataToUserDTO = (form: HTMLFormElement): IUserDTO => {
+  const formData = new FormData(form);
+
+  const email = formData.get("email") as string;
+  const username = formData.get("username") as string;
+  const password = formData.get("password") as string;
+
+  const returnedData: IUserDTO = { email, password };
+  if (username) returnedData.username = username;
+
+  return returnedData;
 };

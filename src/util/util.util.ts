@@ -64,7 +64,7 @@ const handleSuccess = (
   imgUrl?: string
 ) => {
   showUserMsg({
-    text: `${action} successful`,
+    text: `${action}`,
     type,
     status: "success",
     imgUrl: imgUrl || "/success-img.png",
@@ -84,16 +84,16 @@ const throttle = <T extends (...args: any[]) => any>(
   let lastResult: ReturnType<T>;
 
   return function (
-      this: ThisParameterType<T>,
-      ...args: Parameters<T>
-    ): ReturnType<T> {
-      if (!inThrottle) {
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-        lastResult = func.apply(this, args);
-      }
-      return lastResult;
-    };
+    this: ThisParameterType<T>,
+    ...args: Parameters<T>
+  ): ReturnType<T> {
+    if (!inThrottle) {
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+      lastResult = func.apply(this, args);
+    }
+    return lastResult;
+  };
 };
 
 export const utilService = {
@@ -104,6 +104,5 @@ export const utilService = {
   handleSuccess,
   handleError,
   handleSocketMsg,
-  throttle
-  
+  throttle,
 };

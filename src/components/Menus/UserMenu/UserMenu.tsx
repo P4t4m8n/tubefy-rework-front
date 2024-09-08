@@ -28,9 +28,9 @@ export default function UserMenu({ imgUrl, username, navigate }: Props) {
     {
       btnSvg: <LogoutSVG />,
       text: "Logout",
-      onClick: (ev?: MouseEvent) => {
+      onClick:async (ev?: MouseEvent) => {
         ev?.preventDefault();
-        logout();
+        await logout();
         setIsModelOpen(false);
       },
     },

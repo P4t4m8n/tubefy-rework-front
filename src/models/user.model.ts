@@ -1,5 +1,5 @@
-import { INotification } from "./app.model";
 import { IFriend } from "./friend.model";
+import { INotification } from "./notification.model";
 import { IPlaylistDetailed } from "./playlist.model";
 
 export interface IUserSmall {

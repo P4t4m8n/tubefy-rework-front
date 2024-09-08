@@ -174,7 +174,6 @@ export const addSongToPlaylist = async (
   try {
     let song: ISong;
     if (songData.itemType === "YT_SONG") {
-      console.log("songData.itemType:", songData.itemType)
       song = await songService.createSong(playlistId, songData as ISongYT);
     } else {
       await playlistService.addSong(playlistId, (songData as ISong).id);

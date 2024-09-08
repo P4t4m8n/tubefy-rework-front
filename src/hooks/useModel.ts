@@ -19,12 +19,24 @@ export const useModel = (
       if (!open) return;
       if (ref.current?.contains(ev.target as Node)) return;
 
+      if (callBack) {
+        callBack();
+        return;
+      }
       setOpen(false);
-      if (callBack) callBack();
     };
+
+    const checkKeyPress = (ev: KeyboardEvent) => {
+      if (ev.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
     document.addEventListener("click", checkClickOutside);
+    document.addEventListener("keydown", checkKeyPress);
     return () => {
       document.removeEventListener("click", checkClickOutside);
+      document.removeEventListener("keydown", checkKeyPress);
     };
   }, [open, ref, callBack]);
 
