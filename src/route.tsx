@@ -1,9 +1,16 @@
 import { ReactNode } from "react";
-import PlaylistIndex from "./pages/PlaylistIndex";
-import PlaylistDetails from "./pages/PlaylistDetails";
-import SearchIndex from "./pages/SearchIndex";
+
 import { AuthProtectedRoute } from "./guards/AuthProtectedRoute";
+
+import PlaylistIndex from "./pages/PlaylistIndex";
+
+
+import SearchIndex from "./pages/SearchIndex";
+
 import PlaylistEdit from "./pages/PlaylistEdit";
+
+import PlaylistDetails from "./pages/PlaylistDetails";
+
 import ProfileIndex from "./pages/ProfileIndex";
 import ProfileFriendIndex from "./components/ProfileIndex/ProfileFriends/ProfileFriendIndex";
 import ProfileDetails from "./components/ProfileIndex/ProfileEdit/ProfileDetails";

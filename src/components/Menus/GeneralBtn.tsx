@@ -1,4 +1,4 @@
-import { TGenericModelBtn } from "../../models/genericModel.model";
+import { TGeneralBtn } from "../../models/generalBtn.model";
 
 export default function GeneralBtn({
   btnSvg,
@@ -6,7 +6,7 @@ export default function GeneralBtn({
   text,
   className,
   onModelBtnClick,
-}: TGenericModelBtn) {
+}: TGeneralBtn) {
   return (
     <button
       className={"general-model-btn " + className}

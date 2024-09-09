@@ -2,26 +2,26 @@ import { IPlaylistSmall } from "./playlist.model";
 import { ISong } from "./song.model";
 import { IUserSmall } from "./user.model";
 
-export interface ISharePlaylistNotification {
-  playlist: {
-    name: string;
-    imgUrl: string;
-    playlistId: string;
-  };
-  user: {
-    username: string;
-    imgUrl: string | null | undefined;
-  };
-}
+// export interface ISharePlaylistNotification {
+//   playlist: {
+//     name: string;
+//     imgUrl: string;
+//     playlistId: string;
+//   };
+//   user: {
+//     username: string;
+//     imgUrl: string | null | undefined;
+//   };
+// }
 
-export interface INotificationDTO {
-  userId: string;
-  fromUserId: string;
-  type: NotificationType;
-  text: string;
-  playlistId?: string;
-  songId?: string;
-}
+// export interface INotificationDTO {
+//   userId: string;
+//   fromUserId: string;
+//   type: NotificationType;
+//   text: string;
+//   playlistId?: string;
+//   songId?: string;
+// }
 
 export interface INotification {
   id?: string;
@@ -65,10 +65,12 @@ enum NotificationType {
   PLAYLIST_CREATE,
   PLAYLIST_REMOVE_SONG,
 }
-export type TNotificationStatus = "success" | "error";
+
+type TNotificationStatus = "success" | "error";
 
 export type TNotificationType = keyof typeof NotificationType;
 
+//Redux
 export interface INotificationState {
   notifications: INotification[] | null;
 }

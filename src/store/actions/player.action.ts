@@ -1,11 +1,8 @@
 import { ISong, ISongYT } from "../../models/song.model";
 import {
-  SET_PLAYING_SONG,
-  SET_IS_PLAYING,
   ISetPlayingSongAction,
   ISetIsPlayingAction,
   ISetCurrentPlaylistAction,
-  SET_CURRENT_PLAYLIST,
 } from "../../models/player.model";
 import { store } from "../store";
 import { IPlaylist } from "../../models/playlist.model";
@@ -46,18 +43,18 @@ export const loadCurrentPlaylist = (playlist: IPlaylist) => {
 };
 
 const setPlayingSong = (song: ISong | ISongYT): ISetPlayingSongAction => ({
-  type: SET_PLAYING_SONG,
+  type: "SET_PLAYING_SONG",
   payload: song,
 });
 
 const setCurrentPlaylist = (
   playlist: IPlaylist
 ): ISetCurrentPlaylistAction => ({
-  type: SET_CURRENT_PLAYLIST,
+  type: "SET_CURRENT_PLAYLIST",
   payload: playlist,
 });
 
 const toggleIsPlaying = (isPlaying: boolean): ISetIsPlayingAction => ({
-  type: SET_IS_PLAYING,
+  type: "SET_IS_PLAYING",
   payload: isPlaying,
 });

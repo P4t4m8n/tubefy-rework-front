@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import routes, { RouteConfig } from "./route";
+
 import Player from "./components/Footer/Player";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import routes, { RouteConfig } from "./route";
 import UserMsg from "./components/User/UserMsg";
-import "./scss/main.scss";
 import BackgroundGradient from "./components/BackgroundGradient";
+
+import "./scss/main.scss";
 
 export function App() {
   const renderRoutes = (routes: RouteConfig[]) => {
@@ -24,7 +26,7 @@ export function App() {
           <section className="main-content">
             <Header />
             <Routes>{renderRoutes(routes)}</Routes>
-            <BackgroundGradient/>
+            <BackgroundGradient />
             <UserMsg />
           </section>
         </Router>

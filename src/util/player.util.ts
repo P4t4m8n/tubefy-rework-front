@@ -1,4 +1,4 @@
-import {  IPlaylist } from "../models/playlist.model";
+import { IPlaylist } from "../models/playlist.model";
 import { ISong, ISongYT } from "../models/song.model";
 
 export const formatTime = (timeInSeconds: number): string => {
@@ -8,7 +8,7 @@ export const formatTime = (timeInSeconds: number): string => {
 };
 
 export const isSong = (
-  item: ISong | IPlaylist | ISongYT 
+  item: ISong | IPlaylist | ISongYT
 ): item is ISong | ISongYT => {
-  return item.itemType === "song" || item.itemType === "YTsong";
+  return item.itemType === "SONG" || item.itemType === "YT_SONG";
 };

@@ -29,7 +29,6 @@ function PlayBtn({ item }: Props) {
     }
     onSongPlay(item as ISong | ISongYT);
   };
-
   const showSongPlay =
     isSong(item) && playingSong?.youtubeId === item.youtubeId;
   const showPlaylistPlay = "id" in item && item.id === currentPlaylist?.id;

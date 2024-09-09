@@ -1,13 +1,5 @@
 import { MouseEvent } from "react";
-import { TGenericModelBtn } from "./genericModel.model";
-import { IUserSmall } from "./user.model";
-import { IFriend } from "./friend.model";
-import { INotification } from "./notification.model";
 
-export interface IModelCoords {
-  x: number;
-  y: number;
-}
 export type TInputUserFormKeys = "email" | "username" | "password";
 
 export interface IModelAction<ModelItem> {
@@ -16,7 +8,6 @@ export interface IModelAction<ModelItem> {
   link?: string;
   icon?: JSX.Element;
 }
-export type TModelItem = IUserSmall | IFriend | INotification;
 
 enum ItemType {
   SONG,
@@ -38,16 +29,6 @@ export interface IModelItem {
   onClick?: () => void;
   items?: IModelItem[];
   modelSize?: { width: number; height: number };
-}
-export interface IGenericModelItem {
-  btnSvg?: JSX.Element;
-  btnText?: string;
-  link?: string;
-  onClick?: (ev?: MouseEvent) => void;
-  items?: IGenericModelItem[];
-  modelBtn?: TGenericModelBtn;
-  imgUrl?: string;
-  modelSize: { width: number; height: number };
 }
 
 export type TModelSize = { width: number; height: number };
