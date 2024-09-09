@@ -15,8 +15,8 @@ export default function FriendsLink({ location }: Props) {
     <Link
       to={"/profile/friends"}
       className={`sidebar-nav-link ${
-        isFriendsOpen && "link-clicked notification"
-      }`}
+        isFriendsOpen && "link-clicked"
+      } notification`}
     >
       <FriendsSVG />
       <span>Friends</span>

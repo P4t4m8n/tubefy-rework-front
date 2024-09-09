@@ -6,9 +6,9 @@ import { removePlaylist } from "../src/store/actions/playlist.action";
 import UserLibraryListItemModelShare from "./UserLibraryListItemModelShare";
 import { playlistService } from "../src/services/playlist.service";
 import { utilService } from "../src/util/util.util";
-import GenericModelBtn from "../src/components/GenericComponents/GenericBtn";
+import GenericModelBtn from "../src/components/Menus/GeneralBtn";
 import { TNotificationType } from "../src/models/notification.model";
-import GenericBtn from "../src/components/GenericComponents/GenericBtn";
+import GeneralBtn from "../src/components/Menus/GeneralBtn";
 
 interface Props {
   playlistId: string;
@@ -91,7 +91,7 @@ export default function UserLibraryListItemModel({
         <ul className={modelClass}>
           {items.map((item, idx) => (
             <li key={idx}>
-              <GenericBtn
+              <GeneralBtn
                 btnSvg={item.btnSvg}
                 text={item.text}
                 onModelBtnClick={item.action}

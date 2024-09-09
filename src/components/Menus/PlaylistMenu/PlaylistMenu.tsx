@@ -1,15 +1,19 @@
 import { Fragment, MouseEvent, RefObject, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useModel } from "../../../hooks/useModel";
 import { useModelPosition } from "../../../hooks/useModelPosition";
-import GenericBtn from "../../GenericComponents/GenericBtn";
 import { DeleteSVG, DotsSVG, PencilSVG, ShareSVG } from "../../svg/SVGs";
-import PlaylistMenuShare from "./PlaylistMenuShare";
 import { IModelItem, TModelSize } from "../../../models/app.model";
-import { playlistService } from "../../../services/playlist.service";
 import { utilService } from "../../../util/util.util";
-import { removePlaylist } from "../../../store/actions/playlist.action";
-import { useNavigate } from "react-router-dom";
+import {
+  removePlaylist,
+  sharePlaylist,
+} from "../../../store/actions/playlist.action";
 import { getFriendsState } from "../../../store/getStore";
+
+import PlaylistMenuShare from "./PlaylistMenuShare";
+import GeneralBtn from "../GeneralBtn";
 
 interface Props {
   container: RefObject<HTMLDivElement | HTMLUListElement>;
@@ -24,7 +28,9 @@ export default function PlaylistMenu({
 }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+
   const { modelPosition, handleMouseClick } = useModelPosition();
+
   const navigate = useNavigate();
 
   const onOpenModel = (ev?: MouseEvent) => {
@@ -34,20 +40,8 @@ export default function PlaylistMenu({
   };
 
   const onSharePlaylist = useCallback(
-    async (playlistId: string, friendId?: string) => {
-      try {
-        if (!friendId) throw new Error("Friend not found");
-        await playlistService.sharePlaylist(playlistId, friendId);
-        utilService.handleSuccess("Playlist shared", "PLAYLIST_SHARE");
-      } catch (error) {
-        utilService.handleError(
-          "playlist-share",
-          "PLAYLIST_SHARE",
-          error as Error
-        );
-      }
-    },
-    []
+    (friendId?: string) => sharePlaylist(playlistId, friendId),
+    [playlistId]
   );
 
   const onRemovePlaylist = useCallback(
@@ -72,8 +66,8 @@ export default function PlaylistMenu({
   const shareItems = friends.map((friend) => ({
     text: friend.friend.username,
     imgUrl: friend.friend.imgUrl || "/default-user.png",
-    onClick: () => onSharePlaylist(playlistId, friend.id),
-    modelSize: { width: 208, height: 30 * 3 + 24 },
+    onClick: () => onSharePlaylist(friend.id),
+    modelSize: { width: 208, height: 164 },
   }));
 
   const items: IModelItem[] = [
@@ -97,7 +91,7 @@ export default function PlaylistMenu({
 
   return (
     <div ref={modelRef} className="playlists-model-con">
-      <GenericBtn
+      <GeneralBtn
         className="playlists-model-btn"
         btnSvg={<DotsSVG />}
         onModelBtnClick={onOpenModel}
@@ -115,7 +109,7 @@ export default function PlaylistMenu({
             <Fragment key={idx}>
               {!item?.items ? (
                 <li className={"playlists-model-item"} key={idx + 500}>
-                  <GenericBtn
+                  <GeneralBtn
                     btnSvg={item.btnSvg!}
                     text={item.text}
                     onModelBtnClick={item.onClick!}

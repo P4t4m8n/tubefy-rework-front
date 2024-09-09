@@ -53,6 +53,8 @@ button {
   padding: 0;
   border: none;
   font-family: "Nunito";
+  background-color: inherit;
+
   &:hover {
     cursor: pointer;
   }

@@ -5,8 +5,8 @@ import {
   IPlaylistModelData,
   TPlaylistType,
 } from "../models/playlist.model";
+import { IUserSmall } from "../models/user.model";
 import { getUserPlaylistsState } from "../store/getStore";
-
 
 export const playlistsToPlaylistsGroup = (
   playlists: IPlaylist[]
@@ -45,7 +45,12 @@ export const extractHeroPlaylists = (
   }
   return heroPlaylists.splice(0, 8);
 };
-export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
+export const getEmptyPlaylist = (
+  num: number,
+  user: IUserSmall
+): IPlaylistDetailed => {
+  const { id, username, imgUrl } = user;
+  const owner = { id, username, imgUrl };
   return {
     id: "",
     name: `New Playlist ${num + 1}`,
@@ -54,12 +59,7 @@ export const getEmptyPlaylist = (num: number): IPlaylistDetailed => {
     description: "",
     genres: [],
     types: [""],
-    owner: {
-      username: "",
-      isAdmin: false,
-      id: "",
-      imgUrl: "",
-    },
+    owner,
     duration: "00:00",
     isPublic: false,
     isLikedByUser: false,
@@ -108,5 +108,4 @@ export const isAllowedToEditPlaylist = (
 
   return userPlaylists.some((playlist) => playlist.id === playlistId);
 };
-
 

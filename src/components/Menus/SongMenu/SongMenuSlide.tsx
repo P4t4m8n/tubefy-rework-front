@@ -1,7 +1,7 @@
 import { MouseEvent, RefObject, useRef } from "react";
 import { IModelItem, TModelSize } from "../../../models/app.model";
 import { useModel } from "../../../hooks/useModel";
-import GenericBtn from "../../GenericComponents/GenericBtn";
+import GeneralBtn from "../GeneralBtn";
 
 interface Props {
   items: IModelItem[];
@@ -36,7 +36,7 @@ export default function SongMenuSlide({
       ref={modelRef}
       className={`${modelClass}-share-con ${isModelOpen && "extend"} `}
     >
-      <GenericBtn
+      <GeneralBtn
         {...(imgUrl ? { imgUrl } : { btnSvg: btnSvg! })}
         text={text}
         onModelBtnClick={onOpenModel}
@@ -45,11 +45,8 @@ export default function SongMenuSlide({
       {isModelOpen && (
         <ul className={`${modelClass}-share`}>
           {items.map((item, idx) => (
-            <li
-              className={`${modelClass}-item-share`}
-              key={idx }
-            >
-              <GenericBtn
+            <li className={`${modelClass}-item-share`} key={idx}>
+              <GeneralBtn
                 imgUrl={item.imgUrl!}
                 text={item.text}
                 onModelBtnClick={() => item.onClick!()}

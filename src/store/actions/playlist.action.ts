@@ -12,7 +12,10 @@ import { ISong, ISongYT } from "../../models/song.model";
 import { storeSessionData } from "../../services/localSession.service";
 import { playlistService } from "../../services/playlist.service";
 import { songService } from "../../services/song.service";
-import { playlistsToPlaylistsGroup } from "../../util/playlist.util";
+import {
+  getEmptyPlaylist,
+  playlistsToPlaylistsGroup,
+} from "../../util/playlist.util";
 import { utilService } from "../../util/util.util";
 import { getUserState } from "../getStore";
 import { store } from "../store";
@@ -52,6 +55,25 @@ export const loadUserPlaylists = (
     );
   } catch (error) {
     utilService.handleError("user-playlists", "GENERAL_ERROR", error as Error);
+  }
+};
+
+export const createUserPlaylist = async (num: number) => {
+  try {
+    const user = getUserState();
+    if (!user) return;
+
+    const emptyPlaylist = getEmptyPlaylist(num, user);
+
+    const savedPlaylist = await saveUserPlaylist(emptyPlaylist);
+    utilService.handleSuccess("Playlist created", "PLAYLIST_CREATE");
+    return savedPlaylist?.id;
+  } catch (error) {
+    utilService.handleError(
+      "Failed to create playlist, please try again later.",
+      "PLAYLIST_CREATE",
+      error as Error
+    );
   }
 };
 
@@ -293,6 +315,16 @@ export const addSongFromSocket = (playlistId?: string, song?: ISong | null) => {
       "GENERAL_ERROR",
       error as Error
     );
+  }
+};
+
+export const sharePlaylist = async (playlistId: string, friendId?: string) => {
+  try {
+    if (!friendId) throw new Error("Friend not found");
+    await playlistService.sharePlaylist(playlistId, friendId);
+    utilService.handleSuccess("Playlist shared", "PLAYLIST_SHARE");
+  } catch (error) {
+    utilService.handleError("playlist-share", "PLAYLIST_SHARE", error as Error);
   }
 };
 

@@ -4,12 +4,16 @@
 
   color: $black-2;
 
+  background-color: $white-2;
   font-weight: 700;
   font-size: $font-size-16;
   width: fit-content;
 
   cursor: pointer;
   position: relative;
+
+  overflow: hidden;
+  @include btn-hover-animation($gray-1);
 
   svg {
     display: none;
@@ -18,9 +22,6 @@
   span {
     position: relative;
   }
-
-  @include btn-hover-animation($gray-1);
-  overflow: hidden;
 
   @container login-model-btn (max-width: 1rem) {
     svg {
@@ -108,6 +109,7 @@
         );
         border-radius: $border-radius-2;
 
+        background-color: $white-2;
         color: $black-2;
 
         font-weight: 700;
@@ -119,8 +121,9 @@
 
         cursor: pointer;
 
-        @include btn-hover-animation($gray-1);
         overflow: hidden;
+        @include btn-hover-animation($gray-1);
+        
 
         span {
           position: relative;

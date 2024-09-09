@@ -1,10 +1,12 @@
 import { MouseEvent, RefObject, useRef } from "react";
+
 import { useModel } from "../../../hooks/useModel";
-import GenericModelBtn from "../../GenericComponents/GenericBtn";
 import { ShareSVG } from "../../svg/SVGs";
 import { useModelPosition } from "../../../hooks/useModelPosition";
 import { IModelItem, TModelSize } from "../../../models/app.model";
-import GenericBtn from "../../GenericComponents/GenericBtn";
+
+import GenericModelBtn from "../GeneralBtn";
+import GeneralBtn from "../GeneralBtn";
 
 interface Props {
   items: IModelItem[];
@@ -51,7 +53,7 @@ export default function PlaylistMenuShare({
         <ul className={`${modelClass}-share`}>
           {items.map((item, idx) => (
             <li className={`${modelClass}-item-share`} key={idx}>
-              <GenericBtn
+              <GeneralBtn
                 imgUrl={item.imgUrl!}
                 text={item.text}
                 onModelBtnClick={async () => item.onClick}

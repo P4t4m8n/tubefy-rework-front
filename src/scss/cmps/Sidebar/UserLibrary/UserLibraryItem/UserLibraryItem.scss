@@ -1,10 +1,17 @@
 .user-playlist-item {
   position: relative;
+
   font-weight: 600;
   border-radius: $border-radius-1-4;
+
   height: 4rem;
   width: 4rem;
+
   padding: 0.5rem;
+
+  scroll-snap-align: end;
+
+  transition: background-color 0.3s ease;
   a {
     position: relative;
     width: 100%;
@@ -15,6 +22,10 @@
       svg {
         display: block;
         border-radius: $border-radius-1-4;
+      }
+      img {
+        width: 3rem;
+        aspect-ratio: 1/1;
       }
       svg {
         background-color: $black-3;
@@ -35,15 +46,21 @@
     }
     .play-btn {
       display: none;
-      position: absolute;
-      z-index: 1;
-      left: 0.75rem;
-      width: 1.5rem;
+      z-index: $z-index-btn;
       padding: 0.05rem;
+
+      position: absolute;
+      left: 0.75rem;
+
+      width: 1.5rem;
       aspect-ratio: 1/1;
+
       background-color: rgba($black-3, 0.5);
+
       opacity: 0;
+
       border-radius: 100vw;
+
       transition: opacity 0.25s ease, transform 0.25s ease;
       svg {
         background-color: transparent;
@@ -59,22 +76,9 @@
     display: none;
   }
 
-  &:before {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  &:hover,
+  &.highlight {
     background-color: $black-3;
-    transition: opacity 0.25s ease;
-    transform: scale(1);
-    border-radius: $border-radius-1-4;
-    opacity: 0;
-  }
-  &:hover {
     cursor: pointer;
     .play-btn {
       opacity: 1;
@@ -85,12 +89,6 @@
         }
       }
     }
-    &::before {
-      opacity: 1;
-    }
-  }
-  &.highlight {
-    background-color: $black-3;
   }
 }
 
@@ -98,10 +96,8 @@
   .user-playlist-list {
     .user-playlist-item {
       width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      gap: 1rem;
+      @include flex-direction-align-gap-padding(row, center, 0, 0.5rem);
+
       a {
         width: 100%;
         display: grid;

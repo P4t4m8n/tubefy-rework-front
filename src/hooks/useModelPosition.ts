@@ -36,9 +36,11 @@ export const useModelPosition = (): {
     parent: RefObject<HTMLElement> | null
   ) => {
     const modelCon = model?.current?.getBoundingClientRect();
+    console.log("modelCon:", modelCon)
     if (!modelCon) return;
 
     const parentCon = parent?.current?.getBoundingClientRect();
+    console.log("parentCon:", parentCon)
 
     if (modelCon.bottom + modelSize.height > parentCon!.bottom) {
       setModelPosition({

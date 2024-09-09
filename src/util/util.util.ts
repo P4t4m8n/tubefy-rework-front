@@ -67,7 +67,7 @@ const handleSuccess = (
     text: `${action}`,
     type,
     status: "success",
-    imgUrl: imgUrl || "/success-img.png",
+    imgUrl: imgUrl || "/success-img.jpg",
   });
 };
 

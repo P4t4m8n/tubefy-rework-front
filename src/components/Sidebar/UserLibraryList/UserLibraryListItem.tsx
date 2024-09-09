@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import { RefObject } from "react";
 
 import { IPlaylist, IPlaylistDetailed } from "../../../models/playlist.model";
 import { NoteSVG } from "../../svg/SVGs";
+
 import PlayBtn from "../../Buttons/PlayBtn";
 import PlaylistMenu from "../../Menus/PlaylistMenu/PlaylistMenu";
-import { RefObject } from "react";
 
 interface Props {
   playlist: IPlaylist | IPlaylistDetailed;
@@ -24,16 +25,19 @@ export default function UserLibraryListItem({
     <li key={id} className={itemClass}>
       <Link to={`/playlist/${id}`}>
         <PlayBtn item={playlist} />
+
         <div className="img-con">
           {imgUrl ? <img src={imgUrl} alt={name} /> : <NoteSVG />}
         </div>
+
         <span>{playlist.name}</span>
         <p>{songs.length} songs</p>
       </Link>
+
       <PlaylistMenu
         playlistId={id}
         container={container}
-        modelSize={{ width: 208, height: 30 * 3 + 24 }}
+        modelSize={{ width: 208, height: 132 }}
       />
     </li>
   );

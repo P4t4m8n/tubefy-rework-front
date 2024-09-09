@@ -24,13 +24,16 @@
 @import "./cmps/Sidebar/Navbar.scss";
 
 @import "./cmps/Sidebar/UserLibrary/UserLibrary.scss";
-@import "./cmps/Sidebar/UserLibrary/UserLibraryHeader.scss";
-@import "./cmps/Sidebar/UserLibrary/UserLibraryNoUser.scss";
-@import "./cmps/Sidebar/UserLibrary/UserLibraryList.scss";
+
+@import "./cmps/Sidebar/UserLibrary/UserLibraryHeader/UserLibraryHeader.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryHeader/Full-size.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryHeader/CreatePlaylistModel.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryFilter.scss";
 
+@import "./cmps/Sidebar/UserLibrary/UserLibraryNoUser.scss";
+
+@import "./cmps/Sidebar/UserLibrary/UserLibraryList.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryItem/UserLibraryItem.scss";
-@import "./cmps/Sidebar/UserLibrary/UserLibraryItem/UserLibraryItemModel.scss";
 
 //Header
 @import "./cmps/Header/Header.scss";

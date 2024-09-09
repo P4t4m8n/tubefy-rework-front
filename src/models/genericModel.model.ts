@@ -12,14 +12,9 @@ type ImgUrlProps = {
   imgUrl: string;
 };
 
-export type TGenericModelFunction = {
-  onModelBtnClick: (ev?: MouseEvent) => void;
-};
-
 export type TGenericModelBtn = {
   onModelBtnClick: (ev?: MouseEvent) => void;
   className?: string;
-  uniqueText?: JSX.Element;
   text?: string;
 } & (BtnSvgProps | ImgUrlProps);
 

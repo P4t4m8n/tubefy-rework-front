@@ -1,30 +1,40 @@
 .user-playlist-list {
   overflow-y: auto;
-  height: calc(100vh - 30rem);
-  @include flex-direction-align-gap-padding(column, center, 0.25rem, 0 0.5rem);
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+
+  height: calc(100vh - 25rem);
+
+  @include flex-direction-align-gap-padding(column, center, 0, 0 0.5rem);
   @include no-scrollBar;
 }
 
 .full-size {
-  height: calc(100vh - 13rem);
   .user-playlist-list {
+    height: calc(100vh - 27rem);
     align-items: baseline;
     width: 100%;
+    gap: 0.25rem;
   }
 }
 
-
-
 @media (max-width: rem(640px)) {
-  .user-playlist-list {
-    gap: 0.25rem;
-    .user-playlist-item {
-      a {
-        span,
-        p {
-          display: none;
+  .full-size {
+    .user-playlist-list {
+      height: calc(100vh - 24.5rem);
+      gap: 0.25rem;
+      .user-playlist-item {
+        a {
+          span,
+          p {
+            display: none;
+          }
         }
       }
     }
+  }
+
+  .user-playlist-list {
+    height: calc(100vh - 25.5rem);
   }
 }

@@ -3,7 +3,7 @@ import { IModelItem } from "../../../models/app.model";
 import { logout } from "../../../store/actions/user.action";
 import { LogoutSVG, UserIconSVG } from "../../svg/SVGs";
 import { useModel } from "../../../hooks/useModel";
-import GenericBtn from "../../GenericComponents/GenericBtn";
+import GeneralBtn from "../GeneralBtn";
 import { NavigateFunction } from "react-router-dom";
 
 interface Props {
@@ -28,7 +28,7 @@ export default function UserMenu({ imgUrl, username, navigate }: Props) {
     {
       btnSvg: <LogoutSVG />,
       text: "Logout",
-      onClick:async (ev?: MouseEvent) => {
+      onClick: async (ev?: MouseEvent) => {
         ev?.preventDefault();
         await logout();
         setIsModelOpen(false);
@@ -37,7 +37,7 @@ export default function UserMenu({ imgUrl, username, navigate }: Props) {
   ];
   return (
     <div ref={modelRef} className="user-model-con">
-      <GenericBtn
+      <GeneralBtn
         className="user-model-btn"
         imgUrl={imgUrl}
         onModelBtnClick={() => setIsModelOpen((prev) => !prev)}
@@ -52,7 +52,7 @@ export default function UserMenu({ imgUrl, username, navigate }: Props) {
           </li>
           {items.map((item, idx) => (
             <li className={"user-model-item"} key={idx}>
-              <GenericBtn
+              <GeneralBtn
                 btnSvg={item.btnSvg!}
                 text={item.text}
                 onModelBtnClick={item.onClick!}

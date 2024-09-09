@@ -1,6 +1,7 @@
 import { ChangeEvent, useRef } from "react";
 import { useModel } from "../../../hooks/useModel";
 import { SearchSvg } from "../../svg/SVGs";
+import GeneralBtn from "../../Menus/GeneralBtn";
 
 interface Props {
   onFilterChange: (ev: ChangeEvent<HTMLInputElement>) => void;
@@ -16,12 +17,11 @@ export default function UserLibraryFilterSearch({ onFilterChange }: Props) {
         isSearchOpen ? "open" : "close"
       }`}
     >
-      <button
+      <GeneralBtn
+        onModelBtnClick={() => setIsSearchOpen((prev) => !prev)}
+        btnSvg={<SearchSvg />}
         className="user-playlist-filter-search-btn"
-        onClick={() => setIsSearchOpen(true)}
-      >
-        <SearchSvg />
-      </button>
+      />
       <input
         type="search"
         placeholder="Search in your library"

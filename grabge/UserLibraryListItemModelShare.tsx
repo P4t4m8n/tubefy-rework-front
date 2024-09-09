@@ -1,7 +1,7 @@
 import { MouseEvent, useRef } from "react";
 import { store } from "../src/store/store";
 import { useModel } from "../src/hooks/useModel";
-import GenericModelBtn from "../src/components/GenericComponents/GenericBtn";
+import GenericModelBtn from "../src/components/Menus/GeneralBtn";
 import { ShareSVG } from "../src/components/svg/SVGs";
 
 export default function UserLibraryListItemModelShare({
@@ -31,7 +31,9 @@ export default function UserLibraryListItemModelShare({
               <GenericModelBtn
                 imgUrl={friend.friend?.imgUrl || "/default-user.png"}
                 text={friend.friend.username}
-                onModelBtnClick={(ev) => handleClick(ev, "share", friend.friend.id)}
+                onModelBtnClick={(ev) =>
+                  handleClick(ev, "share", friend.friend.id)
+                }
               />
             </li>
           ))}

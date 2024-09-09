@@ -85,7 +85,10 @@ const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
     ownerId: playlist.owner.id,
     duration: playlist.duration,
     description: "",
-    isPublic: playlist?.isPublic,
+    isPublic: playlist?.isPublic || false,
+    genres: playlist.genres,
+    types: playlist.types,
+    createdAt: playlist.createdAt,
   };
 };
 

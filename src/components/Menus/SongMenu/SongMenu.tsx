@@ -4,7 +4,7 @@ import { IModelItem, TModelSize } from "../../../models/app.model";
 import { useModel } from "../../../hooks/useModel";
 import { useModelPosition } from "../../../hooks/useModelPosition";
 import { DeleteSVG, DotsSVG, PlusSVG, ShareSVG } from "../../svg/SVGs";
-import GenericBtn from "../../GenericComponents/GenericBtn";
+import GeneralBtn from "../GeneralBtn";
 import {
   getFriendsState,
   getUserPlaylistsState,
@@ -100,7 +100,7 @@ export default function SongMenu({
 
   return (
     <div ref={modelRef} className="songs-model-con">
-      <GenericBtn
+      <GeneralBtn
         className="songs-model-btn"
         btnSvg={<DotsSVG />}
         onModelBtnClick={onOpenModel}
@@ -117,7 +117,7 @@ export default function SongMenu({
             <Fragment key={idx}>
               {!item.items ? (
                 <li className={"songs-model-item"} key={idx}>
-                  <GenericBtn
+                  <GeneralBtn
                     btnSvg={item.btnSvg!}
                     text={item.text}
                     onModelBtnClick={item.onClick!}

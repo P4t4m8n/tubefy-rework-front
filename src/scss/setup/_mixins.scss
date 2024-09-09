@@ -155,4 +155,22 @@
   }
 }
 
+@mixin after-border-grow($color) {
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 1px;
+    background-color: $color;
+    transition: width 0.3s;
+  }
 
+  &:hover:after {
+    width: 100%;
+  }
+}
+
+@mixin menu-shadow {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
+    rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
+}
