@@ -1,13 +1,18 @@
 import { useCallback, useMemo, useRef, useState } from "react";
-import { IUserSmall } from "../../../models/user.model";
+
 import { userService } from "../../../services/user.service";
 import { utilService } from "../../../util/util.util";
-import { IModelAction } from "../../../models/app.model";
+
 import { AddFriendSVG, MessageSVG, PlusSVG } from "../../svg/SVGs";
+
 import { addFriend } from "../../../store/actions/friend.action";
+
+import { IUserSmall } from "../../../models/user.model";
+import { IModelAction } from "../../../models/app.model";
 import { useModel } from "../../../hooks/useModel";
-import FriendsList from "./FriendsList";
 import { IFriend } from "../../../models/friend.model";
+
+import FriendsList from "./FriendsList";
 
 export default function AddFriend() {
   const modelRef = useRef<HTMLDivElement>(null);

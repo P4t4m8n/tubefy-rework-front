@@ -71,7 +71,7 @@ const handleSuccess = (
   });
 };
 
-const handleSocketMsg = (notification: INotification) => {
+const handleNotificationMsg = (notification: INotification) => {
   showUserMsg({ ...notification, status: "success" });
 };
 
@@ -103,6 +103,6 @@ export const utilService = {
   getRandomColor,
   handleSuccess,
   handleError,
-  handleSocketMsg,
+  handleNotificationMsg,
   throttle,
 };

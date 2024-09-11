@@ -19,6 +19,9 @@ export default function Login() {
     new Map<TInputUserFormKeys, string>()
   );
   const [isLoading, setIsLoading] = useState(false);
+
+  //Improve later into a separate component
+  const [isDemoUser, setIsDemoUser] = useState(false);
   const inputs = getLoginInputs(isLogin, errors);
 
   const onSubmit = async (ev: FormEvent<HTMLFormElement>) => {
@@ -61,6 +64,11 @@ export default function Login() {
     }, 210);
   }
 
+  const demoUsers = [
+    { email: "test@test.com", password: "Aa123456" },
+    { email: "bobo@bobo.com", password: "Aa123456" },
+  ];
+
   const modelClass = `login-model ${animation}`;
 
   const isLoginText = !isLogin ? "Sign up to start listing" : "Login to Tubefy";
@@ -84,48 +92,61 @@ export default function Login() {
 
       {isModelOpen && (
         <div className={modelClass}>
-          <h2>{isLoginText}</h2>
-          <form onSubmit={onSubmit}>
-            {inputs.map((input) => (
-              <li key={input.name}>
-                <label htmlFor={input.name}>
-                  <span>{input.label}</span>
-                  {input.error && (
-                    <>
-                      <span className="error"> {"> "}</span>
-                      <span className="error">{input.error}</span>
-                    </>
-                  )}
-                </label>
-                <input
-                  className={input.error ? "error" : ""}
-                  type={input.type}
-                  placeholder={input.placeHolder}
-                  name={input.name}
-                />
-              </li>
-            ))}
-            <div className="actions">
-              <button
-                disabled={isLoading}
-                type="button"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                  setIsLogin(!isLogin);
-                }}
-              >
-                <span>{changeIsLoginBtn}</span>
-              </button>
+          {!isDemoUser && (
+            <>
+              <form onSubmit={onSubmit}>
+                {inputs.map((input) => (
+                  <li key={input.name}>
+                    <label htmlFor={input.name}>
+                      <span>{input.label}</span>
+                      {input.error && (
+                        <>
+                          <span className="error"> {"> "}</span>
+                          <span className="error">{input.error}</span>
+                        </>
+                      )}
+                    </label>
+                    <input
+                      className={input.error ? "error" : ""}
+                      type={input.type}
+                      placeholder={input.placeHolder}
+                      name={input.name}
+                    />
+                  </li>
+                ))}
+                <div className="actions">
+                  <button
+                    disabled={isLoading}
+                    type="button"
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      setIsLogin(!isLogin);
+                    }}
+                  >
+                    <span>{changeIsLoginBtn}</span>
+                  </button>
 
-              <button disabled={isLoading} type="submit">
-                {!isLoading ? (
-                  <span>{!isLogin ? " Sign up" : "Sign in"}</span>
-                ) : (
-                  <Loader />
-                )}
-              </button>
-            </div>
-          </form>
+                  <button disabled={isLoading} type="submit">
+                    {!isLoading ? (
+                      <span>{!isLogin ? " Sign up" : "Sign in"}</span>
+                    ) : (
+                      <Loader />
+                    )}
+                  </button>
+                </div>
+              </form>
+              <h2>{isLoginText}</h2>
+            </>
+          )}
+          {isDemoUser && (
+            <>
+              <button onClick={async () => login(demoUsers[0])}>test</button>
+              <button onClick={async () => login(demoUsers[1])}>bobo</button>
+            </>
+          )}
+          <button onClick={() => setIsDemoUser(!isDemoUser)}>
+            {isDemoUser ? "Login" : "Demo Users"}
+          </button>
         </div>
       )}
     </div>

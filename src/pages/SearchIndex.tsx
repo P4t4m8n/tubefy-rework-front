@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ISongYT } from "../models/song.model";
 import { IPlaylist } from "../models/playlist.model";
@@ -13,6 +13,7 @@ import SearchIndexSongsList from "../components/SearchIndex/SearchIndexSongsList
 import SearchIndexPlaylistList from "../components/SearchIndex/SearchIndexPlaylistList";
 import Loader from "../components/Loader";
 import { utilService } from "../util/util.util";
+import { useEffectUpdate } from "../hooks/useEffectUpdate";
 
 export default function SearchIndex() {
   const user = useAppSelector((state) => state.user.user);
@@ -28,7 +29,7 @@ export default function SearchIndex() {
   });
   const { query } = useParams<{ query: string }>();
 
-  useEffect(() => {
+  useEffectUpdate(() => {
     const loadSearchResults = async (query: string) => {
       try {
         const [songs, playlists] = await Promise.all([
@@ -61,7 +62,7 @@ export default function SearchIndex() {
         if (!user) {
           throw new Error("User not found");
         }
-        const song = await songService.createSong(songYT);
+        const song = await songService.createSong(playlistId, songYT);
         await addSongToPlaylist(playlistId, song);
       } catch (error) {
         utilService.handleError(

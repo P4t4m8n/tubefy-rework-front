@@ -18,7 +18,10 @@ export default function ProfileNotificationIndex() {
       ) : (
         <>
           <h2>Notifications</h2>
-          <ProfileNotificationList notifications={notifications}  onRemoveNotification={onRemoveNotification} />
+          <ProfileNotificationList
+            notifications={notifications}
+            onRemoveNotification={onRemoveNotification}
+          />
         </>
       )}
     </section>

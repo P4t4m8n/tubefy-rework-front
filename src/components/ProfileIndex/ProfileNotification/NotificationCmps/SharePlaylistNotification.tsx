@@ -2,7 +2,10 @@ import { useMemo, useRef } from "react";
 import { INotification } from "../../../../models/notification.model";
 import { useModel } from "../../../../hooks/useModel";
 import { utilService } from "../../../../util/util.util";
-import { approveSharePlaylist, rejectSharedPlaylist } from "../../../../store/actions/playlist.action";
+import {
+  approveSharePlaylist,
+  rejectSharedPlaylist,
+} from "../../../../store/actions/playlist.action";
 import { IModelAction } from "../../../../models/app.model";
 import { CheckSVG, RejectSVG } from "../../../svg/SVGs";
 import { Link } from "react-router-dom";

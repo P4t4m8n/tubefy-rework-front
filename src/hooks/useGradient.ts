@@ -8,7 +8,7 @@ interface ColorMap {
 
 export const useGradient = () => {
   const { imgUrl, gradient } = useAppSelector((state) => state.imgGradient);
-  
+
   useEffectUpdate(() => {
     if (!imgUrl) {
       setGradientForBackground(null);
@@ -42,7 +42,7 @@ export const useGradient = () => {
       ).data;
       const colorMap: ColorMap = {};
 
-      for (let i = 0; i < pixelData.length; i++) {
+      for (let i = 0; i < pixelData.length; i += 20) {
         const r: number = pixelData[i];
         const g: number = pixelData[i + 1];
         const b: number = pixelData[i + 2];

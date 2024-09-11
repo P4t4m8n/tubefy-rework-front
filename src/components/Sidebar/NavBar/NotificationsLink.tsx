@@ -7,7 +7,7 @@ interface Props {
 }
 export default function NotificationsLink({ location }: Props) {
   const notificationsLength =
-    useAppSelector((state) => state.notification.notifications?.length) || 0;
+  useAppSelector((state) => state.notification.notifications?.length) || 0;
 
   const isNotificationsOpen = location.pathname.includes("notifications");
 

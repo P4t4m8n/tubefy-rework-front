@@ -66,7 +66,7 @@ export default function PlaylistMenu({
   const shareItems = friends.map((friend) => ({
     text: friend.friend.username,
     imgUrl: friend.friend.imgUrl || "/default-user.png",
-    onClick: () => onSharePlaylist(friend.id),
+    onClick: () => onSharePlaylist(friend.friend.id),
     modelSize: { width: 208, height: 164 },
   }));
 

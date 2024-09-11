@@ -1,9 +1,10 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useModel } from "../../../hooks/useModel";
 import PlaylistEditHeroImg from "./PlaylistEditHeroImg";
 import { PlusSVG, UserIconSVG } from "../../svg/SVGs";
 import Loader from "../../Loader";
 import { utilService } from "../../../util/util.util";
+import { useEffectUpdate } from "../../../hooks/useEffectUpdate";
 
 interface Props {
   imgUrl: string;
@@ -35,7 +36,7 @@ export default function PlaylistEditHeroModel({
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  useEffectUpdate(() => {
     if (imgUrl) setImgPreview(imgUrl);
   }, [imgUrl]);
 

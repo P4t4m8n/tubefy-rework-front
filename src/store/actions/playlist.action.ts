@@ -278,7 +278,7 @@ export const approveSharePlaylist = async (
       notificationId
     );
     updateUserPlaylists(playlist);
-    removeNotification(notificationId);
+     removeNotification(notificationId);
   } catch (error) {
     utilService.handleError("playlist-share", "PLAYLIST_SHARE", error as Error);
   }
@@ -319,6 +319,7 @@ export const addSongFromSocket = (playlistId?: string, song?: ISong | null) => {
 };
 
 export const sharePlaylist = async (playlistId: string, friendId?: string) => {
+
   try {
     if (!friendId) throw new Error("Friend not found");
     await playlistService.sharePlaylist(playlistId, friendId);

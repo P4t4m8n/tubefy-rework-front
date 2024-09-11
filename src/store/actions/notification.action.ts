@@ -33,7 +33,7 @@ export const removeNotificationServer = async (notificationId: string) => {
   }
 };
 
-export const removeNotification = async (notificationId: string) => {
+export const removeNotification = (notificationId: string) => {
   try {
     const notifications = store.getState().notification.notifications;
     const newNotifications = notifications?.filter(
@@ -53,6 +53,7 @@ export const addNotification = (notification: INotification) => {
   try {
     const notifications = store.getState().notification.notifications;
     loadNotifications([...(notifications || []), notification]);
+    utilService.handleNotificationMsg(notification);
   } catch (error) {
     utilService.handleError(
       "adding notification -> notification.action",

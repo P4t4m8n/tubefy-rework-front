@@ -6,10 +6,12 @@ import {
   SET_FRIENDS_BULK,
   SET_FRIENDS_REQUEST,
 } from "../../models/friend.model";
+import { INotification } from "../../models/notification.model";
 import { friendsService } from "../../services/friends.service";
 import { storeSessionData } from "../../services/localSession.service";
 import { utilService } from "../../util/util.util";
 import { store } from "../store";
+import { addNotification } from "./notification.action";
 
 export const loadFriendsBulk = (
   friends: IFriend[],
@@ -28,12 +30,17 @@ export const loadFriendsBulk = (
 
 export const addFriend = async (friendId: string) => {
   try {
-    const friend = await friendsService.create(friendId);
+    const notification = await friendsService.create(friendId);
+    const { friend } = notification;
+    if (!friend) {
+      throw new Error("Friend data is missing");
+    }
     const friends = [...store.getState().friends.friends, friend];
     updateFriends(friends);
+    addNotification(notification);
   } catch (error) {
     utilService.handleError(
-      "adding friend -> friend.action",
+      "Unable to add friend",
       "GENERAL_ERROR",
       error as Error
     );
@@ -63,24 +70,30 @@ export const removeFriend = async (friend: IFriend) => {
   }
 };
 
-export const handleIncomingFriendsUpdate = (data: IFriend | string) => {
+export const handleIncomingFriendsUpdate = (notification: INotification) => {
   try {
-    if (typeof data === "string") {
-      removeFriendRequest(data);
+    const { friend } = notification;
+    if (!friend || !friend?.id) {
+      throw new Error("Friend data is missing");
+    }
+
+    if (
+      notification.type === "FRIEND_REJECTED" ||
+      notification.type === "FRIEND_BLOCKED" ||
+      notification.type === "FRIEND_REMOVED"
+    ) {
+      removeFriendRequest(friend.id);
+      addNotification(notification);
       return;
     }
 
-    const friends = [...store.getState().friends.friends];
+    const friends = store.getState().friends.friends;
+    const updatedFriends = friends.map((_friend) =>
+      _friend.id === friend.id ? friend : _friend
+    );
 
-    const idx = friends.findIndex((f) => f.id === data.id);
-
-    if (idx < 0) {
-      throw new Error("Friend not found in friends list");
-    }
-
-    friends.splice(idx, 1, data);
-
-    updateFriends(friends);
+    updateFriends(updatedFriends);
+    addNotification(notification);
   } catch (error) {
     utilService.handleError(
       "handling incoming friends update -> friend.action",
@@ -96,7 +109,12 @@ export const handleFriendRequestActions = async (
 ) => {
   try {
     const _friend = { ...friend, status };
-    const updatedFriend = await friendsService.update(_friend);
+    const notification = await friendsService.update(_friend);
+    const { friend: updatedFriend } = notification;
+
+    if (!updatedFriend) {
+      throw new Error("Friend data is missing");
+    }
 
     switch (status) {
       case "ACCEPTED":
@@ -109,6 +127,7 @@ export const handleFriendRequestActions = async (
       default:
         break;
     }
+    utilService.handleNotificationMsg(notification);
   } catch (error) {
     utilService.handleError(
       "handling friend request actions -> friend.action",
@@ -118,13 +137,19 @@ export const handleFriendRequestActions = async (
   }
 };
 
-export const addFriendRequest = (friend: IFriend) => {
+export const addFriendRequest = (notification: INotification) => {
   try {
+    const { friend } = notification;
+    if (!friend) {
+      console.error("No friend data");
+      return;
+    }
     const friendsRequest = [...store.getState().friends.friendsRequest, friend];
     updateFriendsRequest(friendsRequest);
+    addNotification(notification);
   } catch (error) {
     utilService.handleError(
-      "adding friend request -> friend.action",
+      "Error incoming friend request",
       "GENERAL_ERROR",
       error as Error
     );

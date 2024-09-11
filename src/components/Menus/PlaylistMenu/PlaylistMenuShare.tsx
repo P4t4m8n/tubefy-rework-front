@@ -56,7 +56,7 @@ export default function PlaylistMenuShare({
               <GeneralBtn
                 imgUrl={item.imgUrl!}
                 text={item.text}
-                onModelBtnClick={async () => item.onClick}
+                onModelBtnClick={async () => item.onClick!()}
                 className={`${modelClass}}-item-share-btn`}
               />
             </li>

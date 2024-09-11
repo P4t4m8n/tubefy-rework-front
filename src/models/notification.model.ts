@@ -1,3 +1,4 @@
+import { IFriend } from "./friend.model";
 import { IPlaylistSmall } from "./playlist.model";
 import { ISong } from "./song.model";
 import { IUserSmall } from "./user.model";
@@ -31,6 +32,7 @@ export interface INotification {
   text: string;
   playlist?: IPlaylistSmall | null;
   song?: ISong | null;
+  friend?: IFriend;
 }
 
 export interface INotificationProps extends INotification {

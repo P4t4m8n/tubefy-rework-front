@@ -1,4 +1,5 @@
 import { IFriend, IFriendFilter } from "../models/friend.model";
+import { INotification } from "../models/notification.model";
 import { httpService } from "./http.service";
 
 const BASE_URL = "friend/";
@@ -11,12 +12,15 @@ const get = async (id: string): Promise<IFriend> => {
   return await httpService.get<IFriend>(`${BASE_URL}${id}`);
 };
 
-const create = async (friendId: string): Promise<IFriend> => {
-  return await httpService.post<IFriend>(BASE_URL, { friendId });
+const create = async (friendId: string): Promise<INotification> => {
+  return await httpService.post<INotification>(BASE_URL, { friendId });
 };
 
-const update = async (friend: IFriend): Promise<IFriend> => {
-  return await httpService.put<IFriend>(`${BASE_URL}${friend.id}`, friend);
+const update = async (friend: IFriend): Promise<INotification> => {
+  return await httpService.put<INotification>(
+    `${BASE_URL}${friend.id}`,
+    friend
+  );
 };
 
 const remove = async (id: string, friendId: string): Promise<boolean> => {

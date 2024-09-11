@@ -53,6 +53,7 @@ export const logout = async (): Promise<void> => {
   try {
     await authService.logout();
     socketService.disconnect();
+    loadNotifications([]);
     store.dispatch(_setUser(null));
 
     utilService.handleSuccess("Goodbye!", "GOODBYE", "/goodbye-img.jpg");
