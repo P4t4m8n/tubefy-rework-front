@@ -17,6 +17,45 @@
     border-radius: 3rem;
   }
 
+  .volume-bar {
+    width: 7rem;
+    height: 0.25rem;
+    background-color: $gray-2;
+    border-radius: $border-radius-1-4;
+    position: relative;
+    cursor: pointer;
+    box-sizing: border-box;
+    .volume-fill {
+      background-color: $white-1;
+      height: 100%;
+      width: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: inherit;
+    }
+
+    .volume-handle {
+      width: 0.75rem;
+      height: 0.75rem;
+      background-color: $white-1;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+    &:hover {
+      .volume-handle {
+        opacity: 1;
+      }
+      .volume-fill {
+        background-color: $green-1;
+      }
+    }
+  }
+
   .volume-btn {
     position: relative;
     &.no-vol {
@@ -31,6 +70,5 @@
         position: absolute;
       }
     }
-    
   }
 }

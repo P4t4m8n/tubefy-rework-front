@@ -1,14 +1,26 @@
-import { ChangeEvent, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import { FullScreenSVG, VolumeSVG } from "../svg/SVGs";
 import { youTubePlayer } from "../../services/player.service";
 
 export default function PlayerVolumeControl() {
   const [volume, setVolume] = useState(50);
+  const volumeBarRef = useRef<HTMLDivElement>(null);
 
-  const handleVolumeChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseInt(ev.target.value, 10);
+  const handleVolumeChange = (ev: MouseEvent) => {
+    if (!volumeBarRef?.current) return;
+    const rect = volumeBarRef.current.getBoundingClientRect();
+    const clickPosition = ev.clientX - rect.left;
+    const newVolume = Math.max(
+      0,
+      Math.min(100, (clickPosition / rect.width) * 100)
+    ); // Calculate new volume based on click
     if (youTubePlayer.isPlayerReady()) youTubePlayer.setVolume(newVolume);
     setVolume(newVolume);
+  };
+
+  const handleDrag = (ev: MouseEvent) => {
+    if (ev.buttons !== 1) return; // Check if mouse is held down
+    handleVolumeChange(ev);
   };
 
   const onSetVolume = () => {
@@ -38,15 +50,15 @@ export default function PlayerVolumeControl() {
       >
         <VolumeSVG />
       </button>
-
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={volume}
-        onChange={handleVolumeChange}
-        className="volume-slider"
-      ></input>
+      <div
+        className="volume-bar"
+        ref={volumeBarRef}
+        onClick={handleVolumeChange}
+        onMouseMove={handleDrag}
+      >
+        <div className="volume-fill" style={{ width: `${volume}%` }} />
+        <div className="volume-handle" style={{ left: `${volume}%` }} />
+      </div>
 
       <button onClick={toggleFullScreen}>
         <FullScreenSVG />

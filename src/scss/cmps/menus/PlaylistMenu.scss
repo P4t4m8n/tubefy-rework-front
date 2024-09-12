@@ -24,6 +24,8 @@
     max-width: 80vw;
     z-index: $z-index-model;
     border-radius: $border-radius-1-4;
+    transition: height 0.25s, top 0.25s;
+
     .playlists-model-item {
       width: 100%;
       position: relative;
@@ -68,7 +70,7 @@
 
     .playlists-model-item-share-con {
       height: 1.75rem;
-      transition: height 0.25s;
+      transition: height 0.25s, top 0.25s;
 
       .playlists-model-item-share-btn {
         position: relative;
@@ -106,6 +108,7 @@
         }
         @include btn-hover-animation($black-6);
       }
+
       .playlists-model-item-share {
         background-color: rgba($black-1, 0.2);
         border-radius: $border-radius-1-2;
@@ -170,11 +173,24 @@
       }
 
       &.extend {
-        height: 8.25rem;
-        .playlists-model-item-share {
-          height: 6rem;
+        height: 8rem;
+
+        .songs-model-item-share {
+          max-height: 5.25rem;
           opacity: 1;
         }
+      }
+    }
+
+    &:has(.extend-up) {
+      top: -14.5rem !important;
+    }
+  }
+
+  &.down {
+    .playlists-model {
+      &:has(.extend-up) {
+        top: -3.25rem !important;
       }
     }
   }

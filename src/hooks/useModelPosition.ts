@@ -1,46 +1,46 @@
-import { useState, MouseEvent, RefObject } from "react";
+import { useState, RefObject } from "react";
 import { TModelSize } from "../models/app.model";
 
 export const useModelPosition = (): {
   modelPosition: TModelSize;
-  handleMouseEnter: (
-    ev: MouseEvent,
-    modelSize: TModelSize,
-    elHeight: number
-  ) => void;
+  isExpendUp: boolean;
+
   handleMouseClick: (
     model: RefObject<HTMLElement> | null,
     modelSize: TModelSize,
     parent: RefObject<HTMLElement> | null
   ) => void;
+  handleExpendDirection: (
+    model: RefObject<HTMLElement> | null,
+    modelSize: TModelSize,
+    container: RefObject<HTMLElement> | null,
+    parent: RefObject<HTMLElement> | null
+  ) => void;
+  setIsExpendUp: React.Dispatch<React.SetStateAction<boolean>>;
 } => {
   const [modelPosition, setModelPosition] = useState<TModelSize>({
     width: 0,
     height: 0,
   });
 
-  const handleMouseEnter = (
-    ev: MouseEvent,
-    modelSize: TModelSize,
-    elHeight: number
-  ) => {
-    const position = ev.currentTarget.getBoundingClientRect();
-    if (position.bottom + elHeight > window.innerHeight) {
-      setModelPosition(modelSize);
-    }
-  };
+  const [isExpendUp, setIsExpendUp] = useState(false);
 
   const handleMouseClick = (
     model: RefObject<HTMLElement> | null,
     modelSize: TModelSize,
     parent: RefObject<HTMLElement> | null
   ) => {
-    const modelCon = model?.current?.getBoundingClientRect();
-    if (!modelCon) return;
+    const currentModel = model?.current;
+    const currentParent = parent?.current;
 
-    const parentCon = parent?.current?.getBoundingClientRect();
+    if (!currentModel || !currentParent) return;
 
-    if (modelCon.bottom + modelSize.height > parentCon!.bottom) {
+    const modelCon = currentModel.getBoundingClientRect();
+    const parentCon = currentParent.getBoundingClientRect();
+
+    if (modelCon.bottom + modelSize.height + 28 > parentCon!.bottom) {
+      //Add an up class for css check on how to open the sub menu
+      currentModel.classList.add("up");
       setModelPosition({
         width: -modelSize.width,
         height: -modelSize.height,
@@ -48,19 +48,48 @@ export const useModelPosition = (): {
     } else if (modelCon?.right + modelSize.width > parentCon!.right) {
       if (modelCon.left - modelSize.width < 0) {
         setModelPosition({ width: 0, height: 48 });
-      } else
+      } else {
+        //Add an down class for css check on how to open the sub menu
+        currentModel.classList.add("down");
         setModelPosition({
           width: -(modelSize.width - modelCon.width),
           height: 48,
         });
+      }
     } else {
       setModelPosition({ width: 0, height: 48 });
     }
   };
 
+  const handleExpendDirection = (
+    model: RefObject<HTMLElement> | null,
+    modelSize: TModelSize,
+    container: RefObject<HTMLElement> | null,
+    parent: RefObject<HTMLElement> | null
+  ) => {
+    const modelCon = model?.current?.getBoundingClientRect();
+    if (!modelCon) return;
+
+    console.log("modelCon:", modelCon);
+    const containerCon = container?.current?.getBoundingClientRect();
+    console.log(
+      "modelCon.bottom + modelSize.height + 28 > containerCon!.bottom:",
+      modelCon.bottom + modelSize.height + 28 > containerCon!.bottom
+    );
+
+    if (modelCon.bottom + modelSize.height + 28 > containerCon!.bottom) {
+      //Add where to expend to parent controlled by css
+      parent?.current?.classList.add("extend-up");
+
+      setIsExpendUp(true);
+    }
+  };
+
   return {
     modelPosition,
-    handleMouseEnter,
+    isExpendUp,
+    setIsExpendUp,
     handleMouseClick,
+    handleExpendDirection,
   };
 };

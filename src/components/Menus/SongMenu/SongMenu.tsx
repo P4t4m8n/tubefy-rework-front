@@ -30,13 +30,14 @@ export default function SongMenu({
   addSongToPlaylistEdit,
   playlistId,
 }: Props) {
-  const modelRef = useRef<HTMLDivElement>(null);
-  const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+  const modelConRef = useRef<HTMLDivElement>(null);
+  const modelRef = useRef<HTMLUListElement>(null);
+  const [isModelOpen, setIsModelOpen] = useModel(modelConRef);
   const { modelPosition, handleMouseClick } = useModelPosition();
 
   const onOpenModel = (ev?: MouseEvent) => {
     ev!.preventDefault();
-    handleMouseClick(modelRef, modelSize, container);
+    handleMouseClick(modelConRef, modelSize, container);
     setIsModelOpen((prev) => !prev);
   };
 
@@ -67,18 +68,19 @@ export default function SongMenu({
     },
     modelSize: { width: 208, height: 144 },
   }));
+
   const items: IModelItem[] = [
     {
       items: shareItems,
       text: "Share",
       btnSvg: <ShareSVG />,
-      modelSize: { width: 208, height: 184 },
+      modelSize: { width: 208, height: 144 },
     },
     {
       items: addItems,
       text: "Add to Playlist",
       btnSvg: <PlusSVG />,
-      modelSize: { width: 208, height: 184 },
+      modelSize: { width: 208, height: 144 },
     },
   ];
 
@@ -99,7 +101,7 @@ export default function SongMenu({
   }
 
   return (
-    <div ref={modelRef} className="songs-model-con">
+    <div ref={modelConRef} className="songs-model-con">
       <GeneralBtn
         className="songs-model-btn"
         btnSvg={<DotsSVG />}
@@ -111,6 +113,7 @@ export default function SongMenu({
             top: modelPosition.height,
             left: modelPosition.width,
           }}
+          ref={modelRef}
           className={"songs-model"}
         >
           {items.map((item, idx) => (
@@ -131,6 +134,7 @@ export default function SongMenu({
                   modelClass={"songs-model-item"}
                   imgUrl={item.imgUrl}
                   items={item.items}
+                  parentRef={modelRef}
                   modelSize={item.modelSize!}
                   text={item.text}
                   btnSvg={item.btnSvg}

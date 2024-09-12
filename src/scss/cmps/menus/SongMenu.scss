@@ -5,6 +5,7 @@
   .songs-model-btn {
     width: 100%;
     height: 100%;
+    fill: $gray-1;
     &:hover {
       fill: $white-1;
       transform: scale(1.1);
@@ -22,11 +23,10 @@
 
     width: 13rem;
     max-width: 80vw;
+    transition: height 0.25s, top 0.25s;
 
     z-index: $z-index-model;
     border-radius: $border-radius-1-4;
-
-    
 
     .songs-model-item {
       width: 100%;
@@ -75,9 +75,8 @@
 
     .songs-model-item-share-con {
       height: 1.75rem;
-      transition: margin-bottom 0.25s;
-      transition: margin-top 0.25s;
-      transition: margin 0.25s;
+      transition: height 0.25s, top 0.25s;
+
       position: relative;
 
       .songs-model-item-share-btn {
@@ -129,7 +128,7 @@
       .songs-model-item-share {
         background-color: rgba($black-1, 0.2);
         border-radius: $border-radius-1-2;
-        padding-bottom: 0.5rem;
+        // padding-block: 0.5rem;
 
         position: absolute;
         width: calc(100% - 2.5rem);
@@ -146,11 +145,20 @@
         margin-bottom: 0;
         margin-top: 0;
 
+        overflow-y: auto;
+
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        @include no-scrollBar;
+
         li {
           &:not(last-type) {
             border-bottom: 1px solid $white-2;
           }
           &.songs-model-item-item-share {
+            scroll-snap-align: end;
+
+            height: 1.75rem;
             width: 100%;
             position: relative;
             a,
@@ -165,6 +173,7 @@
               cursor: pointer;
 
               width: 100%;
+              height: 100%;
               background-color: inherit;
 
               border-radius: $border-radius-1-2;
@@ -198,24 +207,24 @@
       }
 
       &.extend {
-        margin-bottom: 6.75rem;
-        margin-top: 0;
+        height: 7rem;
 
         .songs-model-item-share {
-          height: 6rem;
+          max-height: 5.25rem;
           opacity: 1;
         }
+      }
+    }
 
-        // &.extend-up {
-        //   margin-bottom: 0;
-        //   margin-top: 6.75rem;
-        //   .songs-model-item-share {
-        //     animation: growUp 0.25s ease-in-out forwards;
+    &:has(.extend-up) {
+      top: -13.5rem !important;
+    }
+  }
 
-        //     top: -6.75rem;
-        //     left: 0.75rem;
-        //   }
-        // }
+  &.down {
+    .songs-model {
+      &:has(.extend-up) {
+        top: -2.25rem !important;
       }
     }
   }

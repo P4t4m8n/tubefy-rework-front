@@ -5,6 +5,7 @@ import { utilService } from "../../util/util.util";
 import SongMenu from "../Menus/SongMenu/SongMenu";
 import { RefObject } from "react";
 import Login from "../User/Login";
+import { TModelSize } from "../../models/app.model";
 
 interface Props {
   song: ISong;
@@ -12,6 +13,8 @@ interface Props {
   isOwner: boolean;
   container: RefObject<HTMLDivElement | HTMLUListElement>;
   onRemoveSongFromPlaylist?: (songId: string) => void;
+  modelSize: TModelSize;
+
   isLoggedIn?: boolean;
 }
 
@@ -22,6 +25,7 @@ export default function PlaylistSongsListPreview({
   container,
   isLoggedIn,
   onRemoveSongFromPlaylist,
+  modelSize,
 }: Props) {
   const { imgUrl, name } = song;
   const addedAt = utilService.getDaysSince(song.addedAt);
@@ -49,7 +53,7 @@ export default function PlaylistSongsListPreview({
             onRemoveSongFromPlaylist={onRemoveSongFromPlaylist}
             song={song}
             isOwner={isOwner}
-            modelSize={{ width: 208, height: 240 }}
+            modelSize={modelSize}
           />
         ) : (
           <Login />

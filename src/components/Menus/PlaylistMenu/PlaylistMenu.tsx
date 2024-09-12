@@ -26,8 +26,9 @@ export default function PlaylistMenu({
   modelSize,
   playlistId,
 }: Props) {
-  const modelRef = useRef<HTMLDivElement>(null);
-  const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+  const modelConRef = useRef<HTMLDivElement>(null);
+  const modelRef = useRef<HTMLUListElement>(null);
+  const [isModelOpen, setIsModelOpen] = useModel(modelConRef);
 
   const { modelPosition, handleMouseClick } = useModelPosition();
 
@@ -35,7 +36,7 @@ export default function PlaylistMenu({
 
   const onOpenModel = (ev?: MouseEvent) => {
     ev!.preventDefault();
-    handleMouseClick(modelRef, modelSize, container);
+    handleMouseClick(modelConRef, modelSize, container);
     setIsModelOpen((prev) => !prev);
   };
 
@@ -90,7 +91,7 @@ export default function PlaylistMenu({
   ];
 
   return (
-    <div ref={modelRef} className="playlists-model-con">
+    <div ref={modelConRef} className="playlists-model-con">
       <GeneralBtn
         className="playlists-model-btn"
         btnSvg={<DotsSVG />}
@@ -104,6 +105,7 @@ export default function PlaylistMenu({
             left: modelPosition.width,
           }}
           className={"playlists-model"}
+          ref={modelRef}
         >
           {items.map((item, idx) => (
             <Fragment key={idx}>
@@ -124,6 +126,7 @@ export default function PlaylistMenu({
                   items={item.items}
                   modelSize={modelSize}
                   elKey={idx}
+                  parentRef={modelRef}
                 />
               )}
             </Fragment>

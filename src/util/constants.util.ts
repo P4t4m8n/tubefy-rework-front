@@ -51,3 +51,6 @@ export const loginInputs: {
     label: "Password",
   },
 ];
+
+export const REGULAR_SONG_MENU_SIZE = { width: 208, height: 92 };
+export const WITH_REMOVE_SONG_MENU_SIZE = { width: 208, height: 132 };

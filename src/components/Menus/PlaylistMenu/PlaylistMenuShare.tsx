@@ -14,6 +14,7 @@ interface Props {
   container: RefObject<HTMLDivElement | HTMLUListElement>;
   modelSize: TModelSize;
   elKey: number;
+  parentRef: RefObject<HTMLDivElement | HTMLUListElement>;
 }
 
 export default function PlaylistMenuShare({
@@ -22,26 +23,36 @@ export default function PlaylistMenuShare({
   container,
   items,
   elKey,
+  parentRef,
 }: Props) {
   const modelRef = useRef<HTMLLIElement>(null);
-  const [isModelOpen, setIsModelOpen] = useModel(modelRef);
-  const { handleMouseClick } = useModelPosition();
+  const [isModelOpen, setIsModelOpen] = useModel(modelRef, handleCloseModel);
+  const { isExpendUp, setIsExpendUp, handleExpendDirection } =
+    useModelPosition();
 
   const onOpenModel = (ev?: MouseEvent) => {
     ev!.preventDefault();
     if (isModelOpen) {
-      setIsModelOpen(false);
+      handleCloseModel();
       return;
     }
-    handleMouseClick(modelRef, modelSize, container);
+    handleExpendDirection(modelRef, modelSize, container, parentRef);
     setIsModelOpen(true);
   };
 
+  function handleCloseModel() {
+    parentRef.current?.classList.remove("extend-up");
+    setIsExpendUp(false);
+    setIsModelOpen(false);
+    return;
+  }
   return (
     <li
       key={elKey + 15}
       ref={modelRef}
-      className={`${modelClass}-share-con ${isModelOpen && "extend"} `}
+      className={`${modelClass}-share-con ${isModelOpen && "extend"} ${
+        isExpendUp ? "extend-up" : ""
+      } `}
     >
       <GenericModelBtn
         btnSvg={<ShareSVG />}

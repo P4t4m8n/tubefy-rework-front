@@ -3,6 +3,7 @@ import { ISong } from "../../models/song.model";
 import { ClockSVG } from "../svg/SVGs";
 import PlaylistSongsListItem from "./PlaylistSongsListItem";
 import { utilService } from "../../util/util.util";
+import { TModelSize } from "../../models/app.model";
 
 interface Props {
   songs: ISong[];
@@ -11,6 +12,7 @@ interface Props {
   onRemoveSongFromPlaylist?: (songId: string) => void;
   isActive?: boolean;
   isLoggedIn?: boolean;
+  modelSize: TModelSize;
 }
 
 export default function PlaylistSongsList({
@@ -19,6 +21,7 @@ export default function PlaylistSongsList({
   container,
   isActive,
   isLoggedIn,
+  modelSize,
   onRemoveSongFromPlaylist,
 }: Props) {
   const randomNumber = utilService.getRandomIntInclusive(1, 1000);
@@ -42,6 +45,7 @@ export default function PlaylistSongsList({
             idx={idx}
             isOwner={isOwner}
             container={container}
+            modelSize={modelSize}
             onRemoveSongFromPlaylist={onRemoveSongFromPlaylist}
           />
         ))}

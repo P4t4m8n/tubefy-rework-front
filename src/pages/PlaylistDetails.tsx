@@ -11,6 +11,11 @@ import PlaylistMenu from "../components/Menus/PlaylistMenu/PlaylistMenu";
 import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList";
 import { ISong } from "../models/song.model";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import { TModelSize } from "../models/app.model";
+import {
+  REGULAR_SONG_MENU_SIZE,
+  WITH_REMOVE_SONG_MENU_SIZE,
+} from "../util/constants.util";
 
 export default function PlaylistDetails() {
   const detailsRef = useRef<HTMLDivElement>(null);
@@ -46,14 +51,17 @@ export default function PlaylistDetails() {
     onRemoveSongFromPlaylist?: (songId: string) => void;
     isActive?: boolean;
     isLoggedIn?: boolean;
+    modelSize: TModelSize;
   } = {
     songs,
     isOwner: isAllowedToEdit,
     container: detailsRef,
     isActive,
+    modelSize: REGULAR_SONG_MENU_SIZE,
   };
   if (isAllowedToEdit) {
     playlistSongsProps.onRemoveSongFromPlaylist = onRemoveSongFromPlaylist;
+    playlistSongsProps.modelSize = WITH_REMOVE_SONG_MENU_SIZE;
   }
 
   if (user) {
