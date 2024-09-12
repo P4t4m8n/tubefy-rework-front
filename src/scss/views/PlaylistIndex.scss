@@ -6,6 +6,9 @@
     max-height: calc(100vh - 16rem);
     overflow: auto;
     width: 100%;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overflow-y: auto;
     @include no-scrollBar;
   }
 }

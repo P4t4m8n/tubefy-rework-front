@@ -1,6 +1,6 @@
 import { RefObject, useRef } from "react";
 
-import { LikeBtn } from "../components/Buttons/LikeBtn";
+import  LikeBtn  from "../components/Buttons/LikeBtn";
 import { isAllowedToEditPlaylist } from "../util/playlist.util";
 import PlaylistDetailsHero from "../components/PlaylistDetails/PlaylistDetailsHero";
 import PlayBtn from "../components/Buttons/PlayBtn";
@@ -44,6 +44,7 @@ export default function PlaylistDetails() {
   };
 
   const isAllowedToEdit = isAllowedToEditPlaylist(id, user?.id);
+
   const playlistSongsProps: {
     songs: ISong[];
     isOwner: boolean;
@@ -59,6 +60,7 @@ export default function PlaylistDetails() {
     isActive,
     modelSize: REGULAR_SONG_MENU_SIZE,
   };
+  
   if (isAllowedToEdit) {
     playlistSongsProps.onRemoveSongFromPlaylist = onRemoveSongFromPlaylist;
     playlistSongsProps.modelSize = WITH_REMOVE_SONG_MENU_SIZE;

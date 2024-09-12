@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import { IPlaylistModelData } from "../../models/playlist.model";
 import { ISong, ISongYT } from "../../models/song.model";
-import { LikeBtn } from "../Buttons/LikeBtn";
+import  LikeBtn  from "../Buttons/LikeBtn";
 import PlayBtn from "../Buttons/PlayBtn";
 import SongMenu from "../Menus/SongMenu/SongMenu";
 

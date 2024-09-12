@@ -13,18 +13,7 @@ const query = async (FilterSortBy: IPlaylistFilter): Promise<IPlaylist[]> => {
 };
 
 const get = async (id: string): Promise<IPlaylistDetailed> => {
-  try {
-    const playlist = await httpService.get<IPlaylistDetailed>(
-      `${BASE_URL}${id}`
-    );
-    if (!playlist)
-      throw new Error("Error in playlist-service - No playlist found");
-    return playlist;
-  } catch (error) {
-    throw new Error(
-      `Error in playlist-service - Error while fetching playlist: ${error}`
-    );
-  }
+  return await httpService.get<IPlaylistDetailed>(`${BASE_URL}${id}`);
 };
 
 const save = async (playlist: IPlaylist): Promise<IPlaylistDTO> => {

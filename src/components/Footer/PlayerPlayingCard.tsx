@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks/useStore";
-import { LikeBtn } from "../Buttons/LikeBtn";
+import  LikeBtn  from "../Buttons/LikeBtn";
 
 export default function PlayerPlayingCard() {
   const playingSong = useAppSelector((state) => state.player.playingSong);

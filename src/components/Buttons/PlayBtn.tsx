@@ -2,7 +2,7 @@ import { memo, MouseEvent } from "react";
 import { usePlay } from "../../hooks/usePlay";
 import { IPlaylist } from "../../models/playlist.model";
 import { ISong, ISongYT } from "../../models/song.model";
-import { PauseSVG, PlaySVG } from "../svg/SVGs";
+import {  PlayingAnimationSVG, PlaySVG } from "../svg/SVGs";
 import { isSong } from "../../util/player.util";
 
 interface Props {
@@ -38,7 +38,7 @@ function PlayBtn({ item }: Props) {
   return (
     <button onClick={onPlay} className={`play-btn ${buttonClass}`}>
       {isPlaying && (showSongPlay || showPlaylistPlay) ? (
-        <PauseSVG />
+       <PlayingAnimationSVG/>
       ) : (
         <PlaySVG />
       )}

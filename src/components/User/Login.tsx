@@ -92,8 +92,18 @@ export default function Login() {
 
       {isModelOpen && (
         <div className={modelClass}>
-          {!isDemoUser && (
-            <>
+          <div className={`card-con " ${isDemoUser ? " flip" : ""}`}>
+            <div
+              style={{ display: !isDemoUser ? "block" : "none" }}
+              className="regular-login"
+            >
+              <header>
+                <h2>{isLoginText}</h2>
+                <button onClick={() => setIsDemoUser(!isDemoUser)}>
+                  {isDemoUser ? "Login" : "Demo Users"}
+                </button>
+              </header>
+
               <form onSubmit={onSubmit}>
                 {inputs.map((input) => (
                   <li key={input.name}>
@@ -135,18 +145,24 @@ export default function Login() {
                   </button>
                 </div>
               </form>
-              <h2>{isLoginText}</h2>
-            </>
-          )}
-          {isDemoUser && (
-            <>
-              <button onClick={async () => login(demoUsers[0])}>test</button>
-              <button onClick={async () => login(demoUsers[1])}>bobo</button>
-            </>
-          )}
-          <button onClick={() => setIsDemoUser(!isDemoUser)}>
-            {isDemoUser ? "Login" : "Demo Users"}
-          </button>
+            </div>
+
+            <div
+              style={{ display: isDemoUser ? "block" : "none" }}
+              className="demo-user-login"
+            >
+              <header>
+                <h2>Demo Users</h2>
+                <button onClick={() => setIsDemoUser(!isDemoUser)}>
+                  Regular Login
+                </button>
+              </header>
+              <div>
+                <button onClick={async () => login(demoUsers[0])}>test</button>
+                <button onClick={async () => login(demoUsers[1])}>bobo</button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

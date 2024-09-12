@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { IPlaylistDetailed } from "../../models/playlist.model";
 import { ISong, ISongYT } from "../../models/song.model";
 import { HeartSVG } from "../svg/SVGs";
@@ -8,7 +8,7 @@ interface Props {
   item: ISongYT | ISong | IPlaylistDetailed;
 }
 
-export function LikeBtn({ item }: Props) {
+function LikeBtn({ item }: Props) {
   const { isLiked, toggleLike } = useLike(item);
   const [animation, setAnimation] = useState<
     "" | "like-animation" | "un-like-animation"
@@ -26,3 +26,4 @@ export function LikeBtn({ item }: Props) {
     </button>
   );
 }
+export default memo(LikeBtn);

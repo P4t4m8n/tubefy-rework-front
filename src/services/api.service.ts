@@ -49,20 +49,13 @@ interface ytPlaylistItemResponse {
   };
 }
 
-const fetchFromYT = async (url: string) => {
-  const response = await axios.get(url);
-  if (!response.data.items) {
-    throw new Error("No items found");
-  }
-  return response.data.items;
-};
 const getSongsFromYT = async (search: string): Promise<ISongYT[]> => {
   const url = `${URL_SEARCH}part=snippet&q=${search}&videoCategoryId=10&type=video&maxResults=${MAX_RESULTS}`;
   const items = await fetchFromYT(url);
 
   const promisesSongs = items.map(
     async (ytItem: ytSongResponse): Promise<ISongYT> => {
-      const searchInfo = parseSongString(ytItem.snippet.title);
+      const searchInfo = _parseSongString(ytItem.snippet.title);
       const duration = await _getDuration(ytItem.id.videoId);
       return {
         name: searchInfo.name,
@@ -102,6 +95,14 @@ const getPlaylistsFromYT = async (search: string): Promise<IPlaylistYT[]> => {
   return await Promise.all(promisesPlaylists);
 };
 
+const fetchFromYT = async (url: string) => {
+  const response = await axios.get(url);
+  if (!response.data.items) {
+    throw new Error("No items found");
+  }
+  return response.data.items;
+};
+
 const fetchSongsFromPlaylist = async (
   playlistId: string
 ): Promise<ISongYT[]> => {
@@ -112,7 +113,7 @@ const fetchSongsFromPlaylist = async (
     async (song: ytPlaylistItemResponse): Promise<ISongYT> => {
       const youtubeId = song.snippet.resourceId.videoId;
       const duration = await _getDuration(youtubeId);
-      const { name, artist } = parseSongString(song.snippet.title);
+      const { name, artist } = _parseSongString(song.snippet.title);
       return {
         name,
         artist,
@@ -129,7 +130,7 @@ const fetchSongsFromPlaylist = async (
   return await Promise.all(promisesSongs);
 };
 
-const parseSongString = (
+const _parseSongString = (
   songString: string
 ): { artist: string; name: string } => {
   songString = songString.replace(/\[.*?\]|\(.*?\)/g, "");

@@ -3,7 +3,11 @@
   container-type: inline-size;
   container-name: playlist-index-list;
 
+  
+
   .playlist-list {
+    scroll-snap-align: end;
+
     h2 {
       color: $white-1;
       font-size: $font-size-24;

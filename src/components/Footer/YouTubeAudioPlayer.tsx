@@ -18,6 +18,7 @@ import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 export default function YouTubeAudioPlayer() {
   const { playingSong, isPlaying, currentPlaylist, togglePlayPause } =
     usePlay();
+  console.log("currentPlaylist:", currentPlaylist);
 
   const [songOrderMode, setSongOrderMode] = useState<
     "shuffle" | "repeat" | "normal"
@@ -76,8 +77,9 @@ export default function YouTubeAudioPlayer() {
   };
 
   const onReady = (ev: YouTubeEvent) => {
+    const vol = youTubePlayer.volume || 0;
     youTubePlayer.setPlayer(ev.target);
-    youTubePlayer.setVolume(50);
+    youTubePlayer.setVolume(vol);
   };
 
   if (!playingSong) return;

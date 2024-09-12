@@ -174,3 +174,44 @@
   box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
     rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
 }
+
+@mixin general-btn {
+  @include flex-direction-align-justify-gap-padding(
+    row,
+    center,
+    center,
+    0,
+    0 1.5rem
+  );
+  border-radius: $border-radius-2;
+
+  background-color: $white-2;
+  color: $black-2;
+
+  font-weight: 700;
+  font-size: $font-size-16;
+  height: 3rem;
+
+  width: fit-content;
+  position: relative;
+
+  cursor: pointer;
+
+  overflow: hidden;
+  @include btn-hover-animation($gray-1);
+
+  span {
+    position: relative;
+  }
+}
+
+@mixin general-link {
+  font-weight: 800;
+  display: inline;
+  color: $gray-1;
+  transition: color 0.3s;
+  &:hover {
+    color: $white-1;
+  }
+  @include after-border-grow($gray-1);
+}

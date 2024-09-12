@@ -35,12 +35,12 @@
 .login-model {
   @include center-position(fixed);
   @include model-boxShadow;
-  @include flex-direction-gap-padding(column, 1rem, 1rem);
 
   container-type: inline-size;
   container-name: login-model;
 
   width: clamp(10rem, 100%, 40rem);
+  height: 20rem;
   min-height: fit-content;
 
   border-radius: $border-radius-1-2;
@@ -58,75 +58,106 @@
   &.fade-out {
     animation: fade-out 0.2s forwards;
   }
-
-  form {
+  .card-con {
+    width: 100%;
     height: 100%;
-    @include flex-direction-gap-padding(column, 0.5rem, 1rem);
-    li {
-      width: 100%;
-      @include flex-direction-gap-padding(column, 0.5rem, 0);
-      label {
-        @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
-        span {
-          &.error {
-            color: $red-1;
-            font-size: $font-size-14;
-            font-weight: 800;
-          }
-        }
-      }
-      input {
-        background-color: $black-6;
-        color: $white-1;
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    background-color: inherit;
+    border-radius: $border-radius-1-2;
 
-        border-radius: $border-radius-1-2;
-        padding: 0.25rem 0.5rem;
-
-        font-size: $font-size-16;
-        &.error {
-          box-shadow: rgba($red-1, 0.1) 0px 1px 1px 0px,
-            rgba($red-1, 0.7) 0px 0px 0px 1px;
-        }
-      }
+    &.flip {
+      transform: rotateY(180deg);
     }
-    .actions {
-      @include flex-direction-align-justify-gap-padding(
-        row,
-        center,
-        space-between,
-        0,
-        0.5rem 0 0 0
-      );
+    .demo-user-login,
+    .regular-login {
+      border-radius: $border-radius-1-2;
 
-      margin-top: auto;
-      button {
+      position: absolute;
+      -webkit-backface-visibility: hidden; /* Safari */
+      backface-visibility: hidden;
+      width: 100%;
+      height: 100%;
+      background-color: inherit;
+    }
+
+    .regular-login,
+    .demo-user-login {
+      @include flex-direction-gap-padding(column, 1rem, 1rem);
+
+      header {
         @include flex-direction-align-justify-gap-padding(
           row,
           center,
-          center,
+          space-between,
           0,
-          0 1.5rem
+          0 1rem
         );
-        border-radius: $border-radius-2;
+        button {
+          font-size: $font-size-14;
+          @include general-link;
+          @include after-border-grow($gray-1);
+        }
+      }
 
-        background-color: $white-2;
-        color: $black-2;
+      form,
+      div {
+        height: 100%;
+        @include flex-direction-gap-padding(column, 0.5rem, 1rem);
+        li {
+          width: 100%;
+          @include flex-direction-gap-padding(column, 0.5rem, 0);
+          label {
+            @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
+            span {
+              &.error {
+                color: $red-1;
+                font-size: $font-size-14;
+                font-weight: 800;
+              }
+            }
+          }
+          input {
+            background-color: $black-6;
+            color: $white-1;
 
-        font-weight: 700;
-        font-size: $font-size-16;
-        height: 3rem;
+            border-radius: $border-radius-1-2;
+            padding: 0.25rem 0.5rem;
 
-        width: fit-content;
-        position: relative;
+            font-size: $font-size-16;
+            &.error {
+              box-shadow: rgba($red-1, 0.1) 0px 1px 1px 0px,
+                rgba($red-1, 0.7) 0px 0px 0px 1px;
+            }
+          }
+        }
+        .actions {
+          @include flex-direction-align-justify-gap-padding(
+            row,
+            center,
+            space-between,
+            0,
+            0.5rem 0 0 0
+          );
 
-        cursor: pointer;
+          margin-top: auto;
+          button {
+            @include general-btn;
+          }
+        }
+      }
+    }
 
-        overflow: hidden;
-        @include btn-hover-animation($gray-1);
-        
-
-        span {
-          position: relative;
+    .demo-user-login {
+      transform: rotateY(180deg);
+      div {
+        button {
+          font-size: $font-size-18;
+          width: fit-content;
+          text-align: left;
+          @include general-link;
+          @include after-border-grow($gray-1);
         }
       }
     }

@@ -1,14 +1,10 @@
 import { IYouTubePlayer } from "../models/player.model";
 
 export class YouTubePlayer {
-  private player: IYouTubePlayer | null = null;
+  #player: IYouTubePlayer | null = null;
 
   setPlayer(player: IYouTubePlayer) {
-    this.player = player;
-  }
-
-  getVolume() {
-    return this.player?.getVolume() ?? 0;
+    this.#player = player;
   }
 
   setVolume(volume: number) {
@@ -23,8 +19,20 @@ export class YouTubePlayer {
     this.player?.pauseVideo();
   }
 
+  get volume() {
+    return this.player?.getVolume();
+  }
+
+  get player() {
+    return this.#player;
+  }
+
+  getVolume() {
+    return this.player?.getVolume() ?? 0;
+  }
+
   getCurrentTime(): number {
-    return this.player?.getCurrentTime() ||50;
+    return this.player?.getCurrentTime() || 50;
   }
 
   getDuration(): number {
