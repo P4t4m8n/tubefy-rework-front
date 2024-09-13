@@ -1,10 +1,12 @@
 import { combineReducers, compose, configureStore } from "@reduxjs/toolkit";
+
 import { playlistReducer } from "./reducers/playlist.reducer";
 import { userReducer } from "./reducers/user.reducer";
 import { playerReducer } from "./reducers/player.reducer";
 import { imgGradientReducer } from "./reducers/imgGradient.reducer";
 import { friendReducer } from "./reducers/friend.reducer";
-import { notificationReducer } from "./reducers/notification";
+import { notificationReducer } from "./reducers/notification.reducer";
+import { screenReducer } from "./reducers/screen.reducer";
 
 const rootReducer = combineReducers({
   playlists: playlistReducer,
@@ -13,6 +15,7 @@ const rootReducer = combineReducers({
   imgGradient: imgGradientReducer,
   friends: friendReducer,
   notification: notificationReducer,
+  screen: screenReducer,
 });
 
 export const store = configureStore({

@@ -70,12 +70,8 @@ export const useModelPosition = (): {
     const modelCon = model?.current?.getBoundingClientRect();
     if (!modelCon) return;
 
-    console.log("modelCon:", modelCon);
     const containerCon = container?.current?.getBoundingClientRect();
-    console.log(
-      "modelCon.bottom + modelSize.height + 28 > containerCon!.bottom:",
-      modelCon.bottom + modelSize.height + 28 > containerCon!.bottom
-    );
+   
 
     if (modelCon.bottom + modelSize.height + 28 > containerCon!.bottom) {
       //Add where to expend to parent controlled by css

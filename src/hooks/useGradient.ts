@@ -8,12 +8,13 @@ interface ColorMap {
 
 export const useGradient = () => {
   const { imgUrl, gradient } = useAppSelector((state) => state.imgGradient);
-
+  
   useEffectUpdate(() => {
     if (!imgUrl) {
       setGradientForBackground(null);
       return;
     }
+    console.log("imgUrl:", imgUrl)
     const img: HTMLImageElement = new Image();
     img.crossOrigin = "anonymous";
     img.src = imgUrl;
@@ -42,7 +43,7 @@ export const useGradient = () => {
       ).data;
       const colorMap: ColorMap = {};
 
-      for (let i = 0; i < pixelData.length; i += 20) {
+      for (let i = 0; i < pixelData.length; i += 40) {
         const r: number = pixelData[i];
         const g: number = pixelData[i + 1];
         const b: number = pixelData[i + 2];
@@ -58,9 +59,9 @@ export const useGradient = () => {
 
       const sortedColors = Object.entries(colorMap).sort((a, b) => b[1] - a[1]);
       const topColors: string[] = sortedColors
-        .slice(0, 2)
+        .slice(0, 3)
         .map(([color]) => `rgb(${color})`);
-      topColors.push("rgb(18, 18, 18)");
+      // topColors.push("rgb(18, 18, 18)");
       const _gradient = createVerticalGradient(topColors);
       setGradientForBackground(_gradient);
     };

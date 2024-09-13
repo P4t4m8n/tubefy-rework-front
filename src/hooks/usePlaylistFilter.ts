@@ -11,7 +11,6 @@ export const usePlaylistFilter = () => {
   >([]);
   const currentSortBy = useRef<"recently_added" | "alphabetical" | "">("");
 
-  console.log("userPlaylists:", userPlaylists)
   const onFilterChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const value = ev.target.value.toLowerCase();
     const _filteredPlaylists = userPlaylists.filter(
