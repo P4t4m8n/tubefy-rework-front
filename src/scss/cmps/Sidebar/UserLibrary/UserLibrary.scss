@@ -1,6 +1,6 @@
 .user-library {
   background-color: $black-2;
-  height: calc(100% - 11rem);
+  height: calc(100% - 5rem);
   border-radius: $border-radius-1-2;
   @include flex-direction-gap-padding(column, 0, 0);
 }
@@ -8,7 +8,7 @@
 @media (max-width: rem(640px)) {
   .full-size {
     .user-library {
-      height: calc(100% - 10.5rem);
+      height: calc(100% - 14.5rem);
     }
   }
 }

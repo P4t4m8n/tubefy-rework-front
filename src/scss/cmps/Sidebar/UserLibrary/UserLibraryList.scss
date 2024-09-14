@@ -21,7 +21,7 @@
 @media (max-width: rem(640px)) {
   .full-size {
     .user-playlist-list {
-      height: calc(100vh - 24.5rem);
+      height: calc(100vh - 25.5rem);
       gap: 0.25rem;
       .user-playlist-item {
         a {
@@ -35,6 +35,6 @@
   }
 
   .user-playlist-list {
-    height: calc(100vh - 25.5rem);
+    height: calc(100svh - 25.5rem);
   }
 }

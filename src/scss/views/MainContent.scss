@@ -7,7 +7,7 @@
     overflow: hidden;
     container-type: inline-size;
     @container (max-width: 31rem) {
-        .playlists-details{
+        .playlists-details,.playlist-edit{
             gap: .5rem;
         }
     }

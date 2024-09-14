@@ -1,0 +1,21 @@
+.playlist-edit-actions {
+  @include flex-direction-align-gap-padding(row, center, 2rem, 0 1rem);
+  background-color: inherit;
+
+  .play-btn {
+    height: 3rem;
+    width: 3rem;
+    background: $green-1;
+    border-radius: 100vw;
+    padding: 0.5rem;
+  }
+
+  &.stick {
+    position: sticky;
+    top: -1px;
+    z-index: 1;
+    backdrop-filter: blur(100000px);
+    padding-block: 0.5rem;
+ 
+  }
+}

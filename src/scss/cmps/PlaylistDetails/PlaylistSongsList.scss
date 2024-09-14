@@ -3,7 +3,7 @@
   display: grid;
   grid-template-rows: 3rem 1fr;
   gap: 1rem;
-  container-type: inline-size;
+  // container-type: inline-size;
   position: relative;
 
 
@@ -71,7 +71,7 @@
 
   @container (max-width: 54rem) {
     .song-list-header {
-      height: 0 !important ;
+      display: none;
       p {
         display: none;
       }

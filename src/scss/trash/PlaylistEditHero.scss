@@ -1,15 +1,20 @@
 .playlist-edit-hero {
   @include flex-direction-align-gap-padding(row, flex-end, 2rem, 0 1rem);
+
   container-type: inline-size;
   container-name: playlist-edit-hero;
-  z-index: $z-index-base;
 
+  z-index: $z-index-base;
   .img-upload-con {
     position: relative;
+
     box-shadow: $black-1 0px 0px 2px 1px;
+
     width: 15rem;
     aspect-ratio: 1/1;
+
     display: block;
+
     border-radius: $border-radius-1-4;
     transition: width 0.3s;
 
@@ -17,27 +22,42 @@
     svg {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
       display: block;
     }
 
     .img-upload-hover {
-      @include img-upload-hover(25%);
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      left: 0;
+
+      height: 100%;
+      width: 100%;
+
+      fill: $gray-1;
+      transition: opacity 0.25s ease-in-out;
+
+      @include flex-direction-align-justify-gap-padding(
+        column,
+        center,
+        center,
+        1rem,
+        25%
+      );
     }
 
     &:hover {
       cursor: pointer;
-
       svg,
       img {
         filter: blur(4px);
       }
-
       .img-upload-hover {
         opacity: 1;
         fill: $gray-1;
         color: $gray-1;
-
         svg {
           filter: blur(0);
         }
@@ -47,7 +67,6 @@
 
   .playlist-edit-hero-model-con {
     width: fit-content;
-
     .playlist-edit-hero-model-btn {
       @include flex-direction-gap-padding(column, 0, 0);
       background-color: inherit;
@@ -75,24 +94,19 @@
           object-fit: fill;
           border-radius: 100vw;
         }
-
         p {
           font-family: $font-size-16;
           color: $white-1;
-
           &:first-of-type {
             font-weight: 800;
           }
-
           &:nth-of-type(2),
           &:nth-of-type(3) {
             font-weight: 700;
           }
-
           &:last-of-type {
             color: $gray-1;
           }
-
           &:not(:last-of-type)::after {
             content: "•";
             padding-left: 0.5em;
@@ -102,18 +116,20 @@
     }
 
     .playlist-edit-hero-model {
+      // @include center-position(absolute);
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
 
+      // top: 125%;
       @include model-boxShadow;
       background-color: $black-3;
       width: clamp(22rem, 100%, 34rem);
+
       border-radius: $border-radius-1-4;
       aspect-ratio: 1.9/1;
       padding: 2rem;
       z-index: $z-index-model;
-
       .edit-model-header {
         @include flex-direction-align-justify-gap-padding(
           row,
@@ -125,7 +141,6 @@
         padding-bottom: 1rem;
         color: $white-1;
         font-size: $font-size-20;
-
         button {
           width: 1rem;
           background-color: inherit;
@@ -133,7 +148,6 @@
           fill: $gray-1;
         }
       }
-
       form {
         display: grid;
         grid-template-rows: calc(100% - 3rem) 2.5rem;
@@ -147,13 +161,11 @@
           display: block;
           border-radius: $border-radius-1-2;
         }
-
         .playlists-details-hero-info {
           grid-area: 1/2/2/-1;
           @include flex-direction-gap-padding(column, 0.45rem, 0);
           width: 100%;
           height: 100%;
-
           input,
           textarea {
             background-color: rgba(255, 255, 255, 0.1);
@@ -163,11 +175,9 @@
             font-size: $font-size-14;
             box-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px 0px;
           }
-
           input {
             font-weight: 700;
           }
-
           textarea {
             resize: none;
             height: 100%;
@@ -175,14 +185,12 @@
             border: none;
           }
         }
-
         button {
           grid-area: 2/2/-1/-1;
           justify-self: flex-end;
           @include general-btn;
           @include btn-hover-animation($gray-1);
         }
-
         .img-upload-con {
           grid-area: 1/1/2/2;
           width: 100%;
@@ -194,18 +202,21 @@
             1rem,
             0
           );
-
           img {
             object-fit: contain;
           }
-
           svg {
             width: 5rem;
             background-color: inherit;
           }
-
           .img-upload-hover {
-            @include img-upload-hover(2.5rem);
+            @include flex-direction-align-justify-gap-padding(
+              column,
+              center,
+              center,
+              1rem,
+              2.5rem
+            );
           }
         }
 
@@ -214,13 +225,11 @@
           display: inline-block;
           width: 5rem;
           height: 2.5rem;
-
           input {
             opacity: 0;
             width: 0;
             height: 0;
           }
-
           .slider {
             position: absolute;
             cursor: pointer;
@@ -229,8 +238,8 @@
             right: 0;
             bottom: 0;
             background-color: $white-1;
+            -webkit-transition: 0.4s;
             transition: 0.4s;
-
             &:before {
               position: absolute;
               content: "";
@@ -240,34 +249,41 @@
               top: 50%;
               transform: translateY(-50%);
               background-color: $black-2;
+              -webkit-transition: 0.4s;
               transition: 0.4s;
             }
           }
+        }
 
-          input:checked + .slider {
-            background-color: #2196f3;
-          }
+        input:checked + .slider {
+          background-color: #2196f3;
+        }
 
-          input:focus + .slider {
-            box-shadow: 0 0 1px #2196f3;
-          }
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196f3;
+        }
 
-          input:checked + .slider:before {
-            transform: translateX(26px);
-          }
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
 
-          /* Rounded sliders */
-          .slider.round {
-            border-radius: 34px;
-          }
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
 
-          .slider.round:before {
-            border-radius: 50%;
-          }
+        .slider.round:before {
+          border-radius: 50%;
         }
       }
     }
   }
+}
+
+body:has(.edit-model) {
+  overflow: hidden;
 }
 
 @container playlist-edit-hero (max-width: 58rem) {
@@ -284,7 +300,6 @@
     }
   }
 }
-
 @container playlist-edit-hero (max-width: 45rem) {
   .playlist-edit-hero {
     .img-upload-con {
@@ -299,27 +314,24 @@
     }
   }
 }
-
 @container playlist-edit-hero (max-width: 20.5rem) {
   .playlist-edit-hero {
     position: relative;
-
     .playlist-edit-hero-model-con {
       .playlist-edit-hero-model-btn {
         h3 {
-          font-size: $font-size-28 !important;
+          font-size: $font-size-28;
           text-align: center;
         }
-
         .playlists-edit-hero-info-owner {
           p {
             font-size: $font-size-14;
           }
         }
       }
-
       .playlist-edit-hero-model {
         height: calc(100svh - 11rem);
+
         width: 100%;
         aspect-ratio: 0;
         top: 0;
@@ -328,7 +340,6 @@
         bottom: 0;
         transform: none;
         padding: 1rem;
-
         form {
           grid-template-columns: calc(50% - 0.5rem - 1px) calc(
               50% - 0.5rem - 1px
@@ -336,7 +347,6 @@
           grid-template-rows: 15rem 15rem 3rem;
           align-content: space-around;
           height: calc(100% - 3rem);
-
           .img-upload-con {
             grid-area: 1/1/2/-1;
 
@@ -345,31 +355,34 @@
               max-width: 100%;
             }
           }
-
           .playlists-details-hero-info {
             grid-area: 2/1/3/-1;
           }
-
           .checkbox-is-public {
+            // align-self: flex-end;
             grid-area: 3/1/-1/2;
           }
+          button {
+            &:last-of-type {
+              // align-self: flex-end;
 
-          button:last-of-type {
-            grid-area: 3/2/-1/-1;
+              grid-area: 3/2/-1/-1;
+            }
           }
         }
       }
     }
   }
 }
-
 @container playlist-edit-hero (max-width: 16rem) {
   .playlist-edit-hero {
     .playlist-edit-hero-model-con {
       .playlist-edit-hero-model-btn {
         .playlists-edit-hero-info-owner {
-          p::after {
-            display: none;
+          p {
+            &:after {
+              display: none;
+            }
           }
         }
       }

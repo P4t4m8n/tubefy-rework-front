@@ -14,7 +14,6 @@ export const useGradient = () => {
       setGradientForBackground(null);
       return;
     }
-    console.log("imgUrl:", imgUrl)
     const img: HTMLImageElement = new Image();
     img.crossOrigin = "anonymous";
     img.src = imgUrl;
@@ -61,7 +60,7 @@ export const useGradient = () => {
       const topColors: string[] = sortedColors
         .slice(0, 3)
         .map(([color]) => `rgb(${color})`);
-      // topColors.push("rgb(18, 18, 18)");
+      topColors.push("rgb(18, 18, 18)");
       const _gradient = createVerticalGradient(topColors);
       setGradientForBackground(_gradient);
     };

@@ -1,9 +1,12 @@
-.playlists-details {
+.playlists-details,
+.playlist-edit {
   @include flex-direction-gap-padding(column, 2rem, 0);
   container-type: inline-size;
   container-name: playlist-details;
   position: relative;
   overflow: auto;
+  height: 100%;
+
   @include no-scrollBar;
 
   .actions-sentinel {
@@ -14,12 +17,12 @@
     top: 30vh;
   }
 
-  @container (max-width: 60rem) {
+  @container playlist-details (max-width: 60rem) {
     .actions-sentinel {
       top: 24vh;
     }
   }
-  @container (max-width: 54rem) {
+  @container playlist-details (max-width: 54rem) {
     .playlist-songs-list {
       grid-template-rows: 0 1fr;
     }

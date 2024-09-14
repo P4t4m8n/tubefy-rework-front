@@ -1,0 +1,105 @@
+.search-edit-songs {
+  .add_song_title {
+    padding: 1rem;
+  }
+  .search-box {
+    margin-inline: 1rem;
+  }
+  .search-song-list {
+    @include flex-direction-align-gap-padding(column, center, 1rem, 1rem 0);
+    .search-index-songs-list-item {
+      height: 3rem;
+      width: 100%;
+      @include flex-direction-align-gap-padding(row, center, 1rem, 0 1rem);
+      position: relative;
+      transition: background-color 0.25s ease-in-out;
+      border-radius: $border-radius-1-4;
+      .play-btn {
+        position: absolute;
+        left: 1.5rem;
+
+        width: 1.5rem;
+        height: 1.5rem;
+
+        background-color: $black-2;
+        fill: $gray-1;
+
+        border-radius: 100vh;
+        padding: 0.25rem;
+
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+
+        display: block;
+
+        transition: all 0.25s ease-in-out;
+
+        &:hover {
+          background-color: $green-1;
+          fill: $black-2;
+        }
+      }
+
+      img {
+        width: 2.5rem;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: $border-radius-1-4;
+      }
+
+      .playlist-songs-list-preview-actions {
+        margin-left: auto;
+        @include flex-direction-align-gap-padding(row, center, 1rem, 0);
+        .like-btn,
+        .songs-model-btn {
+          width: 1rem;
+          height: 1rem;
+          background-color: inherit;
+          fill: $gray-1;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.25s ease-in-out;
+        }
+      }
+
+      &:hover {
+        background-color: $black-3;
+        .play-btn {
+          opacity: 0.9;
+          pointer-events: all;
+          z-index: 1;
+        }
+        .playlist-songs-list-preview-actions {
+          button {
+            opacity: 1;
+            pointer-events: all;
+          }
+        }
+      }
+      &:has(.songs-model) {
+        background-color: $black-3;
+        .like-btn,
+        .generic-model-btn {
+          opacity: 1;
+          pointer-events: all;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@container playlist-details (max-width:31rem) {
+  .search-edit-songs {
+    @include flex-direction-gap-padding(column, 1rem, 0 0.5rem);
+    .add_song_title {
+      font-size: $font-size-24;
+      padding: 0;
+    }
+    .search-box {
+      margin-inline: 0;
+      width: 100%;
+    }
+  }
+}

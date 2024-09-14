@@ -16,10 +16,15 @@
 @media (max-width: rem(640px)) {
   .side-bar {
     width: 6rem;
+    min-height: auto;
+    height: calc(100svh - 5rem);
+    border-bottom-left-radius: $border-radius-1-2;
+    border-bottom-right-radius: $border-radius-1-2;
 
     &.full-size {
       width: 100svw;
-      height: calc(100svh - 5rem);
+      height: calc(100svh - 5.5rem);
+
       z-index: 5;
       position: absolute;
       background-color: $black-2;

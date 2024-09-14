@@ -86,7 +86,7 @@ export default function PlaylistEditHeroModel({
       >
         <h3>{name}</h3>
         <h4>{description}</h4>
-        <div className="playlists-details-hero-info-owner">
+        <div className="playlists-edit-hero-info-owner">
           {avatarUrl ? <img src={avatarUrl}></img> : <UserIconSVG />}
           <p>{username || "TubeFy"}</p>
           <p>{songs} songs</p>

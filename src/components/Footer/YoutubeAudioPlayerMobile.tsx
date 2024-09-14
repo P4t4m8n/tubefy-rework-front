@@ -18,16 +18,17 @@ export default function YoutubeAudioPlayerMobile() {
 
   const { onEnd, onReady, onChangeOrder, onChangeSong, songOrderMode } =
     useAudioPlayer(playingSong, currentPlaylist);
-  const modelRef = useRef<HTMLDivElement>(null);
+
   const gradient = useGradient();
-  console.log("gradient:", gradient);
+
+  const modelRef = useRef<HTMLDivElement>(null);
+  const [isModelOpen, setIsModelOpen] = useModel(modelRef);
 
   useEffectUpdate(() => {
     if (currentPlaylist?.imgUrl) {
       setImgForBackground(currentPlaylist.imgUrl);
     }
-  }, [playingSong]);
-  const [isModelOpen, setIsModelOpen] = useModel(modelRef);
+  }, [currentPlaylist]);
 
   const { youtubeId } = playingSong;
 

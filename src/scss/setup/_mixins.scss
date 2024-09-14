@@ -215,3 +215,30 @@
   }
   @include after-border-grow($gray-1);
 }
+
+@mixin img-upload-hover($padding-top: 25%) {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  fill: $gray-1;
+  transition: opacity 0.25s ease-in-out;
+  @include flex-direction-align-justify-gap-padding(
+    column,
+    center,
+    center,
+    1rem,
+    $padding-top
+  );
+}
+
+@mixin play-btn-song-list($size, $padding: 0.5rem) {
+  height: $size;
+  width: $size;
+  background: $green-1;
+  border-radius: 100vw;
+  padding: $padding;
+}
+
