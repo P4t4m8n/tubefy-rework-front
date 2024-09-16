@@ -1,0 +1,130 @@
+.user-edit {
+  @include flex-direction-align-gap-padding(row, center, 1rem, 1rem);
+  transition: all 0.3s;
+
+  .img-upload-con,
+  .avatar-con {
+    width: 35%;
+    aspect-ratio: 1/1;
+    max-width: 13rem;
+    position: relative;
+    display: block;
+    box-shadow: $gray-2 0px 0px 2px 1px;
+    border-radius: 100vw;
+    background-color: $gray-2;
+    @include flex-center;
+
+    svg {
+      width: 25%;
+      height: 25%;
+      transition: filter 0.4s;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+    }
+  }
+  .img-upload-con {
+    .img-upload-hover {
+      @include img-upload-hover(25% 0 0 0);
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      svg,
+      img {
+        filter: blur(4px);
+      }
+
+      .img-upload-hover {
+        opacity: 1;
+        fill: $gray-1;
+        color: $gray-1;
+
+        svg {
+          filter: blur(0);
+        }
+      }
+    }
+  }
+
+  .user-details {
+    width: calc(65% - 1rem);
+    transition: all 0.3s;
+    @include flex-direction-gap-padding(column, 0.5rem, 0);
+    .profile-details-row,
+    .profile-edit-row {
+      @include flex-direction-gap-padding(column, 0.5rem, 0);
+    }
+
+    .user-details-key,
+    .user-edit-key {
+      font-size: $font-size-16;
+      color: $gray-1;
+      font-weight: 400;
+      &:after {
+        content: ":";
+        padding-left: 0.25rem;
+      }
+    }
+
+    .user-details-info,
+    .user-edit-info {
+      background-color: rgba($black-6, 0.5);
+      color: $white-1;
+
+      border-radius: $border-radius-1-2;
+
+      font-size: $font-size-16;
+      padding: 0.25rem 0.5rem;
+    }
+    .user-edit-info {
+      background-color: $black-6;
+    }
+
+    button {
+      @include general-btn;
+
+      &.btn-right {
+        margin-top: 1rem;
+        margin-left: auto;
+      }
+    }
+
+    .actions {
+      @include flex-direction-align-justify-gap-padding(
+        row,
+        baseline,
+        space-between,
+        0,
+        1rem 0 0 0
+      );
+    }
+  }
+}
+@container profile-index (max-width:34rem) {
+  .profile-edit {
+    flex-direction: column;
+    .img-upload-con {
+      min-width: 10rem;
+    }
+    .user-edit {
+      width: 100%;
+    }
+  }
+}
+@container profile-index (max-width:14rem) {
+  .profile-edit {
+    .user-edit {
+      .actions {
+        button {
+          width: 4rem;
+          padding: 0;
+        }
+      }
+    }
+  }
+}

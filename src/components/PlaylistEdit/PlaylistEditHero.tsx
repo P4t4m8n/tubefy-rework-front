@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import PlaylistEditHeroImg from "./PlaylistEditHero/PlaylistEditHeroImg";
+import ImageUploadContainer from "./PlaylistEditHero/ImageUploadContainer";
 import PlaylistEditHeroModel from "./PlaylistEditHero/PlaylistEditHeroModel";
 
 interface Props {
@@ -29,7 +29,7 @@ export default function PlaylistEditHero({
 }: Props) {
   return (
     <header className="playlist-edit-hero">
-      <PlaylistEditHeroImg imgUrl={imgUrl} onUploadImg={onUploadImg} name="" />
+      <ImageUploadContainer imgUrl={imgUrl} onUploadImg={onUploadImg} name="" />
       <PlaylistEditHeroModel
         imgUrl={imgUrl}
         infoData={infoData}

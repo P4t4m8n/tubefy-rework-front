@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useModel } from "../../../hooks/useModel";
-import PlaylistEditHeroImg from "./PlaylistEditHeroImg";
+import ImageUploadContainer from "./ImageUploadContainer";
 import { PlusSVG, UserIconSVG } from "../../svg/SVGs";
 import Loader from "../../Loader";
 import { utilService } from "../../../util/util.util";
@@ -103,7 +103,7 @@ export default function PlaylistEditHeroModel({
             </button>
           </header>
           <form onSubmit={savePlaylist}>
-            <PlaylistEditHeroImg
+            <ImageUploadContainer
               imgUrl={imgPreview}
               onUploadImg={handleUploadImg}
               name={name}

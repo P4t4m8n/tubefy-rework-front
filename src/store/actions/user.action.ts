@@ -12,6 +12,7 @@ import { loadFriendsBulk } from "./friend.action";
 import { loadNotifications } from "./notification.action";
 import { utilService } from "../../util/util.util";
 import { storeSessionData } from "../../services/localSession.service";
+import { userService } from "../../services/user.service";
 
 export const login = async (userLogin: IUserDTO): Promise<void> => {
   try {
@@ -66,6 +67,21 @@ export const logout = async (): Promise<void> => {
       error as Error
     );
     return;
+  }
+};
+
+export const updateUser = async (user: IUserDTO): Promise<void> => {
+  try {
+    const updatedUser = await userService.update(user);
+    console.log("updatedUser:", updatedUser)
+    store.dispatch(_setUser(updatedUser));
+    return;
+  } catch (error) {
+    utilService.handleError(
+      "Failed to update user",
+      "GENERAL_ERROR",
+      error as Error
+    );
   }
 };
 

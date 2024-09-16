@@ -4,7 +4,6 @@ import { AuthProtectedRoute } from "./guards/AuthProtectedRoute";
 
 import PlaylistIndex from "./pages/PlaylistIndex";
 
-
 import SearchIndex from "./pages/SearchIndex";
 
 import PlaylistEdit from "./pages/PlaylistEdit";
@@ -13,7 +12,7 @@ import PlaylistDetails from "./pages/PlaylistDetails";
 
 import ProfileIndex from "./pages/ProfileIndex";
 import ProfileFriendIndex from "./components/ProfileIndex/ProfileFriends/ProfileFriendIndex";
-import ProfileDetails from "./components/ProfileIndex/ProfileEdit/ProfileDetails";
+import ProfileEdit from "./components/ProfileIndex/ProfileEdit/ProfileEdit";
 import ProfileNotificationIndex from "./components/ProfileIndex/ProfileNotification/ProfileNotificationIndex";
 
 export interface RouteConfig {
@@ -52,8 +51,8 @@ const routes: RouteConfig[] = [
         element: <ProfileFriendIndex />,
       },
       {
-        path: "details",
-        element: <ProfileDetails />,
+        path: "profile",
+        element: <ProfileEdit />,
       },
       {
         path: "notifications",

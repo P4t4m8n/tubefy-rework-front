@@ -1,3 +1,5 @@
 .profile-index {
   @include flex-direction-gap-padding(column, 3rem, 1rem 0);
+  container-type:inline-size;
+  container-name: profile-index;
 }

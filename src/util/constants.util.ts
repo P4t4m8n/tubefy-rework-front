@@ -52,5 +52,8 @@ export const loginInputs: {
   },
 ];
 
+export const profileLinks = ["profile", "friends", "notifications"];
+export const profileEditKeys = ["Username", "Email"];
+
 export const REGULAR_SONG_MENU_SIZE = { width: 208, height: 92 };
 export const WITH_REMOVE_SONG_MENU_SIZE = { width: 208, height: 132 };

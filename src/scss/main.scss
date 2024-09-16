@@ -80,17 +80,21 @@
 @import "./cmps/PlaylistEdit/PlaylistEditSongs.scss";
 
 //ProfileIndex
-@import "./cmps/ProfileIndex/ProfileFriendIndex.scss";
-@import "./cmps/ProfileIndex/ProfileNotifications/NotificationsIndex.scss";
 @import "./cmps/ProfileIndex/ProfileNav.scss";
 
+//ProfileEdit
+
+@import "./cmps/ProfileIndex/ProfileEdit/ProfileEdit.scss";
+
 //ProfileIndexFriends
+@import "./cmps/ProfileIndex/ProfileFriendIndex.scss";
 @import "./cmps/ProfileIndex/ProfileFriendIndex/FriendList.scss";
 @import "./cmps/ProfileIndex/ProfileFriendIndex/FriendPreview.scss";
 @import "./cmps/ProfileIndex/ProfileFriendIndex/AddFriends.scss";
 @import "./cmps/ProfileIndex/ProfileFriendIndex/FriendPreviewModel.scss";
 
 //ProfileIndexNotifications
+@import "./cmps/ProfileIndex/ProfileNotifications/NotificationsIndex.scss";
 
 //GenericComponents
 @import "./cmps/GenericComponents/GenericModel.scss";

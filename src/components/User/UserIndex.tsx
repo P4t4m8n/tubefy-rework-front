@@ -17,7 +17,7 @@ export default function UserIndex({
       {user && (
         <UserMenu
           username={user.username}
-          imgUrl={user.imgUrl || "/default-user.png"}
+          imgUrl={user.imgUrl}
           navigate={navigate}
         />
       )}

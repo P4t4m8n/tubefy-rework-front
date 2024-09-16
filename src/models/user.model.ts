@@ -31,6 +31,7 @@ export interface IUserDTO {
   password?: string;
   username?: string;
   imgUrl?: string;
+  imgData?: File;
   isAdmin?: boolean;
   id?: string;
 }

@@ -1,25 +1,18 @@
 import { Link, useLocation, Location } from "react-router-dom";
+import { profileLinks } from "../../util/constants.util";
 
 export default function ProfileNav() {
   const location: Location = useLocation();
   const route = location.pathname.split("/")[2];
+  const links = profileLinks;
 
   return (
     <nav className="profile-nav">
-      <Link className={route === "details" ? "highlight" : ""} to={"details"}>
-        <span>Profile</span>
-      </Link>
-
-      <Link className={route === "friends" ? "highlight" : ""} to={"friends"}>
-        <span>Friends</span>
-      </Link>
-
-      <Link
-        className={route === "notifications" ? "highlight" : ""}
-        to={"notifications"}
-      >
-        <span>Notifications</span>
-      </Link>
+      {links.map((link) => (
+        <Link key={link} className={route === link ? "highlight" : ""} to={link}>
+          <span>{link.charAt(0).toUpperCase() + link.slice(1)}</span>
+        </Link>
+      ))}
     </nav>
   );
 }

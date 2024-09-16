@@ -7,7 +7,7 @@ import GeneralBtn from "../GeneralBtn";
 import { NavigateFunction } from "react-router-dom";
 
 interface Props {
-  imgUrl: string;
+  imgUrl?: string;
   username: string;
   navigate: NavigateFunction;
 }
@@ -21,7 +21,7 @@ export default function UserMenu({ imgUrl, username, navigate }: Props) {
       btnSvg: <UserIconSVG />,
       onClick: (ev?: MouseEvent) => {
         ev?.preventDefault();
-        navigate("/profile");
+        navigate("/profile/profile");
         setIsModelOpen(false);
       },
     },
@@ -39,7 +39,7 @@ export default function UserMenu({ imgUrl, username, navigate }: Props) {
     <div ref={modelRef} className="user-model-con">
       <GeneralBtn
         className="user-model-btn"
-        imgUrl={imgUrl}
+        {...(imgUrl ? { imgUrl } : { btnSvg: <UserIconSVG /> })}
         onModelBtnClick={() => setIsModelOpen((prev) => !prev)}
       />
       {isModelOpen && (
