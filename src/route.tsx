@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { AuthProtectedRoute } from "./guards/AuthProtectedRoute";
 
-import PlaylistIndex from "./pages/PlaylistIndex";
+import Home from "./pages/Home";
 
 import SearchIndex from "./pages/SearchIndex";
 
@@ -14,6 +14,7 @@ import ProfileIndex from "./pages/ProfileIndex";
 import ProfileFriendIndex from "./components/ProfileIndex/ProfileFriends/ProfileFriendIndex";
 import ProfileEdit from "./components/ProfileIndex/ProfileEdit/ProfileEdit";
 import ProfileNotificationIndex from "./components/ProfileIndex/ProfileNotification/ProfileNotificationIndex";
+import PlaylistsIndex from "./pages/PlaylistsIndex";
 
 export interface RouteConfig {
   path: string;
@@ -24,12 +25,13 @@ export interface RouteConfig {
 const routes: RouteConfig[] = [
   {
     path: "/",
-    element: <PlaylistIndex />,
+    element: <Home />,
   },
   {
     path: "playlist/:id",
     element: <PlaylistDetails />,
   },
+  { path: "playlists/:type", element: <PlaylistsIndex /> },
   {
     path: "playlist/edit",
     element: (

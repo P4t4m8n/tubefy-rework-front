@@ -1,14 +1,83 @@
-.main-content {
-  @include flex-direction-gap-padding(column, 0, 0);
-  max-width: 100%;
-  .playlist-index {
-    z-index: 0;
-    max-height: calc(100vh - 16rem);
-    overflow: auto;
-    width: 100%;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+.playlists-index {
+  max-height: calc(100vh - 16rem);
+  padding-inline: 1rem;
+  h2 {
+    color: $white-1;
+    font-size: $font-size-24;
+    padding-bottom: 1rem;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.5rem;
     overflow-y: auto;
+    max-height: calc(100vh - 16rem);
+    max-width: 100%;
     @include no-scrollBar;
+    
+
+    li {
+      position: relative;
+      border-radius: $border-radius-1-4;
+      padding: 0.75rem 0.75rem;
+      background-color: inherit;
+      transition: background-color 0.25s ease-in-out;
+
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        img {
+          border-radius: $border-radius-1-4;
+          min-width: 100%;
+          aspect-ratio: 1/1;
+        }
+
+        h3 {
+          @include text-overflow-ellipsis;
+          color: $white-1;
+          font-size: $font-size-16;
+          font-weight: 500;
+          padding-block: 0.25rem;
+          max-width: 100%;
+        }
+
+        p {
+          font-size: $font-size-14;
+        }
+      }
+
+      button {
+        @include play-btn;
+        right: 10%;
+        bottom: 20%;
+        transition: opacity 0.25s ease-in-out, bottom 0.4s ease-in-out,
+          box-shadow 0.4s ease-in-out, scale 0.2s ease-in-out;
+        &.playing {
+          bottom: 25%;
+          opacity: 1;
+          pointer-events: all;
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        background-color: $black-5;
+
+        button {
+          bottom: 25%;
+          opacity: 1;
+          pointer-events: all;
+          cursor: pointer;
+
+          &:hover {
+            scale: 1.05;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+          }
+        }
+      }
+    }
   }
 }

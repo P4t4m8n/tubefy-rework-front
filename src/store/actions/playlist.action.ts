@@ -9,13 +9,13 @@ import {
   SET_USER_PLAYLISTS,
 } from "../../models/playlist.model";
 import { ISong, ISongYT } from "../../models/song.model";
-import { storeSessionData } from "../../services/localSession.service";
+import {
+  getSessionData,
+  storeSessionData,
+} from "../../services/localSession.service";
 import { playlistService } from "../../services/playlist.service";
 import { songService } from "../../services/song.service";
-import {
-  getEmptyPlaylist,
-  playlistsToPlaylistsGroup,
-} from "../../util/playlist.util";
+import { getEmptyPlaylist } from "../../util/playlist.util";
 import { utilService } from "../../util/util.util";
 import { getUserState } from "../getStore";
 import { store } from "../store";
@@ -23,13 +23,16 @@ import { removeNotification } from "./notification.action";
 
 export const loadDefaultPlaylists = async (): Promise<IPlaylistsGroup[]> => {
   try {
-    const playlists = await playlistService.getDefaultStations();
-    if (!playlists)
-      throw new Error("No playlists found in default contact support");
+    let playlists = getSessionData<IPlaylistsGroup[]>("defaultPlaylists");
+    if (!playlists) {
+      playlists = await playlistService.getDefaultStations();
+      if (!playlists)
+        throw new Error("No playlists found in default contact support");
 
-    const playlistsObject: IPlaylistsGroup[] =
-      playlistsToPlaylistsGroup(playlists);
-    return playlistsObject;
+      storeSessionData("defaultPlaylists", playlists);
+    }
+
+    return playlists;
   } catch (error) {
     utilService.handleError(
       "default-playlists",
@@ -278,7 +281,7 @@ export const approveSharePlaylist = async (
       notificationId
     );
     updateUserPlaylists(playlist);
-     removeNotification(notificationId);
+    removeNotification(notificationId);
   } catch (error) {
     utilService.handleError("playlist-share", "PLAYLIST_SHARE", error as Error);
   }
@@ -319,7 +322,6 @@ export const addSongFromSocket = (playlistId?: string, song?: ISong | null) => {
 };
 
 export const sharePlaylist = async (playlistId: string, friendId?: string) => {
-
   try {
     if (!friendId) throw new Error("Friend not found");
     await playlistService.sharePlaylist(playlistId, friendId);

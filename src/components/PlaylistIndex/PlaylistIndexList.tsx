@@ -1,15 +1,14 @@
-import { IPlaylistsGroup } from "../../models/playlist.model";
+import { IPlaylist } from "../../models/playlist.model";
 import PlaylistIndexListPreview from "./PlaylistIndexListPreview";
 
 interface Props {
-  PlaylistObject: IPlaylistsGroup;
+  playlists: IPlaylist[];
 }
-export default function PlaylistIndexList({ PlaylistObject }: Props) {
+export default function PlaylistIndexList({ playlists }: Props) {
   return (
     <>
-      <h2>{PlaylistObject.type}</h2>
       <ul>
-        {PlaylistObject.playlists.map((playlist) => (
+        {playlists.map((playlist) => (
           <PlaylistIndexListPreview key={playlist.id} playlist={playlist} />
         ))}
       </ul>

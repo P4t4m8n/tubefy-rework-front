@@ -1,22 +1,35 @@
-.playlist-index-list {
+.home-list {
   @include flex-direction-gap-padding(column, 1rem, 0.75rem);
   container-type: inline-size;
-  container-name: playlist-index-list;
-
-  
+  container-name: home-list;
 
   .playlist-list {
     scroll-snap-align: end;
 
-    h2 {
-      color: $white-1;
-      font-size: $font-size-24;
-      padding-bottom: 1rem;
+    .playlist-list-header {
+      @include flex-direction-align-justify-gap-padding(
+        row,
+        center,
+        space-between,
+        0,
+        0
+      );
+      h2 {
+        color: $white-1;
+        font-size: $font-size-24;
+        padding-bottom: 1rem;
+      }
+      a {
+        padding-right: 1rem;
+        z-index: 1;
+        @include general-link;
+      }
     }
     ul {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 1rem;
+
+      gap: 0.5rem;
       li {
         position: relative;
         border-radius: $border-radius-1-4;
@@ -87,56 +100,56 @@
   }
 }
 
-@container playlist-index-list (max-width: 64rem) {
-  .playlist-index-list .playlist-list ul {
+@container home-list (max-width: 74rem) {
+  .home-list .playlist-list ul {
     grid-template-columns: repeat(5, 1fr);
   }
 
-  .playlist-index-list .playlist-list ul li:nth-of-type(5) ~ li {
+  .home-list .playlist-list ul li:nth-of-type(5) ~ li {
     display: none;
   }
 }
 
-@container playlist-index-list (max-width: 54rem) {
-  .playlist-index-list .playlist-list ul {
+@container home-list (max-width: 64rem) {
+  .home-list .playlist-list ul {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  .playlist-index-list .playlist-list ul li:nth-of-type(4) ~ li {
+  .home-list .playlist-list ul li:nth-of-type(4) ~ li {
     display: none;
   }
 }
 
-@container playlist-index-list (max-width: 44rem) {
-  .playlist-index-list .playlist-list ul {
+@container home-list (max-width: 44rem) {
+  .home-list .playlist-list ul {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .playlist-index-list .playlist-list ul li:nth-of-type(3) ~ li {
+  .home-list .playlist-list ul li:nth-of-type(3) ~ li {
     display: none;
   }
 }
 
-@container playlist-index-list (max-width: 34rem) {
-  .playlist-index-list .playlist-list ul {
+@container home-list (max-width: 34rem) {
+  .home-list .playlist-list ul {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .playlist-index-list .playlist-list ul li:nth-of-type(2) ~ li {
+  .home-list .playlist-list ul li:nth-of-type(2) ~ li {
     display: none;
   }
 }
 
-@container (max-width:24rem) {
-  .playlist-index-list .playlist-list ul {
+@container home-list (max-width:24rem) {
+  .home-list .playlist-list ul {
     grid-template-columns: repeat(1, 1fr);
   }
 
-  .playlist-index-list .playlist-list ul li:nth-of-type(1) ~ li {
+  .home-list .playlist-list ul li:nth-of-type(1) ~ li {
     display: none;
   }
 
-  .playlist-index-list {
+  .home-list {
     .playlist-list {
       .play-btn {
         bottom: 25%;

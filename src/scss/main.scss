@@ -11,6 +11,7 @@
 
 // Views
 @import "./views/PlaylistIndex.scss";
+@import "./views/Home.scss";
 @import "./views/PlaylistDetails.scss";
 @import "./views/SearchIndex.scss";
 @import "./views/ProfileIndex.scss";
@@ -56,9 +57,9 @@
 @import "./cmps/Footer/YouTubeAudioPlayer.scss";
 @import "./cmps/Footer/PlayerVolumeControl.scss";
 
-//Playlist Index
-@import "./cmps/PlaylistIndex/PlaylistIndexHero.scss";
-@import "./cmps/PlaylistIndex/PlaylistIndexList.scss";
+//Home
+@import "./cmps/Home/PlaylistIndexHero.scss";
+@import "./cmps/Home/PlaylistIndexList.scss";
 
 //Playlist Details
 @import "./cmps/PlaylistDetails/PlaylistDetailsHero.scss";

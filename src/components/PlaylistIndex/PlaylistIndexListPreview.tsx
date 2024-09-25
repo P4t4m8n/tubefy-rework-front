@@ -9,7 +9,7 @@ interface Props {
 export default function PlaylistIndexListPreview({ playlist }: Props) {
   const { imgUrl, name, description, id, songs } = playlist;
 
-  const defaultImgUrl = "/defaultImg.svg";
+  const defaultImgUrl = "/default-playlist.png";
 
   const handleError = (ev: React.SyntheticEvent<HTMLImageElement, Event>) => {
     ev.currentTarget.src = defaultImgUrl;
@@ -18,7 +18,7 @@ export default function PlaylistIndexListPreview({ playlist }: Props) {
   return (
     <li
       onMouseEnter={() => setImgForBackground(imgUrl)}
-      onMouseLeave={() => setImgForBackground("")}
+  
       className="playlist-list-preview"
     >
       <Link to={`/playlist/${id}`}>

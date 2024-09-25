@@ -125,6 +125,52 @@ export type TPlaylistType =
   | ""
   | "Liked Songs";
 
+
+  export const GENRES = [
+    "pop",
+    "rock",
+    "jazz",
+    "blues",
+    "hip-hop",
+    "rap",
+    "country",
+    "classical",
+    "folk",
+    "latin",
+    "metal",
+    "reggae",
+    "soul",
+    "electronic",
+    "dance",
+    "indie",
+    "alternative",
+    "punk",
+    "r&b",
+    "funk",
+    "disco",
+    "techno",
+    "house",
+    "trance",
+    "dub-step",
+    "drum&bass",
+    "ambient",
+    "chill-out",
+    "downtempo",
+    "reggae",
+    "ska",
+    "grunge",
+    "emo",
+    "gothic",
+    "hardcore",
+    "industrial",
+    "new wave",
+    "noise",
+    "psychedelic",
+    "trap",
+    "world",
+    "other"
+  ] as const;
+  
 export type TGenres =
   | "pop"
   | "rock"

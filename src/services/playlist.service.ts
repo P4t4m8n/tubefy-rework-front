@@ -3,6 +3,7 @@ import {
   IPlaylistDetailed,
   IPlaylistDTO,
   IPlaylistFilter,
+  IPlaylistsGroup,
 } from "../models/playlist.model";
 import { httpService } from "./http.service";
 
@@ -81,8 +82,8 @@ const playlistToPlayListDTO = (playlist: IPlaylist): IPlaylistDTO => {
   };
 };
 
-const getDefaultStations = async (): Promise<IPlaylist[]> => {
-  return await httpService.get<IPlaylist[]>(`${BASE_URL}`);
+const getDefaultStations = async (): Promise<IPlaylistsGroup[]> => {
+  return await httpService.get<IPlaylistsGroup[]>(`${BASE_URL}default`);
 };
 
 const togglePlaylistLIke = async (

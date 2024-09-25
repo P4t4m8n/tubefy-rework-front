@@ -27,6 +27,7 @@ export const playlistsToPlaylistsGroup = (
 
   return playlistObjects;
 };
+
 export const extractHeroPlaylists = (
   playlistObjects: IPlaylistsGroup[]
 ): IPlaylist[] => {

@@ -1,14 +1,17 @@
 import { useMemo, useState } from "react";
+
 import { loadDefaultPlaylists } from "../store/actions/playlist.action";
 import { extractHeroPlaylists } from "../util/playlist.util";
 import { IPlaylistsGroup } from "../models/playlist.model";
-import PlaylistIndexList from "../components/PlaylistIndex/PlaylistIndexList";
-import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";
-import Loader from "../components/Loader";
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { utilService } from "../util/util.util";
 
-export default function PlaylistIndex() {
+import PlaylistIndexList from "../components/PlaylistIndex/PlaylistIndexList";
+import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";
+import Loader from "../components/Loader";
+import { Link } from "react-router-dom";
+
+export default function Home() {
   const [mainPlaylists, setMainPlaylists] = useState<IPlaylistsGroup[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,11 +22,7 @@ export default function PlaylistIndex() {
         const playlists = await loadDefaultPlaylists();
         setMainPlaylists(playlists);
       } catch (error) {
-        utilService.handleError(
-          "playlist-index",
-          "GENERAL_ERROR",
-          error as Error
-        );
+        utilService.handleError("home", "GENERAL_ERROR", error as Error);
       } finally {
         setIsLoading(false);
       }
@@ -41,12 +40,16 @@ export default function PlaylistIndex() {
   }
 
   return (
-    <section className="playlist-index">
+    <section className="home">
       <PlaylistIndexHero heroPlaylists={heroPlaylists} />
-      <ul className="playlist-index-list">
+      <ul className="home-list">
         {mainPlaylists.map((playlistObject) => (
           <li key={playlistObject.type} className="playlist-list">
-            <PlaylistIndexList PlaylistObject={playlistObject} />
+            <div className="playlist-list-header">
+              <h2>{playlistObject.type}</h2>
+              <Link to={`/playlists/${playlistObject.type}`}>View All</Link>
+            </div>
+            <PlaylistIndexList playlists={playlistObject.playlists} />
           </li>
         ))}
       </ul>

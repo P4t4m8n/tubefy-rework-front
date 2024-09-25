@@ -40,4 +40,5 @@ export type TSessionDataKeys =
   | "friends"
   | "friendRequests"
   | "chats"
-  | "notifications";
+  | "notifications"
+  | "defaultPlaylists";
