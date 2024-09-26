@@ -7,7 +7,7 @@ import {
 import { socketService } from "../../services/socket.service";
 import { authService } from "../../services/auth.service";
 import { store } from "../store";
-import { loadUserPlaylists } from "./playlist.action";
+import { loadDefaultPlaylists, loadUserPlaylists } from "./playlist.action";
 import { loadFriendsBulk } from "./friend.action";
 import { loadNotifications } from "./notification.action";
 import { utilService } from "../../util/util.util";
@@ -26,6 +26,9 @@ export const login = async (userLogin: IUserDTO): Promise<void> => {
       "/welcome-img.jpg"
     );
 
+    //Clear the cache and fetch new default playlists for a user
+    storeSessionData("defaultPlaylists");
+    await loadDefaultPlaylists();
     return;
   } catch (error) {
     _handleAuthError(error);
@@ -73,7 +76,7 @@ export const logout = async (): Promise<void> => {
 export const updateUser = async (user: IUserDTO): Promise<void> => {
   try {
     const updatedUser = await userService.update(user);
-    console.log("updatedUser:", updatedUser)
+    console.log("updatedUser:", updatedUser);
     store.dispatch(_setUser(updatedUser));
     return;
   } catch (error) {

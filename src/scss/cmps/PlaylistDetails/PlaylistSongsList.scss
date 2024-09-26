@@ -1,11 +1,9 @@
 .playlist-songs-list {
- 
   display: grid;
   grid-template-rows: 3rem 1fr;
   gap: 1rem;
   // container-type: inline-size;
   position: relative;
-
 
   .song-list,
   .song-list-header {
@@ -16,7 +14,6 @@
   .song-list {
     grid-template-columns: 2.5rem 2.5rem 6fr 4fr 2fr 2fr;
     grid-area: 2/1/-1/-1;
-  
   }
 
   .song-list-header {
@@ -45,8 +42,7 @@
       z-index: 1;
       // background-color: inherit;
       backdrop-filter: blur(100000px);
-      padding-block: .5rem;
-    
+      padding-block: 0.5rem;
     }
   }
 
@@ -133,7 +129,7 @@
         display: none;
       }
     }
-    .login-model-con{
+    .login-model-con {
       display: none;
     }
   }

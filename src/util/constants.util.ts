@@ -57,3 +57,36 @@ export const profileEditKeys = ["Username", "Email"];
 
 export const REGULAR_SONG_MENU_SIZE = { width: 208, height: 92 };
 export const WITH_REMOVE_SONG_MENU_SIZE = { width: 208, height: 132 };
+
+export const DEMO_USERS = [
+  {
+    username: "NachoUsername",
+    email: "NachoUsername@gmail.com",
+    password: "Aa123456",
+    
+  },
+  {
+    username: "CaptainObvious",
+    email: "CaptainObvious77@gmail.com",
+    password: "Aa123456",
+    
+  },
+  {
+    username: "SirLaughsALot",
+    email: "SirLaughsALot@gmail.com",
+    password: "Aa123456",
+    
+  },
+  {
+    username: "PineappleOnPizza",
+    email: "PineappleOnPizza@gmail.com",
+    password: "Aa123456",
+    
+  },
+  {
+    username: "KeyboardWarrior",
+    email: "KeyboardWarrior123@gmail.com",
+    password: "Aa123456",
+    
+  },
+];

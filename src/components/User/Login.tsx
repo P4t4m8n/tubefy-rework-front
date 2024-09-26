@@ -6,6 +6,7 @@ import { LoginSVG } from "../svg/SVGs";
 import { validateLogin, validateSignup } from "../../validations/auth";
 import { TInputUserFormKeys } from "../../models/app.model";
 import Loader from "../Loader";
+import { DEMO_USERS } from "../../util/constants.util";
 
 export default function Login() {
   const loginModelRef = useRef<HTMLDivElement>(null);
@@ -63,11 +64,6 @@ export default function Login() {
       setIsModelOpen(false);
     }, 210);
   }
-
-  const demoUsers = [
-    { email: "test@test.com", password: "Aa123456" },
-    { email: "bobo@bobo.com", password: "Aa123456" },
-  ];
 
   const modelClass = `login-model ${animation}`;
 
@@ -158,8 +154,18 @@ export default function Login() {
                 </button>
               </header>
               <div>
-                <button onClick={async () => login(demoUsers[0])}>test</button>
-                <button onClick={async () => login(demoUsers[1])}>bobo</button>
+                {DEMO_USERS.map((user) => (
+                  <button
+                    key={user.username}
+                    onClick={async () => {
+                      setIsLoading(true);
+                      await login(user);
+                      setIsLoading(false);
+                    }}
+                  >
+                    <span>{user.username}</span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
