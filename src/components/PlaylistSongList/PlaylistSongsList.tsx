@@ -32,9 +32,9 @@ export default function PlaylistSongsList({
         <p>Title</p>
         <p>Artist</p>
         <p>Date added</p>
-        <p>
+       
           <ClockSVG></ClockSVG>
-        </p>
+        
       </div>
       <ul className="song-list ">
         {songs.map((song, idx) => (

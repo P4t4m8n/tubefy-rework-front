@@ -1,27 +1,37 @@
 .playlists-details-hero {
   @include flex-direction-align-gap-padding(row, flex-end, 2rem, 0 1rem);
-  container-type: inline-size;
-  container-name: playlist-hero;
+
   img {
     width: 15rem;
     aspect-ratio: 1/1;
     border-radius: $border-radius-1-4;
-    transition: width 0.3s;
+    transition: width $animation-duration-base;
     position: relative;
-    display: block;
   }
 
   .playlists-details-hero-info {
-    @include flex-direction-gap-padding(column, 0, 0);
+    @include flex-direction-align-justify-gap-padding(
+      column,
+      flex-start,
+      flex-end,
+      0,
+      0
+    );
+    @include text-overflow-ellipsis;
+    @include full-size;
 
     h3 {
+      @include text-overflow-ellipsis;
+      width: 100%;
       font-size: rem(96px);
       color: $white-1;
       line-height: 1.05;
-      transition: font-size 0.3s;
+      transition: font-size $animation-duration-base;
     }
 
     h4 {
+      @include text-overflow-ellipsis;
+      width: 100%;
       font-size: $font-size-16;
       color: $gray-1;
       padding-bottom: 0.5rem;
@@ -33,7 +43,7 @@
       img {
         width: 2rem;
         aspect-ratio: 1/1;
-        object-fit: fill;
+        object-fit: cover;
         border-radius: 100vw;
       }
       p {
@@ -52,73 +62,6 @@
         &:not(:last-of-type)::after {
           content: "•";
           padding-left: 0.5em;
-        }
-      }
-    }
-  }
-}
-
-@container playlist-hero (max-width: 58rem) {
-  .playlists-details-hero {
-    img {
-      width: 12rem;
-    }
-    .playlists-details-hero-info {
-      h3 {
-        font-size: rem(72px);
-      }
-    }
-  }
-}
-@container playlist-hero (max-width: 45rem) {
-  .playlists-details-hero {
-    img {
-      width: 8rem;
-    }
-    .playlists-details-hero-info {
-      h3 {
-        font-size: rem(48px);
-      }
-    }
-  }
-}
-
-@container playlist-hero (max-width: 31rem) {
-  .playlists-details-hero {
-    img {
-      width: 8rem;
-    }
-    .playlists-details-hero-info {
-      h3 {
-        font-size: rem(48px);
-      }
-    }
-  }
-}
-@container playlist-hero (max-width: 20.5rem) {
-  .playlists-details-hero {
-    .playlists-details-hero-info {
-      h3 {
-        font-size: $font-size-28;
-        text-align: center;
-      }
-      .playlists-details-hero-info-owner {
-        p {
-          font-size: $font-size-14;
-        }
-      }
-    }
-  }
-}
-@container playlist-hero (max-width: 16rem) {
-  .playlists-details-hero {
-    .playlists-details-hero-info {
-      .playlists-details-hero-info-owner {
-        flex-direction: column;
-        p {
-          &:after {
-            display: none;
-          }
         }
       }
     }

@@ -11,8 +11,6 @@
 
 // Views
 @import "./views/PlaylistIndex.scss";
-@import "./views/Home.scss";
-@import "./views/PlaylistDetails.scss";
 @import "./views/SearchIndex.scss";
 @import "./views/ProfileIndex.scss";
 @import "./views/MainContent.scss";
@@ -58,14 +56,16 @@
 @import "./cmps/Footer/PlayerVolumeControl.scss";
 
 //Home
+@import "./cmps/Home/Home.scss";
 @import "./cmps/Home/HomeHero.scss";
 @import "./cmps/Home/HomeList.scss";
 
 //Playlist Details
+@import "./cmps/PlaylistDetails/PlaylistDetails.scss";
 @import "./cmps/PlaylistDetails/PlaylistDetailsHero.scss";
 @import "./cmps/PlaylistDetails/PlaylistDetailsActions.scss";
-@import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
-@import "./cmps/PlaylistDetails/PlaylistSongsListItem.scss";
+// @import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
+// @import "./cmps/PlaylistDetails/PlaylistSongsListItem.scss";
 
 //SearchIndex
 @import "./cmps/SearchIndex/SearchIndexGenreList.scss";

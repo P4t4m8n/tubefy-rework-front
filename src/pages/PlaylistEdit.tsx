@@ -73,7 +73,7 @@ export default function PlaylistEdit({ user }: Props) {
         playlistId={id}
         container={container}
       />
-      <div className="actions-sentinel" ref={sentinelRef}></div>
+      {/* <div className="actions-sentinel" ref={sentinelRef}></div> */}
     </section>
   );
 }

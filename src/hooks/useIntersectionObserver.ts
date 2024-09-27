@@ -13,11 +13,11 @@ export const useIntersectionObserver = (
     if (sentinel) {
       const observer = new IntersectionObserver(
         utilService.throttle((entries) => {
+          console.log("entries", entries);
           setIsActive(!entries[0].isIntersecting);
         }, 100),
         {
           threshold: [0.1],
-          rootMargin: "-1px 0px 0px 0px",
         }
       );
 

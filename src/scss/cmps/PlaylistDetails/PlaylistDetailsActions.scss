@@ -1,10 +1,11 @@
 .playlist-details-actions {
   @include flex-direction-align-gap-padding(row, center, 2rem, 0 1rem);
-  background-color: inherit;
+  transition: all $animation-duration-base;
+  top: 3rem;
 
   .play-btn {
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
     background: $green-1;
     border-radius: 100vw;
     padding: 0.5rem;
@@ -16,13 +17,22 @@
   }
 
   &.stick {
-    position: sticky;
-    top: 0;
+    position: fixed;
+    top: 1.75rem;
     z-index: 1;
-    // background-color: inherit;
-    backdrop-filter: blur(100000px);
-    padding-block: 0.5rem;
-    box-shadow: rgba($white-1, 0.02) 0px 1px 3px 0px,
-      rgba($white-1, 0.15) 0px 0px 0px 1px;
+    left: 9.5rem;
+  }
+}
+
+body {
+  &:has(.full-size) {
+    .playlist-details-actions {
+      &.stick {
+        position: fixed;
+        top: 1.75rem;
+        z-index: 1;
+        left: 23.5rem;
+      }
+    }
   }
 }
