@@ -23,16 +23,15 @@ import { removeNotification } from "./notification.action";
 
 export const loadDefaultPlaylists = async (): Promise<IPlaylistsGroup[]> => {
   try {
-    // let playlists = getSessionData<IPlaylistsGroup[]>("defaultPlaylists");
-    // if (!playlists) {
-    //   playlists = await playlistService.getDefaultStations();
-    //   if (!playlists)
-    //     throw new Error("No playlists found in default contact support");
+    let playlists = getSessionData<IPlaylistsGroup[]>("defaultPlaylists");
+    if (!playlists) {
+      playlists = await playlistService.getDefaultStations();
+      if (!playlists)
+        throw new Error("No playlists found in default contact support");
+      storeSessionData("defaultPlaylists", playlists);
+    }
 
-    //   storeSessionData("defaultPlaylists", playlists);
-    // }
-
-    const playlists = await playlistService.getDefaultStations();
+    
     return playlists;
   } catch (error) {
     utilService.handleError(
