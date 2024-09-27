@@ -18,7 +18,6 @@ export default function Home() {
   useEffectUpdate(() => {
     const handleLoading = async () => {
       try {
-        setIsLoading(true);
         const playlists = await loadDefaultPlaylists();
         setMainPlaylists(playlists);
       } catch (error) {

@@ -49,3 +49,6 @@ $allowed-directions: row, row-reverse, column, column-reverse;
 $allowed-align-items: center, flex-start, flex-end, baseline;
 $allowed-justify-content: flex-start, flex-end, center, space-between,
   space-around, space-evenly;
+
+//Animation duration
+$animation-duration-base: 0.3s;

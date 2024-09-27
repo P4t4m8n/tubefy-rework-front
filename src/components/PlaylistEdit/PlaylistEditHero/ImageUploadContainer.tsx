@@ -35,7 +35,6 @@ export default function ImageUploadContainer({
      name="imgUrl"
      hidden
      onChange={(ev) => {
-       console.log("ev:", ev);
        ev.stopPropagation();
        onUploadImg(ev);
      }}

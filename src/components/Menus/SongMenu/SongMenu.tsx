@@ -47,7 +47,7 @@ export default function SongMenu({
   const shareItems = friends.map((friend) => ({
     text: friend.friend.username,
     imgUrl: friend.friend.imgUrl || "/default-user.png",
-    onClick: () => console.log("share with friend"),
+    onClick: () => console.info("share with friend"),
     modelSize: { width: 208, height: 144 },
   }));
 

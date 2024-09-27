@@ -76,7 +76,6 @@ export const logout = async (): Promise<void> => {
 export const updateUser = async (user: IUserDTO): Promise<void> => {
   try {
     const updatedUser = await userService.update(user);
-    console.log("updatedUser:", updatedUser);
     store.dispatch(_setUser(updatedUser));
     return;
   } catch (error) {

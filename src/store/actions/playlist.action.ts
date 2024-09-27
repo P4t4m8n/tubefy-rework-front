@@ -31,10 +31,8 @@ export const loadDefaultPlaylists = async (): Promise<IPlaylistsGroup[]> => {
 
     //   storeSessionData("defaultPlaylists", playlists);
     // }
-    // console.log("playlists:", playlists);
 
     const playlists = await playlistService.getDefaultStations();
-    console.log("playlists:", playlists)
     return playlists;
   } catch (error) {
     utilService.handleError(

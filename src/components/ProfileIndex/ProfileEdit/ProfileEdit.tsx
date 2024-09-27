@@ -26,7 +26,6 @@ export default function ProfileEdit() {
   const onSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const form = ev.target as HTMLFormElement;
-    console.log("ev.target:", ev.target);
 
     const userDto = formDataToUserDTO(form);
     if (userDto.imgData) {

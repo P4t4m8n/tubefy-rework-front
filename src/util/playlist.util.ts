@@ -39,7 +39,7 @@ export const extractHeroPlaylists = (
     (playlistObject) => playlistObject.playlists[0]
   );
 
-  if (heroPlaylists.length < 8) {
+  if (heroPlaylists.length < playlistObjects.length) {
     for (let i = heroPlaylists.length; i < 8; i++) {
       heroPlaylists.push(playlistObjects[i % 7].playlists[1]);
     }

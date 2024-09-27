@@ -64,7 +64,6 @@ export const formDataToUserDTO = (form: HTMLFormElement): IUserDTO => {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
   const imgData = formData.get("imgUrl") as File | null;
-  console.log("imgData:", imgData)
 
   const returnedData: IUserDTO = {};
   if (username) returnedData.username = username;

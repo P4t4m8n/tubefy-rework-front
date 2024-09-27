@@ -1,14 +1,133 @@
-.main-content {
-  @include flex-direction-gap-padding(column, 0, 0);
-  max-width: 100%;
-  .home {
-    z-index: 0;
-    max-height: calc(100vh - 16rem);
-    overflow: auto;
-    width: 100%;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-    overflow-y: auto;
-    @include no-scrollBar;
+.home {
+  max-height: calc(100vh - 16rem);
+  width: 100%;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  container-type: inline-size;
+  container-name: home;
+  @include no-scrollBar;
+
+  @container home (max-width: 78rem) {
+    .home-hero {
+      ul {
+        grid-template-columns: repeat(3, minmax(8rem, 1fr));
+        grid-template-rows: repeat(3, 3rem);
+        li {
+          a {
+            img {
+              height: 3rem;
+              width: 3rem;
+            }
+          }
+        }
+      }
+    }
+    .home-list {
+      .playlist-list {
+        ul {
+          grid-template-columns: repeat(5, 1fr);
+          li {
+            &:nth-of-type(5) ~ li {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @container home (max-width: 64rem) {
+    .home-hero {
+      ul {
+        grid-template-columns: repeat(2, minmax(8rem, 1fr));
+        grid-template-rows: repeat(4, 3rem);
+      }
+    }
+
+    .home-list {
+      .playlist-list {
+        ul {
+          grid-template-columns: repeat(4, 1fr);
+          li {
+            &:nth-of-type(4) ~ li {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @container home (max-width: 46rem) {
+    .home-list {
+      .playlist-list {
+        ul {
+          grid-template-columns: repeat(3, 1fr);
+          li {
+            &:nth-of-type(3) ~ li {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @container home (max-width: 34rem) {
+    .home-hero {
+      ul {
+        grid-template-columns: minmax(8rem, 1fr);
+        grid-template-rows: repeat(auto-fill, 3rem);
+        li {
+          a {
+            button {
+              width: 2rem;
+              padding: 0.35rem;
+              right: 5%;
+            }
+          }
+        }
+        &:hover {
+          a {
+            button {
+              right: 1%;
+            }
+          }
+        }
+      }
+    }
+    .home-list {
+      .playlist-list {
+        ul {
+          grid-template-columns: repeat(2, 1fr);
+          li {
+            &:nth-of-type(2) ~ li {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @container home (max-width:24rem) {
+    .home-list {
+      .playlist-list {
+        ul {
+          grid-template-columns: repeat(1, 1fr);
+          li {
+            .play-btn {
+              bottom: 25%;
+              pointer-events: all;
+              cursor: pointer;
+            }
+            &:nth-of-type(1) ~ li {
+              display: none;
+            }
+          }
+        }
+      }
+    }
   }
 }

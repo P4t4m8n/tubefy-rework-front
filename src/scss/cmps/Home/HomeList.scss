@@ -1,51 +1,41 @@
 .home-list {
   @include flex-direction-gap-padding(column, 1rem, 0.75rem);
-  container-type: inline-size;
-  container-name: home-list;
-
   .playlist-list {
     scroll-snap-align: end;
-
     .playlist-list-header {
       @include flex-direction-align-justify-gap-padding(
         row,
         center,
         space-between,
         0,
-        0
+        0 1rem 0.5rem 0
       );
       h2 {
         color: $white-1;
         font-size: $font-size-24;
-        padding-bottom: 1rem;
       }
       a {
-        padding-right: 1rem;
-        z-index: 1;
         @include general-link;
       }
     }
     ul {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-
-      gap: 0.5rem;
+      gap: 0.25rem;
       li {
         position: relative;
         border-radius: $border-radius-1-4;
-        padding: 0.75rem 0.75rem;
+        padding: 0.75rem;
         background-color: inherit;
         transition: background-color 0.25s ease-in-out;
 
         a {
-          display: block;
-          width: 100%;
-          height: 100%;
+          @include full-size;
 
           img {
             border-radius: $border-radius-1-4;
-            min-width: 100%;
             aspect-ratio: 1/1;
+            object-fit: cover;
           }
 
           h3 {
@@ -60,10 +50,9 @@
           p {
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden;
-            white-space: normal;
-            text-overflow: ellipsis;
+            @include text-overflow-ellipsis-warp;
             font-size: $font-size-14;
           }
         }
@@ -88,80 +77,17 @@
 
         &:hover {
           background-color: $black-5;
-
           button {
             bottom: 25%;
             opacity: 1;
             pointer-events: all;
             cursor: pointer;
-
             &:hover {
               scale: 1.05;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+              box-shadow: 0 0 2px rgba($black-1, 0.7);
             }
           }
         }
-      }
-    }
-  }
-}
-
-@container home-list (max-width: 74rem) {
-  .home-list .playlist-list ul {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .home-list .playlist-list ul li:nth-of-type(5) ~ li {
-    display: none;
-  }
-}
-
-@container home-list (max-width: 64rem) {
-  .home-list .playlist-list ul {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .home-list .playlist-list ul li:nth-of-type(4) ~ li {
-    display: none;
-  }
-}
-
-@container home-list (max-width: 44rem) {
-  .home-list .playlist-list ul {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .home-list .playlist-list ul li:nth-of-type(3) ~ li {
-    display: none;
-  }
-}
-
-@container home-list (max-width: 34rem) {
-  .home-list .playlist-list ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .home-list .playlist-list ul li:nth-of-type(2) ~ li {
-    display: none;
-  }
-}
-
-@container home-list (max-width:24rem) {
-  .home-list .playlist-list ul {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .home-list .playlist-list ul li:nth-of-type(1) ~ li {
-    display: none;
-  }
-
-  .home-list {
-    .playlist-list {
-      .play-btn {
-        bottom: 25%;
-        opacity: 1;
-        pointer-events: all;
-        cursor: pointer;
       }
     }
   }

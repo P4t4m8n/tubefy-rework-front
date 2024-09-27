@@ -29,7 +29,6 @@ const signup = async (userCreateDTO: IUserDTO): Promise<IFullUserDTO> => {
 const removeSessionData = (): void => {
   try {
     Object.keys(localStorage).forEach((key) => {
-      console.log("key:", key)
       storeSessionData(key as TSessionDataKeys);
     });
   } catch (error) {
