@@ -13,7 +13,6 @@ export const useIntersectionObserver = (
     if (sentinel) {
       const observer = new IntersectionObserver(
         utilService.throttle((entries) => {
-          console.log("entries", entries);
           setIsActive(!entries[0].isIntersecting);
         }, 100),
         {

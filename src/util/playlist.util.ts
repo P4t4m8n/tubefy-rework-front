@@ -4,7 +4,6 @@ import {
   IPlaylistDetailed,
   IPlaylistsGroup,
   IPlaylistModelData,
-  TPlaylistType,
 } from "../models/playlist.model";
 import { ISong } from "../models/song.model";
 import { IUserSmall } from "../models/user.model";
@@ -15,25 +14,7 @@ import {
   WITH_REMOVE_SONG_MENU_SIZE,
 } from "./constants.util";
 
-export const playlistsToPlaylistsGroup = (
-  playlists: IPlaylist[]
-): IPlaylistsGroup[] => {
-  const playlistMap = new Map<TPlaylistType | string, IPlaylist[]>();
 
-  playlists.forEach((playlist) => {
-    if (!playlistMap.has(playlist.types[0])) {
-      playlistMap.set(playlist.types[0], []);
-    }
-    playlistMap.get(playlist.types[0])!.push(playlist);
-  });
-
-  const playlistObjects: IPlaylistsGroup[] = [];
-  playlistMap.forEach((playlists, type) => {
-    playlistObjects.push({ type, playlists });
-  });
-
-  return playlistObjects;
-};
 export const extractHeroPlaylists = (
   playlistObjects: IPlaylistsGroup[]
 ): IPlaylist[] => {
@@ -74,22 +55,22 @@ export const getEmptyPlaylist = (
     itemType: "PLAYLIST",
   };
 };
-export const transformUserPlaylistsStateForModel = (
-  playlistId = ""
-): IPlaylistModelData[] => {
-  const userPlaylists = getUserPlaylistsState();
+// export const transformUserPlaylistsStateForModel = (
+//   playlistId = ""
+// ): IPlaylistModelData[] => {
+//   const userPlaylists = getUserPlaylistsState();
 
-  return userPlaylists.reduce((acc: IPlaylistModelData[], playlist) => {
-    if (playlist.id !== playlistId) {
-      acc.push({
-        playlistsId: playlist.id || "",
-        playlistsName: playlist.name,
-        playlistImg: playlist.imgUrl,
-      });
-    }
-    return acc;
-  }, []);
-};
+//   return userPlaylists.reduce((acc: IPlaylistModelData[], playlist) => {
+//     if (playlist.id !== playlistId) {
+//       acc.push({
+//         playlistsId: playlist.id || "",
+//         playlistsName: playlist.name,
+//         playlistImg: playlist.imgUrl,
+//       });
+//     }
+//     return acc;
+//   }, []);
+// };
 export const transformUserPlaylistsForModel = (
   userPlaylists: IPlaylistDetailed[],
   playlistId = ""
