@@ -64,8 +64,9 @@
 @import "./cmps/PlaylistDetails/PlaylistDetails.scss";
 @import "./cmps/PlaylistDetails/PlaylistDetailsHero.scss";
 @import "./cmps/PlaylistDetails/PlaylistDetailsActions.scss";
-// @import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
-// @import "./cmps/PlaylistDetails/PlaylistSongsListItem.scss";
+@import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
+@import "./cmps/PlaylistDetails/PlaylistSongsListItem.scss";
+@import "./cmps/PlaylistDetails/MQ.scss";
 
 //SearchIndex
 @import "./cmps/SearchIndex/SearchIndexGenreList.scss";

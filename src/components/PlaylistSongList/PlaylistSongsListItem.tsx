@@ -31,7 +31,7 @@ export default function PlaylistSongsListPreview({
   const addedAt = utilService.getDaysSince(song.addedAt);
 
   return (
-    <li key={idx} className="playlist-songs-list-item">
+    <li className="playlist-songs-list-item">
       <div className="hover-index">
         <PlayBtn item={song} />
         <p>{idx + 1}</p>

@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import {
   IPlaylist,
   IPlaylistDetailed,
@@ -5,8 +6,14 @@ import {
   IPlaylistModelData,
   TPlaylistType,
 } from "../models/playlist.model";
+import { ISong } from "../models/song.model";
 import { IUserSmall } from "../models/user.model";
 import { getUserPlaylistsState } from "../store/getStore";
+import { TModelSize } from "../models/app.model";
+import {
+  REGULAR_SONG_MENU_SIZE,
+  WITH_REMOVE_SONG_MENU_SIZE,
+} from "./constants.util";
 
 export const playlistsToPlaylistsGroup = (
   playlists: IPlaylist[]
@@ -27,7 +34,6 @@ export const playlistsToPlaylistsGroup = (
 
   return playlistObjects;
 };
-
 export const extractHeroPlaylists = (
   playlistObjects: IPlaylistsGroup[]
 ): IPlaylist[] => {
@@ -109,4 +115,35 @@ export const isAllowedToEditPlaylist = (
 
   return userPlaylists.some((playlist) => playlist.id === playlistId);
 };
+export const getPlaylistSongsProps = (
+  songs: ISong[],
+  isOwner: boolean,
+  container: RefObject<HTMLDivElement | HTMLUListElement>,
+  isActive: boolean,
+  isLoggedIn: boolean,
+  onRemoveSongFromPlaylist?: (songId: string) => void
+) => {
+  const playlistSongsProps: {
+    songs: ISong[];
+    isOwner: boolean;
+    container: RefObject<HTMLDivElement | HTMLUListElement>;
+    onRemoveSongFromPlaylist?: (songId: string) => void;
+    isActive?: boolean;
+    isLoggedIn?: boolean;
+    modelSize: TModelSize;
+  } = {
+    songs,
+    isOwner,
+    container,
+    isActive,
+    modelSize: REGULAR_SONG_MENU_SIZE,
+    isLoggedIn,
+  };
 
+  if (isOwner) {
+    playlistSongsProps.onRemoveSongFromPlaylist = onRemoveSongFromPlaylist;
+    playlistSongsProps.modelSize = WITH_REMOVE_SONG_MENU_SIZE;
+  }
+
+  return playlistSongsProps;
+};
