@@ -22,7 +22,7 @@ export default function SearchSongsItem({
     <li className="search-index-songs-list-item">
       <PlayBtn item={song} />
       <img src={song.imgUrl} />
-      <div>
+      <div className="song-info">
         <p>{song.name}</p>
         <p>{song.artist}</p>
       </div>

@@ -1,19 +1,19 @@
 import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ISongYT } from "../models/song.model";
-import { IPlaylist } from "../models/playlist.model";
-import { playlistService } from "../services/playlist.service";
-import { apiService } from "../services/api.service";
-import { transformUserPlaylistsForModel } from "../util/playlist.util";
-import { songService } from "../services/song.service";
-import { addSongToPlaylist } from "../store/actions/playlist.action";
-import { useAppSelector } from "../hooks/useStore";
-import SearchIndexGenresList from "../components/SearchIndex/SearchIndexGenresList";
-import SearchIndexSongsList from "../components/SearchIndex/SearchIndexSongsList";
-import SearchIndexPlaylistList from "../components/SearchIndex/SearchIndexPlaylistList";
-import Loader from "../components/Loader";
-import { utilService } from "../util/util.util";
-import { useEffectUpdate } from "../hooks/useEffectUpdate";
+import { ISongYT } from "../../models/song.model";
+import { IPlaylist } from "../../models/playlist.model";
+import { playlistService } from "../../services/playlist.service";
+import { apiService } from "../../services/api.service";
+import { transformUserPlaylistsForModel } from "../../util/playlist.util";
+import { songService } from "../../services/song.service";
+import { addSongToPlaylist } from "../../store/actions/playlist.action";
+import { useAppSelector } from "../../hooks/useStore";
+import SearchIndexGenresList from "./SearchIndexGenresList";
+import SearchIndexSongsList from "./SearchIndexSongsList";
+import SearchIndexPlaylistList from "./SearchIndexPlaylistList";
+import Loader from "../Loader";
+import { utilService } from "../../util/util.util";
+import { useEffectUpdate } from "../../hooks/useEffectUpdate";
 
 export default function SearchIndex() {
   const user = useAppSelector((state) => state.user.user);

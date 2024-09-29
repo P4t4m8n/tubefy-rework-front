@@ -60,26 +60,24 @@
 @import "./cmps/Home/HomeHero.scss";
 @import "./cmps/Home/HomeList.scss";
 
-//Playlist Details
-@import "./cmps/PlaylistDetails/PlaylistDetails.scss";
-@import "./cmps/PlaylistDetails/PlaylistDetailsHero.scss";
-@import "./cmps/PlaylistDetails/PlaylistDetailsActions.scss";
-@import "./cmps/PlaylistDetails/PlaylistSongsList.scss";
-@import "./cmps/PlaylistDetails/PlaylistSongsListItem.scss";
-@import "./cmps/PlaylistDetails/MQ.scss";
+//Playlist Details/Edit
+@import "./cmps/PlaylistDetailsEdit/PlaylistDetailsEdit.scss";
+@import "./cmps/PlaylistDetailsEdit/PlaylistDetailsEditHero.scss";
+@import "./cmps/PlaylistDetailsEdit/PlaylistDetailsEditActions.scss";
+
+@import "./cmps/PlaylistDetailsEdit/PlaylistSongsList.scss";
+@import "./cmps/PlaylistDetailsEdit/PlaylistSongsListItem.scss";
+
+@import "./cmps/PlaylistDetailsEdit/PlaylistEditHero.scss";
+@import "./cmps/PlaylistDetailsEdit/PlaylistEditSearch.scss";
+
+@import "./cmps/PlaylistDetailsEdit/MQ.scss";
 
 //SearchIndex
 @import "./cmps/SearchIndex/SearchIndexGenreList.scss";
 @import "./cmps/SearchIndex/SearchIndexPlaylist.scss";
 @import "./cmps/SearchIndex/SearchIndexSongs.scss";
 @import "./cmps/SearchIndex/SearchIndexSongModel.scss";
-
-//PlaylistEdit
-@import "./cmps/PlaylistEdit/PlaylistEditHero.scss";
-@import "./cmps/PlaylistEdit/PlaylistEdit.scss";
-@import "./cmps/PlaylistEdit/PlaylistEditActions.scss";
-@import "./cmps/PlaylistEdit/PlaylistEditSearch.scss";
-@import "./cmps/PlaylistEdit/PlaylistEditSongs.scss";
 
 //ProfileIndex
 @import "./cmps/ProfileIndex/ProfileNav.scss";

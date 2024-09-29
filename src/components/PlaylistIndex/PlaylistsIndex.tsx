@@ -1,17 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffectUpdate } from "../hooks/useEffectUpdate";
-import { utilService } from "../util/util.util";
-import { getSessionData } from "../services/localSession.service";
+import { useEffectUpdate } from "../../hooks/useEffectUpdate";
+import { utilService } from "../../util/util.util";
+import { getSessionData } from "../../services/localSession.service";
 import {
   IPlaylist,
   IPlaylistsGroup,
   TPlaylistType,
-} from "../models/playlist.model";
-import { loadDefaultPlaylists } from "../store/actions/playlist.action";
-import { playlistService } from "../services/playlist.service";
+} from "../../models/playlist.model";
+import { loadDefaultPlaylists } from "../../store/actions/playlist.action";
+import { playlistService } from "../../services/playlist.service";
 import { useState } from "react";
-import Loader from "../components/Loader";
-import PlaylistIndexList from "../components/PlaylistIndex/PlaylistIndexList";
+import Loader from "../Loader";
+import PlaylistIndexList from "./PlaylistIndexList";
 
 export default function PlaylistsIndex() {
   const [playlists, setPlaylists] = useState<IPlaylist[]>([]);

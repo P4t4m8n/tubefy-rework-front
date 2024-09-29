@@ -1,0 +1,240 @@
+.playlist-edit-hero {
+  z-index: $z-index-base;
+
+  .img-upload-con {
+    position: relative;
+    box-shadow: rgba($black-1, 0.02) 0px 1px 3px 0px,
+      rgba($black-1, 0.15) 0px 0px 0px 1px;
+
+    border-radius: $border-radius-1-4;
+    transition: width $animation-duration-base;
+
+    img,
+    svg {
+      object-fit: cover;
+      width: 15rem;
+      aspect-ratio: 1/1;
+      display: block;
+      border-radius: inherit;
+    }
+
+    .img-upload-hover {
+      @include img-upload-hover(25%);
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      svg,
+      img {
+        filter: blur(4px);
+      }
+
+      .img-upload-hover {
+        opacity: 1;
+        fill: $gray-1;
+        color: $gray-1;
+
+        svg {
+          filter: blur(0);
+        }
+      }
+    }
+  }
+
+  .playlist-edit-hero-model-con {
+    @include full-size;
+
+    .playlist-edit-hero-model-btn {
+      border-radius: $border-radius-1-4;
+
+      transition: background-color $animation-duration-base;
+
+      h3 {
+        text-align: left;
+      }
+
+      &:hover {
+        background-color: rgba($black-2, 0.1);
+      }
+    }
+
+    .playlist-edit-hero-model {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+
+      @include model-boxShadow;
+      background-color: $black-3;
+
+      width: 100%;
+      border-radius: $border-radius-1-4;
+      z-index: $z-index-model;
+
+      padding: 2rem;
+
+      .edit-model-header {
+        @include flex-direction-align-justify-gap-padding(
+          row,
+          center,
+          space-between,
+          0,
+          0
+        );
+        padding-bottom: 1rem;
+        color: $white-1;
+        font-size: $font-size-20;
+
+        button {
+          width: 1rem;
+          background-color: inherit;
+          rotate: 45deg;
+          fill: $gray-1;
+          transition: fill $animation-duration-base;
+          &:hover {
+            fill: $white-1;
+          }
+        }
+      }
+
+      form {
+        display: grid;
+        grid-template-rows: calc(100% - 4rem) 3rem;
+        gap: 1rem;
+        height: 100%;
+        grid-template-columns: 15rem calc(100% - 16rem);
+        grid-area: 2/1/-1/2;
+
+        .playlist-edit-inputs {
+          grid-area: 1/2/2/-1;
+          @include flex-direction-gap-padding(column, 0.45rem, 0);
+          width: 100%;
+          height: 100%;
+
+          input,
+          textarea {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: $border-radius-1-4;
+            padding: 0.5rem;
+            color: $white-1;
+            font-size: $font-size-14;
+            box-shadow: rgba(0, 0, 0, 0.7) 0px 2px 4px 0px;
+          }
+
+          input {
+            font-weight: 700;
+          }
+
+          textarea {
+            resize: none;
+            height: 100%;
+            outline: none;
+            border: none;
+          }
+        }
+
+        button {
+          grid-area: 2/2/-1/-1;
+          justify-self: flex-end;
+          @include general-btn;
+          @include btn-hover-animation($gray-1);
+        }
+
+        .img-upload-con {
+          grid-area: 1/1/2/2;
+          height: 100%;
+          aspect-ratio: 1/1;
+
+          img {
+            object-fit: cover;
+          }
+
+          svg {
+            width: 5rem;
+            background-color: inherit;
+          }
+
+          .img-upload-hover {
+            @include img-upload-hover(2.5rem);
+          }
+          &:hover {
+            cursor: pointer;
+
+            svg,
+            img {
+              filter: blur(4px);
+            }
+
+            .img-upload-hover {
+              opacity: 1;
+              fill: $gray-1;
+              color: $gray-1;
+
+              svg {
+                filter: blur(0);
+              }
+            }
+          }
+        }
+
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 5rem;
+          height: 2.5rem;
+
+          input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $white-1;
+            transition: 0.4s;
+
+            &:before {
+              position: absolute;
+              content: "";
+              height: 75%;
+              aspect-ratio: 1/1;
+              left: 5%;
+              top: 50%;
+              transform: translateY(-50%);
+              background-color: $black-2;
+              transition: 0.4s;
+            }
+          }
+
+          input:checked + .slider {
+            background-color: #2196f3;
+          }
+
+          input:focus + .slider {
+            box-shadow: 0 0 1px #2196f3;
+          }
+
+          input:checked + .slider:before {
+            transform: translateX(26px);
+          }
+
+          /* Rounded sliders */
+          .slider.round {
+            border-radius: 34px;
+          }
+
+          .slider.round:before {
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}

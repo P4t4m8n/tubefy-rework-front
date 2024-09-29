@@ -1,6 +1,7 @@
 .search-edit-songs {
+  scroll-snap-align: end;
   .add_song_title {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
   }
 
   .search-box {
@@ -13,11 +14,27 @@
     .search-index-songs-list-item {
       height: 3rem;
       width: 100%;
-      @include flex-direction-align-gap-padding(row, center, 1rem, 0 1rem);
+      @include flex-direction-align-gap-padding(
+        row,
+        center,
+        1rem,
+        0 1rem 0 3.5rem
+      );
       position: relative;
       transition: background-color 0.25s ease-in-out;
       border-radius: $border-radius-1-4;
-
+      .song-info {
+        p {
+          &:first-of-type {
+            color: $white-1;
+            font-weight: 800;
+          }
+          &:last-of-type {
+            color: $gray-1;
+            font-size: $font-size-14;
+          }
+        }
+      }
       .play-btn {
         position: absolute;
         left: 1.5rem;

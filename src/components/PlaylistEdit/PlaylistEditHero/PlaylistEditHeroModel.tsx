@@ -5,43 +5,36 @@ import { PlusSVG, UserIconSVG } from "../../svg/SVGs";
 import Loader from "../../Loader";
 import { utilService } from "../../../util/util.util";
 import { useEffectUpdate } from "../../../hooks/useEffectUpdate";
+import { IUserSmall } from "../../../models/user.model";
+import { IPlaylist } from "../../../models/playlist.model";
 
 interface Props {
-  imgUrl: string;
-  onSaveHero: (HeroData: {
+  owner: IUserSmall;
+  playlist: IPlaylist;
+  onUpdatePlaylist: (HeroData: {
     imgUrlData: File | null;
     name: string;
     description: string;
     isPublic: boolean;
   }) => Promise<void>;
-
-  infoData: {
-    name: string;
-    description: string;
-    username: string;
-    avatarUrl: string;
-    songs: number;
-    duration: string;
-    isPublic: boolean;
-  };
 }
 
 export default function PlaylistEditHeroModel({
-  imgUrl,
-  infoData,
-  onSaveHero,
+  owner,
+  playlist,
+  onUpdatePlaylist,
 }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isModelOpen, setIsModelOpen] = useModel(modelRef);
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { imgUrl, name, description, songs, duration, isPublic } = playlist;
+  const { imgUrl: avatarUrl, username } = owner;
+
   useEffectUpdate(() => {
     if (imgUrl) setImgPreview(imgUrl);
   }, [imgUrl]);
-
-  const { name, description, username, avatarUrl, songs, duration, isPublic } =
-    infoData;
 
   const handleUploadImg = (ev: ChangeEvent<HTMLInputElement>) => {
     if (!ev.target.files || !ev.target.files[0]) return;
@@ -62,7 +55,7 @@ export default function PlaylistEditHeroModel({
       const description = formData.get("description") as string;
       const isPublic = !!formData.get("isPublic");
 
-      await onSaveHero({ name, description, imgUrlData, isPublic });
+      await onUpdatePlaylist({ name, description, imgUrlData, isPublic });
     } catch (error) {
       utilService.handleError(
         "Failed to save playlist",
@@ -86,10 +79,10 @@ export default function PlaylistEditHeroModel({
       >
         <h3>{name}</h3>
         <h4>{description}</h4>
-        <div className="playlists-edit-hero-info-owner">
+        <div className="playlist-edit-hero-info-owner">
           {avatarUrl ? <img src={avatarUrl}></img> : <UserIconSVG />}
           <p>{username || "TubeFy"}</p>
-          <p>{songs} songs</p>
+          <p>{songs.length} songs</p>
           <p>About {duration}</p>
         </div>
       </button>
@@ -109,7 +102,7 @@ export default function PlaylistEditHeroModel({
               name={name}
               idForInput="-edit-model"
             />
-            <div className="playlists-details-hero-info">
+            <div className="playlist-edit-inputs">
               <input
                 type="text"
                 name="name"
@@ -119,7 +112,7 @@ export default function PlaylistEditHeroModel({
               <textarea
                 placeholder="Description"
                 name="description"
-                defaultValue={description}
+                defaultValue={description || ""}
               />
             </div>
 

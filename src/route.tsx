@@ -2,19 +2,19 @@ import { ReactNode } from "react";
 
 import { AuthProtectedRoute } from "./guards/AuthProtectedRoute";
 
-import Home from "./pages/Home";
+import Home from "./components/PlaylistIndex/Home";
 
-import SearchIndex from "./pages/SearchIndex";
+import SearchIndex from "./components/SearchIndex/SearchIndex";
 
-import PlaylistEdit from "./pages/PlaylistEdit";
+import PlaylistEdit from "./components/PlaylistEdit/PlaylistEdit";
 
-import PlaylistDetails from "./pages/PlaylistDetails";
+import PlaylistDetails from "./components/PlaylistDetails/PlaylistDetails";
 
-import ProfileIndex from "./pages/ProfileIndex";
 import ProfileFriendIndex from "./components/ProfileIndex/ProfileFriends/ProfileFriendIndex";
 import ProfileEdit from "./components/ProfileIndex/ProfileEdit/ProfileEdit";
 import ProfileNotificationIndex from "./components/ProfileIndex/ProfileNotification/ProfileNotificationIndex";
-import PlaylistsIndex from "./pages/PlaylistsIndex";
+import PlaylistsIndex from "./components/PlaylistIndex/PlaylistsIndex";
+import ProfileIndex from "./components/ProfileIndex/ProfileIndex";
 
 export interface RouteConfig {
   path: string;

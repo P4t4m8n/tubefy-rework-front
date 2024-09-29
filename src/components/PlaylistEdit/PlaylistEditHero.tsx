@@ -1,39 +1,34 @@
 import { ChangeEvent } from "react";
 import ImageUploadContainer from "./PlaylistEditHero/ImageUploadContainer";
 import PlaylistEditHeroModel from "./PlaylistEditHero/PlaylistEditHeroModel";
+import { IUserSmall } from "../../models/user.model";
+import { IPlaylist } from "../../models/playlist.model";
 
 interface Props {
-  imgUrl: string;
+  owner: IUserSmall;
+  playlist: IPlaylist;
   onUploadImg: (ev: ChangeEvent<HTMLInputElement>) => void;
-  onSaveHero: (HeroData: {
+  onUpdatePlaylist: (HeroData: {
     imgUrlData: File | null;
     name: string;
     description: string;
     isPublic: boolean;
   }) => Promise<void>;
-  infoData: {
-    name: string;
-    description: string;
-    username: string;
-    avatarUrl: string;
-    songs: number;
-    duration: string;
-    isPublic: boolean;
-  };
 }
 export default function PlaylistEditHero({
-  imgUrl,
-  infoData,
+  owner,
+  playlist,
   onUploadImg,
-  onSaveHero,
+  onUpdatePlaylist,
 }: Props) {
+  const { imgUrl } = playlist;
   return (
     <header className="playlist-edit-hero">
       <ImageUploadContainer imgUrl={imgUrl} onUploadImg={onUploadImg} name="" />
       <PlaylistEditHeroModel
-        imgUrl={imgUrl}
-        infoData={infoData}
-        onSaveHero={onSaveHero}
+        owner={owner}
+        playlist={playlist}
+        onUpdatePlaylist={onUpdatePlaylist}
       />
     </header>
   );

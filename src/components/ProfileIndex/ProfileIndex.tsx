@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import ProfileNav from "../components/ProfileIndex/ProfileNav";
+import ProfileNav from "./ProfileNav";
 
 export default function ProfileIndex() {
   return (

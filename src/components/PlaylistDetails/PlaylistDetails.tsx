@@ -1,22 +1,21 @@
 import { useRef } from "react";
-import { redirect } from "react-router-dom";
 
-import { usePlaylistEdit } from "../hooks/usePlaylistEdit";
-import { useAppSelector } from "../hooks/useStore";
-import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import { usePlaylistEdit } from "../../hooks/usePlaylistEdit";
+import { useAppSelector } from "../../hooks/useStore";
+import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 
 import {
   getPlaylistSongsProps,
   isAllowedToEditPlaylist,
-} from "../util/playlist.util";
+} from "../../util/playlist.util";
 
-import PlaylistDetailsHero from "../components/PlaylistDetails/PlaylistDetailsHero";
-import PlayBtn from "../components/Buttons/PlayBtn";
-import Loader from "../components/Loader";
-import PlaylistMenu from "../components/Menus/PlaylistMenu/PlaylistMenu";
-import PlaylistSongsList from "../components/PlaylistSongList/PlaylistSongsList";
-import LikeBtn from "../components/Buttons/LikeBtn";
-import { WITH_REMOVE_SONG_MENU_SIZE } from "../util/constants.util";
+import PlaylistDetailsHero from "./PlaylistDetailsHero";
+import PlayBtn from "../Buttons/PlayBtn";
+import Loader from "../Loader";
+import PlaylistMenu from "../Menus/PlaylistMenu/PlaylistMenu";
+import PlaylistSongsList from "../PlaylistSongList/PlaylistSongsList";
+import LikeBtn from "../Buttons/LikeBtn";
+import { WITH_REMOVE_SONG_MENU_SIZE } from "../../util/constants.util";
 
 export default function PlaylistDetails() {
   const detailsRef = useRef<HTMLDivElement>(null);
@@ -33,7 +32,7 @@ export default function PlaylistDetails() {
   const isActive = useIntersectionObserver(sentinelRef, isLoading);
 
   if (isLoading) return <Loader />;
-  if (!playlist) return redirect("/");
+  if (!playlist) return 
 
   const { name, imgUrl, owner, songs, duration, id, description } = playlist;
 

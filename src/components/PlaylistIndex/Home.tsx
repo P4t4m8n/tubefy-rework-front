@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 
-import { loadDefaultPlaylists } from "../store/actions/playlist.action";
-import { extractHeroPlaylists } from "../util/playlist.util";
-import { IPlaylistsGroup } from "../models/playlist.model";
-import { useEffectUpdate } from "../hooks/useEffectUpdate";
-import { utilService } from "../util/util.util";
+import { loadDefaultPlaylists } from "../../store/actions/playlist.action";
+import { extractHeroPlaylists } from "../../util/playlist.util";
+import { IPlaylistsGroup } from "../../models/playlist.model";
+import { useEffectUpdate } from "../../hooks/useEffectUpdate";
+import { utilService } from "../../util/util.util";
 
-import PlaylistIndexList from "../components/PlaylistIndex/PlaylistIndexList";
-import PlaylistIndexHero from "../components/PlaylistIndex/PlaylistIndexHero";
-import Loader from "../components/Loader";
+import PlaylistIndexList from "./PlaylistIndexList";
+import PlaylistIndexHero from "./PlaylistIndexHero";
+import Loader from "../Loader";
 import { Link } from "react-router-dom";
 
 export default function Home() {

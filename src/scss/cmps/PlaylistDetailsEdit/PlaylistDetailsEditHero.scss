@@ -1,4 +1,5 @@
-.playlists-details-hero {
+.playlist-details-hero,
+.playlist-edit-hero {
   @include flex-direction-align-gap-padding(row, flex-end, 2rem, 0 1rem);
 
   img {
@@ -9,7 +10,8 @@
     position: relative;
   }
 
-  .playlists-details-hero-info {
+  .playlist-details-hero-info,
+  .playlist-edit-hero-model-btn {
     @include flex-direction-align-justify-gap-padding(
       column,
       flex-start,
@@ -37,7 +39,8 @@
       padding-bottom: 0.5rem;
     }
 
-    .playlists-details-hero-info-owner {
+    .playlist-details-hero-info-owner,
+    .playlist-edit-hero-info-owner {
       @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
 
       img {
@@ -47,7 +50,7 @@
         border-radius: 100vw;
       }
       p {
-        font-family: $font-size-16;
+        font-size: $font-size-16;
         color: $white-1;
         &:first-of-type {
           font-weight: 800;
