@@ -63,30 +63,35 @@ export const DEMO_USERS = [
     username: "NachoUsername",
     email: "NachoUsername@gmail.com",
     password: "Aa123456",
-    
+    imgUrl:
+      "https://res.cloudinary.com/dpnevk8db/image/upload/q_auto,w_auto/v1727205327/brandon-zacharias-ITo4f_z3wNM-unsplash_zf58hf.jpg",
   },
   {
     username: "CaptainObvious",
     email: "CaptainObvious77@gmail.com",
     password: "Aa123456",
-    
+    imgUrl:
+      "https://res.cloudinary.com/dpnevk8db/image/upload/q_auto,w_auto/v1727205327/alex-suprun-bYODySpLIhE-unsplash_hwqc6q.jpg",
   },
   {
     username: "SirLaughsALot",
     email: "SirLaughsALot@gmail.com",
     password: "Aa123456",
-    
+    imgUrl:
+      "https://res.cloudinary.com/dpnevk8db/image/upload/q_auto,w_auto/v1727205327/igor-karimov-lPLqDlnhxbE-unsplash_hfnaer.jpg",
   },
   {
     username: "PineappleOnPizza",
     email: "PineappleOnPizza@gmail.com",
     password: "Aa123456",
-    
+    imgUrl:
+      "https://res.cloudinary.com/dpnevk8db/image/upload/q_auto,w_auto/v1727205326/ruan-richard-rodrigues-6MHDW3_0RRI-unsplash_rd5bna.jpg",
   },
   {
     username: "KeyboardWarrior",
     email: "KeyboardWarrior123@gmail.com",
     password: "Aa123456",
-    
+    imgUrl:
+      "https://res.cloudinary.com/dpnevk8db/image/upload/q_auto,w_auto/v1727205326/vadim-bogulov-rdHrrFA1KKg-unsplash_oe9wjy.jpg",
   },
 ];

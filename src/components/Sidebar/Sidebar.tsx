@@ -3,7 +3,7 @@ import { NavBar } from "./NavBar";
 import { UserLibraryIndex } from "./UserLibraryIndex";
 
 export default function Sidebar() {
-  const [isFullSize, setIsFullSize] = useState(true);
+  const [isFullSize, setIsFullSize] = useState(false);
 
   const sideBarClassName = `side-bar ${isFullSize ? "full-size" : ""}`;
   return (

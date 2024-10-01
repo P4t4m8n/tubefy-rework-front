@@ -1,16 +1,19 @@
-import { Link, Location, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import {
   HomeClickedSVG,
   HomeSvg,
   SearchClickedSVG,
   SearchSvg,
 } from "../svg/SVGs";
+
 import NotificationsLink from "./NavBar/NotificationsLink";
 import FriendsLink from "./NavBar/FriendsLink";
+import { useNavLocation } from "../../hooks/useLocation";
 
 export function NavBar() {
-  const location: Location = useLocation();
-  const isSearchOpen = location.pathname.includes("search");
+  const { location, checkLocation } = useNavLocation();
+  const isSearchOpen = checkLocation("search");
   const isHome = location.pathname === "/";
 
   return (
@@ -28,8 +31,8 @@ export function NavBar() {
         <span>Search</span>
       </Link>
 
-      <FriendsLink location={location} />
-      <NotificationsLink location={location} />
+      <FriendsLink checkLocation={checkLocation} />
+      <NotificationsLink checkLocation={checkLocation} />
     </nav>
   );
 }

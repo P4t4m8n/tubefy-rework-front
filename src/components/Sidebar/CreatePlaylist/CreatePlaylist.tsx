@@ -5,11 +5,13 @@ import CreatePlaylistModel from "./CreatePlaylistModel";
 interface Props {
   setIsFullSize: Dispatch<React.SetStateAction<boolean>>;
   userPlaylistLength: number;
+  isUser: boolean;
 }
 
 export default function CreatePlaylist({
   setIsFullSize,
   userPlaylistLength,
+  isUser,
 }: Props) {
   return (
     <section className="user-library-header">
@@ -22,7 +24,9 @@ export default function CreatePlaylist({
         <ArrowSVG />
       </button>
 
-      <CreatePlaylistModel userPlaylistLength={userPlaylistLength} />
+      {isUser && (
+        <CreatePlaylistModel userPlaylistLength={userPlaylistLength} />
+      )}
     </section>
   );
 }

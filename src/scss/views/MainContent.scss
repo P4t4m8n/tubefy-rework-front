@@ -1,13 +1,14 @@
 .main-content {
   @include flex-direction-gap-padding(column, 0, 0);
   max-width: 100%;
-  margin: 0.5rem 0.5rem 0.5rem 0.25rem;
+  margin: 0.5rem ;
   border-radius: $border-radius-1-2;
   background-color: $black-2;
   z-index: 0;
   position: relative;
   max-height: calc(100vh - 6rem);
   container-type: inline-size;
+  @include no-scrollBar;
 
   @container (max-width: 31rem) {
     .playlists-details,

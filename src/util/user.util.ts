@@ -73,3 +73,5 @@ export const formDataToUserDTO = (form: HTMLFormElement): IUserDTO => {
 
   return returnedData;
 };
+
+

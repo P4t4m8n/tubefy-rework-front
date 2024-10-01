@@ -1,15 +1,15 @@
-import { Link, Location } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAppSelector } from "../../../hooks/useStore";
 import { NotificationSVG } from "../../svg/SVGs";
 
 interface Props {
-  location: Location;
+  checkLocation: (path: string) => boolean;
 }
-export default function NotificationsLink({ location }: Props) {
+export default function NotificationsLink({ checkLocation }: Props) {
   const notificationsLength =
   useAppSelector((state) => state.notification.notifications?.length) || 0;
 
-  const isNotificationsOpen = location.pathname.includes("notifications");
+  const isNotificationsOpen = checkLocation("notifications");
 
   return (
     <Link

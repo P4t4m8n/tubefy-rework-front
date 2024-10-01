@@ -1,0 +1,79 @@
+.demo-user-login {
+  transform: rotateY(180deg);
+  height: 20rem;
+
+  div {
+    width: 100%;
+    height: 100%;
+
+    @include flex-direction-align-justify-gap-padding(
+      row,
+      center,
+      space-between,
+      0,
+      0 1rem
+    );
+    div {
+      font-size: $font-size-18;
+      &:last-of-type {
+        display: grid;
+        grid-template-columns: repeat(4, 2.5rem);
+        grid-template-rows: repeat(4, 2.5rem);
+        place-items: start center;
+        gap: 4px;
+        align-content: center;
+        justify-content: center;
+        width: 100%;
+
+        &:has(:hover) img:not(:hover),
+        &:has(:focus) img:not(:focus) {
+          filter: brightness(0.5) contrast(0.5);
+        }
+        button {
+          width: 5rem;
+          height: 5rem;
+          grid-column: auto / span 2;
+          &:nth-of-type(3) {
+            grid-column: 2 / span 2;
+          }
+
+          img {
+            object-fit: cover;
+            width: 5rem;
+            height: 5rem;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            transition: clip-path 1.25s, filter 0.75s;
+            border-radius: $border-radius-1-2;
+          }
+          &:hover {
+            z-index: $z-index-model;
+            img {
+              clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+              transition: clip-path 0.25s, filter 0.25s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: rem(468px)) {
+  .demo-user-login {
+    min-height: 20rem;
+    height: fit-content;
+
+    div {
+      width: 100%;
+      height: 100%;
+
+      @include flex-direction-align-justify-gap-padding(
+        column,
+        center,
+        space-between,
+        1rem,
+        0 1rem
+      );
+    }
+  }
+}

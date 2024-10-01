@@ -4,7 +4,7 @@ import LikeBtn from "../Buttons/LikeBtn";
 import { utilService } from "../../util/util.util";
 import SongMenu from "../Menus/SongMenu/SongMenu";
 import { RefObject } from "react";
-import Login from "../User/Login";
+import Login from "../LoginModel/Login";
 import { TModelSize } from "../../models/app.model";
 
 interface Props {

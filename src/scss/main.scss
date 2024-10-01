@@ -37,8 +37,12 @@
 @import "./cmps/Header/Header.scss";
 
 //User
-@import "./cmps/User/Login.scss";
 @import "./cmps/User/User.scss";
+
+//Login
+@import "./cmps/LoginModel/Login.scss";
+@import "./cmps/LoginModel/RegularLogin.scss";
+@import "./cmps/LoginModel/DemoUserLogin.scss";
 
 //Search
 @import "./cmps/Search.scss";

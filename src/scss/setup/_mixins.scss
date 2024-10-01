@@ -104,7 +104,6 @@
   );
   opacity: 0;
   pointer-events: none;
-  
 }
 
 @mixin btn-hover-animation($color) {
@@ -187,7 +186,7 @@
     center,
     center,
     0,
-    0 1.5rem
+    0 1rem
   );
   border-radius: $border-radius-2;
 
@@ -196,9 +195,10 @@
 
   font-weight: 700;
   font-size: $font-size-16;
-  height: 3rem;
+  height: 2.5rem;
 
   width: fit-content;
+  min-width: 5rem;
   position: relative;
 
   cursor: pointer;

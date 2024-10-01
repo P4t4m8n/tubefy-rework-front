@@ -1,0 +1,73 @@
+.regular-login {
+  form {
+    @include flex-direction-gap-padding(column, 0.5rem, 1rem 1rem 0.25rem 1rem);
+    li {
+      width: 100%;
+      @include flex-direction-gap-padding(column, 0.5rem, 0);
+      label {
+        @include flex-direction-align-gap-padding(row, center, 0.5rem, 0);
+        span {
+          &.error {
+            color: $red-1;
+            font-size: $font-size-14;
+            font-weight: 800;
+          }
+        }
+      }
+      input {
+        background-color: $black-6;
+        color: $white-1;
+
+        border-radius: $border-radius-1-2;
+        padding: 0.25rem 0.5rem;
+
+        font-size: $font-size-16;
+        &.error {
+          box-shadow: rgba($red-1, 0.1) 0px 1px 1px 0px,
+            rgba($red-1, 0.7) 0px 0px 0px 1px;
+        }
+      }
+    }
+    .actions {
+      @include flex-direction-align-justify-gap-padding(
+        row,
+        center,
+        space-between,
+        0,
+        0.75rem 0 0 0
+      );
+
+      
+      margin-top: auto;
+      button {
+        &:first-of-type {
+          @include general-link;
+        }
+        &:last-of-type {
+          @include general-btn;
+        }
+       
+      }
+    }
+  }
+}
+
+@media (max-width: rem(660px)) {
+  .regular-login {
+    form {
+      li{
+        label{
+
+          height: 2rem;
+        }
+      }
+      .actions {
+        flex-direction: column;
+        gap: 0.5rem;
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

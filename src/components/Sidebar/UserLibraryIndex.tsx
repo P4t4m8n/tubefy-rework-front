@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
+
 import { useAppSelector } from "../../hooks/useStore";
+import { usePlaylistFilter } from "../../hooks/usePlaylistFilter";
+
 import CreatePlaylist from "./CreatePlaylist/CreatePlaylist";
 import UserLibraryFilter from "./UserLibraryFilter/UserLibraryFilter";
 import UserLibraryList from "./UserLibraryList/UserLibraryList";
-import { usePlaylistFilter } from "../../hooks/usePlaylistFilter";
 
 interface Props {
   setIsFullSize: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +27,7 @@ export function UserLibraryIndex({ setIsFullSize }: Props) {
       <CreatePlaylist
         setIsFullSize={setIsFullSize}
         userPlaylistLength={userPlaylistLength}
+        isUser={!!user}
       />
       {!user && (
         <div className="user-library-no-user">

@@ -2,8 +2,6 @@ import { ReactNode } from "react";
 
 import { AuthProtectedRoute } from "./guards/AuthProtectedRoute";
 
-import Home from "./components/PlaylistIndex/Home";
-
 import SearchIndex from "./components/SearchIndex/SearchIndex";
 
 import PlaylistEdit from "./components/PlaylistEdit/PlaylistEdit";
@@ -15,6 +13,7 @@ import ProfileEdit from "./components/ProfileIndex/ProfileEdit/ProfileEdit";
 import ProfileNotificationIndex from "./components/ProfileIndex/ProfileNotification/ProfileNotificationIndex";
 import PlaylistsIndex from "./components/PlaylistIndex/PlaylistsIndex";
 import ProfileIndex from "./components/ProfileIndex/ProfileIndex";
+import Home from "./components/Home";
 
 export interface RouteConfig {
   path: string;

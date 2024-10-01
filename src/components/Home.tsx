@@ -1,15 +1,14 @@
 import { useMemo, useState } from "react";
 
-import { loadDefaultPlaylists } from "../../store/actions/playlist.action";
-import { extractHeroPlaylists } from "../../util/playlist.util";
-import { IPlaylistsGroup } from "../../models/playlist.model";
-import { useEffectUpdate } from "../../hooks/useEffectUpdate";
-import { utilService } from "../../util/util.util";
-
-import PlaylistIndexList from "./PlaylistIndexList";
-import PlaylistIndexHero from "./PlaylistIndexHero";
-import Loader from "../Loader";
 import { Link } from "react-router-dom";
+import { IPlaylistsGroup } from "../models/playlist.model";
+import { useEffectUpdate } from "../hooks/useEffectUpdate";
+import { loadDefaultPlaylists } from "../store/actions/playlist.action";
+import { utilService } from "../util/util.util";
+import { extractHeroPlaylists } from "../util/playlist.util";
+import Loader from "./Loader";
+import HomeHero from "./Home/HomeHero";
+import PlaylistIndexList from "./PlaylistIndex/PlaylistIndexList";
 
 export default function Home() {
   const [mainPlaylists, setMainPlaylists] = useState<IPlaylistsGroup[]>([]);
@@ -40,7 +39,7 @@ export default function Home() {
 
   return (
     <section className="home">
-      <PlaylistIndexHero heroPlaylists={heroPlaylists} />
+      <HomeHero heroPlaylists={heroPlaylists} />
       <ul className="home-list">
         {mainPlaylists.map((playlistObject) => (
           <li key={playlistObject.type} className="playlist-list">

@@ -2,12 +2,12 @@ import { IPlaylist } from "../../models/playlist.model";
 import { getGreeting } from "../../util/user.util";
 
 import BackgroundGradient from "../BackgroundGradient";
-import PlaylistIndexList from "./PlaylistIndexList";
+import PlaylistIndexList from "../PlaylistIndex/PlaylistIndexList";
 
 interface Props {
   heroPlaylists: IPlaylist[];
 }
-export default function PlaylistIndexHero({ heroPlaylists }: Props) {
+export default function HomeHero({ heroPlaylists }: Props) {
   const greeting = getGreeting();
 
   return (

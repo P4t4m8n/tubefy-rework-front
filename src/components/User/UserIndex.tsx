@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../hooks/useStore";
 import { NavigateFunction } from "react-router-dom";
-import Login from "./Login";
+import Login from "../LoginModel/Login";
 import UserSocketsListener from "./UserSocketsListener";
 import UserMenu from "../Menus/UserMenu/UserMenu";
 
