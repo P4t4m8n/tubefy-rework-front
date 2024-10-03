@@ -8,6 +8,8 @@ export default function PlayerVolumeControl() {
 
   const handleVolumeChange = (ev: MouseEvent) => {
     if (!volumeBarRef?.current) return;
+    console.log("dragging");
+
     const rect = volumeBarRef.current.getBoundingClientRect();
     const clickPosition = ev.clientX - rect.left;
     const newVolume = Math.max(
@@ -19,6 +21,7 @@ export default function PlayerVolumeControl() {
   };
 
   const handleDrag = (ev: MouseEvent) => {
+    console.log("ev.buttons !== 1:", ev.buttons !== 1)
     if (ev.buttons !== 1) return; // Check if mouse is held down
     handleVolumeChange(ev);
   };

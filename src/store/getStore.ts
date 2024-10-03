@@ -5,6 +5,10 @@ export const getUserPlaylistsState = (): IPlaylistDetailed[] => {
   return store.getState().playlists.userPlaylists || [];
 };
 
+export const getUserLikedPlaylist = () => {
+  return store.getState().playlists.likedPlaylist;
+};
+
 export const getUserState = () => {
   return store.getState().user.user;
 };

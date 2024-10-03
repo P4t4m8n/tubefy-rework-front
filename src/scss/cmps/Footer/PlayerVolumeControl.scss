@@ -38,6 +38,7 @@
     .volume-handle {
       width: 0.75rem;
       height: 0.75rem;
+
       background-color: $white-1;
       border-radius: 50%;
       position: absolute;
@@ -45,6 +46,7 @@
       transform: translate(-50%, -50%);
       opacity: 0;
       transition: opacity 0.1s;
+  
     }
     &:hover {
       .volume-handle {

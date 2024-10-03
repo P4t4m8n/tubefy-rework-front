@@ -10,6 +10,7 @@ import {
 import { playlistService } from "../services/playlist.service";
 import { utilService } from "../util/util.util";
 import { TNotificationType } from "../models/notification.model";
+import { getUserLikedPlaylist } from "../store/getStore";
 
 export const useLike = (
   item: ISongYT | ISong | IPlaylistDetailed
@@ -27,6 +28,15 @@ export const useLike = (
   }, [item]);
 
   const toggleLike = async () => {
+    const userLikedPlaylist = getUserLikedPlaylist();
+    if (!userLikedPlaylist) {
+      utilService.handleError(
+        "You need to be logged in to like ",
+        "GENERAL_ERROR",
+        new Error("No user found")
+      );
+      return;
+    }
     let finishCheck = false;
 
     //optimistic update
@@ -49,7 +59,10 @@ export const useLike = (
           updateUserPlaylists(item as IPlaylistDetailed);
           break;
         case "YT_SONG": {
-          const song = await songService.createSong(item as ISongYT);
+          const song = await songService.createSong(
+            userLikedPlaylist.id,
+            item as ISongYT
+          );
           updateUserLikedSongPlaylist(song);
           finishCheck = await songService.toggleSongLike(song.id, isLiked);
           break;
