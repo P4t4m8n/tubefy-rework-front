@@ -13,7 +13,7 @@ import ProfileEdit from "./components/ProfileIndex/ProfileEdit/ProfileEdit";
 import ProfileNotificationIndex from "./components/ProfileIndex/ProfileNotification/ProfileNotificationIndex";
 import PlaylistsIndex from "./components/PlaylistIndex/PlaylistsIndex";
 import ProfileIndex from "./components/ProfileIndex/ProfileIndex";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 
 export interface RouteConfig {
   path: string;
@@ -74,7 +74,15 @@ const routes: RouteConfig[] = [
     element: <SearchIndex />,
   },
   {
-    path: "/search/:query",
+    path: "/search/artists/:artist",
+    element: <SearchIndex />,
+  },
+  {
+    path: "/search/genres/:genre",
+    element: <SearchIndex />,
+  },
+  {
+    path: "/search/types/:type",
     element: <SearchIndex />,
   },
 ];

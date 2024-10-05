@@ -1,0 +1,9 @@
+.search-index {
+  @include flex-direction-gap-padding(column, 0.75rem, 0 1rem);
+  .items-con {
+    @include flex-direction-gap-padding(column, 1rem, 0);
+    height: calc(100vh - 21rem);
+    overflow: auto;
+    @include no-scrollBar;
+  }
+}

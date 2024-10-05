@@ -2,7 +2,6 @@ import { TInputUserFormKeys } from "../models/app.model";
 
 export const searchGenres = [
   "Latino",
-
   "Party",
   "K-pop",
   "Soul",

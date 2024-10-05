@@ -1,0 +1,170 @@
+.search-index {
+  container-type: inline-size;
+
+  //688px only for big screens
+  @container (min-width: 43rem) {
+    .items-con {
+      .search-index-songs {
+        .search-index-songs-list {
+          display: grid;
+          grid-template-columns: 15rem calc(100% - 16rem);
+          grid-template-rows: repeat(4, 3rem);
+          row-gap: 0.5rem;
+          column-gap: 1rem;
+          li {
+            &:first-of-type {
+              grid-area: 1/1/-1/2;
+
+              @include flex-direction-align-justify-gap-padding(
+                column,
+                center,
+                center,
+                0.75rem,
+                1rem
+              );
+              background-color: $black-6;
+              border-radius: $border-radius-1-2;
+              @include full-size;
+
+              .img-con {
+                position: relative;
+                width: 50%;
+                height: fit-content;
+                aspect-ratio: 1/1 !important;
+
+                img {
+                  @include full-size;
+                  object-fit: cover;
+                  aspect-ratio: 1/1;
+                  border-radius: 100vh;
+                }
+                .play-btn {
+                  @include play-btn;
+                  @include center-position(absolute);
+                  transition: opacity $animation-duration-base,
+                    scale $animation-duration-base;
+                  pointer-events: none;
+                  width: 50%;
+                  height: 50%;
+                  &:hover {
+                    scale: 1.05;
+                  }
+                }
+              }
+              .song-info {
+                max-width: 100%;
+                p {
+                  &:first-of-type {
+                    font-size: $font-size-16;
+                    font-weight: 700;
+                  }
+                  &:last-of-type {
+                    font-size: $font-size-14;
+                    color: $gray-1;
+                  }
+                }
+              }
+              .song-actions {
+                width: 100%;
+                opacity: 0;
+                transition: opacity $animation-duration-base;
+
+                @include flex-direction-align-justify-gap-padding(
+                  row,
+                  center,
+                  space-around,
+                  1rem,
+                  0
+                );
+                .like-btn,
+                .songs-model-btn {
+                  width: 1rem;
+                  height: 1rem;
+                  pointer-events: none;
+                }
+              }
+              &:hover {
+                .img-con {
+                  .play-btn {
+                    opacity: 0.5;
+                    pointer-events: all;
+                  }
+                }
+                .song-actions {
+                  opacity: 1;
+                  .like-btn,
+                  .songs-model-btn {
+                    pointer-events: all;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  // 464px
+  @container (max-width: 29rem) {
+    .search-index-links-list {
+      padding: 0;
+      h2 {
+        font-size: $font-size-20;
+      }
+      .nav-con {
+        padding-inline: 0;
+        nav {
+          width: 100%;
+          // justify-content: center;
+        }
+      }
+    }
+
+    .search-default {
+      padding-inline: 0;
+      h2 {
+        font-size: $font-size-16;
+        padding-block: 1rem 2rem;
+      }
+      ul {
+        gap: 1rem;
+        height: 38svh;
+        li {
+          padding: 0;
+          h3 {
+            font-size: $font-size-14;
+          }
+          p {
+            font-size: $font-size-12;
+          }
+        }
+      }
+    }
+
+    .items-con {
+      .search-index-songs,
+      .search-index-playlist {
+        padding-inline: 0;
+        .search-index-songs-list {
+          .search-index-songs-list-item {
+            .song-info {
+              max-width: calc(100% - 5.5rem);
+            }
+            .song-actions {
+              .like-btn,
+              p {
+                display: none;
+              }
+              .songs-model-con {
+                .songs-model-btn {
+                  opacity: 1;
+                  rotate: 90deg;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

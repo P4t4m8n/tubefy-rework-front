@@ -4,16 +4,17 @@ import {
   IPlaylistDetailed,
   IPlaylistsGroup,
   IPlaylistModelData,
+  IPlaylistFilter,
+  TPlaylistType,
 } from "../models/playlist.model";
 import { ISong } from "../models/song.model";
 import { IUserSmall } from "../models/user.model";
 import { getUserPlaylistsState } from "../store/getStore";
-import { TModelSize } from "../models/app.model";
+import { TGenres, TModelSize } from "../models/app.model";
 import {
   REGULAR_SONG_MENU_SIZE,
   WITH_REMOVE_SONG_MENU_SIZE,
 } from "./constants.util";
-
 
 export const extractHeroPlaylists = (
   playlistObjects: IPlaylistsGroup[]
@@ -46,7 +47,7 @@ export const getEmptyPlaylist = (
     songs: [],
     description: "",
     genres: [],
-    types: [""],
+    types: [],
     owner,
     duration: "00:00",
     isPublic: false,
@@ -127,4 +128,32 @@ export const getPlaylistSongsProps = (
   }
 
   return playlistSongsProps;
+};
+
+export const getPlaylistFilterForSearch = (
+  artist?: string,
+  genre?: string,
+  type?: string
+): IPlaylistFilter => {
+  const playlistFilter: IPlaylistFilter = {};
+
+  const query = artist || genre || type;
+
+  switch (query) {
+    case artist:
+      playlistFilter.artist = artist;
+      playlistFilter.name = artist;
+      playlistFilter.songName = artist;
+      break;
+    case genre:
+      playlistFilter.genres = [genre as TGenres];
+      break;
+    case type:
+      playlistFilter.type = type as TPlaylistType;
+      break;
+    default:
+      break;
+  }
+
+  return playlistFilter;
 };

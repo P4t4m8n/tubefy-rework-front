@@ -16,8 +16,10 @@ import PlaylistIndexList from "./PlaylistIndexList";
 export default function PlaylistsIndex() {
   const [playlists, setPlaylists] = useState<IPlaylist[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { type } = useParams();
+  const params = useParams();
   const navigate = useNavigate();
+
+  const { type } = params;
 
   useEffectUpdate(() => {
     if (!type) {

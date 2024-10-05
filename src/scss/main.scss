@@ -11,7 +11,6 @@
 
 // Views
 @import "./views/PlaylistIndex.scss";
-@import "./views/SearchIndex.scss";
 @import "./views/ProfileIndex.scss";
 @import "./views/MainContent.scss";
 
@@ -44,9 +43,6 @@
 @import "./cmps/LoginModel/RegularLogin.scss";
 @import "./cmps/LoginModel/DemoUserLogin.scss";
 
-//Search
-@import "./cmps/Search.scss";
-
 //User-msg
 @import "./cmps/UserMsg/UserMsg.scss";
 
@@ -78,10 +74,15 @@
 @import "./cmps/PlaylistDetailsEdit/MQ.scss";
 
 //SearchIndex
-@import "./cmps/SearchIndex/SearchIndexGenreList.scss";
-@import "./cmps/SearchIndex/SearchIndexPlaylist.scss";
+@import "./cmps/SearchIndex/Search.scss";
+@import "./cmps/SearchIndex/SearchIndex.scss";
+@import "./cmps/SearchIndex/SearchIndexLinksList.scss";
+@import "./cmps/SearchIndex/SearchIndexDefault.scss";
 @import "./cmps/SearchIndex/SearchIndexSongs.scss";
-@import "./cmps/SearchIndex/SearchIndexSongModel.scss";
+@import "./cmps/SearchIndex/SearchIndexPlaylist.scss";
+@import "./cmps/SearchIndex/MQ.scss";
+
+// @import "./cmps/SearchIndex/SearchIndexSongModel.scss";
 
 //ProfileIndex
 @import "./cmps/ProfileIndex/ProfileNav.scss";

@@ -1,10 +1,9 @@
 import { TGreetings } from "../util/user.util";
-import { IItemType } from "./app.model";
+import { IItemType, TGenres } from "./app.model";
 import { ISong, ISongYT } from "./song.model";
 import { IUserSmall } from "./user.model";
 
 //Interfaces
-
 export interface IPlaylistSmall extends IItemType {
   id: string;
   name: string;
@@ -19,7 +18,7 @@ export interface IPlaylist extends IPlaylistSmall {
   songs: ISong[];
   types: TPlaylistType[];
 
-  description: string | null; //TODO make description creation behaver
+  description: string | null; 
 }
 export interface IPlaylistDetailed extends IPlaylist {
   isLikedByUser: boolean;
@@ -46,7 +45,8 @@ export interface IPlaylistFilter {
   limit?: number;
   page?: number;
   isLiked?: boolean;
-  types?: TPlaylistType[];
+  type?: TPlaylistType;
+  songName?: string;
 }
 export interface IPlaylistModelData {
   playlistsId: string;
@@ -106,115 +106,28 @@ export type TPlaylistActionTypes =
   | ISetPlaylistsBulkAction;
 
 //Types
+export type TPlaylistType = (typeof PLAYLISTS_TYPES)[number] &
+  (typeof PLAYLISTS_TYPES_USER)[number];
 
-export type TPlaylistType =
-  | "New Music"
-  | "Daily mix"
-  | "Chill"
-  | "Workout"
-  | "Party"
-  | "Focus"
-  | "Sleep"
-  | "Travel"
-  | "Kids"
-  | "Cooking"
-  | "Wellness"
-  | "Study"
-  | "Chill-out "
-  | "New Wave"
-  | ""
-  | "Liked Songs";
+export const PLAYLISTS_TYPES = [
+  "New Music",
+  "Chill",
+  "Workout",
+  "Party",
+  "Sleep",
+  "Travel",
+  "Cooking",
+  "Study",
+  "New Wave",
+  "Other",
+  "Popular",
+  "Charts",
+  "Decades",
+  "Mood",
+  "Live",
+  "Driving",
+  "Coding",
+] as const;
 
-
-  export const GENRES = [
-    "pop",
-    "rock",
-    "jazz",
-    "blues",
-    "hip-hop",
-    "rap",
-    "country",
-    "classical",
-    "folk",
-    "latin",
-    "metal",
-    "reggae",
-    "soul",
-    "electronic",
-    "dance",
-    "indie",
-    "alternative",
-    "punk",
-    "r&b",
-    "funk",
-    "disco",
-    "techno",
-    "house",
-    "trance",
-    "dub-step",
-    "drum&bass",
-    "ambient",
-    "chill-out",
-    "downtempo",
-    "reggae",
-    "ska",
-    "grunge",
-    "emo",
-    "gothic",
-    "hardcore",
-    "industrial",
-    "new wave",
-    "noise",
-    "psychedelic",
-    "trap",
-    "world",
-    "other"
-  ] as const;
-  
-export type TGenres =
-  | "pop"
-  | "rock"
-  | "jazz"
-  | "blues"
-  | "hip-hop"
-  | "rap"
-  | "country"
-  | "classical"
-  | "folk"
-  | "latin"
-  | "metal"
-  | "reggae"
-  | "soul"
-  | "electronic"
-  | "dance"
-  | "indie"
-  | "alternative"
-  | "punk"
-  | "r&b"
-  | "funk"
-  | "disco"
-  | "techno"
-  | "house"
-  | "trance"
-  | "dubstep"
-  | "drum&bass"
-  | "ambient"
-  | "chillout"
-  | "downtempo"
-  | "reggaeton"
-  | "ska"
-  | "grunge"
-  | "emo"
-  | "gothic"
-  | "hardcore"
-  | "hardstyle"
-  | "industrial"
-  | "new wave"
-  | "noise"
-  | "psychedelic"
-  | "ska"
-  | "synthpop"
-  | "trap"
-  | "vaporwave"
-  | "world"
-  | "other";
+//User specific
+export const PLAYLISTS_TYPES_USER = ["Liked Songs", "User", "Friends"] as const;

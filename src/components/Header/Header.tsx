@@ -1,5 +1,5 @@
 import { Location, useLocation, useNavigate } from "react-router-dom";
-import { Search } from "../Search";
+import { Search } from "../SearchIndex/Search";
 import UserIndex from "../User/UserIndex";
 import { ForwardSVG } from "../svg/SVGs";
 import { MouseEvent } from "react";

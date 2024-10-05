@@ -6,12 +6,10 @@ interface Props {
 }
 export default function PlaylistIndexList({ playlists }: Props) {
   return (
-    <>
-      <ul>
-        {playlists.map((playlist) => (
-          <PlaylistIndexListPreview key={playlist.id} playlist={playlist} />
-        ))}
-      </ul>
-    </>
+    <ul>
+      {playlists.map((playlist) => (
+        <PlaylistIndexListPreview key={playlist.id} playlist={playlist} />
+      ))}
+    </ul>
   );
 }

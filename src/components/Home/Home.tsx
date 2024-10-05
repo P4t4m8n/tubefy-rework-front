@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
-
 import { Link } from "react-router-dom";
-import { IPlaylistsGroup } from "../models/playlist.model";
-import { useEffectUpdate } from "../hooks/useEffectUpdate";
-import { loadDefaultPlaylists } from "../store/actions/playlist.action";
-import { utilService } from "../util/util.util";
-import { extractHeroPlaylists } from "../util/playlist.util";
-import Loader from "./Loader";
-import HomeHero from "./Home/HomeHero";
-import PlaylistIndexList from "./PlaylistIndex/PlaylistIndexList";
+
+import { IPlaylistsGroup } from "../../models/playlist.model";
+import { useEffectUpdate } from "../../hooks/useEffectUpdate";
+import { loadDefaultPlaylists } from "../../store/actions/playlist.action";
+import { utilService } from "../../util/util.util";
+import { extractHeroPlaylists } from "../../util/playlist.util";
+
+import Loader from "../Loader";
+import HomeHero from "./HomeHero";
+import PlaylistIndexList from "../PlaylistIndex/PlaylistIndexList";
 
 export default function Home() {
   const [mainPlaylists, setMainPlaylists] = useState<IPlaylistsGroup[]>([]);

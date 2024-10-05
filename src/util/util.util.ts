@@ -1,22 +1,22 @@
 import { INotification, TNotificationType } from "../models/notification.model";
 import { showUserMsg } from "../services/eventEmitter";
 
-const debounce = <Args extends unknown[]>(
+function debounce<Args extends unknown[]>(
   func: (...args: Args) => void,
   delay = 2000
-): ((...args: Args) => void) => {
+): (...args: Args) => void {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-  return function (this: unknown, ...args: Args) {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
+  return function (...args: Args) {
+    clearTimeout(timeoutId);
 
     timeoutId = setTimeout(() => {
       func.apply(this, args);
     }, delay);
   };
-};
+}
+
+
 
 const getRandomIntInclusive = (min: number, max: number): number => {
   min = Math.ceil(min);

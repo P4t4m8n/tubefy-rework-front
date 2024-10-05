@@ -1,0 +1,66 @@
+.search-index-links-list {
+  padding-inline: 5%;
+  h2 {
+    color: $white-1;
+    font-size: $font-size-20;
+  }
+  .nav-con {
+    @include flex-direction-align-gap-padding(
+      row,
+      center,
+      1rem,
+      0.25rem 0 0.25rem 1rem
+    );
+    width: 100%;
+    nav {
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+
+      @include flex-direction-gap-padding(row, 1rem, 0);
+      align-self: center;
+      width: calc(100% - 5rem);
+
+      overflow: auto;
+      @include no-scrollBar;
+      a {
+        scroll-snap-align: start;
+
+        min-width: fit-content;
+        height: 2rem;
+        text-align: center;
+
+        background-color: $black-4;
+        padding: 0.25rem 0.75rem;
+        border-radius: $border-radius-2;
+
+        @include general-link;
+        @include after-border-grow($gray-1);
+      }
+    }
+    button {
+      min-width: 2rem;
+      height: 2rem;
+
+      background-color: $black-7;
+      fill: $white-1;
+
+      border-radius: 100vw;
+      padding: 0.5rem;
+
+      transition: background-color $animation-duration-base;
+
+      &:first-of-type {
+        visibility: hidden;
+        rotate: 180deg;
+      }
+
+      &.visible {
+        visibility: visible;
+      }
+
+      &:hover {
+        background-color: rgba($black-7, 0.2);
+      }
+    }
+  }
+}

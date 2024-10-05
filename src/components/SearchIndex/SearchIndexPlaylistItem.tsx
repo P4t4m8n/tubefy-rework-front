@@ -5,7 +5,7 @@ import PlayBtn from "../Buttons/PlayBtn";
 interface Props {
   playlist: IPlaylist;
 }
-export default function SearchIndexPlaylistList({ playlist }: Props) {
+export default function SearchIndexPlaylistItem({ playlist }: Props) {
   const { imgUrl, name, duration } = playlist;
   return (
     <li className="search-playlist-list">
