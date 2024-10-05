@@ -15,7 +15,6 @@
     li {
       width: 100%;
       position: relative;
-      // overflow: hidden;
       a,
       button {
         @include flex-direction-align-justify-gap-padding(
