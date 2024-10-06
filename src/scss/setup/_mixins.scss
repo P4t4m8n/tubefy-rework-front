@@ -79,13 +79,6 @@
   }
 }
 
-@mixin center-position($position) {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: $position;
-}
-
 @mixin model-boxShadow {
   box-shadow: 0px 10px 3000px 1500px rgba(0, 0, 0, 0.5);
 }
@@ -176,8 +169,8 @@
 }
 
 @mixin menu-shadow {
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 16px 24px 0px,
-    rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
+  box-shadow: rgba($black-1, 0.3) 0px 16px 24px 0px,
+    rgba($black-1, 0.2) 0px 6px 8px 0px;
 }
 
 @mixin general-btn {
@@ -212,7 +205,7 @@
 }
 
 @mixin general-link {
-  font-weight: 800;
+  font-weight: 500;
   display: inline;
   color: $gray-1;
   transition: color 0.3s;

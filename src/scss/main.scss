@@ -7,7 +7,6 @@
 // Basics
 @import "basics/layout.scss";
 @import "basics/base.scss";
-@import "basics/has.scss";
 
 // Views
 @import "./views/PlaylistIndex.scss";
@@ -34,6 +33,7 @@
 
 //Header
 @import "./cmps/Header/Header.scss";
+@import "./cmps/Header/MQ.scss";
 
 //User
 @import "./cmps/User/User.scss";

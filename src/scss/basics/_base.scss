@@ -30,7 +30,7 @@ ul {
 section,
 main,
 footer {
-  padding: 0px;
+  padding: 0;
 }
 
 img {
@@ -44,11 +44,11 @@ p {
 a {
   text-decoration: none;
   color: inherit;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
-a:hover {
-  text-decoration: none;
-}
 button {
   padding: 0;
   border: none;

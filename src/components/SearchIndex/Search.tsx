@@ -1,5 +1,6 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { SearchSvg } from "../svg/SVGs";
 import { utilService } from "../../util/util.util";
 

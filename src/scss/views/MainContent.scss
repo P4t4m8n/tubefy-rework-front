@@ -1,7 +1,7 @@
 .main-content {
   @include flex-direction-gap-padding(column, 0, 0);
   max-width: 100%;
-  margin: 0.5rem ;
+  margin: 0.5rem 0.5rem 0.5rem 0.25rem;
   border-radius: $border-radius-1-2;
   background-color: $black-2;
   z-index: 0;
@@ -14,6 +14,18 @@
     .playlists-details,
     .playlist-edit {
       gap: 0.5rem;
+    }
+  }
+  @container (max-width: 26rem) {
+    .app-header {
+      height: 4rem;
+      &:has(.search-box) {
+        height: 7rem;
+        display: grid;
+        row-gap: 1rem;
+        grid-template-columns: 50% calc(50% - .5rem);
+        grid-template-rows: 2rem 2rem;
+      }
     }
   }
 }

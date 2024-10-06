@@ -1,5 +1,5 @@
 .app-header {
-  min-height: 5rem;
+  height: 5rem;
   @include flex-direction-align-gap-padding(row, center, 0.5rem, 1rem);
   .back-btn {
     background-color: $black-1;

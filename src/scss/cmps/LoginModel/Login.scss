@@ -2,6 +2,8 @@
   padding: 0.75rem 1.5rem;
   border-radius: $border-radius-2;
 
+  height: 3rem;
+
   color: $black-2;
 
   background-color: $white-2;
@@ -21,14 +23,6 @@
 
   span {
     position: relative;
-  }
-
-  @container login-model-btn (max-width: 1rem) {
-    svg {
-      display: block !important;
-      width: 1rem;
-      height: 1rem;
-    }
   }
 }
 
@@ -143,7 +137,6 @@
     top: 14.5rem;
   }
 }
-
 //Has
 body:has(.login-model) {
   .login-model,

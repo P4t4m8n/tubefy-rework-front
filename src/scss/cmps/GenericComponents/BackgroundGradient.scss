@@ -8,6 +8,8 @@
   transition: opacity 0.2s;
   opacity: 0;
   z-index: $z-index-background;
+  border-radius: $border-radius-1-2;
+
 
   &.show {
     opacity: 0.3;

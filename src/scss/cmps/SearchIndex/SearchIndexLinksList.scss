@@ -28,11 +28,11 @@
         min-width: fit-content;
         height: 2rem;
         text-align: center;
-
+        
         background-color: $black-4;
         padding: 0.25rem 0.75rem;
         border-radius: $border-radius-2;
-
+        
         @include general-link;
         @include after-border-grow($gray-1);
       }
