@@ -76,7 +76,7 @@ export const useLike = (
 
       const str = `${
         !isLiked ? "You liked" : "You dislike"
-      } ${itemType.toLowerCase()} ${item.name}`;
+      } ${itemType.toLowerCase()}: \n${item.name}`;
       utilService.handleSuccess(str, notificationType, item.imgUrl);
     } catch (error) {
       utilService.handleError("like", "GENERAL_ERROR", error as Error);
