@@ -1,6 +1,7 @@
 .playlist-details-hero,
 .playlist-edit-hero {
   @include flex-direction-align-gap-padding(row, flex-end, 2rem, 0 1rem);
+  
 
   img {
     width: 15rem;

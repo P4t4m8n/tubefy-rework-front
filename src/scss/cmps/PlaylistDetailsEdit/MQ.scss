@@ -34,7 +34,8 @@
     .playlist-edit-hero {
       img,
       .img-upload-con,
-      .img-upload-con img {
+      .img-upload-con img,
+      .img-upload-con svg {
         width: 12rem;
       }
       .playlist-details-hero-info,
@@ -142,7 +143,8 @@
     .playlist-edit-hero {
       img,
       .img-upload-con,
-      .img-upload-con img {
+      .img-upload-con img,
+      .img-upload-con svg {
         width: 8rem;
       }
       .playlist-details-hero-info,
@@ -172,7 +174,8 @@
       gap: 0.25rem;
       img,
       .img-upload-con,
-      .img-upload-con img {
+      .img-upload-con img,
+      .img-upload-con svg {
         width: 8rem;
       }
       .playlist-details-hero-info,
@@ -180,14 +183,21 @@
         align-items: center;
 
         h3 {
-          font-size: rem(48px);
-          width: fit-content;
+          font-size: rem(32px);
+          text-align: center;
         }
         .playlist-details-hero-info-owner,
         .playlist-edit-hero-info-owner {
           flex-direction: row;
           flex-wrap: wrap;
           justify-content: center;
+          p {
+            &:nth-of-type(2) {
+              &:after {
+                display: none;
+              }
+            }
+          }
         }
       }
 
@@ -219,6 +229,15 @@
     .playlist-details-actions,
     .playlist-edit-actions {
       justify-content: center;
+    }
+  }
+  @container playlist-details (max-width: 24rem) {
+    .stick {
+      top: 0.5rem;
+      .play-btn {
+        width: 2rem;
+        height: 2rem;
+      }
     }
   }
   //352px

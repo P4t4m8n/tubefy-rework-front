@@ -15,8 +15,6 @@
       }
     }
 
-   
-
     .play-button {
       background-color: $white-1;
       border-radius: 100vw;
@@ -41,6 +39,9 @@
     p {
       font-size: $font-size-13;
       color: $gray-1;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
 }

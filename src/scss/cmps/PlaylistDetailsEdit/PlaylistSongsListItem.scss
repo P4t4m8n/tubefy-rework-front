@@ -91,7 +91,7 @@
     }
   }
 
-  &:hover {
+  &:hover,&:has(.playing) {
     background-color: $black-3;
     .like-btn,
     .login-model-con .login-model-btn {

@@ -13,14 +13,18 @@
     width: 100%;
     display: block;
     z-index: -100;
-    top: 25vh;
+    top: 29vh;
   }
 
   &:has(.stick) {
+    .actions-sentinel {
+      top: calc(29vh - 5rem);
+
+    }
     .playlist-songs-list {
       grid-template-rows: 1fr;
       .song-list {
-        padding-block: 1.5rem;
+        padding-top: 1.5rem;
       }
     }
   }

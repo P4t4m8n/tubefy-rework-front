@@ -19,6 +19,7 @@ import {
 export const extractHeroPlaylists = (
   playlistObjects: IPlaylistsGroup[]
 ): IPlaylist[] => {
+  console.log("playlistObjects:", playlistObjects)
   if (!playlistObjects.length) {
     return [];
   }
@@ -26,10 +27,11 @@ export const extractHeroPlaylists = (
   const heroPlaylists = playlistObjects.map(
     (playlistObject) => playlistObject.playlists[0]
   );
+  console.log("heroPlaylists:", heroPlaylists)
 
-  if (heroPlaylists.length < playlistObjects.length) {
+  if (heroPlaylists.length < 8) {
     for (let i = heroPlaylists.length; i < 8; i++) {
-      heroPlaylists.push(playlistObjects[i % 7].playlists[1]);
+      heroPlaylists.push(playlistObjects[i % 7].playlists[2]);
     }
   }
   return heroPlaylists.splice(0, 8);

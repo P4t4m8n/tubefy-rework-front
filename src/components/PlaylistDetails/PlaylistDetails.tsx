@@ -32,7 +32,7 @@ export default function PlaylistDetails() {
   const isActive = useIntersectionObserver(sentinelRef, isLoading);
 
   if (isLoading) return <Loader />;
-  if (!playlist) return 
+  if (!playlist) return;
 
   const { name, imgUrl, owner, songs, duration, id, description } = playlist;
 
@@ -60,7 +60,6 @@ export default function PlaylistDetails() {
   return (
     <section ref={detailsRef} className="playlist-details">
       <PlaylistDetailsHero {...heroProps} />
-      <div className="actions-sentinel" ref={sentinelRef}></div>
       <div className={`playlist-details-actions ${isActive && "stick"}`}>
         <PlayBtn item={playlist!} />
         <LikeBtn item={playlist!} />
@@ -72,6 +71,7 @@ export default function PlaylistDetails() {
           />
         )}
       </div>
+      <div className="actions-sentinel" ref={sentinelRef}></div>
       <PlaylistSongsList {...playlistSongsProps} />
     </section>
   );
