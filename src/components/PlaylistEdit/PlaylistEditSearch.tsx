@@ -15,7 +15,7 @@ export default function PlaylistEditSearch({
   container,
   addSongToPlaylistEdit,
 }: Props) {
-  const [searchSongsList, setSearchSongsList] = useState<ISongYT[]>([]);
+  const [searchSongsList, setSearchSongsList] = useState<ISongYT[]>(_songs);
 
   const searchSongs = async (ev: ChangeEvent<HTMLInputElement>) => {
     const { value } = ev.target;
@@ -59,3 +59,56 @@ export default function PlaylistEditSearch({
     </div>
   );
 }
+
+const _songs: ISongYT[] = [
+  {
+    name: "Another Day In Paradise",
+    artist: "Phil Collins",
+    duration: "04:50",
+    youtubeId: "Qt2mbGP6vFI",
+    imgUrl: "https://i.ytimg.com/vi/Qt2mbGP6vFI/mqdefault.jpg",
+    addedBy: "artist",
+    addedAt: "Fri Oct 04 2024 14:43:21 GMT+0300 (Israel Daylight Time)",
+    itemType: "YT_SONG",
+  },
+  {
+    name: "In The Air Tonight",
+    artist: "Phil Collins",
+    duration: "04:54",
+    youtubeId: "YkADj0TPrJA",
+    imgUrl: "https://i.ytimg.com/vi/YkADj0TPrJA/mqdefault.jpg",
+    addedBy: "artist",
+    addedAt: "Fri Oct 04 2024 14:43:22 GMT+0300 (Israel Daylight Time)",
+    itemType: "YT_SONG",
+  },
+  {
+    name: "In The Air Tonight",
+    artist: "Phil Collins",
+    duration: "07:42",
+    youtubeId: "PEWP9nbqG9Q",
+    imgUrl: "https://i.ytimg.com/vi/PEWP9nbqG9Q/mqdefault.jpg",
+    addedBy: "artist",
+    addedAt: "Fri Oct 04 2024 14:43:21 GMT+0300 (Israel Daylight Time)",
+    itemType: "YT_SONG",
+  },
+  {
+    name: "Phil Collins Greatest Hits Full Album  The Best Soft Rock Of Phil Collins ",
+    artist: "Phil Collins Best Songs",
+    duration: "02:15:17",
+    youtubeId: "BfOcbaV7a_M",
+    imgUrl: "https://i.ytimg.com/vi/BfOcbaV7a_M/mqdefault.jpg",
+    addedBy: "artist",
+    addedAt: "Fri Oct 04 2024 14:43:21 GMT+0300 (Israel Daylight Time)",
+    itemType: "YT_SONG",
+  },
+  {
+    name: "Against All Odds",
+    artist: "Phil Collins",
+    duration: "05:00",
+    youtubeId: "_vSHhUujcwY",
+    imgUrl: "https://i.ytimg.com/vi/_vSHhUujcwY/mqdefault.jpg",
+    addedBy: "artist",
+    addedAt: "Fri Oct 04 2024 14:43:21 GMT+0300 (Israel Daylight Time)",
+    itemType: "YT_SONG",
+  },
+];

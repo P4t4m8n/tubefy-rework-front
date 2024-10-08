@@ -1,5 +1,4 @@
 .search-edit-songs {
-  scroll-snap-align: end;
   .add_song_title {
     padding: 1rem 0.5rem;
   }
@@ -9,20 +8,37 @@
   }
 
   .search-song-list {
-    @include flex-direction-align-gap-padding(column, center, 1rem, 1rem 0);
+    @include flex-direction-align-gap-padding(
+      column,
+      center,
+      1rem,
+      1rem  2rem
+    );
 
     .search-index-songs-list-item {
       height: 3rem;
       width: 100%;
-      @include flex-direction-align-gap-padding(
-        row,
-        center,
-        1rem,
-        0 1rem 0 3.5rem
-      );
-      position: relative;
+      @include flex-direction-align-gap-padding(row, center, 1rem, 0.5rem);
       transition: background-color 0.25s ease-in-out;
       border-radius: $border-radius-1-4;
+
+      .img-con {
+        position: relative;
+        width: 2.5rem;
+        height: 2.5rem;
+        img {
+          @include full-size;
+          object-fit: cover;
+          border-radius: $border-radius-1-4;
+        }
+        .play-btn {
+          @include play-btn;
+          @include center-position(absolute);
+          padding: 0.25rem;
+          width: 75%;
+          aspect-ratio: 1/1;
+        }
+      }
       .song-info {
         p {
           &:first-of-type {
@@ -35,72 +51,38 @@
           }
         }
       }
-      .play-btn {
-        position: absolute;
-        left: 1.5rem;
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0;
-        @include play-btn-song-list(1.5rem, 0.25rem);
-        background-color: $black-2;
-        fill: $gray-1;
-        display: block;
-        transition: all 0.25s ease-in-out;
 
-        &:hover {
-          background-color: $green-1;
-          fill: $black-2;
-        }
-      }
-
-      img {
-        width: 2.5rem;
-        aspect-ratio: 1/1;
-        object-fit: cover;
-        border-radius: $border-radius-1-4;
-      }
-
-      .playlist-songs-list-preview-actions {
+      .song-actions {
         margin-left: auto;
-        @include flex-direction-align-gap-padding(row, center, 1rem, 0);
-
+        @include flex-direction-align-gap-padding(row, center, 0.75rem, 0);
+        p {
+          width: 7ch;
+          text-align: center;
+          @include text-overflow-ellipsis;
+        }
         .like-btn,
         .songs-model-btn {
           width: 1rem;
           height: 1rem;
-          background-color: inherit;
-          fill: $gray-1;
           pointer-events: none;
           opacity: 0;
-          transition: opacity 0.25s ease-in-out;
+          transition: opacity $animation-duration-base;
         }
       }
 
-      &:hover {
+      &:hover,
+      &:has(.song-model-list) {
         background-color: $black-3;
-
         .play-btn {
-          opacity: 0.9;
+          opacity: 0.7;
           pointer-events: all;
           z-index: 1;
         }
-
-        .playlist-songs-list-preview-actions {
+        .song-actions {
           button {
             opacity: 1;
             pointer-events: all;
           }
-        }
-      }
-
-      &:has(.songs-model) {
-        background-color: $black-3;
-
-        .like-btn,
-        .generic-model-btn {
-          opacity: 1;
-          pointer-events: all;
-          cursor: pointer;
         }
       }
     }

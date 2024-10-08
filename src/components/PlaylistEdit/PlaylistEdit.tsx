@@ -18,9 +18,9 @@ interface Props {
 export default function PlaylistEdit({ user }: Props) {
   const {
     playlistToEdit,
+    isLoading,
     onUploadImg,
     onUpdatePlaylist,
-    isLoading,
     onRemoveSongFromPlaylist,
     addSongToPlaylistEdit,
   } = usePlaylistEdit(user?.id);
@@ -72,3 +72,5 @@ export default function PlaylistEdit({ user }: Props) {
     </section>
   );
 }
+
+

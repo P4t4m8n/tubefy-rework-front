@@ -19,7 +19,6 @@ import {
 export const extractHeroPlaylists = (
   playlistObjects: IPlaylistsGroup[]
 ): IPlaylist[] => {
-  console.log("playlistObjects:", playlistObjects)
   if (!playlistObjects.length) {
     return [];
   }
@@ -27,7 +26,6 @@ export const extractHeroPlaylists = (
   const heroPlaylists = playlistObjects.map(
     (playlistObject) => playlistObject.playlists[0]
   );
-  console.log("heroPlaylists:", heroPlaylists)
 
   if (heroPlaylists.length < 8) {
     for (let i = heroPlaylists.length; i < 8; i++) {
