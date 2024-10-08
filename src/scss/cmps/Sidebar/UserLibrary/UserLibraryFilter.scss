@@ -13,14 +13,14 @@
 
     border-radius: $border-radius-1-4;
 
-    transition: width 0.25s ease-in-out;
+    transition: width $animation-duration-base;
     width: 2.5rem;
 
     &.open {
       width: clamp(5rem, 100%, 18rem);
       background-color: $black-3;
       input {
-        transition: width 0.25s ease-in-out;
+        transition: width $animation-duration-base;
         width: calc(100% - 2.5rem);
         color: $white-1;
         font-size: $font-size-14;
@@ -32,14 +32,14 @@
       background-color: $black-3;
     }
     .user-playlist-filter-search-btn {
-      width: 2rem;
-      height: 2rem;
+      @include box(2rem);
+
       border-radius: 100vw;
 
       padding: 0.5rem;
 
       fill: $gray-1;
-      transition: background-color 0.3s;
+      transition: background-color $animation-duration-base;
 
       &:hover {
         background-color: $black-3;
@@ -51,11 +51,10 @@
 
   .user-library-sort-model-con {
     position: relative;
-    width: 1rem;
-    height: 1rem;
+    @include box(1rem);
+
     .user-library-sort-model-btn {
-      width: 1rem;
-      height: 1rem;
+      @include box(1rem);
 
       background-color: inherit;
       fill: $gray-1;
@@ -70,21 +69,12 @@
     }
 
     .user-library-sort-model {
-      @include flex-direction-gap-padding(column, 0.75rem, 0.75rem);
-      @include menu-shadow;
+      @include menu-top-right(1.5rem, 0);
 
-      background-color: $black-3;
-
-      position: absolute;
-      width: 13rem;
-
-      top: 1.5rem;
-      right: 0;
-
-      z-index: $z-index-model;
-      border-radius: $border-radius-1-4;
       h2 {
         font-size: $font-size-14;
+        font-weight: 400;
+        color: rgba($white-2, 0.4);
       }
 
       button {
@@ -116,19 +106,14 @@
         span,
         svg,
         h2,
+        h3,
         img {
           z-index: $z-index-btn;
         }
-        h2 {
+        h3 {
           color: $white-2;
           font-size: $font-size-14;
           font-weight: 600;
-        }
-
-        &:has(svg) {
-          h2 {
-            color: $green-1;
-          }
         }
       }
     }

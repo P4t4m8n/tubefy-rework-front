@@ -4,18 +4,17 @@
   font-weight: 600;
   border-radius: $border-radius-1-4;
 
-  height: 4rem;
-  width: 4rem;
+  @include box(4rem);
 
   padding: 0.5rem;
 
   scroll-snap-align: end;
 
-  transition: background-color $animation-duration-base ease;
+  transition: background-color $animation-duration-base;
   a {
-    position: relative;
     width: 100%;
     .img-con {
+      position: relative;
       box-shadow: rgba($black-1, 0.5) 0px 4px 60px 0px;
       grid-area: 1/1/-1/2;
       img,
@@ -32,44 +31,30 @@
         padding: 0.5rem;
         fill: $gray-1;
       }
+      .play-btn {
+        @include play-btn;
+        @include box(2rem);
+        @include center-position(absolute);
+        padding: 0;
+        transition: opacity $animation-duration-base;
+        svg {
+          background-color: $green-1;
+          fill: $black-1;
+          border-radius: 100vh;
+        }
+      }
     }
     span {
       grid-area: 1/2/2/3;
       color: $white-2;
       display: none;
+      @include text-overflow-ellipsis;
     }
     p {
       grid-area: 2/2/-1/3;
       color: $gray-1;
       font-size: $font-size-14;
       display: none;
-    }
-    .play-btn {
-      display: none;
-      z-index: $z-index-btn;
-      padding: 0.05rem;
-
-      position: absolute;
-      left: 0.75rem;
-
-      width: 1.5rem;
-      aspect-ratio: 1/1;
-
-      background-color: rgba($black-3, 0.5);
-
-      opacity: 0;
-
-      border-radius: 100vw;
-
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      svg {
-        background-color: transparent;
-        fill: $white-2;
-        padding: 0;
-      }
-      &:hover {
-        cursor: pointer;
-      }
     }
   }
   .playlists-model-con {
@@ -80,12 +65,20 @@
   &.highlight {
     background-color: $black-3;
     cursor: pointer;
-    .play-btn {
-      opacity: 1;
-      &:hover {
-        transform: scale(1.1);
+    .img-con {
+      img,
+      svg {
+        filter: blur(4px);
+      }
+
+      .play-btn {
+        z-index: $z-index-model;
+        opacity: 0.8;
         svg {
-          fill: $green-1;
+          filter: none;
+        }
+        &:hover {
+          transform: scale(1.1);
         }
       }
     }
@@ -96,7 +89,7 @@
   .user-playlist-list {
     .user-playlist-item {
       width: 100%;
-      @include flex-direction-align-gap-padding(row, center, 0, 0.5rem);
+      @include flex-direction-align-gap-padding(row, center, 0.5rem, 0.5rem);
 
       a {
         width: 100%;

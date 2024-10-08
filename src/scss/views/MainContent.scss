@@ -23,9 +23,15 @@
         height: 7rem;
         display: grid;
         row-gap: 1rem;
-        grid-template-columns: 50% calc(50% - .5rem);
+        grid-template-columns: 50% calc(50% - 0.5rem);
         grid-template-rows: 2rem 2rem;
       }
     }
+  }
+}
+
+@media (max-width: 640px) {
+  body :has(.full-size) .main-content {
+    margin: 0.25rem;
   }
 }

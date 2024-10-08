@@ -30,11 +30,11 @@ export default function UserLibraryFilterSortModel({
         <div className="user-library-sort-model">
           <h2>Sort by</h2>
           <button onClick={() => onSortClick("recently_added")}>
-            <h2>Recently added</h2>
+            <h3>Recently added</h3>
             {currentSortBy === "recently_added" && <CheckSVG />}
           </button>
           <button onClick={() => onSortClick("alphabetical")}>
-            <h2>Alphabetical</h2>
+            <h3>Alphabetical</h3>
             {currentSortBy === "alphabetical" && <CheckSVG />}
           </button>
         </div>

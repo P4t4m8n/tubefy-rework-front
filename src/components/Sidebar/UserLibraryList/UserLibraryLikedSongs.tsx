@@ -25,8 +25,8 @@ export default function UserLibraryLikedSongs({
       }`}
     >
       <Link to={`/playlist/${likedPlaylist!.id}`}>
-        <PlayBtn item={likedPlaylist!} />
         <div className="img-con">
+          <PlayBtn item={likedPlaylist!} />
           {likedPlaylist?.imgUrl ? (
             <img src={likedPlaylist!.imgUrl} alt="Liked songs" />
           ) : (

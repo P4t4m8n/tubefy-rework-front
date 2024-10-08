@@ -18,16 +18,13 @@
 //Side-bar
 @import "./cmps/Sidebar/Sidebar.scss";
 @import "./cmps/Sidebar/Navbar.scss";
-
-@import "./cmps/Sidebar/UserLibrary/UserLibrary.scss";
-
-@import "./cmps/Sidebar/UserLibrary/UserLibraryHeader.scss";
-@import "./cmps/Sidebar/UserLibrary/Full-size.scss";
-@import "./cmps/Sidebar/UserLibrary/CreatePlaylistModel.scss";
-@import "./cmps/Sidebar/UserLibrary/UserLibraryFilter.scss";
+@import "./cmps/Sidebar/MQ.scss";
 
 @import "./cmps/Sidebar/UserLibrary/UserLibraryNoUser.scss";
 
+@import "./cmps/Sidebar/UserLibrary/UserLibrary.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryHeader.scss";
+@import "./cmps/Sidebar/UserLibrary/UserLibraryFilter.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryList.scss";
 @import "./cmps/Sidebar/UserLibrary/UserLibraryItem.scss";
 

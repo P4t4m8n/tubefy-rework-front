@@ -24,9 +24,8 @@ export default function UserLibraryListItem({
   return (
     <li key={id} className={itemClass}>
       <Link to={`/playlist/${id}`}>
-        <PlayBtn item={playlist} />
-
         <div className="img-con">
+          <PlayBtn item={playlist} />
           {imgUrl ? <img src={imgUrl} alt={name} /> : <NoteSVG />}
         </div>
 

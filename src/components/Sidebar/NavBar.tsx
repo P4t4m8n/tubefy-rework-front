@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { useNavLocation } from "../../hooks/useLocation";
+
 import {
   HomeClickedSVG,
   HomeSvg,
@@ -9,9 +11,8 @@ import {
 
 import NotificationsLink from "./NavBar/NotificationsLink";
 import FriendsLink from "./NavBar/FriendsLink";
-import { useNavLocation } from "../../hooks/useLocation";
 
-export function NavBar() {
+export default function NavBar() {
   const { location, checkLocation } = useNavLocation();
   const isSearchOpen = checkLocation("search");
   const isHome = location.pathname === "/";

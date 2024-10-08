@@ -1,0 +1,38 @@
+@media (max-width: rem(640px)) {
+  .side-bar {
+    height: calc(100vh - 5rem);
+    border-bottom-left-radius: $border-radius-1-2;
+    border-bottom-right-radius: $border-radius-1-2;
+
+    .sidebar-nav {
+      align-items: center;
+      span {
+        display: none;
+      }
+    }
+
+    &.full-size {
+      width: calc(100svw - 1rem);
+      padding: 0.5rem;
+      left: 0.5rem;
+      top: 0.5rem;
+      border-radius: $border-radius-1-2;
+      height: calc(100vh - 6rem);
+
+      z-index: $z-index-model;
+      position: absolute;
+      background-color: $black-2;
+
+      span,
+      p {
+        display: block;
+      }
+    }
+  }
+
+  .full-size {
+    .user-library {
+      height: calc(100% - 14.5rem);
+    }
+  }
+}

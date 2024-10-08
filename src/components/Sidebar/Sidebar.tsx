@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { NavBar } from "./NavBar";
-import { UserLibraryIndex } from "./UserLibraryIndex";
+
+import NavBar from "./NavBar";
+import UserLibraryIndex from "./UserLibraryIndex";
 
 export default function Sidebar() {
   const [isFullSize, setIsFullSize] = useState(false);

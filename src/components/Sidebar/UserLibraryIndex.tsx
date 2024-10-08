@@ -11,7 +11,7 @@ interface Props {
   setIsFullSize: Dispatch<SetStateAction<boolean>>;
 }
 
-export function UserLibraryIndex({ setIsFullSize }: Props) {
+export default function UserLibraryIndex({ setIsFullSize }: Props) {
   const user = useAppSelector((state) => state.user.user);
 
   const {
