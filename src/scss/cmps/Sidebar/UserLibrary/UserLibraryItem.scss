@@ -36,7 +36,8 @@
         @include box(2rem);
         @include center-position(absolute);
         padding: 0;
-        transition: opacity $animation-duration-base;
+        transition: opacity $animation-duration-base,scale $animation-duration-base;
+        display: none;
         svg {
           background-color: $green-1;
           fill: $black-1;
@@ -66,11 +67,6 @@
     background-color: $black-3;
     cursor: pointer;
     .img-con {
-      img,
-      svg {
-        filter: blur(4px);
-      }
-
       .play-btn {
         z-index: $z-index-model;
         opacity: 0.8;
@@ -78,7 +74,7 @@
           filter: none;
         }
         &:hover {
-          transform: scale(1.1);
+          scale: 1.05;
         }
       }
     }
@@ -106,6 +102,22 @@
       .play-btn,
       .playlists-model-con {
         display: flex;
+      }
+
+      &:hover,
+      &.highlight {
+        .img-con {
+          img,
+          svg {
+            filter: blur(4px);
+          }
+          .play-btn {
+            pointer-events: all;
+            svg {
+              filter: none;
+            }
+          }
+        }
       }
     }
   }
