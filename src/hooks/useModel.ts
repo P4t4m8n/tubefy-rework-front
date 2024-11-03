@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { useEffectUpdate } from "./useEffectUpdate";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 export const useModel = (
   ref: React.RefObject<
     | HTMLDivElement
@@ -12,7 +11,7 @@ export const useModel = (
 ): [boolean, Dispatch<SetStateAction<boolean>>] => {
   const [open, setOpen] = useState(false);
 
-  useEffectUpdate(() => {
+  useEffect(() => {
     if (!ref.current || !open) return;
 
     const checkClickOutside = (ev: MouseEvent) => {

@@ -1,0 +1,101 @@
+.profile-index {
+  container-type: inline-size;
+  gap: 1rem;
+
+  //640px
+  @container (max-width: 40rem) {
+    .profile-friend-index {
+      gap: 0.5rem;
+      .add-friend-model-con {
+        padding-block: 0.5rem;
+        gap: 1rem;
+        .add-friend-model-btn {
+          margin-bottom: 0.5rem;
+          width: 100%;
+        }
+        .input-con {
+          margin-top: 0.5rem;
+        }
+        &.add-open {
+          grid-template-columns: 100%;
+          .add-friend-model-btn {
+            width: 100%;
+          }
+          .input-con {
+            width: 100%;
+
+            &::before {
+              top: -1rem;
+              left: 50%;
+              transform: translateX(-50%) rotate(90deg);
+            }
+          }
+        }
+
+        &.search-open {
+          grid-template-rows: auto;
+          .profile-friend-list {
+            grid-area: auto;
+            padding-block: 0;
+          }
+        }
+      }
+
+      .profile-friend-list {
+        grid-area: auto;
+        .friends-list {
+          padding: 0.5rem;
+          height: calc(4rem * 3 + 3rem);
+          .friend-preview {
+            grid-template-columns: 3rem auto auto;
+            .friend-preview-model-con {
+              margin-left: auto;
+              .friend-preview-model-btn {
+                transform: rotate(90deg);
+                @include flex-center;
+              }
+            }
+            &.open {
+              height: fit-content;
+              grid-template-columns: 3rem auto;
+
+              grid-template-rows: 1.5rem 1.5rem 4.5rem;
+              img {
+                grid-area: 1/1/3/2;
+              }
+              h3 {
+                grid-area: 1/2/2/-1;
+              }
+              h4 {
+                grid-area: 2/2/3/-1;
+              }
+              .friend-preview-model-con {
+                grid-area: 3/1/-1/-1;
+                width: 100%;
+                .friend-preview-model {
+                  width: 100%;
+                  justify-content: space-around;
+                  .friend-preview-model-item {
+                    .friend-preview-model-item-action {
+                      justify-content: flex-end;
+                    }
+                  }
+                }
+                .friend-preview-model-btn {
+                  align-self: flex-start;
+                  height: fit-content;
+                }
+              }
+
+              .friend-preview-model-btn {
+                svg {
+                  transform: rotate(180deg);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

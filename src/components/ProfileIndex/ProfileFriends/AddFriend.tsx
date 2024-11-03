@@ -78,10 +78,11 @@ export default function AddFriend() {
     ],
     []
   );
-  const openClass = isModelOpen ? "add-open" : "";
+  let openClass = isModelOpen ? " add-open" : "";
+  openClass += searchFriends.length ? " search-open" : "";
 
   return (
-    <section ref={modelRef} className={"add-friend-model-con " + openClass}>
+    <section ref={modelRef} className={"add-friend-model-con" + openClass}>
       <button
         className="add-friend-model-btn"
         onClick={() => setIsModelOpen(true)}
@@ -100,7 +101,7 @@ export default function AddFriend() {
             />
           </div>
 
-          {!!searchFriends && (
+          {!!searchFriends.length && (
             <FriendsList
               title="FriendsSearch"
               modelActions={modelActions}

@@ -18,6 +18,7 @@ export default function ProfileFriendRequests() {
     []
   );
 
+
   const friendStatus: TFriendStatus[] = ["ACCEPTED", "REJECTED", "BLOCKED"];
 
   const modelActions: IModelAction<IFriend>[] = friendStatus.map((status) => ({

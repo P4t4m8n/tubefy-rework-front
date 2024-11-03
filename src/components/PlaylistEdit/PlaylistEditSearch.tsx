@@ -15,7 +15,7 @@ export default function PlaylistEditSearch({
   container,
   addSongToPlaylistEdit,
 }: Props) {
-  const [searchSongsList, setSearchSongsList] = useState<ISongYT[]>(_songs);
+  const [searchSongsList, setSearchSongsList] = useState<ISongYT[]>([]);
 
   const searchSongs = async (ev: ChangeEvent<HTMLInputElement>) => {
     const { value } = ev.target;
@@ -60,6 +60,7 @@ export default function PlaylistEditSearch({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _songs: ISongYT[] = [
   {
     name: "Another Day In Paradise",

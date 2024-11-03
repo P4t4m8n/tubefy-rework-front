@@ -15,6 +15,7 @@ export default function FriendsList({
   title,
 }: Props) {
   return (
+    console.log("FriendsList"),
     <section className="profile-friend-list">
       {title && <h2>{title}</h2>}
       <ul className="friends-list">
